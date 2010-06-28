@@ -44,6 +44,12 @@ Stations::~Stations()
 }
 
 void
+Stations::fetchPos(const QPointF & pos, int num)
+{
+  request(Station::stationsJsonUrl(pos, num), Request::Properties);
+}
+
+void
 Stations::fetchFromFile(const QString & file)
 {
   Stations::Request req = { Request::Properties, -1, QString() };

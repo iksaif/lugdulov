@@ -166,6 +166,12 @@ Station::stationImageUrl(int id)
   return QString("http://www.velov.grandlyon.com/uploads/tx_gsstationsvelov/%1.jpg").arg(id);
 }
 
+QUrl
+Station::stationsJsonUrl(const QPointF &pos, int num)
+{
+  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsParCoord.php?lat=%1&long=%2&nombreStation=%3").arg(pos.x()).arg(pos.y()).arg(num);
+}
+
 QStringList
 Station::regions()
 {
@@ -184,17 +190,4 @@ Station::regions()
   reg << "69034";
   reg << "69256";
   return reg;
-}
-
-void
-Station::setStatus(const QString & xml)
-{
-  // parse XML
-}
-
-// change arg to QVariant
-void
-Station::setProperties(const QString & json)
-{
-  // setup
 }

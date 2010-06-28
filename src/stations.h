@@ -41,6 +41,7 @@ class Stations : public QObject
 
  public slots:
   void fetchBuiltIn();
+  void fetchPos(const QPointF & pos, int num = 5);
   void fetchAll();
   void fetchFromFile(const QString & file);
   void fetchFromUrl(const QUrl & url);

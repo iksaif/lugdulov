@@ -53,6 +53,7 @@ class Station
 
   static QUrl stationJsonUrl(int id);
   static QUrl stationsJsonUrl(const QString &region);
+  static QUrl stationsJsonUrl(const QPointF &pos, int num = 5);
   static QUrl stationStatusUrl(int id);
   static QUrl stationImageUrl(int id);
   static QStringList regions();
