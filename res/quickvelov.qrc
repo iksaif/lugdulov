@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="res">
+    <file>favorites.png</file>
+    <file>velov.png</file>
+    <file>google-maps.png</file>
     <file>icon.png</file>
   </qresource>
 </RCC>

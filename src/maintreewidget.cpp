@@ -17,6 +17,10 @@
  */
 
 #include <QtGui/QHeaderView>
+#include <QtGui/QContextMenuEvent>
+#include <QtGui/QMenu>
+#include <QtGui/QAction>
+#include <QtGui/QDesktopServices>
 #include <QDebug>
 
 #include "maintreewidget.h"
@@ -32,6 +36,20 @@ MainTreeWidget::MainTreeWidget(QWidget *parent)
 
   header()->resizeSections(QHeaderView::ResizeToContents);
   header()->setResizeMode(0, QHeaderView::Stretch);
+
+  bookmarkAction = new QAction(QIcon::fromTheme("bookmarks", QPixmap(":/res/favorites.png")), tr("Bookmark this station"), this);
+  gmapAction = new QAction(QPixmap(":/res/google-maps.png"), tr("Show in Google Maps..."), this);
+  velovAction = new QAction(QPixmap(":/res/velov.png"), tr("Show in Velo'v Website..."), this);
+
+  bookmarkAction->setCheckable(true);
+
+  menu = new QMenu(this);
+  menu->addAction(bookmarkAction);
+  menu->addSeparator();
+  menu->addAction(gmapAction);
+  menu->addAction(velovAction);
+
+  connect(menu, SIGNAL(triggered(QAction *)), this, SLOT(action(QAction *)));
 }
 
 MainTreeWidget::~MainTreeWidget()
@@ -158,4 +176,42 @@ MainTreeWidget::statusUpdated(Station *station)
   item->setData(2, Qt::DisplayRole, station->freeSlots());
   item->setData(3, Qt::DisplayRole, station->totalSlots());
   filter();
+}
+
+void
+MainTreeWidget::action(QAction *action)
+{
+  foreach (QTreeWidgetItem *item,  selectedItems()) {
+    Station *station = (Station *)item->data(0, Qt::UserRole).value<void *>();
+
+    if (action == gmapAction) {
+      QLocale c(QLocale::C);
+      QString str("http://maps.google.com/maps?q=");
+
+      str += c.toString(station->pos().x());
+      str += ",";
+      str += c.toString(station->pos().y());
+
+      QDesktopServices::openUrl(str);
+    }
+    if (action == velovAction) {
+      QString str("http://www.velov.grandlyon.com/Plan-interactif.61.0.html?&gid=%1");
+
+      str = str.arg(station->id());
+
+      QDesktopServices::openUrl(str);
+    }
+    if (action == bookmarkAction) {
+
+    }
+  }
+}
+
+void
+MainTreeWidget::contextMenuEvent(QContextMenuEvent * event)
+{
+  QModelIndex index = indexAt(event->pos());
+
+  if (index.isValid())
+    menu->exec(event->globalPos());
 }

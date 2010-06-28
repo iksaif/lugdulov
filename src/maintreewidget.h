@@ -32,6 +32,9 @@ public:
   MainTreeWidget(QWidget *parent = 0);
   ~MainTreeWidget();
 
+protected:
+  virtual void contextMenuEvent(QContextMenuEvent * event);
+
 public slots:
   void filter(const QString & filter);
   void setRegion(const QString & region);
@@ -43,6 +46,7 @@ public slots:
 private slots:
   void filter();
   void update();
+  void action(QAction *action);
 
 private:
   QString word;
@@ -51,6 +55,10 @@ private:
   Stations *stations;
   bool bigUpdate;
   QMap < Station * , QTreeWidgetItem * > items;
+  QMenu *menu;
+  QAction *bookmarkAction;
+  QAction *gmapAction;
+  QAction *velovAction;
 };
 
 #endif /* MAINTREEWIDGET_H */
