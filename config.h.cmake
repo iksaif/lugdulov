@@ -1,0 +1,2 @@
+
+#cmakedefine QUICK_VELOV_VERSION "@QUICK_VELOV_VERSION@"

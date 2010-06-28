@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>529</width>
+    <height>570</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Quick Velo'v</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../res/quickvelov.qrc">
+    <normaloff>:/res/icon.png</normaloff>:/res/icon.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="2" column="0" colspan="6">
+     <widget class="MainTreeWidget" name="treeWidget">
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+      <property name="rootIsDecorated">
+       <bool>false</bool>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <attribute name="headerStretchLastSection">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="headerStretchLastSection">
+       <bool>false</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Station</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Velo'v</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Free Slots</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Slots</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="4">
+     <widget class="QLineEdit" name="lineEdit"/>
+    </item>
+    <item row="0" column="5">
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>Refresh</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="4">
+     <widget class="QComboBox" name="comboBox">
+      <item>
+       <property name="text">
+        <string>All</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>529</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="quitAction"/>
+   </widget>
+   <widget class="QMenu" name="menu_About">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="velovAction"/>
+    <addaction name="separator"/>
+    <addaction name="aboutQtAction"/>
+    <addaction name="aboutAction"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu_About"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="aboutQtAction">
+   <property name="text">
+    <string>About &amp;Qt...</string>
+   </property>
+  </action>
+  <action name="aboutAction">
+   <property name="text">
+    <string>&amp;About...</string>
+   </property>
+  </action>
+  <action name="quitAction">
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+  </action>
+  <action name="velovAction">
+   <property name="text">
+    <string>&amp;Velo'v Grand Lyon ...</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MainTreeWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>maintreewidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../res/quickvelov.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>quitAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
