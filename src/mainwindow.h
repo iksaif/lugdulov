@@ -34,6 +34,12 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
   MainWindow(QWidget *parent = 0);
   ~MainWindow();
 
+ private:
+  void createStations();
+  void createActions();
+  void createStatusBar();
+  void setupTreeWidget();
+
  private slots:
   void about();
   void velov();

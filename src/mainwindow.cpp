@@ -32,10 +32,33 @@ MainWindow::MainWindow(QWidget *parent)
 {
   setupUi(this);
 
-  updateBar = new QProgressBar();
-  updateBar->hide();
-  statusBar()->addPermanentWidget(updateBar, 0);
+  createStatusBar();
+  createStations();
+  createActions();
+  setupTreeWidget();
 
+  lineEdit->setFocus(Qt::OtherFocusReason);
+
+  QTimer::singleShot(100, stations, SLOT(fetchBuiltIn()));
+  QTimer::singleShot(200, treeWidget, SLOT(update()));
+  //stations->fetchFromFile(":/res/stations.json");
+  //stations->fetchAll();
+}
+
+void
+MainWindow::createStations()
+{
+  stations = new Stations(this);
+  comboBox->addItems(Station::regions());
+
+  connect(stations, SIGNAL(done()), this, SLOT(done()));
+  connect(stations, SIGNAL(started()), this, SLOT(started()));
+  connect(stations, SIGNAL(progress(qint64, qint64)), this, SLOT(progress(qint64, qint64)));
+}
+
+void
+MainWindow::createActions()
+{
   quitAction->setIcon(QIcon::fromTheme("dialog-close"));
   aboutAction->setIcon(QIcon::fromTheme("dialog-information"));
   aboutQtAction->setIcon(QPixmap(":/trolltech/qmessagebox/images/qtlogo-64.png"));
@@ -44,14 +67,19 @@ MainWindow::MainWindow(QWidget *parent)
   connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
   connect(aboutQtAction, SIGNAL(triggered()), this, SLOT(aboutQt()));
   connect(velovAction, SIGNAL(triggered()), this, SLOT(velov()));
+}
 
-  stations = new Stations(this);
-  comboBox->addItems(Station::regions());
+void
+MainWindow::createStatusBar()
+{
+  updateBar = new QProgressBar();
+  updateBar->hide();
+  statusBar()->addPermanentWidget(updateBar, 0);
+}
 
-  connect(stations, SIGNAL(done()), this, SLOT(done()));
-  connect(stations, SIGNAL(started()), this, SLOT(started()));
-  connect(stations, SIGNAL(progress(qint64, qint64)), this, SLOT(progress(qint64, qint64)));
-
+void
+MainWindow::setupTreeWidget()
+{
   connect(stations, SIGNAL(stationUpdated(Station *)),
 	  treeWidget, SLOT(stationUpdated(Station *)));
   connect(stations, SIGNAL(stationsUpdated(QList < Station *>)),
@@ -63,12 +91,6 @@ MainWindow::MainWindow(QWidget *parent)
 	  treeWidget, SLOT(filter(const QString &)));
   connect(pushButton, SIGNAL(clicked()), treeWidget, SLOT(update()));
   connect(comboBox, SIGNAL(activated(const QString &)), treeWidget, SLOT(setRegion(const QString &)));
-
-  lineEdit->setFocus(Qt::OtherFocusReason);
-
-  QTimer::singleShot(100, stations, SLOT(fetchBuiltIn()));
-  //stations->fetchFromFile(":/res/stations.json");
-  //stations->fetchAll();
 }
 
 MainWindow::~MainWindow()

@@ -17,7 +17,11 @@
  */
 
 #include <QtGui/QApplication>
+
+#include "config.h"
+
 #include "mainwindow.h"
+#include "settings.h"
 
 int main(int argc, char *argv[])
 {
@@ -25,7 +29,8 @@ int main(int argc, char *argv[])
 
     QCoreApplication::setOrganizationName("QuickVelov");
     QCoreApplication::setApplicationName("QuickVelov");
-    QCoreApplication::setApplicationVersion("0.1");
+    QCoreApplication::setApplicationVersion(QUICK_VELOV_VERSION);
+    Settings::settings();
 
     MainWindow w;
     w.show();

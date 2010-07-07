@@ -15,6 +15,11 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/mod
 
 find_package(Qt4 REQUIRED)
 find_package(QJSON REQUIRED)
+find_package(QtLocation)
+find_package(QtBearer)
+
+set(HAVE_QT_LOCATION QTLOCATION_FOUND)
+set(HAVE_QT_BEARER QTBEARER_FOUND)
 
 ## GCC  ##
 set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O2")

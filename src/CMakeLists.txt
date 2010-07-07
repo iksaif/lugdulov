@@ -24,7 +24,8 @@ SET(quickvelov_SRCS
   maintreewidget.cpp
   stations.cpp
   stationsbuiltin.cpp
-  station.cpp)
+  station.cpp
+  settings.cpp)
 
 SET(quickvelov_UIS
   mainwindow.ui)
@@ -32,7 +33,8 @@ SET(quickvelov_UIS
 SET(quickvelov_MOC_HDRS
   mainwindow.h
   maintreewidget.h
-  stations.h)
+  stations.h
+  settings.h)
 
 SET(quickvelov_RCS ../res/quickvelov.qrc)
 

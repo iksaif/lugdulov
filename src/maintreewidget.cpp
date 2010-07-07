@@ -26,6 +26,7 @@
 #include "maintreewidget.h"
 #include "station.h"
 #include "stations.h"
+#include "settings.h"
 
 MainTreeWidget::MainTreeWidget(QWidget *parent)
   : QTreeWidget(parent)
@@ -50,10 +51,22 @@ MainTreeWidget::MainTreeWidget(QWidget *parent)
   menu->addAction(velovAction);
 
   connect(menu, SIGNAL(triggered(QAction *)), this, SLOT(action(QAction *)));
+
+  loadBookmarks();
 }
 
 MainTreeWidget::~MainTreeWidget()
 {
+}
+
+void
+MainTreeWidget::loadBookmarks()
+{
+  Settings conf;
+
+  conf.beginGroup("Bookmarks");
+  foreach (QString id, conf.childKeys())
+    bookmarks[id.toInt()] = true;
 }
 
 void
@@ -112,6 +125,10 @@ MainTreeWidget::filter()
   for (int i = 0; i < root->childCount(); ++i)
     root->child(i)->setHidden(true);
 
+  foreach (int i, bookmarks.keys())
+    if (bookmarks[i])
+      itemsById[i]->setHidden(false);
+
   foreach (QTreeWidgetItem *item, items) {
     if (checkRegion) {
       Station *station = (Station *)item->data(0, Qt::UserRole).value<void *>();
@@ -134,8 +151,10 @@ MainTreeWidget::stationsUpdated(QList < Station * > list)
     QTreeWidgetItem *item;
     int idx;
 
-    if (!items[station])
+    if (!items[station]) {
       items[station] = new QTreeWidgetItem(this);
+      itemsById[station->id()] = items[station];
+    }
     item = items[station];
     idx = station->name().indexOf(" - ") + 3;
     item->setText(0, station->name().mid(idx));
@@ -155,8 +174,10 @@ MainTreeWidget::stationUpdated(Station *station)
   if (!stations)
     stations = dynamic_cast<Stations *>(sender());
 
-  if (!items[station])
+  if (!items[station]) {
     items[station] = new QTreeWidgetItem(this);
+    itemsById[station->id()] = items[station];
+  }
   item = items[station];
   idx = station->name().indexOf(" - ") + 3;
   item->setText(0, station->name().mid(idx));
@@ -184,6 +205,9 @@ MainTreeWidget::action(QAction *action)
   foreach (QTreeWidgetItem *item,  selectedItems()) {
     Station *station = (Station *)item->data(0, Qt::UserRole).value<void *>();
 
+    if (!station)
+      continue;
+
     if (action == gmapAction) {
       QLocale c(QLocale::C);
       QString str("http://maps.google.com/maps?q=");
@@ -202,7 +226,19 @@ MainTreeWidget::action(QAction *action)
       QDesktopServices::openUrl(str);
     }
     if (action == bookmarkAction) {
+      Settings conf;
+      bool bookmark;
+      QString key("%1");
 
+      key = key.arg(station->id());
+
+      conf.beginGroup("Bookmarks");
+      bookmark = conf.value(key).toBool();
+      if (bookmark)
+	conf.setValue(key, bookmark);
+      else
+	conf.remove(key);
+      bookmarks[station->id()] = !bookmark;
     }
   }
 }
@@ -210,8 +246,16 @@ MainTreeWidget::action(QAction *action)
 void
 MainTreeWidget::contextMenuEvent(QContextMenuEvent * event)
 {
-  QModelIndex index = indexAt(event->pos());
+  QTreeWidgetItem *item = itemAt(event->pos());
+  Station *station = (Station *)item->data(0, Qt::UserRole).value<void *>();
+  Settings conf;
+  bool bookmark;
 
-  if (index.isValid())
-    menu->exec(event->globalPos());
+  if (!station)
+    return ;
+
+  conf.beginGroup("Bookmarks");
+  bookmark = conf.value(QString("%1").arg(station->id())).toBool();
+  bookmarkAction->setChecked(bookmark ? Qt::Checked : Qt::Unchecked);
+  menu->exec(event->globalPos());
 }

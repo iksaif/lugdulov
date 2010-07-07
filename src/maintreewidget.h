@@ -49,16 +49,21 @@ private slots:
   void action(QAction *action);
 
 private:
+  void loadBookmarks();
+
+private:
   QString word;
   QString region;
   QTimer *timer;
   Stations *stations;
   bool bigUpdate;
   QMap < Station * , QTreeWidgetItem * > items;
+  QMap < int , QTreeWidgetItem * > itemsById;
   QMenu *menu;
   QAction *bookmarkAction;
   QAction *gmapAction;
   QAction *velovAction;
+  QMap < int , bool > bookmarks;
 };
 
 #endif /* MAINTREEWIDGET_H */

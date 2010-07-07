@@ -1,2 +1,4 @@
 
 #cmakedefine QUICK_VELOV_VERSION "@QUICK_VELOV_VERSION@"
+#cmakedefine HAVE_QT_LOCATION
+#cmakedefine HAVE_QT_BEARER
