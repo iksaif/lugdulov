@@ -60,6 +60,14 @@ MainTreeWidget::~MainTreeWidget()
 }
 
 void
+MainTreeWidget::clear()
+{
+  QTreeWidget::clear();
+  items.clear();
+  itemsById.clear();
+}
+
+void
 MainTreeWidget::loadBookmarks()
 {
   Settings conf;
@@ -107,7 +115,7 @@ MainTreeWidget::update()
   }
 
   bigUpdate = true;
-  timer->start(300000);
+  timer->start(30000);
 }
 
 void

@@ -32,6 +32,8 @@ public:
   MainTreeWidget(QWidget *parent = 0);
   ~MainTreeWidget();
 
+  void clear();
+
 protected:
   virtual void contextMenuEvent(QContextMenuEvent * event);
 

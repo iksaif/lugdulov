@@ -21,6 +21,12 @@
 
 #include <QtGui/QProgressBar>
 
+#ifdef HAVE_QT_LOCATION
+#include <QtLocation/QGeoCoordinate>
+#include <QtLocation/QGeoPositionInfo>
+#include <QtLocation/QGeoPositionInfoSource>
+#endif
+
 #include "ui_mainwindow.h"
 
 class Stations;
@@ -39,6 +45,7 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
   void createActions();
   void createStatusBar();
   void setupTreeWidget();
+  void fetchStations();
 
  private slots:
   void about();
@@ -50,9 +57,18 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
   void progress(qint64 done, qint64 total);
   void done();
 
+#ifdef HAVE_QT_LOCATION
+  void positionUpdated(QtMobility::QGeoPositionInfo info);
+  void requestTimeout();
+#endif
+
  private:
   Stations *stations;
   QProgressBar *updateBar;
+#ifdef HAVE_QT_LOCATION
+  QtMobility::QGeoPositionInfoSource *localisation;
+  QtMobility::QGeoPositionInfo position;
+#endif
 };
 
 #endif

@@ -27,6 +27,8 @@
 #include "station.h"
 #include "mainwindow.h"
 
+using namespace QtMobility;
+
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
 {
@@ -38,9 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
   setupTreeWidget();
 
   lineEdit->setFocus(Qt::OtherFocusReason);
-
-  QTimer::singleShot(100, stations, SLOT(fetchBuiltIn()));
-  QTimer::singleShot(200, treeWidget, SLOT(update()));
+  fetchStations();
   //stations->fetchFromFile(":/res/stations.json");
   //stations->fetchAll();
 }
@@ -92,6 +92,55 @@ MainWindow::setupTreeWidget()
   connect(pushButton, SIGNAL(clicked()), treeWidget, SLOT(update()));
   connect(comboBox, SIGNAL(activated(const QString &)), treeWidget, SLOT(setRegion(const QString &)));
 }
+
+#ifdef HAVE_QT_LOCATION
+void
+MainWindow::fetchStations()
+{
+  localisation = QGeoPositionInfoSource::createDefaultSource(this);
+
+  if (!localisation) {
+    QTimer::singleShot(100, stations, SLOT(fetchBuiltIn()));
+    QTimer::singleShot(200, treeWidget, SLOT(update()));
+    return ;
+  }
+
+  connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)),
+	  this, SLOT(positionUpdated(QGeoPositionInfo)));
+  connect(localisation, SIGNAL(requestTimeout()),
+	  this, SLOT(requestTimeout()));
+  localisation->setUpdateInterval(30000);
+  localisation->startUpdates();
+  localisation->requestUpdate(15000);
+}
+
+void
+MainWindow::requestTimeout()
+{
+  stations->fetchBuiltIn();
+  QTimer::singleShot(200, treeWidget, SLOT(update()));
+}
+
+void
+MainWindow::positionUpdated(QGeoPositionInfo info)
+{
+  QGeoCoordinate coord = info.coordinate();
+
+  position = info;
+
+  stations->fetchPos(QPointF(coord.latitude(), coord.longitude()), 5);
+  treeWidget->clear();
+  treeWidget->filter("*");
+}
+
+#else
+void
+MainWindow::fetchStations()
+{
+  QTimer::singleShot(100, stations, SLOT(fetchBuiltIn()));
+  QTimer::singleShot(200, treeWidget, SLOT(update()));
+}
+#endif
 
 MainWindow::~MainWindow()
 {
