@@ -19,12 +19,17 @@
 #ifndef MAINWINDOW_H
 # define MAINWINDOW_H
 
+#include "config.h"
+
 #include <QtGui/QProgressBar>
 
 #ifdef HAVE_QT_LOCATION
-#include <QtLocation/QGeoCoordinate>
-#include <QtLocation/QGeoPositionInfo>
-#include <QtLocation/QGeoPositionInfoSource>
+/* Can't use QtLocation/ prefix because Maemo installation is crappy */
+#include <QGeoCoordinate>
+#include <QGeoPositionInfo>
+#include <QGeoPositionInfoSource>
+
+using namespace QtMobility;
 #endif
 
 #include "ui_mainwindow.h"
@@ -58,7 +63,7 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
   void done();
 
 #ifdef HAVE_QT_LOCATION
-  void positionUpdated(QtMobility::QGeoPositionInfo info);
+  void positionUpdated(QGeoPositionInfo info);
   void requestTimeout();
 #endif
 
@@ -66,8 +71,8 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
   Stations *stations;
   QProgressBar *updateBar;
 #ifdef HAVE_QT_LOCATION
-  QtMobility::QGeoPositionInfoSource *localisation;
-  QtMobility::QGeoPositionInfo position;
+  QGeoPositionInfoSource *localisation;
+  QGeoPositionInfo position;
 #endif
 };
 

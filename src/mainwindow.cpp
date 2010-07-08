@@ -27,8 +27,6 @@
 #include "station.h"
 #include "mainwindow.h"
 
-using namespace QtMobility;
-
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
 {
