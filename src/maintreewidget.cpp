@@ -125,6 +125,9 @@ MainTreeWidget::filter()
   QTreeWidgetItem *root = invisibleRootItem();
   bool checkRegion = (!region.isEmpty() && region != tr("All"));
 
+  if (!root)
+    return ;
+
   if (word.isEmpty() && checkRegion)
     items = findItems("*", Qt::MatchWildcard|Qt::MatchRecursive, 0);
   else
@@ -134,7 +137,7 @@ MainTreeWidget::filter()
     root->child(i)->setHidden(true);
 
   foreach (int i, bookmarks.keys())
-    if (bookmarks[i])
+    if (bookmarks[i] && itemsById[i])
       itemsById[i]->setHidden(false);
 
   foreach (QTreeWidgetItem *item, items) {
@@ -189,6 +192,7 @@ MainTreeWidget::stationUpdated(Station *station)
   item = items[station];
   idx = station->name().indexOf(" - ") + 3;
   item->setText(0, station->name().mid(idx));
+  item->setData(0, Qt::UserRole, QVariant::fromValue((void *)station));
   item->setHidden(true);
 
   filter();
