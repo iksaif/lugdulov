@@ -17,6 +17,7 @@
  */
 
 #include <QtGui/QMessageBox>
+#include <QtGui/QDesktopWidget>
 
 #include "stationdialog.h"
 #include "station.h"
@@ -33,6 +34,8 @@ StationDialog::StationDialog(Station *s, QWidget * parent)
 {
   setupUi(this);
 
+  setWindowTitle(QString("Quick Velo'v - %1").arg(station->name()));
+
   slotsSlider->setRange(0, station->totalSlots());
   bikeSlider->setRange(0, station->totalSlots());
   slotsSlider->setValue(station->freeSlots());
@@ -44,6 +47,10 @@ StationDialog::StationDialog(Station *s, QWidget * parent)
   descriptionLabel->setText(station->description());
   stationLabel->setText(station->name());
 
+#ifdef Q_WS_MAEMO_5
+  orientationChanged();
+  connect(QApplication::desktop(), SIGNAL(resized(int)), this, SLOT(orientationChanged()));
+#endif
 
   iconLabel->hide();
   resize(sizeHint());
@@ -90,6 +97,16 @@ StationDialog::requestFinished()
     iconLabel->setPixmap(pix);
     iconLabel->show();
   }
+}
+
+void StationDialog::orientationChanged()
+{
+  QRect screenGeometry = QApplication::desktop()->screenGeometry();
+
+  if (screenGeometry.width() > screenGeometry.height())
+    iconLabel->hide();
+  else
+    iconLabel->show();
 }
 
 void StationDialog::bookmark()

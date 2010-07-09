@@ -44,6 +44,7 @@ private slots:
 
   void requestError(QNetworkReply::NetworkError code);
   void requestFinished();
+  void orientationChanged();
 
 private:
   Station *station;

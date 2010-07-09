@@ -213,7 +213,8 @@ MainWindow::progress(qint64 done, qint64 total)
     updateBar->setRange(0, total);
   }
 #ifdef Q_WS_MAEMO_5
-  setAttribute(Qt::WA_Maemo5ShowProgressIndicator, total == updateBar->maximum());
+  qDebug() << done << total;
+  setAttribute(Qt::WA_Maemo5ShowProgressIndicator, done == total);
 #endif
   updateBar->setValue(done);
 }
