@@ -49,6 +49,7 @@ private slots:
   void filter();
   void update();
   void action(QAction *action);
+  void openStationDialog(QTreeWidgetItem *item);
 
 private:
   void loadBookmarks();

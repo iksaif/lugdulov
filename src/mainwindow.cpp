@@ -32,6 +32,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
   setupUi(this);
 
+#ifdef Q_WS_MAEMO_5
+  menu_File->removeAction(quitAction);
+  menu_About->removeAction(aboutQtAction);
+  setAttribute(Qt::WA_Maemo5StackedWindow);
+  setAttribute(Qt::WA_Maemo5AutoOrientation, true);
+#endif
+
   createStatusBar();
   createStations();
   createActions();
@@ -47,6 +54,7 @@ void
 MainWindow::createStations()
 {
   stations = new Stations(this);
+
   comboBox->addItems(Station::regions());
 
   connect(stations, SIGNAL(done()), this, SLOT(done()));
@@ -73,6 +81,9 @@ MainWindow::createStatusBar()
   updateBar = new QProgressBar();
   updateBar->hide();
   statusBar()->addPermanentWidget(updateBar, 0);
+#ifdef Q_WS_MAEMO_5
+  statusBar()->hide();
+#endif
 }
 
 void
@@ -126,6 +137,7 @@ MainWindow::positionUpdated(QGeoPositionInfo info)
 
   position = info;
 
+  qWarning() << coord;
   stations->fetchPos(QPointF(coord.latitude(), coord.longitude()), 5);
   treeWidget->clear();
   treeWidget->filter("*");
@@ -200,6 +212,9 @@ MainWindow::progress(qint64 done, qint64 total)
     updateBar->reset();
     updateBar->setRange(0, total);
   }
+#ifdef Q_WS_MAEMO_5
+  setAttribute(Qt::WA_Maemo5ShowProgressIndicator, total == updateBar->maximum());
+#endif
   updateBar->setValue(done);
 }
 

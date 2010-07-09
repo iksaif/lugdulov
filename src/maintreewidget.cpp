@@ -24,6 +24,7 @@
 #include <QDebug>
 
 #include "maintreewidget.h"
+#include "stationdialog.h"
 #include "station.h"
 #include "stations.h"
 #include "settings.h"
@@ -38,7 +39,8 @@ MainTreeWidget::MainTreeWidget(QWidget *parent)
   header()->resizeSections(QHeaderView::ResizeToContents);
   header()->setResizeMode(0, QHeaderView::Stretch);
 
-  bookmarkAction = new QAction(QIcon::fromTheme("bookmarks", QPixmap(":/res/favorites.png")), tr("Bookmark this station"), this);
+  bookmarkAction = new QAction(QIcon::fromTheme("bookmarks", QPixmap(":/res/favorites.png")),
+			       tr("Bookmark this station"), this);
   gmapAction = new QAction(QPixmap(":/res/google-maps.png"), tr("Show in Google Maps..."), this);
   velovAction = new QAction(QPixmap(":/res/velov.png"), tr("Show in Velo'v Website..."), this);
 
@@ -51,6 +53,8 @@ MainTreeWidget::MainTreeWidget(QWidget *parent)
   menu->addAction(velovAction);
 
   connect(menu, SIGNAL(triggered(QAction *)), this, SLOT(action(QAction *)));
+  connect(this, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
+	  this, SLOT(openStationDialog(QTreeWidgetItem *)));
 
   loadBookmarks();
 }
@@ -209,6 +213,19 @@ MainTreeWidget::statusUpdated(Station *station)
   item->setData(2, Qt::DisplayRole, station->freeSlots());
   item->setData(3, Qt::DisplayRole, station->totalSlots());
   filter();
+}
+
+void
+MainTreeWidget::openStationDialog(QTreeWidgetItem *item)
+{
+  Station *station = (Station *)item->data(0, Qt::UserRole).value<void *>();
+
+  if (!station)
+    return ;
+
+  StationDialog dialog(station, this);
+
+  dialog.exec();
 }
 
 void

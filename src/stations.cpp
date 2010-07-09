@@ -110,7 +110,8 @@ Stations::finished()
   QNetworkReply *rep = dynamic_cast<QNetworkReply *>(sender());
   Stations::Request req = replies[rep];
 
-  rep->deleteLater();
+  if (rep)
+    rep->deleteLater();
 
   if (!rep || req.type == Request::Null) {
     step++;

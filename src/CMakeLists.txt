@@ -29,16 +29,19 @@ SET(quickvelov_SRCS
   stations.cpp
   stationsbuiltin.cpp
   station.cpp
-  settings.cpp)
+  settings.cpp
+  stationdialog.cpp)
 
 SET(quickvelov_UIS
-  mainwindow.ui)
+  mainwindow.ui
+  stationdialog.ui)
 
 SET(quickvelov_MOC_HDRS
   mainwindow.h
   maintreewidget.h
   stations.h
-  settings.h)
+  settings.h
+  stationdialog.h)
 
 SET(quickvelov_RCS ../res/quickvelov.qrc)
 
