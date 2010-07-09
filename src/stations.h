@@ -30,7 +30,7 @@ class Stations : public QObject
   Q_OBJECT
  private:
   struct Request {
-    enum Type { Null = 0, Properties, Status } type;
+    enum Type { Null = 0, Properties, PropertiesNear, Status } type;
     int id;
     QString region;
   };
@@ -56,8 +56,8 @@ class Stations : public QObject
   void progress(qint64 done, qint64 total);
   void done();
 
-  void stationsUpdated(QList < Station * > stations);
-  void stationUpdated(Station *station);
+  void stationsUpdated(QList < Station * > stations, bool nearest);
+  void stationUpdated(Station *station, bool nearest);
   void statusUpdated(Station *station);
   void error(const QString & title, const QString & message);
 

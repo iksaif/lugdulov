@@ -33,6 +33,7 @@ public:
   ~MainTreeWidget();
 
   void clear();
+  void clearNear();
 
 protected:
   virtual void contextMenuEvent(QContextMenuEvent * event);
@@ -41,8 +42,8 @@ public slots:
   void filter(const QString & filter);
   void setRegion(const QString & region);
 
-  void stationsUpdated(QList < Station * > station);
-  void stationUpdated(Station *station);
+  void stationsUpdated(QList < Station * > station, bool near);
+  void stationUpdated(Station *station, bool near);
   void statusUpdated(Station *station);
 
 private slots:
@@ -67,6 +68,7 @@ private:
   QAction *gmapAction;
   QAction *velovAction;
   QMap < int , bool > bookmarks;
+  QMap < int , bool > nearest;
 };
 
 #endif /* MAINTREEWIDGET_H */

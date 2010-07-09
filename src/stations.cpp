@@ -46,7 +46,7 @@ Stations::~Stations()
 void
 Stations::fetchPos(const QPointF & pos, int num)
 {
-  request(Station::stationsJsonUrl(pos, num), Request::Properties);
+  request(Station::stationsJsonUrl(pos, num), Request::PropertiesNear);
 }
 
 void
@@ -67,7 +67,7 @@ Stations::fetchBuiltIn()
 
   foreach (Station *station, list)
     stations[station->id()] = station;
-  emit stationsUpdated(list);
+  emit stationsUpdated(list, false);
 }
 
 void
@@ -119,7 +119,8 @@ Stations::finished()
     return ;
   }
 
-  if (req.type == Request::Properties) {
+  if (req.type == Request::Properties ||
+      req.type == Request::PropertiesNear) {
     handleProperties(rep->readAll(), req);
   }
   if (req.type == Request::Status) {
@@ -184,8 +185,9 @@ Stations::handleProperties(const QByteArray & data, Request req)
       station->setTicket(sta["ticket"].toInt());
     }
 
-    emit stationUpdated(station);
+    emit stationUpdated(station, req.type == Request::PropertiesNear);
 
+    /* Got extended properties */
     if (sta.count() != 0)
       emit statusUpdated(station);
   }

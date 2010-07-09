@@ -89,10 +89,10 @@ MainWindow::createStatusBar()
 void
 MainWindow::setupTreeWidget()
 {
-  connect(stations, SIGNAL(stationUpdated(Station *)),
-	  treeWidget, SLOT(stationUpdated(Station *)));
-  connect(stations, SIGNAL(stationsUpdated(QList < Station *>)),
-	  treeWidget, SLOT(stationsUpdated(QList < Station *>)));
+  connect(stations, SIGNAL(stationUpdated(Station *, bool)),
+	  treeWidget, SLOT(stationUpdated(Station *, bool)));
+  connect(stations, SIGNAL(stationsUpdated(QList < Station *>, bool)),
+	  treeWidget, SLOT(stationsUpdated(QList < Station *>, bool)));
   connect(stations, SIGNAL(statusUpdated(Station *)),
 	  treeWidget, SLOT(statusUpdated(Station *)));
 
@@ -108,11 +108,11 @@ MainWindow::fetchStations()
 {
   localisation = QGeoPositionInfoSource::createDefaultSource(this);
 
-  if (!localisation) {
-    QTimer::singleShot(100, stations, SLOT(fetchBuiltIn()));
-    QTimer::singleShot(200, treeWidget, SLOT(update()));
-    return ;
-  }
+  // For bookmarks
+  QTimer::singleShot(100, stations, SLOT(fetchBuiltIn()));
+  QTimer::singleShot(200, treeWidget, SLOT(update()));
+
+  QTimer::singleShot(1000, this, SLOT(requestTimeout()));
 
   connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)),
 	  this, SLOT(positionUpdated(QGeoPositionInfo)));
@@ -126,8 +126,7 @@ MainWindow::fetchStations()
 void
 MainWindow::requestTimeout()
 {
-  stations->fetchBuiltIn();
-  QTimer::singleShot(200, treeWidget, SLOT(update()));
+
 }
 
 void
@@ -137,10 +136,9 @@ MainWindow::positionUpdated(QGeoPositionInfo info)
 
   position = info;
 
-  qWarning() << coord;
+  qWarning() << coord << coord.latitude() << coord.longitude();
+  treeWidget->clearNear();
   stations->fetchPos(QPointF(coord.latitude(), coord.longitude()), 5);
-  treeWidget->clear();
-  treeWidget->filter("*");
 }
 
 #else
@@ -213,8 +211,7 @@ MainWindow::progress(qint64 done, qint64 total)
     updateBar->setRange(0, total);
   }
 #ifdef Q_WS_MAEMO_5
-  qDebug() << done << total;
-  setAttribute(Qt::WA_Maemo5ShowProgressIndicator, done == total);
+  setAttribute(Qt::WA_Maemo5ShowProgressIndicator, !(done == total));
 #endif
   updateBar->setValue(done);
 }

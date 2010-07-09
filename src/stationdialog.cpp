@@ -25,7 +25,7 @@
 
 StationDialog::StationDialog(Station *s, QWidget * parent)
   :
-#ifdef Q_WS_MAEMO5
+#ifdef Q_WS_MAEMO_5
   QDialog(parent, Qt::Window),
 #else
   QDialog(parent),
@@ -92,10 +92,16 @@ StationDialog::requestFinished()
 
   QPixmap pix;
   pix.loadFromData(rep->readAll());
-  pix = pix.scaled(iconLabel->width(), iconLabel->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
   if (!pix.isNull()) {
+    pix = pix.scaled(iconLabel->width(), iconLabel->height(),
+		     Qt::KeepAspectRatio, Qt::SmoothTransformation);
     iconLabel->setPixmap(pix);
+#ifdef Q_WS_MAEMO_5
+    orientationChanged();
+#else
     iconLabel->show();
+#endif
   }
 }
 

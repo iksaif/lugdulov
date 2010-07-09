@@ -72,6 +72,13 @@ MainTreeWidget::clear()
 }
 
 void
+MainTreeWidget::clearNear()
+{
+  nearest.clear();
+  filter();
+}
+
+void
 MainTreeWidget::loadBookmarks()
 {
   Settings conf;
@@ -141,7 +148,7 @@ MainTreeWidget::filter()
     root->child(i)->setHidden(true);
 
   foreach (int i, bookmarks.keys())
-    if (bookmarks[i] && itemsById[i])
+    if ((bookmarks[i] || nearest[i]) && itemsById[i])
       itemsById[i]->setHidden(false);
 
   foreach (QTreeWidgetItem *item, items) {
@@ -157,7 +164,7 @@ MainTreeWidget::filter()
 }
 
 void
-MainTreeWidget::stationsUpdated(QList < Station * > list)
+MainTreeWidget::stationsUpdated(QList < Station * > list, bool near)
 {
   if (!stations)
     stations = dynamic_cast<Stations *>(sender());
@@ -175,13 +182,16 @@ MainTreeWidget::stationsUpdated(QList < Station * > list)
     item->setText(0, station->name().mid(idx));
     item->setData(0, Qt::UserRole, QVariant::fromValue((void *)station));
     item->setHidden(true);
+
+    if (near)
+      nearest[station->id()] = true;
   }
 
   filter();
 }
 
 void
-MainTreeWidget::stationUpdated(Station *station)
+MainTreeWidget::stationUpdated(Station *station, bool near)
 {
   QTreeWidgetItem *item;
   int idx;
@@ -198,6 +208,9 @@ MainTreeWidget::stationUpdated(Station *station)
   item->setText(0, station->name().mid(idx));
   item->setData(0, Qt::UserRole, QVariant::fromValue((void *)station));
   item->setHidden(true);
+
+  if (near)
+    nearest[station->id()] = true;
 
   filter();
 }
