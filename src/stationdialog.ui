@@ -34,7 +34,7 @@
    <item row="1" column="0" colspan="4">
     <widget class="QLabel" name="iconLabel">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -45,14 +45,14 @@
        <height>212</height>
       </size>
      </property>
-     <property name="maximumSize">
-      <size>
-       <width>320</width>
-       <height>212</height>
-      </size>
-     </property>
      <property name="text">
       <string>Icon</string>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>

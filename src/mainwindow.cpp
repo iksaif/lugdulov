@@ -112,7 +112,8 @@ MainWindow::fetchStations()
   QTimer::singleShot(100, stations, SLOT(fetchBuiltIn()));
   QTimer::singleShot(200, treeWidget, SLOT(update()));
 
-  QTimer::singleShot(1000, this, SLOT(requestTimeout()));
+  if (!localisation)
+    return ;
 
   connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)),
 	  this, SLOT(positionUpdated(QGeoPositionInfo)));
