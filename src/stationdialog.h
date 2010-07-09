@@ -38,7 +38,7 @@ public:
   ~StationDialog();
 
 private slots:
-  void bookmark();
+  void bookmark(bool checked);
   void gmap();
   void velov();
 

@@ -150,6 +150,9 @@
         <iconset resource="../res/quickvelov.qrc">
          <normaloff>:/res/favorites.png</normaloff>:/res/favorites.png</iconset>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>

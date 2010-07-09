@@ -18,10 +18,12 @@
 
 #include <QtGui/QMessageBox>
 #include <QtGui/QDesktopWidget>
+#include <QtGui/QDesktopServices>
 
 #include "stationdialog.h"
 #include "station.h"
 #include "stations.h"
+#include "settings.h"
 
 StationDialog::StationDialog(Station *s, QWidget * parent)
   :
@@ -32,6 +34,9 @@ StationDialog::StationDialog(Station *s, QWidget * parent)
 #endif
   station(s)
 {
+  Settings conf;
+  bool bookmark;
+
   setupUi(this);
 
   setWindowTitle(QString("Quick Velo'v - %1").arg(station->name()));
@@ -55,7 +60,6 @@ StationDialog::StationDialog(Station *s, QWidget * parent)
   iconLabel->hide();
   resize(sizeHint());
 
-  // connect push
   nm = new QNetworkAccessManager(this);
   QNetworkReply *rep = nm->get(QNetworkRequest(Station::stationImageUrl(station->id())));
   connect(rep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(requestError(QNetworkReply::NetworkError)));
@@ -64,6 +68,14 @@ StationDialog::StationDialog(Station *s, QWidget * parent)
   setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
   setAttribute(Qt::WA_Maemo5StackedWindow);
 #endif
+
+  connect(gmapButton, SIGNAL(clicked()), this, SLOT(gmap()));
+  connect(bookmarkButton, SIGNAL(clicked(bool)), this, SLOT(bookmark(bool)));
+  connect(velovButton, SIGNAL(clicked()), this, SLOT(velov()));
+
+  conf.beginGroup("Bookmarks");
+  bookmark = conf.value(QString("%1").arg(station->id())).toBool();
+  bookmarkButton->setChecked(bookmark ? Qt::Checked : Qt::Unchecked);
 }
 
 StationDialog::~StationDialog()
@@ -114,15 +126,38 @@ void StationDialog::orientationChanged()
   else
     iconLabel->show();
 }
-
-void StationDialog::bookmark()
+#include <QDebug>
+void StationDialog::bookmark(bool bookmark)
 {
+  Settings conf;
+  QString key("%1");
+
+  key = key.arg(station->id());
+
+  conf.beginGroup("Bookmarks");
+  if (bookmark)
+    conf.setValue(key, bookmark);
+  else
+    conf.remove(key);
 }
 
 void StationDialog::gmap()
 {
+  QLocale c(QLocale::C);
+  QString str("http://maps.google.com/maps?q=");
+
+  str += c.toString(station->pos().x());
+  str += ",";
+  str += c.toString(station->pos().y());
+
+  QDesktopServices::openUrl(str);
 }
 
 void StationDialog::velov()
 {
+  QString str("http://www.velov.grandlyon.com/Plan-interactif.61.0.html?&gid=%1");
+
+  str = str.arg(station->id());
+
+  QDesktopServices::openUrl(str);
 }

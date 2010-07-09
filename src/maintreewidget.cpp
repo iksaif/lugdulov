@@ -83,6 +83,7 @@ MainTreeWidget::loadBookmarks()
 {
   Settings conf;
 
+  bookmarks.clear();
   conf.beginGroup("Bookmarks");
   foreach (QString id, conf.childKeys())
     bookmarks[id.toInt()] = true;
@@ -239,6 +240,10 @@ MainTreeWidget::openStationDialog(QTreeWidgetItem *item)
   StationDialog dialog(station, this);
 
   dialog.exec();
+
+  // Reload bookmarks
+  loadBookmarks();
+  filter();
 }
 
 void
