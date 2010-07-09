@@ -25,22 +25,25 @@ LINK_DIRECTORIES(
 SET(quickvelov_SRCS
   main.cpp
   mainwindow.cpp
-  maintreewidget.cpp
+  mainlistwidget.cpp
   stations.cpp
   stationsbuiltin.cpp
   station.cpp
   settings.cpp
+  stationwidget.cpp
   stationdialog.cpp)
 
 SET(quickvelov_UIS
   mainwindow.ui
+  stationwidget.ui
   stationdialog.ui)
 
 SET(quickvelov_MOC_HDRS
   mainwindow.h
-  maintreewidget.h
+  mainlistwidget.h
   stations.h
   settings.h
+  stationwidget.h
   stationdialog.h)
 
 SET(quickvelov_RCS ../res/quickvelov.qrc)

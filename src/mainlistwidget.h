@@ -16,21 +16,21 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef MAINTREEWIDGET_H
-# define MAINTREEWIDGET_H
+#ifndef MAINLISTWIDGET_H
+# define MAINLISTWIDGET_H
 
-#include <QtGui/QTreeWidget>
+#include <QtGui/QListWidget>
 #include <QtCore/QTimer>
 
 class Station;
 class Stations;
 
-class MainTreeWidget : public QTreeWidget
+class MainListWidget : public QListWidget
 {
   Q_OBJECT
 public:
-  MainTreeWidget(QWidget *parent = 0);
-  ~MainTreeWidget();
+  MainListWidget(QWidget *parent = 0);
+  ~MainListWidget();
 
   void clear();
   void clearNear();
@@ -50,9 +50,10 @@ private slots:
   void filter();
   void update();
   void action(QAction *action);
-  void openStationDialog(QTreeWidgetItem *item);
+  void openStationDialog(QListWidgetItem *item);
 
 private:
+  void addStation(Station *station, bool near);
   void loadBookmarks();
 
 private:
@@ -61,8 +62,8 @@ private:
   QTimer *timer;
   Stations *stations;
   bool bigUpdate;
-  QMap < Station * , QTreeWidgetItem * > items;
-  QMap < int , QTreeWidgetItem * > itemsById;
+  QMap < Station * , QListWidgetItem * > items;
+  QMap < int , QListWidgetItem * > itemsById;
   QMenu *menu;
   QAction *bookmarkAction;
   QAction *gmapAction;
@@ -71,4 +72,4 @@ private:
   QMap < int , bool > nearest;
 };
 
-#endif /* MAINTREEWIDGET_H */
+#endif /* MAINLISTWIDGET_H */

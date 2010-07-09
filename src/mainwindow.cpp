@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
   createStatusBar();
   createStations();
   createActions();
-  setupTreeWidget();
+  setupListWidget();
 
   lineEdit->setFocus(Qt::OtherFocusReason);
   fetchStations();
@@ -87,19 +87,19 @@ MainWindow::createStatusBar()
 }
 
 void
-MainWindow::setupTreeWidget()
+MainWindow::setupListWidget()
 {
   connect(stations, SIGNAL(stationUpdated(Station *, bool)),
-	  treeWidget, SLOT(stationUpdated(Station *, bool)));
+	  listWidget, SLOT(stationUpdated(Station *, bool)));
   connect(stations, SIGNAL(stationsUpdated(QList < Station *>, bool)),
-	  treeWidget, SLOT(stationsUpdated(QList < Station *>, bool)));
+	  listWidget, SLOT(stationsUpdated(QList < Station *>, bool)));
   connect(stations, SIGNAL(statusUpdated(Station *)),
-	  treeWidget, SLOT(statusUpdated(Station *)));
+	  listWidget, SLOT(statusUpdated(Station *)));
 
   connect(lineEdit, SIGNAL(textEdited(const QString &)),
-	  treeWidget, SLOT(filter(const QString &)));
-  connect(pushButton, SIGNAL(clicked()), treeWidget, SLOT(update()));
-  connect(comboBox, SIGNAL(activated(const QString &)), treeWidget, SLOT(setRegion(const QString &)));
+	  listWidget, SLOT(filter(const QString &)));
+  connect(pushButton, SIGNAL(clicked()), listWidget, SLOT(update()));
+  connect(comboBox, SIGNAL(activated(const QString &)), listWidget, SLOT(setRegion(const QString &)));
 }
 
 #ifdef HAVE_QT_LOCATION
@@ -110,7 +110,7 @@ MainWindow::fetchStations()
 
   // For bookmarks
   QTimer::singleShot(100, stations, SLOT(fetchBuiltIn()));
-  QTimer::singleShot(200, treeWidget, SLOT(update()));
+  QTimer::singleShot(200, listWidget, SLOT(update()));
 
   if (!localisation)
     return ;
@@ -138,7 +138,7 @@ MainWindow::positionUpdated(QGeoPositionInfo info)
   position = info;
 
   qWarning() << coord << coord.latitude() << coord.longitude();
-  treeWidget->clearNear();
+  listWidget->clearNear();
   stations->fetchPos(QPointF(coord.latitude(), coord.longitude()), 5);
 }
 
@@ -147,7 +147,7 @@ void
 MainWindow::fetchStations()
 {
   QTimer::singleShot(100, stations, SLOT(fetchBuiltIn()));
-  QTimer::singleShot(200, treeWidget, SLOT(update()));
+  QTimer::singleShot(200, listWidget, SLOT(update()));
 }
 #endif
 

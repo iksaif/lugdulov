@@ -49,7 +49,7 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
   void createStations();
   void createActions();
   void createStatusBar();
-  void setupTreeWidget();
+  void setupListWidget();
   void fetchStations();
 
  private slots:

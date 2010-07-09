@@ -19,45 +19,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="0" colspan="6">
-     <widget class="MainTreeWidget" name="treeWidget">
-      <property name="alternatingRowColors">
-       <bool>true</bool>
-      </property>
-      <property name="rootIsDecorated">
-       <bool>false</bool>
-      </property>
-      <property name="sortingEnabled">
-       <bool>true</bool>
-      </property>
-      <attribute name="headerStretchLastSection">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="headerStretchLastSection">
-       <bool>false</bool>
-      </attribute>
-      <column>
-       <property name="text">
-        <string>Station</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Velo'v</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Free Slots</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Slots</string>
-       </property>
-      </column>
-     </widget>
-    </item>
     <item row="0" column="0" colspan="4">
      <widget class="QLineEdit" name="lineEdit"/>
     </item>
@@ -77,6 +38,16 @@
       </item>
      </widget>
     </item>
+    <item row="2" column="0" colspan="6">
+     <widget class="MainListWidget" name="listWidget">
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+      <property name="selectionRectVisible">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -85,7 +56,7 @@
      <x>0</x>
      <y>0</y>
      <width>529</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -130,9 +101,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MainTreeWidget</class>
-   <extends>QTreeWidget</extends>
-   <header>maintreewidget.h</header>
+   <class>MainListWidget</class>
+   <extends>QListWidget</extends>
+   <header>mainlistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

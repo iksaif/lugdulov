@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="res">
+    <file>slot.png</file>
+    <file>bike.png</file>
     <file>favorites.png</file>
     <file>velov.png</file>
     <file>google-maps.png</file>

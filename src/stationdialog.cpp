@@ -87,7 +87,7 @@ StationDialog::requestError(QNetworkReply::NetworkError code)
 {
   QNetworkReply *rep = dynamic_cast<QNetworkReply *>(sender());
 
-  if (rep)
+  if (rep && code != QNetworkReply::ContentNotFoundError)
     QMessageBox::warning(this, tr("Network Error"), rep->errorString());
 }
 #include <QDebug>
@@ -135,8 +135,8 @@ void StationDialog::bookmark(bool bookmark)
   key = key.arg(station->id());
 
   conf.beginGroup("Bookmarks");
-  if (bookmark)
-    conf.setValue(key, bookmark);
+  if (!bookmark)
+    conf.setValue(key, true);
   else
     conf.remove(key);
 }

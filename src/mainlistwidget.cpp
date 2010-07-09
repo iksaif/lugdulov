@@ -23,21 +23,19 @@
 #include <QtGui/QDesktopServices>
 #include <QDebug>
 
-#include "maintreewidget.h"
+#include "mainlistwidget.h"
 #include "stationdialog.h"
+#include "stationwidget.h"
 #include "station.h"
 #include "stations.h"
 #include "settings.h"
 
-MainTreeWidget::MainTreeWidget(QWidget *parent)
-  : QTreeWidget(parent)
+MainListWidget::MainListWidget(QWidget *parent)
+  : QListWidget(parent)
 {
   stations = NULL;
   timer = new QTimer(this);
   connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-
-  header()->resizeSections(QHeaderView::ResizeToContents);
-  header()->setResizeMode(0, QHeaderView::Stretch);
 
   bookmarkAction = new QAction(QIcon::fromTheme("bookmarks", QPixmap(":/res/favorites.png")),
 			       tr("Bookmark this station"), this);
@@ -53,33 +51,33 @@ MainTreeWidget::MainTreeWidget(QWidget *parent)
   menu->addAction(velovAction);
 
   connect(menu, SIGNAL(triggered(QAction *)), this, SLOT(action(QAction *)));
-  connect(this, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
-	  this, SLOT(openStationDialog(QTreeWidgetItem *)));
+  connect(this, SIGNAL(itemDoubleClicked(QListWidgetItem *)),
+	  this, SLOT(openStationDialog(QListWidgetItem *)));
 
   loadBookmarks();
 }
 
-MainTreeWidget::~MainTreeWidget()
+MainListWidget::~MainListWidget()
 {
 }
 
 void
-MainTreeWidget::clear()
+MainListWidget::clear()
 {
-  QTreeWidget::clear();
+  QListWidget::clear();
   items.clear();
   itemsById.clear();
 }
 
 void
-MainTreeWidget::clearNear()
+MainListWidget::clearNear()
 {
   nearest.clear();
   filter();
 }
 
 void
-MainTreeWidget::loadBookmarks()
+MainListWidget::loadBookmarks()
 {
   Settings conf;
 
@@ -90,7 +88,7 @@ MainTreeWidget::loadBookmarks()
 }
 
 void
-MainTreeWidget::setRegion(const QString & code)
+MainListWidget::setRegion(const QString & code)
 {
   region = code;
 
@@ -98,10 +96,12 @@ MainTreeWidget::setRegion(const QString & code)
 }
 
 void
-MainTreeWidget::filter(const QString & term)
+MainListWidget::filter(const QString & term)
 {
   if (!term.isEmpty())
     word = QString("*%1*").arg(term);
+  else
+    word = term;
 
   filter();
 
@@ -110,16 +110,14 @@ MainTreeWidget::filter(const QString & term)
 }
 
 void
-MainTreeWidget::update()
+MainListWidget::update()
 {
-  QTreeWidgetItem *root = invisibleRootItem();
-
   if (!stations)
     return ;
 
-  for (int i = 0; i < root->childCount(); ++i) {
-    if (!root->child(i)->isHidden()) {
-      Station *station = (Station *)root->child(i)->data(0, Qt::UserRole).value<void *>();
+  for (int i = 0; i < count(); ++i) {
+    if (!item(i)->isHidden()) {
+      Station *station = (Station *)item(i)->data(Qt::UserRole).value<void *>();
 
       if (station->freeSlots() == -1 || bigUpdate)
 	stations->update(station);
@@ -131,30 +129,26 @@ MainTreeWidget::update()
 }
 
 void
-MainTreeWidget::filter()
+MainListWidget::filter()
 {
-  QList<QTreeWidgetItem *> items;
-  QTreeWidgetItem *root = invisibleRootItem();
+  QList<QListWidgetItem *> items;
   bool checkRegion = (!region.isEmpty() && region != tr("All"));
 
-  if (!root)
-    return ;
-
   if (word.isEmpty() && checkRegion)
-    items = findItems("*", Qt::MatchWildcard|Qt::MatchRecursive, 0);
+    items = findItems("*", Qt::MatchWildcard|Qt::MatchRecursive);
   else
-    items = findItems(word, Qt::MatchWildcard|Qt::MatchRecursive, 0);
+    items = findItems(word, Qt::MatchWildcard|Qt::MatchRecursive);
 
-  for (int i = 0; i < root->childCount(); ++i)
-    root->child(i)->setHidden(true);
+  for (int i = 0; i < count(); ++i)
+    item(i)->setHidden(true);
 
   foreach (int i, bookmarks.keys())
     if ((bookmarks[i] || nearest[i]) && itemsById[i])
       itemsById[i]->setHidden(false);
 
-  foreach (QTreeWidgetItem *item, items) {
+  foreach (QListWidgetItem *item, items) {
     if (checkRegion) {
-      Station *station = (Station *)item->data(0, Qt::UserRole).value<void *>();
+      Station *station = (Station *)item->data(Qt::UserRole).value<void *>();
 
       if (!station || station->region() != region)
 	continue ;
@@ -165,74 +159,71 @@ MainTreeWidget::filter()
 }
 
 void
-MainTreeWidget::stationsUpdated(QList < Station * > list, bool near)
+MainListWidget::addStation(Station *station, bool near)
 {
-  if (!stations)
-    stations = dynamic_cast<Stations *>(sender());
-
-  foreach (Station *station, list) {
-    QTreeWidgetItem *item;
-    int idx;
-
-    if (!items[station]) {
-      items[station] = new QTreeWidgetItem(this);
-      itemsById[station->id()] = items[station];
-    }
-    item = items[station];
-    idx = station->name().indexOf(" - ") + 3;
-    item->setText(0, station->name().mid(idx));
-    item->setData(0, Qt::UserRole, QVariant::fromValue((void *)station));
-    item->setHidden(true);
-
-    if (near)
-      nearest[station->id()] = true;
-  }
-
-  filter();
-}
-
-void
-MainTreeWidget::stationUpdated(Station *station, bool near)
-{
-  QTreeWidgetItem *item;
+  QListWidgetItem *item;
   int idx;
 
   if (!stations)
     stations = dynamic_cast<Stations *>(sender());
 
   if (!items[station]) {
-    items[station] = new QTreeWidgetItem(this);
+    items[station] = new QListWidgetItem(this);
     itemsById[station->id()] = items[station];
   }
   item = items[station];
   idx = station->name().indexOf(" - ") + 3;
-  item->setText(0, station->name().mid(idx));
-  item->setData(0, Qt::UserRole, QVariant::fromValue((void *)station));
+
+  item->setText(station->name().mid(idx)); // for findItems
+  setItemWidget(item, new StationWidget(station));
+
+  item->setData(Qt::UserRole, QVariant::fromValue((void *)station));
+  item->setTextAlignment(Qt::AlignTop|Qt::AlignLeft);
+  item->setSizeHint(itemWidget(item)->sizeHint());
   item->setHidden(true);
+
+  QFont font;
+  font.setPointSize(12);
+  item->setFont(font);
 
   if (near)
     nearest[station->id()] = true;
+}
 
+void
+MainListWidget::stationsUpdated(QList < Station * > list, bool near)
+{
+  foreach (Station *station, list)
+    addStation(station, near);
   filter();
 }
 
 void
-MainTreeWidget::statusUpdated(Station *station)
+MainListWidget::stationUpdated(Station *station, bool near)
 {
-  QTreeWidgetItem *item = items[station];
+  addStation(station, near);
+  filter();
+}
+
+void
+MainListWidget::statusUpdated(Station *station)
+{
+  QListWidgetItem *item = items[station];
+  StationWidget *widget;
 
   if (!item)
     return ;
-  item->setData(1, Qt::DisplayRole, station->bikes());
-  item->setData(2, Qt::DisplayRole, station->freeSlots());
-  item->setData(3, Qt::DisplayRole, station->totalSlots());
+  widget = dynamic_cast<StationWidget *>(itemWidget(item));
+  if (widget)
+    widget->update();
+
   filter();
 }
 
 void
-MainTreeWidget::openStationDialog(QTreeWidgetItem *item)
+MainListWidget::openStationDialog(QListWidgetItem *item)
 {
-  Station *station = (Station *)item->data(0, Qt::UserRole).value<void *>();
+  Station *station = (Station *)item->data(Qt::UserRole).value<void *>();
 
   if (!station)
     return ;
@@ -247,10 +238,10 @@ MainTreeWidget::openStationDialog(QTreeWidgetItem *item)
 }
 
 void
-MainTreeWidget::action(QAction *action)
+MainListWidget::action(QAction *action)
 {
-  foreach (QTreeWidgetItem *item,  selectedItems()) {
-    Station *station = (Station *)item->data(0, Qt::UserRole).value<void *>();
+  foreach (QListWidgetItem *item,  selectedItems()) {
+    Station *station = (Station *)item->data(Qt::UserRole).value<void *>();
 
     if (!station)
       continue;
@@ -281,8 +272,9 @@ MainTreeWidget::action(QAction *action)
 
       conf.beginGroup("Bookmarks");
       bookmark = conf.value(key).toBool();
-      if (bookmark)
-	conf.setValue(key, bookmark);
+
+      if (!bookmark)
+	conf.setValue(key, true);
       else
 	conf.remove(key);
       bookmarks[station->id()] = !bookmark;
@@ -291,10 +283,10 @@ MainTreeWidget::action(QAction *action)
 }
 
 void
-MainTreeWidget::contextMenuEvent(QContextMenuEvent * event)
+MainListWidget::contextMenuEvent(QContextMenuEvent * event)
 {
-  QTreeWidgetItem *item = itemAt(event->pos());
-  Station *station = (Station *)item->data(0, Qt::UserRole).value<void *>();
+  QListWidgetItem *item = itemAt(event->pos());
+  Station *station = (Station *)item->data(Qt::UserRole).value<void *>();
   Settings conf;
   bool bookmark;
 
