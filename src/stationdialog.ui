@@ -66,7 +66,10 @@
    <item row="3" column="0">
     <widget class="QLabel" name="slotLabel">
      <property name="text">
-      <string>Free Slots:</string>
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="../res/quickvelov.qrc">:/res/slot.png</pixmap>
      </property>
     </widget>
    </item>
@@ -93,7 +96,10 @@
    <item row="4" column="0">
     <widget class="QLabel" name="bikeLabel">
      <property name="text">
-      <string>Bikes:</string>
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="../res/quickvelov.qrc">:/res/bike.png</pixmap>
      </property>
     </widget>
    </item>
