@@ -11,10 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Quick Velo'v</string>
+   <string>Lugdulo'v</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../res/quickvelov.qrc">
+   <iconset resource="../res/lugdulov.qrc">
     <normaloff>:/res/icon.png</normaloff>:/res/icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -107,7 +107,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../res/quickvelov.qrc"/>
+  <include location="../res/lugdulov.qrc"/>
  </resources>
  <connections>
   <connection>

@@ -10,7 +10,7 @@ INCLUDE( ${QT_USE_FILE} )
 INCLUDE_DIRECTORIES(
 	${CMAKE_CURRENT_SOURCE_DIR}
 	${CMAKE_CURRENT_BINARY_DIR}
-	${quickvelov_BINARY_DIR}
+	${lugdulov_BINARY_DIR}
 	${QJSON_INCLUDE_DIR}
 )
 
@@ -18,7 +18,7 @@ LINK_DIRECTORIES(
 	${QJSON_LIBRARY_DIRS}
 )
 
-SET(quickvelov_SRCS
+SET(lugdulov_SRCS
   main.cpp
   mainwindow.cpp
   mainlistwidget.cpp
@@ -29,12 +29,12 @@ SET(quickvelov_SRCS
   stationwidget.cpp
   stationdialog.cpp)
 
-SET(quickvelov_UIS
+SET(lugdulov_UIS
   mainwindow.ui
   stationwidget.ui
   stationdialog.ui)
 
-SET(quickvelov_MOC_HDRS
+SET(lugdulov_MOC_HDRS
   mainwindow.h
   mainlistwidget.h
   stations.h
@@ -42,15 +42,15 @@ SET(quickvelov_MOC_HDRS
   stationwidget.h
   stationdialog.h)
 
-SET(quickvelov_RCS ../res/quickvelov.qrc)
+SET(lugdulov_RCS ../res/lugdulov.qrc)
 
-QT4_WRAP_CPP(MOC_SOURCE ${quickvelov_MOC_HDRS})
-QT4_WRAP_UI(UI_HDRS ${quickvelov_UIS})
-QT4_ADD_RESOURCES(RC_SRCS ${quickvelov_RCS})
+QT4_WRAP_CPP(MOC_SOURCE ${lugdulov_MOC_HDRS})
+QT4_WRAP_UI(UI_HDRS ${lugdulov_UIS})
+QT4_ADD_RESOURCES(RC_SRCS ${lugdulov_RCS})
 
 ADD_EXECUTABLE(
-	quickvelov
-	${quickvelov_SRCS}
+	lugdulov
+	${lugdulov_SRCS}
 	${UI_HDRS}
 	${MOC_SOURCE}
 	${RC_SRCS}
@@ -69,12 +69,12 @@ if (QTBEARER_FOUND)
 endif ()
 
 TARGET_LINK_LIBRARIES(
-	quickvelov
+	lugdulov
 	${QT_LIBRARIES}
 	${QJSON_LIBRARIES}
 )
 
-install(TARGETS quickvelov
+install(TARGETS lugdulov
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
   ARCHIVE DESTINATION lib

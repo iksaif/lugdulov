@@ -186,9 +186,9 @@ MainWindow::~MainWindow()
 void
 MainWindow::about()
 {
-  QMessageBox::about(this, tr("About Quick Velo'V " QUICK_VELOV_VERSION),
-		     tr("Version: " QUICK_VELOV_VERSION "\n"
-			"Home: http://xf.iksaif.net/dev/quickvelov.html\n\n"
+  QMessageBox::about(this, tr("About Quick Velo'V " LUGDULOV_VERSION),
+		     tr("Version: " LUGDULOV_VERSION "\n"
+			"Home: http://xf.iksaif.net/dev/lugdulov.html\n\n"
 			"Copyright (C) 2010 Corentin Chary <corentin.chary@gmail.com>\n"
 			"\n"
 			"This program is free software; you can redistribute it and/or modify\n"

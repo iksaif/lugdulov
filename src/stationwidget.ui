@@ -35,7 +35,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="../res/quickvelov.qrc">:/res/slot.png</pixmap>
+        <pixmap resource="../res/lugdulov.qrc">:/res/slot.png</pixmap>
        </property>
       </widget>
      </item>
@@ -52,7 +52,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="../res/quickvelov.qrc">:/res/bike.png</pixmap>
+        <pixmap resource="../res/lugdulov.qrc">:/res/bike.png</pixmap>
        </property>
       </widget>
      </item>
@@ -77,7 +77,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../res/quickvelov.qrc">:/res/favorites.png</pixmap>
+      <pixmap resource="../res/lugdulov.qrc">:/res/favorites.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -87,7 +87,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../res/quickvelov.qrc"/>
+  <include location="../res/lugdulov.qrc"/>
  </resources>
  <connections/>
 </ui>

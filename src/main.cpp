@@ -27,9 +27,9 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QCoreApplication::setOrganizationName("QuickVelov");
-    QCoreApplication::setApplicationName("QuickVelov");
-    QCoreApplication::setApplicationVersion(QUICK_VELOV_VERSION);
+    QCoreApplication::setOrganizationName("Lugdulov");
+    QCoreApplication::setApplicationName("Lugdulov");
+    QCoreApplication::setApplicationVersion(LUGDULOV_VERSION);
     Settings::settings();
 
     MainWindow w;

@@ -69,7 +69,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../res/quickvelov.qrc">:/res/slot.png</pixmap>
+      <pixmap resource="../res/lugdulov.qrc">:/res/slot.png</pixmap>
      </property>
     </widget>
    </item>
@@ -99,7 +99,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../res/quickvelov.qrc">:/res/bike.png</pixmap>
+      <pixmap resource="../res/lugdulov.qrc">:/res/bike.png</pixmap>
      </property>
     </widget>
    </item>
@@ -131,7 +131,7 @@
         <string>Gmap</string>
        </property>
        <property name="icon">
-        <iconset resource="../res/quickvelov.qrc">
+        <iconset resource="../res/lugdulov.qrc">
          <normaloff>:/res/google-maps.png</normaloff>:/res/google-maps.png</iconset>
        </property>
       </widget>
@@ -142,7 +142,7 @@
         <string>Velo'v</string>
        </property>
        <property name="icon">
-        <iconset resource="../res/quickvelov.qrc">
+        <iconset resource="../res/lugdulov.qrc">
          <normaloff>:/res/icon.png</normaloff>:/res/icon.png</iconset>
        </property>
       </widget>
@@ -153,7 +153,7 @@
         <string>Bookmark</string>
        </property>
        <property name="icon">
-        <iconset resource="../res/quickvelov.qrc">
+        <iconset resource="../res/lugdulov.qrc">
          <normaloff>:/res/favorites.png</normaloff>:/res/favorites.png</iconset>
        </property>
        <property name="checkable">
@@ -166,7 +166,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../res/quickvelov.qrc"/>
+  <include location="../res/lugdulov.qrc"/>
  </resources>
  <connections/>
 </ui>
