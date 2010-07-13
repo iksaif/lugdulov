@@ -28,7 +28,9 @@
 #include <QGeoCoordinate>
 #include <QGeoPositionInfo>
 #include <QGeoPositionInfoSource>
+#endif
 
+#if defined(HAVE_QT_LOCATION) || defined(HAVE_QT_BEARER)
 using namespace QtMobility;
 #endif
 
@@ -57,6 +59,8 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
   void fetchStations();
 
  private slots:
+  void delayedInit();
+
   void about();
   void velov();
   void aboutQt();

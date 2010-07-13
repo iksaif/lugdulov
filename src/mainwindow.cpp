@@ -16,13 +16,20 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
+#include "config.h"
+
 #include <QtGui/QDesktopServices>
 #include <QtGui/QMessageBox>
 #include <QtCore/QTimer>
 
+#ifdef HAVE_QT_BEARER
+#include <QNetworkConfigurationManager>
+#include <QNetworkConfiguration>
+#include <QNetworkSession>
+#endif
+
 #include <QDebug>
 
-#include "config.h"
 #include "stations.h"
 #include "station.h"
 #include "mainwindow.h"
@@ -45,9 +52,8 @@ MainWindow::MainWindow(QWidget *parent)
   setupListWidget();
 
   lineEdit->setFocus(Qt::OtherFocusReason);
-  fetchStations();
-  //stations->fetchFromFile(":/res/stations.json");
-  //stations->fetchAll();
+
+  QTimer::singleShot(0, this, SLOT(delayedInit()));
 }
 
 void
@@ -100,6 +106,26 @@ MainWindow::setupListWidget()
 	  listWidget, SLOT(filter(const QString &)));
   connect(pushButton, SIGNAL(clicked()), listWidget, SLOT(update()));
   connect(comboBox, SIGNAL(activated(const QString &)), listWidget, SLOT(setRegion(const QString &)));
+}
+
+void
+MainWindow::delayedInit()
+{
+#ifdef HAVE_QT_BEARER
+  QNetworkConfigurationManager mgr;
+  QNetworkConfiguration ap = mgr.defaultConfiguration();
+  QNetworkSession* session = new QNetworkSession(ap);
+
+  session->open();
+  if (!session->waitForOpened(-1)) {
+    QMessageBox::critical(this, tr("Network Error"), session->errorString());
+    QApplication::instance()->quit();
+  }
+#endif
+
+  fetchStations();
+  //stations->fetchFromFile(":/res/stations.json");
+  //stations->fetchAll();
 }
 
 #ifdef HAVE_QT_LOCATION
