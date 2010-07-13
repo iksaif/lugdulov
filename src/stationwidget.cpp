@@ -23,6 +23,13 @@ StationWidget::StationWidget(Station *station, QWidget * parent)
   : QWidget(parent), station(station)
 {
   setupUi(this);
+
+#ifdef Q_WS_MAEMO_5
+  QFont font;
+  font.setPointSize(10);
+  dstLabel->setFont(font);
+#endif
+
   //setAutoFillBackground(true);
   update();
 }

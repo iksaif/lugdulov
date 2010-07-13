@@ -57,6 +57,7 @@ StationDialog::StationDialog(Station *s, QWidget * parent)
   connect(QApplication::desktop(), SIGNAL(resized(int)), this, SLOT(orientationChanged()));
 #endif
 
+  iconLabel->setText("");
   iconLabel->hide();
   resize(sizeHint());
 
@@ -135,7 +136,7 @@ void StationDialog::bookmark(bool bookmark)
   key = key.arg(station->id());
 
   conf.beginGroup("Bookmarks");
-  if (!bookmark)
+  if (bookmark)
     conf.setValue(key, true);
   else
     conf.remove(key);

@@ -182,9 +182,11 @@ MainListWidget::addStation(Station *station, bool near)
   item->setSizeHint(itemWidget(item)->sizeHint());
   item->setHidden(true);
 
+#ifndef Q_WS_MAEMO_5
   QFont font;
   font.setPointSize(12);
   item->setFont(font);
+#endif
 
   if (near)
     nearest[station->id()] = true;
