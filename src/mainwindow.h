@@ -32,6 +32,10 @@
 using namespace QtMobility;
 #endif
 
+#ifdef Q_WS_MAEMO_5
+#include <QMaemo5InformationBox>
+#endif
+
 #include "ui_mainwindow.h"
 
 class Stations;
@@ -56,6 +60,11 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
   void about();
   void velov();
   void aboutQt();
+#ifdef Q_WS_MAEMO_5
+  void statusMsg(const QString & msg, int timeout = QMaemo5InformationBox::DefaultTimeout);
+#else
+  void statusMsg(const QString & msg, int timeout = 2000);
+#endif
 
   void error(const QString & title, const QString & message);
   void started();

@@ -18,6 +18,7 @@
 
 #include "stationwidget.h"
 #include "station.h"
+#include "settings.h"
 
 StationWidget::StationWidget(Station *station, QWidget * parent)
   : QWidget(parent), station(station)
@@ -45,6 +46,26 @@ StationWidget::update()
     bikeLabel->setNum(station->bikes());
   if (station->freeSlots() != -1)
     slotLabel->setNum(station->freeSlots());
-  //nameLabel->setText(station->name());
-  dstLabel->setText(station->description());
+
+  QString descr = station->description();
+
+#ifdef Q_WS_MAEMO_5
+  QRect screenGeometry = QApplication::desktop()->screenGeometry();
+
+  if (screenGeometry.width() < screenGeometry.height()) {
+    if (descr.size() > 30) {
+      descr = descr.left(30) + tr("...");
+    }
+  }
+#endif
+
+  if (station->distance() != -1)
+    descr += QString(" (%2m)").arg((int)station->distance());
+  dstLabel->setText(descr);
+
+
+  Settings conf;
+  conf.beginGroup("Bookmarks");
+  if (!conf.value(QString("%1").arg(station->id())).toBool())
+    bookmarkLabel->hide();
 }

@@ -142,9 +142,15 @@ MainListWidget::filter()
   for (int i = 0; i < count(); ++i)
     item(i)->setHidden(true);
 
-  foreach (int i, bookmarks.keys())
-    if ((bookmarks[i] || nearest[i]) && itemsById[i])
+  foreach (int i, bookmarks.keys()) {
+    if (bookmarks[i] && itemsById[i])
       itemsById[i]->setHidden(false);
+  }
+
+  foreach (int i, nearest.keys()) {
+    if (nearest[i] && itemsById[i])
+      itemsById[i]->setHidden(false);
+  }
 
   foreach (QListWidgetItem *item, items) {
     if (checkRegion) {
@@ -198,6 +204,7 @@ MainListWidget::stationsUpdated(QList < Station * > list, bool near)
   foreach (Station *station, list)
     addStation(station, near);
   filter();
+  update();
 }
 
 void

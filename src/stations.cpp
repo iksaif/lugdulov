@@ -144,7 +144,8 @@ Stations::handleProperties(const QByteArray & data, Request req)
 {
   QJson::Parser parser;
   bool ok;
-
+  QList < Station * > list;
+  QMap < Station * , bool > status;
   QVariant result = parser.parse(data, &ok);
 
   if (!ok)
@@ -166,11 +167,13 @@ Stations::handleProperties(const QByteArray & data, Request req)
     id = sta["numStation"].toInt();
     if (!stations[id])
       stations[id] = new Station();
+
     station = stations[id];
     station->setId(sta["numStation"].toInt());
     station->setName(sta["nomStation"].toString());
     station->setDescription(sta["infoStation"].toString());
     station->setPos(QPointF(sta["x"].toReal(), sta["y"].toReal()));
+    station->setDistance(sta["distance"].toReal());
     if (req.region.isEmpty())
       station->setRegion(sta["codePostal"].toString()); /* Ext */
     else
@@ -183,12 +186,16 @@ Stations::handleProperties(const QByteArray & data, Request req)
       station->setTotalSlots(sta["total"].toInt());
       station->setBikes(sta["available"].toInt());
       station->setTicket(sta["ticket"].toInt());
+      status[station] = true;
     }
 
-    emit stationUpdated(station, req.type == Request::PropertiesNear);
+    list << station;
+  }
 
-    /* Got extended properties */
-    if (sta.count() != 0)
+  emit stationsUpdated(list, req.type == Request::PropertiesNear);
+
+  foreach (Station *station, list) {
+    if (status[station])
       emit statusUpdated(station);
   }
 }

@@ -40,6 +40,7 @@ class Station
   int freeSlots();
   int totalSlots();
   int ticket();
+  double distance();
 
   void setId(int id);
   void setName(const QString & name);
@@ -50,6 +51,7 @@ class Station
   void setFreeSlots(int freeSlots);
   void setTotalSlots(int totalSlots);
   void setTicket(int ticket);
+  void setDistance(double dst);
 
   static QUrl stationJsonUrl(int id);
   static QUrl stationsJsonUrl(const QString &region);
@@ -71,6 +73,7 @@ class Station
   int freeSlots_;
   int totalSlots_;
   int ticket_;
+  double distance_;
 };
 
 #endif /* STATION_H */

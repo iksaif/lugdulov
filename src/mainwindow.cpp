@@ -107,10 +107,10 @@ void
 MainWindow::fetchStations()
 {
   localisation = QGeoPositionInfoSource::createDefaultSource(this);
+  statusMsg(tr("Waiting for GPS fix..."));
 
   // For bookmarks
   QTimer::singleShot(100, stations, SLOT(fetchBuiltIn()));
-  QTimer::singleShot(200, listWidget, SLOT(update()));
 
   if (!localisation)
     return ;
@@ -134,6 +134,8 @@ void
 MainWindow::positionUpdated(QGeoPositionInfo info)
 {
   QGeoCoordinate coord = info.coordinate();
+
+  statusMsg(tr("GPS Position updated."));
 
   position = info;
 
@@ -215,6 +217,18 @@ MainWindow::progress(qint64 done, qint64 total)
   setAttribute(Qt::WA_Maemo5ShowProgressIndicator, !(done == total));
 #endif
   updateBar->setValue(done);
+}
+
+void
+MainWindow::statusMsg(const QString & msg, int timeout)
+{
+#ifdef Q_WS_MAEMO_5
+  if (!timeout)
+    timeout = NoTimeout;
+  QMaemo5InformationBox::information(this, msg, timeout);
+#else
+  statusBar()->showMessage(msg, timeout);
+#endif
 }
 
 void

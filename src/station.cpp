@@ -21,7 +21,7 @@
 Station::Station()
 {
   id_ = -1;
-  bikes_ = freeSlots_ = ticket_ = totalSlots_ = -1;
+  distance_ = bikes_ = freeSlots_ = ticket_ = totalSlots_ = -1;
 }
 
 Station::~Station()
@@ -62,6 +62,12 @@ QPointF
 Station::pos()
 {
   return pos_;
+}
+
+double
+Station::distance()
+{
+  return distance_;
 }
 
 int
@@ -116,6 +122,12 @@ void
 Station::setPos(const QPointF & pos)
 {
   pos_ = pos;
+}
+
+void
+Station::setDistance(double distance)
+{
+  distance_ = distance;
 }
 
 void
