@@ -161,11 +161,13 @@ MainWindow::positionUpdated(QGeoPositionInfo info)
 {
   QGeoCoordinate coord = info.coordinate();
 
+  if (!coord.isValid())
+    return ;
+
   statusMsg(tr("GPS Position updated."));
 
   position = info;
 
-  qWarning() << coord << coord.latitude() << coord.longitude();
   listWidget->clearNear();
   stations->fetchPos(QPointF(coord.latitude(), coord.longitude()), 5);
 }
@@ -186,7 +188,7 @@ MainWindow::~MainWindow()
 void
 MainWindow::about()
 {
-  QMessageBox::about(this, tr("About Quick Velo'V " LUGDULOV_VERSION),
+  QMessageBox::about(this, tr("About Lugdulo'v " LUGDULOV_VERSION),
 		     tr("Version: " LUGDULOV_VERSION "\n"
 			"Home: http://xf.iksaif.net/dev/lugdulov.html\n\n"
 			"Copyright (C) 2010 Corentin Chary <corentin.chary@gmail.com>\n"
@@ -250,7 +252,7 @@ MainWindow::statusMsg(const QString & msg, int timeout)
 {
 #ifdef Q_WS_MAEMO_5
   if (!timeout)
-    timeout = NoTimeout;
+    timeout = QMaemo5InformationBox::NoTimeout;
   QMaemo5InformationBox::information(this, msg, timeout);
 #else
   statusBar()->showMessage(msg, timeout);

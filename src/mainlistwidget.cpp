@@ -51,8 +51,13 @@ MainListWidget::MainListWidget(QWidget *parent)
   menu->addAction(velovAction);
 
   connect(menu, SIGNAL(triggered(QAction *)), this, SLOT(action(QAction *)));
+#ifdef Q_WS_MAEMO_5
+  connect(this, SIGNAL(itemClicked(QListWidgetItem *)),
+	  this, SLOT(openStationDialog(QListWidgetItem *)));
+#else
   connect(this, SIGNAL(itemDoubleClicked(QListWidgetItem *)),
 	  this, SLOT(openStationDialog(QListWidgetItem *)));
+#endif
 
   loadBookmarks();
 }
@@ -295,9 +300,14 @@ void
 MainListWidget::contextMenuEvent(QContextMenuEvent * event)
 {
   QListWidgetItem *item = itemAt(event->pos());
-  Station *station = (Station *)item->data(Qt::UserRole).value<void *>();
+  Station *station;
   Settings conf;
   bool bookmark;
+
+  if (!item)
+    return ;
+
+  station = (Station *)item->data(Qt::UserRole).value<void *>();
 
   if (!station)
     return ;
