@@ -68,7 +68,6 @@ if (QTBEARER_FOUND)
   TARGET_LINK_LIBRARIES(lugdulov ${QTBEARER_LIBRARIES})
 endif ()
 
-CHECK_SYMBOL_EXISTS(Q_WS_MAEMO_5 "QtCore/qglobal.h" Q_WS_MAEMO_5)
 if (Q_WS_MAEMO_5)
   TARGET_LINK_LIBRARIES(lugdulov QtMaemo5)
 endif()

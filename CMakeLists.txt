@@ -18,6 +18,8 @@ find_package(QJSON REQUIRED)
 find_package(QtLocation)
 find_package(QtBearer)
 
+CHECK_SYMBOL_EXISTS(Q_WS_MAEMO_5 "QtCore/qglobal.h" Q_WS_MAEMO_5)
+
 set(HAVE_QT_LOCATION ${QTLOCATION_FOUND})
 set(HAVE_QT_BEARER ${QTBEARER_FOUND})
 
@@ -51,6 +53,7 @@ set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include" CACHE STRING "Director
 set (LUGDULOV_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
 add_subdirectory(src)
+add_subdirectory(pkg)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake config.h ESCAPE_QUOTES)
 

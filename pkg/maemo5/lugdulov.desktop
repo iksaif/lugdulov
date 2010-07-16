@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=0.0.1
+Encoding=UTF-8
+Name=Lugdulov
+Exec=/opt/lugdulov/bin/lugdulov
+Type=Application
+Icon=lugdulov
+
+Name[fr_FR]=lugdulov.desktop
