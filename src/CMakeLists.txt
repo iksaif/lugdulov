@@ -46,7 +46,12 @@ set(lugdulov_RCS ../res/lugdulov.qrc ../i18n/i18n.qrc)
 set(lugdulov_TRS ../i18n/lugdulov_fr.ts)
 set_source_files_properties(${lugdulov_TRS} PROPERTIES OUTPUT_LOCATION ${lugdulov_SOURCE_DIR}/i18n)
 
-qt4_add_translation(QM_FILES ${lugdulov_TRS})
+if (Q_WS_MAEMO_5)
+  maemo_qt4_add_translation(QM_FILES ${lugdulov_TRS})
+else()
+  qt4_add_translation(QM_FILES ${lugdulov_TRS})
+endif()
+
 qt4_wrap_cpp(MOC_SOURCE ${lugdulov_MOC_HDRS})
 qt4_wrap_ui(UI_HDRS ${lugdulov_UIS})
 qt4_add_resources(RC_SRCS ${lugdulov_RCS})

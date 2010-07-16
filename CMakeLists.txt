@@ -13,6 +13,8 @@ if(CMAKE_SYSTEM_NAME MATCHES Linux)
 endif()
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/)
 
+include(QtTranslations) # Local file for maemo_qt4_add_translation()
+
 find_package(Qt4 REQUIRED)
 find_package(QJSON REQUIRED)
 find_package(QtLocation)
