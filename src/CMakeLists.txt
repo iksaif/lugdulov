@@ -4,21 +4,21 @@ set(QT_USE_QTNETWORK TRUE)
 set(QT_USE_QTXML TRUE)
 set(QT_USE_QTSQL TRUE)
 
-INCLUDE( ${QT_USE_FILE} )
+include( ${QT_USE_FILE} )
 
 # Include the library include directories, and the current build directory (moc)
-INCLUDE_DIRECTORIES(
+include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}
 	${CMAKE_CURRENT_BINARY_DIR}
 	${lugdulov_BINARY_DIR}
 	${QJSON_INCLUDE_DIR}
 )
 
-LINK_DIRECTORIES(
+link_directories(
 	${QJSON_LIBRARY_DIRS}
 )
 
-SET(lugdulov_SRCS
+set(lugdulov_SRCS
   main.cpp
   mainwindow.cpp
   mainlistwidget.cpp
@@ -29,12 +29,12 @@ SET(lugdulov_SRCS
   stationwidget.cpp
   stationdialog.cpp)
 
-SET(lugdulov_UIS
+set(lugdulov_UIS
   mainwindow.ui
   stationwidget.ui
   stationdialog.ui)
 
-SET(lugdulov_MOC_HDRS
+set(lugdulov_MOC_HDRS
   mainwindow.h
   mainlistwidget.h
   stations.h
@@ -42,37 +42,41 @@ SET(lugdulov_MOC_HDRS
   stationwidget.h
   stationdialog.h)
 
-SET(lugdulov_RCS ../res/lugdulov.qrc)
+set(lugdulov_RCS ../res/lugdulov.qrc ../i18n/i18n.qrc)
+set(lugdulov_TRS ../i18n/lugdulov_fr.ts)
+set_source_files_properties(${lugdulov_TRS} PROPERTIES OUTPUT_LOCATION ${lugdulov_SOURCE_DIR}/i18n)
 
-QT4_WRAP_CPP(MOC_SOURCE ${lugdulov_MOC_HDRS})
-QT4_WRAP_UI(UI_HDRS ${lugdulov_UIS})
-QT4_ADD_RESOURCES(RC_SRCS ${lugdulov_RCS})
+qt4_add_translation(QM_FILES ${lugdulov_TRS})
+qt4_wrap_cpp(MOC_SOURCE ${lugdulov_MOC_HDRS})
+qt4_wrap_ui(UI_HDRS ${lugdulov_UIS})
+qt4_add_resources(RC_SRCS ${lugdulov_RCS})
 
-ADD_EXECUTABLE(
+add_executable(
 	lugdulov
 	${lugdulov_SRCS}
 	${UI_HDRS}
 	${MOC_SOURCE}
 	${RC_SRCS}
+	${QM_FILES}
 )
 
 if (QTLOCATION_FOUND)
-  INCLUDE_DIRECTORIES(${QTLOCATION_INCLUDE_DIR})
-  LINK_DIRECTORIES(${QTLOCATION_LIBRARY_DIRS})
-  TARGET_LINK_LIBRARIES(lugdulov ${QTLOCATION_LIBRARIES})
+  include_directories(${QTLOCATION_INCLUDE_DIR})
+  link_directories(${QTLOCATION_LIBRARY_DIRS})
+  target_link_libraries(lugdulov ${QTLOCATION_LIBRARIES})
 endif ()
 
 if (QTBEARER_FOUND)
-  INCLUDE_DIRECTORIES(${QTBEARER_INCLUDE_DIR})
-  LINK_DIRECTORIES(${QTBEARER_LIBRARY_DIRS})
-  TARGET_LINK_LIBRARIES(lugdulov ${QTBEARER_LIBRARIES})
+  include_directories(${QTBEARER_INCLUDE_DIR})
+  link_directories(${QTBEARER_LIBRARY_DIRS})
+  target_link_libraries(lugdulov ${QTBEARER_LIBRARIES})
 endif ()
 
 if (Q_WS_MAEMO_5)
-  TARGET_LINK_LIBRARIES(lugdulov QtMaemo5)
+  target_link_libraries(lugdulov QtMaemo5)
 endif()
 
-TARGET_LINK_LIBRARIES(
+target_link_libraries(
 	lugdulov
 	${QT_LIBRARIES}
 	${QJSON_LIBRARIES}

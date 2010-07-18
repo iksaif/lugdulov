@@ -21,13 +21,6 @@
 #include <QtGui/QDesktopServices>
 #include <QtGui/QMessageBox>
 #include <QtCore/QTimer>
-
-#ifdef HAVE_QT_BEARER
-#include <QNetworkConfigurationManager>
-#include <QNetworkConfiguration>
-#include <QNetworkSession>
-#endif
-
 #include <QDebug>
 
 #include "stations.h"
@@ -133,13 +126,14 @@ void
 MainWindow::fetchStations()
 {
   localisation = QGeoPositionInfoSource::createDefaultSource(this);
-  statusMsg(tr("Waiting for GPS fix..."));
 
   // For bookmarks
   QTimer::singleShot(100, stations, SLOT(fetchBuiltIn()));
 
   if (!localisation)
     return ;
+
+  statusMsg(tr("Waiting for GPS fix..."));
 
   connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)),
 	  this, SLOT(positionUpdated(QGeoPositionInfo)));

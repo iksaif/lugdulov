@@ -17,6 +17,8 @@
  */
 
 #include <QtGui/QApplication>
+#include <QtCore/QTranslator>
+#include <QtCore/QLibraryInfo>
 
 #include "config.h"
 
@@ -25,14 +27,24 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    QApplication app(argc, argv);
+
+    QTranslator qtTranslator;
+    qtTranslator.load("qt_" + QLocale::system().name(),
+		      QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    app.installTranslator(&qtTranslator);
+
+    QTranslator lugdulovTranslator;
+    lugdulovTranslator.load("lugdulov_" + QLocale::system().name(), ":/");
+    app.installTranslator(&lugdulovTranslator);
 
     QCoreApplication::setOrganizationName("Lugdulov");
     QCoreApplication::setApplicationName("Lugdulov");
     QCoreApplication::setApplicationVersion(LUGDULOV_VERSION);
+
     Settings::settings();
 
     MainWindow w;
     w.show();
-    return a.exec();
+    return app.exec();
 }

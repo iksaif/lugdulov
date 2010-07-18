@@ -19,24 +19,13 @@
 #ifndef MAINWINDOW_H
 # define MAINWINDOW_H
 
-#include "config.h"
-
 #include <QtGui/QProgressBar>
-
-#ifdef HAVE_QT_LOCATION
-/* Can't use QtLocation/ prefix because Maemo installation is crappy */
-#include <QGeoCoordinate>
-#include <QGeoPositionInfo>
-#include <QGeoPositionInfoSource>
-#endif
-
-#if defined(HAVE_QT_LOCATION) || defined(HAVE_QT_BEARER)
-using namespace QtMobility;
-#endif
 
 #ifdef Q_WS_MAEMO_5
 #include <QtMaemo5/QMaemo5InformationBox>
 #endif
+
+#include "mobility.h"
 
 #include "ui_mainwindow.h"
 

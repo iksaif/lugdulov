@@ -1,13 +1,21 @@
 LUGDULOV_BASE = ..
 LUGDULOV_SRCBASE = .
-TEMPLATE = lib
-QT -= gui
+
+TEMPLATE = app
+
+QT += gui xml
+
 TARGET = lugdulov
 DESTDIR = $$LUGDULOV_BASE/bin
+
 CONFIG += create_prl
+
 VERSION = 0.0.1
+
 LUGDULOV_CPP = $$LUGDULOV_SRCBASE
-INCLUDEPATH += $$LUGDULOV_CPP
+INCLUDEPATH += $$LUGDULOV_CPP ../qmake/
+LIBS+= -lQtBearer -lQtLocation -lqjson
+
 HEADERS += mainlistwidget.h \
     mainwindow.h \
     settings.h \
@@ -16,6 +24,7 @@ HEADERS += mainlistwidget.h \
     stationsbuiltin.h \
     stations.h \
     stationwidget.h
+
 SOURCES += main.cpp \
     mainlistwidget.cpp \
     mainwindow.cpp \
@@ -26,22 +35,20 @@ SOURCES += main.cpp \
     stations.cpp \
     stationwidget.cpp
 
-TRANSLATIONS = lugdulov_fr.ts
+TRANSLATIONS = ../i18n/lugdulov_fr.ts
 
-symbian: { 
+symbian: {
     TARGET.EPOCALLOWDLLDATA = 1
-    
-    # uid for the dll
-    # TARGET.UID3=
+
     TARGET.CAPABILITY = ReadDeviceData \
         WriteDeviceData
-    
-    # add dll to the sis
+
     LugdulovDeployment.sources = $${TARGET}.exe
     LugdulovDeployment.path = /sys/bin
     DEPLOYMENT += LugdulovDeployment
 }
-OTHER_FILES += *ui \
+
+OTHER_FILES += \
     ../res/stations.json \
     ../res/velov.png \
     ../res/slot.png \
@@ -49,4 +56,6 @@ OTHER_FILES += *ui \
     ../res/google-maps.png \
     ../res/favorites.png \
     ../res/bike.png
-RESOURCES += ../res/lugdulov.qrc
+
+FORMS += mainwindow.ui stationdialog.ui stationwidget.ui
+RESOURCES += ../res/lugdulov.qrc ../i18n/i18n.qrc
