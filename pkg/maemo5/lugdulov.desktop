@@ -1,5 +1,5 @@
 [Desktop Entry]
-Version=0.0.1
+Version=0.1.0
 Encoding=UTF-8
 Name=Lugdulov
 Exec=/opt/lugdulov/bin/lugdulov

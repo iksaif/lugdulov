@@ -5,8 +5,8 @@ project(lugdulov)
 include(CMakeDependentOption)
 
 set(VERSION_MAJOR "0")
-set(VERSION_MINOR "0")
-set(VERSION_PATCH "1")
+set(VERSION_MINOR "1")
+set(VERSION_PATCH "0")
 
 if(CMAKE_SYSTEM_NAME MATCHES Linux)
   set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /usr/share/apps/cmake/modules/)
