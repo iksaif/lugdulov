@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="res">
+    <file>icon64.png</file>
     <file>slot.png</file>
     <file>bike.png</file>
     <file>favorites.png</file>

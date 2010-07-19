@@ -41,13 +41,10 @@ StationDialog::StationDialog(Station *s, QWidget * parent)
 
   setWindowTitle(QString("Quick Velo'v - %1").arg(station->name()));
 
-  slotsSlider->setRange(0, station->totalSlots());
-  bikeSlider->setRange(0, station->totalSlots());
-  slotsSlider->setValue(station->freeSlots());
-  bikeSlider->setValue(station->bikes());
-
-  slotSpinBox->setValue(station->freeSlots());
-  bikeSpinBox->setValue(station->bikes());
+  slotsProgressBar->setRange(0, station->totalSlots());
+  bikeProgressBar->setRange(0, station->totalSlots());
+  slotsProgressBar->setValue(station->freeSlots());
+  bikeProgressBar->setValue(station->bikes());
 
   descriptionLabel->setText(station->description());
   stationLabel->setText(station->name());
