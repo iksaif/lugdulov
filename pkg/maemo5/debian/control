@@ -3,13 +3,14 @@ Section: user/navigation
 Priority: extra
 Maintainer: Corentin Chary <corentincj@iksaif.net>
 XSBC-Bugtracker: http://dev.iksaif.net/projects/lugdulov
-Build-Depends: debhelper (>= 5), libqjson-dev, libqtm-dev, libqt4-dev
+Build-Depends: debhelper (>= 5), libqjson-dev, libqtm-dev, libqt4-dev, cmake
 Standards-Version: 3.7.2
 
 Package: lugdulov
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 XB-Description-fr_FR: Recherche de stations de vélos à Lyon
+XB-Maemo-Display-Name: SeriesFinale
 Description: Find a bike in Lyon.
 XB-Maemo-Icon-26:
  iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAAK/I
@@ -136,4 +137,4 @@ XB-Maemo-Icon-26:
  S2zQ/sYvYAiDBoleAvFTIH4BxE+gjn4ELSz+kOMIgACixAPIHgF1vUBj6XxI
  NAfS8D3IcT+gDv2CRH8jNqngAgABRA0PoJvHBHU4M5L5/6EO/QNNIv+pZSFA
  gAEAsPsrptzUyvIAAAAASUVORK5CYII=
- ====
+
