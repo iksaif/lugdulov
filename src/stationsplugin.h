@@ -24,13 +24,13 @@
 
 class Station;
 
-class Stations : public QObject
+class StationsPlugin : public QObject
 {
   Q_OBJECT
 
  public:
-  Stations(QObject *parent);
-  virtual ~Stations();
+  StationsPlugin(QObject *parent);
+  virtual ~StationsPlugin();
 
   virtual QString name() const = 0;
   virtual QString bikeName() const = 0;
@@ -60,17 +60,17 @@ class Stations : public QObject
   void error(const QString & title, const QString & message);
 };
 
-class StationsFactory {
+class StationsPluginFactory {
  public:
-  virtual ~StationsFactory() {}
+  virtual ~StationsPluginFactory() {}
 
   virtual QString id() const = 0;
   virtual QString name() const = 0;
   virtual QIcon icon() const = 0;
-  virtual QList < Stations * > stations(QObject * parent) = 0;
+  virtual QList < StationsPlugin * > stations(QObject * parent) = 0;
 };
 
-Q_DECLARE_INTERFACE(StationsFactory,
-		    "net.iksaif.lugdulov.StationsFactoryInterface/1.0")
+Q_DECLARE_INTERFACE(StationsPluginFactory,
+		    "net.iksaif.lugdulov.StationsPluginFactoryInterface/1.0")
 
 #endif /* STATIONS_H */

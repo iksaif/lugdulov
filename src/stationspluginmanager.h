@@ -24,27 +24,27 @@
 #include <QtCore/QMap>
 #include <QtCore/QDir>
 
-class StationsFactory;
-class Stations;
+class StationsPluginFactory;
+class StationsPlugin;
 
-class StationsManager : public QObject
+class StationsPluginManager : public QObject
 {
   Q_OBJECT
 public:
-  StationsManager(QObject *parent);
-  ~StationsManager();
+  StationsPluginManager(QObject *parent);
+  ~StationsPluginManager();
 
-  QList < Stations * > stations();
+  QList < StationsPlugin * > stations();
 
 private:
   void loadPlugins();
   void loadPlugins(QDir pluginDir);
   void loadPlugin(QObject *plugin);
 
-  void loadStations();
+  void loadStationsPlugin();
 
-  QMap < QString, StationsFactory * > factories;
-  QList < Stations * > list;
+  QMap < QString, StationsPluginFactory * > factories;
+  QList < StationsPlugin * > list;
 };
 
 #endif

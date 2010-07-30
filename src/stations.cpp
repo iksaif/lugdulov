@@ -18,13 +18,13 @@
 
 #include <QtCore/QUrl>
 
-#include "stations.h"
+#include "stationsplugin.h"
 
-Stations::Stations(QObject *parent)
+StationsPlugin::StationsPlugin(QObject *parent)
   : QObject(parent)
 {
 }
 
-Stations::~Stations()
+StationsPlugin::~StationsPlugin()
 {
 }

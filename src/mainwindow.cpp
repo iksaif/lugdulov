@@ -23,8 +23,8 @@
 #include <QtCore/QTimer>
 #include <QDebug>
 
-#include "stations.h"
-#include "stationsmanager.h"
+#include "stationsplugin.h"
+#include "stationspluginmanager.h"
 #include "station.h"
 #include "mainwindow.h"
 #include "stationslistdialog.h"
@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
   createActions();
   createCombo();
 
-  stations = NULL;
+  plugin = NULL;
   QTimer::singleShot(0, this, SLOT(delayedInit()));
 }
 
@@ -56,10 +56,10 @@ MainWindow::~MainWindow()
 void
 MainWindow::createCombo()
 {
-  manager = new StationsManager(this);
+  manager = new StationsPluginManager(this);
 
-  foreach(Stations *stations, manager->stations())
-    stationsComboBox->addItem(stations->bikeIcon(), stations->name(), qVariantFromValue((void *) stations));
+  foreach(StationsPlugin *plugin, manager->stations())
+    stationsComboBox->addItem(plugin->bikeIcon(), plugin->name(), qVariantFromValue((void *) plugin));
 
   connect(stationsComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(comboIndexChanged(int)));
 }
@@ -130,9 +130,9 @@ MainWindow::positionUpdated(QGeoPositionInfo info)
     statusMsg(tr("Got GPS Fix."));
   position = info;
 
-  foreach (Stations *stations, manager->stations()) {
-    if (stations->intersect(QPointF(coord.latitude(), coord.longitude()))) {
-      setStations(stations);
+  foreach (StationsPlugin *plugin, manager->stations()) {
+    if (plugin->intersect(QPointF(coord.latitude(), coord.longitude()))) {
+      setStationsPlugin(plugin);
       break;
     }
   }
@@ -144,21 +144,21 @@ MainWindow::comboIndexChanged(int index)
 {
   QVariant data = stationsComboBox->itemData(index);
 
-  setStations((Stations *)(data.value<void *>()));
+  setStationsPlugin((StationsPlugin *)(data.value<void *>()));
 }
 
 void
-MainWindow::setStations(Stations *sta)
+MainWindow::setStationsPlugin(StationsPlugin *sta)
 {
-  if (!sta || stations == sta)
+  if (!sta || plugin == sta)
     return ;
 
-  stations = sta;
+  plugin = sta;
 
   for (int i = 0; i < stationsComboBox->count(); ++i) {
     QVariant data = stationsComboBox->itemData(i);
 
-    if (stations == (Stations *)data.value<void *>())
+    if (plugin == (StationsPlugin *)data.value<void *>())
       stationsComboBox->setCurrentIndex(i);
   }
 }
@@ -207,23 +207,23 @@ MainWindow::statusMsg(const QString & msg, int timeout)
 void
 MainWindow::search()
 {
-  if (!stations) {
-    chooseStations();
+  if (!plugin) {
+    chooseStationsPlugin();
     return ;
   }
 
   StationsListDialog *dlg = new StationsListDialog(this);
 
   dlg->setMode(StationsListDialog::Search);
-  dlg->setStations(stations);
+  dlg->setStationsPlugin(plugin);
   dlg->exec();
 }
 
 void
 MainWindow::map()
 {
-  if (!stations) {
-    chooseStations();
+  if (!plugin) {
+    chooseStationsPlugin();
     return ;
   }
 
@@ -232,20 +232,20 @@ MainWindow::map()
 void
 MainWindow::bookmarks()
 {
-  if (!stations) {
-    chooseStations();
+  if (!plugin) {
+    chooseStationsPlugin();
     return ;
   }
 
   StationsListDialog *dlg = new StationsListDialog(this);
 
   dlg->setMode(StationsListDialog::Bookmarks);
-  dlg->setStations(stations);
+  dlg->setStationsPlugin(plugin);
   dlg->exec();
 }
 
 void
-MainWindow::chooseStations()
+MainWindow::chooseStationsPlugin()
 {
   QMessageBox::warning(this, tr("Please set Location."),
 		       tr("We can't guess your current location, "

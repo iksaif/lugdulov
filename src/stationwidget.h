@@ -26,7 +26,7 @@
 
 #include "ui_stationwidget.h"
 
-class Stations;
+class StationsPlugin;
 class Station;
 
 class StationWidget : public QWidget, private Ui_StationWidget

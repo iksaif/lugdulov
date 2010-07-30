@@ -39,11 +39,11 @@ set(lugdulov_UIS
 set(lugdulov_MOC_HDRS
   mainwindow.h
   stationslistwidget.h
-  stations.h
+  stationsplugin.h
   settings.h
   stationwidget.h
   stationdialog.h
-  stationsmanager.h
+  stationspluginmanager.h
   stationslistdialog.h)
 
 set(lugdulov_RCS ../res/lugdulov.qrc ../i18n/i18n.qrc)

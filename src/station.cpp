@@ -18,7 +18,7 @@
 
 #include "station.h"
 
-Station::Station(Stations *plugin)
+Station::Station(StationsPlugin *plugin)
   : plugin_(plugin)
 {
   id_ = -1;
@@ -29,7 +29,7 @@ Station::~Station()
 {
 }
 
-Stations *
+StationsPlugin *
 Station::plugin()
 {
   return plugin_;

@@ -22,8 +22,8 @@
 #include <QtCore/QList>
 
 class Station;
-class Stations;
+class StationsPlugin;
 
-QList < Station * > builtinStationsLyon(Stations *plugin);
+QList < Station * > builtinStationsPluginLyon(StationsPlugin *plugin);
 
 #endif

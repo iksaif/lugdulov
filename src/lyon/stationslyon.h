@@ -23,21 +23,21 @@
 #include <QtNetwork/QNetworkReply>
 #include <QtCore/QMap>
 
-#include "stations.h"
+#include "stationsplugin.h"
 
 class Station;
-class StationsFactoryLyon : public QObject, public StationsFactory
+class StationsPluginFactoryLyon : public QObject, public StationsPluginFactory
 {
   Q_OBJECT
-  Q_INTERFACES(StationsFactory)
+  Q_INTERFACES(StationsPluginFactory)
  public:
   QString id() const;
   QString name() const;
   QIcon icon() const;
-  QList < Stations * > stations(QObject * parent);
+  QList < StationsPlugin * > stations(QObject * parent);
 };
 
-class StationsLyon : public Stations
+class StationsPluginLyon : public StationsPlugin
 {
   Q_OBJECT
  private:
@@ -48,8 +48,8 @@ class StationsLyon : public Stations
   };
 
  public:
-  StationsLyon(QObject *parent);
-  ~StationsLyon();
+  StationsPluginLyon(QObject *parent);
+  ~StationsPluginLyon();
 
   QString name() const;
   QString bikeName() const;

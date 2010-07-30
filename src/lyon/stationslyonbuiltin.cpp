@@ -373,7 +373,7 @@ static struct {
         {0, 0, NULL, NULL, 0., 0.}
 };
 
-QList < Station * > builtinStationsLyon(Stations *plugin)
+QList < Station * > builtinStationsPluginLyon(StationsPlugin *plugin)
 {
   QList < Station * > list;
 

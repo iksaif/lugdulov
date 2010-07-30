@@ -23,7 +23,7 @@
 
 #include "ui_stationslistdialog.h"
 
-class Stations;
+class StationsPlugin;
 class Station;
 
 class StationsListDialog : public QDialog, private Ui_StationsListDialog
@@ -37,7 +37,7 @@ class StationsListDialog : public QDialog, private Ui_StationsListDialog
   ~StationsListDialog();
 
   void setMode(Mode mode);
-  void setStations(Stations *stations);
+  void setStationsPlugin(StationsPlugin *stations);
 
  private:
   void setupListWidget();
@@ -53,7 +53,7 @@ class StationsListDialog : public QDialog, private Ui_StationsListDialog
   void error(const QString & title, const QString & message);
 
  private:
-  Stations *stations;
+  StationsPlugin *stations;
 #ifdef HAVE_QT_LOCATION
   QGeoPositionInfo position;
 #endif

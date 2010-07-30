@@ -22,10 +22,10 @@
 
 #include "stationdialog.h"
 #include "station.h"
-#include "stations.h"
+#include "stationsplugin.h"
 #include "settings.h"
 
-StationDialog::StationDialog(Stations *stations, Station *station, QWidget * parent)
+StationDialog::StationDialog(StationsPlugin *stations, Station *station, QWidget * parent)
   :
 #ifdef Q_WS_MAEMO_5
   QDialog(parent, Qt::Window),

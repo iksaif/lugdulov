@@ -32,65 +32,65 @@
 #include "stationslyonbuiltin.h"
 
 QString
-StationsFactoryLyon::id() const
+StationsPluginFactoryLyon::id() const
 {
   return QLatin1String("lyon");
 }
 
 QString
-StationsFactoryLyon::name() const
+StationsPluginFactoryLyon::name() const
 {
-  return QLatin1String("Velo'v Stations - Author: Corentin Chary <corentin.chary@gmail.com>");
+  return QLatin1String("Velo'v StationsPlugin - Author: Corentin Chary <corentin.chary@gmail.com>");
 }
 
 QIcon
-StationsFactoryLyon::icon() const
+StationsPluginFactoryLyon::icon() const
 {
   return QIcon(":/lyon/bike.png");
 }
 
-QList < Stations * >
-StationsFactoryLyon::stations(QObject *parent)
+QList < StationsPlugin * >
+StationsPluginFactoryLyon::stations(QObject *parent)
 {
-  QList < Stations * > ret;
+  QList < StationsPlugin * > ret;
 
-  ret << new StationsLyon(parent);
+  ret << new StationsPluginLyon(parent);
   return ret;
 }
 
-StationsLyon::StationsLyon(QObject *parent)
-  : Stations(parent)
+StationsPluginLyon::StationsPluginLyon(QObject *parent)
+  : StationsPlugin(parent)
 {
   nm = new QNetworkAccessManager(this);
   count = 0;
   step = 0;
 }
 
-StationsLyon::~StationsLyon()
+StationsPluginLyon::~StationsPluginLyon()
 {
   qDeleteAll(stations);
 }
 
 QString
-StationsLyon::name() const
+StationsPluginLyon::name() const
 {
   return QLatin1String("Lyon");
 }
 
 QString
-StationsLyon::bikeName() const
+StationsPluginLyon::bikeName() const
 {
   return QLatin1String("Velo'V");
 }
 
 QIcon
-StationsLyon::bikeIcon() const
+StationsPluginLyon::bikeIcon() const
 {
   return QIcon(":/lyon/bike.png");
 }
 
 bool
-StationsLyon::intersect(const QPointF & pos)
+StationsPluginLyon::intersect(const QPointF & pos)
 {
   if (pos.x() > 45.815042 && pos.x() < 45.61764 &&
       pos.y() > 4.799995  && pos.y() < 5.090103)
@@ -99,15 +99,15 @@ StationsLyon::intersect(const QPointF & pos)
 }
 
 void
-StationsLyon::fetchPos(const QPointF & pos, int num)
+StationsPluginLyon::fetchPos(const QPointF & pos, int num)
 {
   request(stationsJsonUrl(pos, num), Request::PropertiesNear);
 }
 
 void
-StationsLyon::fetchFromFile(const QString & file)
+StationsPluginLyon::fetchFromFile(const QString & file)
 {
-  StationsLyon::Request req = { Request::Properties, -1, QString() };
+  StationsPluginLyon::Request req = { Request::Properties, -1, QString() };
   QFile fp(file);
 
   fp.open(QIODevice::ReadOnly);
@@ -116,9 +116,9 @@ StationsLyon::fetchFromFile(const QString & file)
 }
 
 void
-StationsLyon::fetchAll()
+StationsPluginLyon::fetchAll()
 {
-  QList < Station * > list = builtinStationsLyon(this);
+  QList < Station * > list = builtinStationsPluginLyon(this);
 
   foreach (Station *station, list)
     stations[station->id()] = station;
@@ -126,33 +126,33 @@ StationsLyon::fetchAll()
 }
 
 void
-StationsLyon::fetchFromUrl(const QUrl & url)
+StationsPluginLyon::fetchFromUrl(const QUrl & url)
 {
   request(url, Request::Properties);
 }
 
 void
-StationsLyon::fetchOnline()
+StationsPluginLyon::fetchOnline()
 {
   foreach (QString region, regions())
     fetch(region);
 }
 
 void
-StationsLyon::update(Station *station)
+StationsPluginLyon::update(Station *station)
 {
   fetchStatus(station->id());
 }
 
 void
-StationsLyon::update(QList < Station * > stations)
+StationsPluginLyon::update(QList < Station * > stations)
 {
   foreach (Station *station, stations)
     update(station);
 }
 
 void
-StationsLyon::error(QNetworkReply::NetworkError code)
+StationsPluginLyon::error(QNetworkReply::NetworkError code)
 {
   QNetworkReply *rep = dynamic_cast<QNetworkReply *>(sender());
 
@@ -167,10 +167,10 @@ StationsLyon::error(QNetworkReply::NetworkError code)
 }
 
 void
-StationsLyon::finished()
+StationsPluginLyon::finished()
 {
   QNetworkReply *rep = dynamic_cast<QNetworkReply *>(sender());
-  StationsLyon::Request req = replies[rep];
+  StationsPluginLyon::Request req = replies[rep];
 
   if (rep)
     rep->deleteLater();
@@ -202,7 +202,7 @@ StationsLyon::finished()
 }
 
 void
-StationsLyon::handleProperties(const QByteArray & data, Request req)
+StationsPluginLyon::handleProperties(const QByteArray & data, Request req)
 {
   QJson::Parser parser;
   bool ok;
@@ -263,7 +263,7 @@ StationsLyon::handleProperties(const QByteArray & data, Request req)
 }
 
 void
-StationsLyon::handleStatus(const QByteArray & data, Request req)
+StationsPluginLyon::handleStatus(const QByteArray & data, Request req)
 {
   int id = req.id;
   Station *station;
@@ -289,7 +289,7 @@ StationsLyon::handleStatus(const QByteArray & data, Request req)
 }
 
 void
-StationsLyon::request(const QUrl & url, Request::Type type, int id, const QString & region)
+StationsPluginLyon::request(const QUrl & url, Request::Type type, int id, const QString & region)
 {
   QNetworkReply *rep;
   Request req = {type, id, region};
@@ -307,56 +307,56 @@ StationsLyon::request(const QUrl & url, Request::Type type, int id, const QStrin
 }
 
 void
-StationsLyon::fetch(int id)
+StationsPluginLyon::fetch(int id)
 {
-  request(StationsLyon::stationJsonUrl(id), Request::Properties, id);
+  request(StationsPluginLyon::stationJsonUrl(id), Request::Properties, id);
 }
 
 void
-StationsLyon::fetchStatus(int id)
+StationsPluginLyon::fetchStatus(int id)
 {
-  request(StationsLyon::stationStatusUrl(id), Request::Status, id);
+  request(StationsPluginLyon::stationStatusUrl(id), Request::Status, id);
 }
 
 void
-StationsLyon::fetch(const QString & region)
+StationsPluginLyon::fetch(const QString & region)
 {
-  request(StationsLyon::stationsJsonUrl(region), Request::Properties, -1, region);
+  request(StationsPluginLyon::stationsJsonUrl(region), Request::Properties, -1, region);
 }
 
 
 QUrl
-StationsLyon::stationJsonUrl(int id)
+StationsPluginLyon::stationJsonUrl(int id)
 {
-  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsParId.php?gid=%1").arg(id);
+  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsPluginParId.php?gid=%1").arg(id);
 }
 
 QUrl
-StationsLyon::stationsJsonUrl(const QString &region)
+StationsPluginLyon::stationsJsonUrl(const QString &region)
 {
-  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsParArrondissement.php?arrondissement=%1").arg(region);
+  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsPluginParArrondissement.php?arrondissement=%1").arg(region);
 }
 
 QUrl
-StationsLyon::stationStatusUrl(int id)
+StationsPluginLyon::stationStatusUrl(int id)
 {
-  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/DispoStationsParId.php?id=%1").arg(id);
+  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/DispoStationsPluginParId.php?id=%1").arg(id);
 }
 
 QUrl
-StationsLyon::stationImageUrl(int id)
+StationsPluginLyon::stationImageUrl(int id)
 {
   return QString("http://www.velov.grandlyon.com/uploads/tx_gsstationsvelov/%1.jpg").arg(id);
 }
 
 QUrl
-StationsLyon::stationsJsonUrl(const QPointF &pos, int num)
+StationsPluginLyon::stationsJsonUrl(const QPointF &pos, int num)
 {
-  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsParCoord.php?lat=%1&long=%2&nombreStation=%3").arg(pos.x()).arg(pos.y()).arg(num);
+  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsPluginParCoord.php?lat=%1&long=%2&nombreStation=%3").arg(pos.x()).arg(pos.y()).arg(num);
 }
 
 QStringList
-StationsLyon::regions()
+StationsPluginLyon::regions()
 {
   QStringList reg;
 
@@ -375,4 +375,4 @@ StationsLyon::regions()
   return reg;
 }
 
-Q_EXPORT_PLUGIN2(stationslyon, StationsFactoryLyon)
+Q_EXPORT_PLUGIN2(stationslyon, StationsPluginFactoryLyon)

@@ -23,15 +23,15 @@
 #include <QtCore/QStringList>
 #include <QtCore/QPointF>
 
-class Stations;
+class StationsPlugin;
 
 class Station
 {
  public:
-  Station(Stations *plugin);
+  Station(StationsPlugin *plugin);
   ~Station();
 
-  Stations *plugin();
+  StationsPlugin *plugin();
   bool isValid();
 
   int id();
@@ -70,7 +70,7 @@ class Station
   int totalSlots_;
   int ticket_;
   double distance_;
-  Stations *plugin_;
+  StationsPlugin *plugin_;
 };
 
 #endif /* STATION_H */

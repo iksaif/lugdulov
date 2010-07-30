@@ -23,7 +23,7 @@
 #include <QtCore/QTimer>
 
 class Station;
-class Stations;
+class StationsPlugin;
 
 class StationsListWidget : public QListWidget
 {
@@ -34,7 +34,7 @@ public:
 
   void clear();
   void clearNear();
-  void setStations(Stations *stations);
+  void setStationsPlugin(StationsPlugin *stations);
 
 protected:
   virtual void contextMenuEvent(QContextMenuEvent * event);
@@ -66,7 +66,7 @@ private:
   QTimer *timer;
   bool bigUpdate;
 
-  Stations *stations;
+  StationsPlugin *stations;
 
   QMap < Station * , QListWidgetItem * > items;
   QMap < int , QListWidgetItem * > itemsById;

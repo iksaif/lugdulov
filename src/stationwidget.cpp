@@ -20,7 +20,7 @@
 
 #include "stationwidget.h"
 #include "station.h"
-#include "stations.h"
+#include "stationsplugin.h"
 #include "settings.h"
 
 StationWidget::StationWidget(Station *station, QWidget * parent)

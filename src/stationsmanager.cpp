@@ -23,38 +23,38 @@
 #include <QtCore/QDebug>
 
 #include "config.h"
-#include "stationsmanager.h"
-#include "stations.h"
+#include "stationspluginmanager.h"
+#include "stationsplugin.h"
 #include "station.h"
 
-StationsManager::StationsManager(QObject *parent)
+StationsPluginManager::StationsPluginManager(QObject *parent)
   : QObject(parent)
 {
   loadPlugins();
-  loadStations();
+  loadStationsPlugin();
 }
 
-StationsManager::~StationsManager()
+StationsPluginManager::~StationsPluginManager()
 {
 }
 
-QList < Stations * >
-StationsManager::stations()
+QList < StationsPlugin * >
+StationsPluginManager::stations()
 {
   return list;
 }
 
 void
-StationsManager::loadStations()
+StationsPluginManager::loadStationsPlugin()
 {
   list.clear();
 
-  foreach (StationsFactory *factory, factories.values())
+  foreach (StationsPluginFactory *factory, factories.values())
     list << factory->stations(parent());
 }
 
 void
-StationsManager::loadPlugins()
+StationsPluginManager::loadPlugins()
 {
   factories.clear();
 
@@ -85,7 +85,7 @@ StationsManager::loadPlugins()
 }
 
 void
-StationsManager::loadPlugins(QDir pluginsDir)
+StationsPluginManager::loadPlugins(QDir pluginsDir)
 {
   if (!pluginsDir.exists())
     return ;
@@ -108,9 +108,9 @@ StationsManager::loadPlugins(QDir pluginsDir)
 }
 
 void
-StationsManager::loadPlugin(QObject *plugin)
+StationsPluginManager::loadPlugin(QObject *plugin)
 {
-  StationsFactory *factory = qobject_cast< StationsFactory * >(plugin);
+  StationsPluginFactory *factory = qobject_cast< StationsPluginFactory * >(plugin);
 
   if (!factory)
     return ;

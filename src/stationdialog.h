@@ -26,7 +26,7 @@
 
 #include "ui_stationdialog.h"
 
-class Stations;
+class StationsPlugin;
 class Station;
 
 class StationDialog : public QDialog, private Ui_StationDialog
@@ -34,7 +34,7 @@ class StationDialog : public QDialog, private Ui_StationDialog
   Q_OBJECT
 
 public:
-  StationDialog(Stations *stations, Station *station,
+  StationDialog(StationsPlugin *stations, Station *station,
 		QWidget * parent = 0);
   ~StationDialog();
 
@@ -52,7 +52,7 @@ private slots:
 
 private:
   Station *station;
-  Stations *stations;
+  StationsPlugin *stations;
   QNetworkAccessManager *nm;
 };
 

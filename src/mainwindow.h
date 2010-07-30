@@ -29,8 +29,8 @@
 
 #include "ui_mainwindow.h"
 
-class StationsManager;
-class Stations;
+class StationsPluginManager;
+class StationsPlugin;
 class Station;
 
 class MainWindow : public QMainWindow, private Ui_MainWindow
@@ -55,7 +55,7 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
   void bookmarks();
 
   void comboIndexChanged(int index);
-  void setStations(Stations *stations);
+  void setStationsPlugin(StationsPlugin *plugin);
 
 #ifdef Q_WS_MAEMO_5
   void statusMsg(const QString & msg, int timeout = QMaemo5InformationBox::DefaultTimeoutx);
@@ -69,11 +69,11 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
 #endif
 
  private:
-  void chooseStations();
+  void chooseStationsPlugin();
 
  private:
-  StationsManager *manager;
-  Stations *stations;
+  StationsPluginManager *manager;
+  StationsPlugin *plugin;
 #ifdef HAVE_QT_LOCATION
   QGeoPositionInfoSource *localisation;
   QGeoPositionInfo position;

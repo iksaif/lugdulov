@@ -27,7 +27,7 @@
 #include "stationdialog.h"
 #include "stationwidget.h"
 #include "station.h"
-#include "stations.h"
+#include "stationsplugin.h"
 #include "settings.h"
 
 StationsListWidget::StationsListWidget(QWidget *parent)
@@ -106,7 +106,7 @@ StationsListWidget::showBookmarks(bool show)
 }
 
 void
-StationsListWidget::setStations(Stations *sta)
+StationsListWidget::setStationsPlugin(StationsPlugin *sta)
 {
   if (stations == sta)
     return ;

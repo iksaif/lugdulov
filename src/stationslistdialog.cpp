@@ -23,7 +23,7 @@
 #include <QtCore/QTimer>
 #include <QDebug>
 
-#include "stations.h"
+#include "stationsplugin.h"
 #include "station.h"
 #include "stationslistdialog.h"
 
@@ -67,14 +67,14 @@ void
 StationsListDialog::setMode(Mode mode)
 {
   if (mode == Search) {
-    setWindowTitle(tr("Search Stations"));
+    setWindowTitle(tr("Search StationsPlugin"));
     lineEdit->show();
     nearButton->show();
     refreshButton->show();
     listWidget->showBookmarks(false);
     comboBox->show();
   } else {
-    setWindowTitle(tr("Favorites Stations"));
+    setWindowTitle(tr("Favorites StationsPlugin"));
     lineEdit->hide();
     nearButton->hide();
     refreshButton->hide();
@@ -117,7 +117,7 @@ StationsListDialog::positionUpdated(QGeoPositionInfo info)
 #endif
 
 void
-StationsListDialog::setStations(Stations *sta)
+StationsListDialog::setStationsPlugin(StationsPlugin *sta)
 {
   if (sta == stations)
     return ;
@@ -135,7 +135,7 @@ StationsListDialog::setStations(Stations *sta)
   comboBox->addItem(tr("All"));
   comboBox->addItems(stations->regions());
 
-  listWidget->setStations(stations);
+  listWidget->setStationsPlugin(stations);
 
   connect(stations, SIGNAL(progress(qint64, qint64)), this, SLOT(progress(qint64, qint64)));
   connect(stations, SIGNAL(error(const QString &, const QString &)),
