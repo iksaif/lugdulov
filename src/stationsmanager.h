@@ -16,13 +16,35 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONSBUILTIN_H
-#define STATIONSBUILTIN_H
+#ifndef STATIONSMANAGER_H
+# define STATIONSMANAGER_H
 
-#include <QtCore/QList>
+#include <QtCore/QObject>
+#include <QtCore/QPointF>
+#include <QtCore/QMap>
+#include <QtCore/QDir>
 
-class Station;
+class StationsFactory;
+class Stations;
 
-QList < Station * > builtinStations();
+class StationsManager : public QObject
+{
+  Q_OBJECT
+public:
+  StationsManager(QObject *parent);
+  ~StationsManager();
+
+  QList < Stations * > stations();
+
+private:
+  void loadPlugins();
+  void loadPlugins(QDir pluginDir);
+  void loadPlugin(QObject *plugin);
+
+  void loadStations();
+
+  QMap < QString, StationsFactory * > factories;
+  QList < Stations * > list;
+};
 
 #endif

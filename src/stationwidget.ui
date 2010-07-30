@@ -23,13 +23,6 @@
    <item row="0" column="3" rowspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLabel" name="slotLabel">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QLabel" name="slotIcon">
        <property name="text">
         <string/>
@@ -40,7 +33,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="bikeLabel">
+      <widget class="QLabel" name="slotLabel">
        <property name="text">
         <string/>
        </property>
@@ -53,6 +46,13 @@
        </property>
        <property name="pixmap">
         <pixmap resource="../res/lugdulov.qrc">:/res/bike.png</pixmap>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="bikeLabel">
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>

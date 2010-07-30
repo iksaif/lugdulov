@@ -1,10 +1,10 @@
 <RCC>
   <qresource prefix="res">
+    <file>map.png</file>
+    <file>bike.png</file>
     <file>icon64.png</file>
     <file>slot.png</file>
-    <file>bike.png</file>
     <file>favorites.png</file>
-    <file>velov.png</file>
     <file>google-maps.png</file>
     <file>icon.png</file>
   </qresource>

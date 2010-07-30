@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>341</width>
-    <height>404</height>
+    <height>432</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -73,6 +73,16 @@
      </property>
     </widget>
    </item>
+   <item row="3" column="1">
+    <widget class="QProgressBar" name="slotsProgressBar">
+     <property name="value">
+      <number>24</number>
+     </property>
+     <property name="format">
+      <string>%v/%m</string>
+     </property>
+    </widget>
+   </item>
    <item row="4" column="0">
     <widget class="QLabel" name="bikeLabel">
      <property name="text">
@@ -83,31 +93,30 @@
      </property>
     </widget>
    </item>
+   <item row="4" column="1">
+    <widget class="QProgressBar" name="bikeProgressBar">
+     <property name="value">
+      <number>24</number>
+     </property>
+     <property name="format">
+      <string>%v/%m</string>
+     </property>
+    </widget>
+   </item>
    <item row="5" column="0" colspan="3">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="gmapButton">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="1">
+      <widget class="QPushButton" name="mapButton">
        <property name="text">
-        <string>Gmap</string>
+        <string>Map</string>
        </property>
        <property name="icon">
         <iconset resource="../res/lugdulov.qrc">
-         <normaloff>:/res/google-maps.png</normaloff>:/res/google-maps.png</iconset>
+         <normaloff>:/res/map.png</normaloff>:/res/map.png</iconset>
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="velovButton">
-       <property name="text">
-        <string>Velo'v</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../res/lugdulov.qrc">
-         <normaloff>:/res/icon.png</normaloff>:/res/icon.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
+     <item row="0" column="2">
       <widget class="QPushButton" name="bookmarkButton">
        <property name="text">
         <string>Bookmark</string>
@@ -122,26 +131,6 @@
       </widget>
      </item>
     </layout>
-   </item>
-   <item row="3" column="1">
-    <widget class="QProgressBar" name="slotsProgressBar">
-     <property name="value">
-      <number>24</number>
-     </property>
-     <property name="format">
-      <string>%v/%m</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
-    <widget class="QProgressBar" name="bikeProgressBar">
-     <property name="value">
-      <number>24</number>
-     </property>
-     <property name="format">
-      <string>%v/%m</string>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>

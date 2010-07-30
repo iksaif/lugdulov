@@ -20,6 +20,7 @@
 
 #include "stationwidget.h"
 #include "station.h"
+#include "stations.h"
 #include "settings.h"
 
 StationWidget::StationWidget(Station *station, QWidget * parent)
@@ -33,7 +34,9 @@ StationWidget::StationWidget(Station *station, QWidget * parent)
   dstLabel->setFont(font);
 #endif
 
-  //setAutoFillBackground(true);
+  if (station->plugin())
+    bikeIcon->setPixmap(station->plugin()->bikeIcon().pixmap(bikeIcon->size()));
+
   update();
 }
 

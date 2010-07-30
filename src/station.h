@@ -23,12 +23,15 @@
 #include <QtCore/QStringList>
 #include <QtCore/QPointF>
 
+class Stations;
+
 class Station
 {
  public:
-  Station();
+  Station(Stations *plugin);
   ~Station();
 
+  Stations *plugin();
   bool isValid();
 
   int id();
@@ -53,13 +56,6 @@ class Station
   void setTicket(int ticket);
   void setDistance(double dst);
 
-  static QUrl stationJsonUrl(int id);
-  static QUrl stationsJsonUrl(const QString &region);
-  static QUrl stationsJsonUrl(const QPointF &pos, int num = 5);
-  static QUrl stationStatusUrl(int id);
-  static QUrl stationImageUrl(int id);
-  static QStringList regions();
-
  private:
   void setStatus(const QString & xml);
   void setProperties(const QString & json);
@@ -74,6 +70,7 @@ class Station
   int totalSlots_;
   int ticket_;
   double distance_;
+  Stations *plugin_;
 };
 
 #endif /* STATION_H */

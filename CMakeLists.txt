@@ -13,7 +13,11 @@ if(CMAKE_SYSTEM_NAME MATCHES Linux)
 endif()
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/)
 
+include(lugdulov)
 include(QtTranslations) # Local file for maemo_qt4_add_translation()
+
+set(PLUGINS_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}"lib/lugdulov/plugins")
+cmake_dependent_option(BUILD_STATIC_PLUGINS "build static plugins [default: off]" OFF "BUILD_SHARED_LIBS" OFF)
 
 find_package(Qt4 REQUIRED)
 find_package(QJSON REQUIRED)
@@ -33,6 +37,18 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99 -Wall -Wstrict-prototypes -Werror
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb3 -DDEBUG=1")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+
+if(NOT EXECUTABLE_OUTPUT_PATH)
+  set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin CACHE STRING
+    "Single output directory for building all executables."
+    FORCE)
+endif(NOT EXECUTABLE_OUTPUT_PATH)
+
+if(NOT LIBRARY_OUTPUT_PATH)
+  set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin CACHE STRING
+    "Single output directory for building all libraries."
+    FORCE)
+endif(NOT LIBRARY_OUTPUT_PATH)
 
 # compile in debug mode
 if(NOT CMAKE_BUILD_TYPE)

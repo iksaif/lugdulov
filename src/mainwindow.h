@@ -29,6 +29,7 @@
 
 #include "ui_mainwindow.h"
 
+class StationsManager;
 class Stations;
 class Station;
 
@@ -41,37 +42,38 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
   ~MainWindow();
 
  private:
-  void createStations();
   void createActions();
-  void createStatusBar();
-  void setupListWidget();
-  void fetchStations();
+  void createCombo();
 
  private slots:
   void delayedInit();
-
   void about();
-  void velov();
   void aboutQt();
+
+  void search();
+  void map();
+  void bookmarks();
+
+  void comboIndexChanged(int index);
+  void setStations(Stations *stations);
+
 #ifdef Q_WS_MAEMO_5
-  void statusMsg(const QString & msg, int timeout = QMaemo5InformationBox::DefaultTimeout);
+  void statusMsg(const QString & msg, int timeout = QMaemo5InformationBox::DefaultTimeoutx);
 #else
   void statusMsg(const QString & msg, int timeout = 2000);
 #endif
 
-  void error(const QString & title, const QString & message);
-  void started();
-  void progress(qint64 done, qint64 total);
-  void done();
-
 #ifdef HAVE_QT_LOCATION
   void positionUpdated(QGeoPositionInfo info);
-  void requestTimeout();
+  void positionRequestTimeout();
 #endif
 
  private:
+  void chooseStations();
+
+ private:
+  StationsManager *manager;
   Stations *stations;
-  QProgressBar *updateBar;
 #ifdef HAVE_QT_LOCATION
   QGeoPositionInfoSource *localisation;
   QGeoPositionInfo position;

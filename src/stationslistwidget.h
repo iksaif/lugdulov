@@ -25,20 +25,23 @@
 class Station;
 class Stations;
 
-class MainListWidget : public QListWidget
+class StationsListWidget : public QListWidget
 {
   Q_OBJECT
 public:
-  MainListWidget(QWidget *parent = 0);
-  ~MainListWidget();
+  StationsListWidget(QWidget *parent = 0);
+  ~StationsListWidget();
 
   void clear();
   void clearNear();
+  void setStations(Stations *stations);
 
 protected:
   virtual void contextMenuEvent(QContextMenuEvent * event);
 
 public slots:
+  void showBookmarks(bool show);
+
   void filter(const QString & filter);
   void setRegion(const QString & region);
 
@@ -59,17 +62,22 @@ private:
 private:
   QString word;
   QString region;
+
   QTimer *timer;
-  Stations *stations;
   bool bigUpdate;
+
+  Stations *stations;
+
   QMap < Station * , QListWidgetItem * > items;
   QMap < int , QListWidgetItem * > itemsById;
-  QMenu *menu;
-  QAction *bookmarkAction;
-  QAction *gmapAction;
-  QAction *velovAction;
   QMap < int , bool > bookmarks;
   QMap < int , bool > nearest;
+
+  bool bookmarksEnabled;
+  QMenu *menu;
+  QAction *bookmarkAction;
+  QAction *mapAction;
+  QAction *infoAction;
 };
 
 #endif /* MAINLISTWIDGET_H */

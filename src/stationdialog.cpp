@@ -25,26 +25,40 @@
 #include "stations.h"
 #include "settings.h"
 
-StationDialog::StationDialog(Station *s, QWidget * parent)
+StationDialog::StationDialog(Stations *stations, Station *station, QWidget * parent)
   :
 #ifdef Q_WS_MAEMO_5
   QDialog(parent, Qt::Window),
 #else
   QDialog(parent),
 #endif
-  station(s)
+  station(station),
+  stations(stations)
 {
-  Settings conf;
-  bool bookmark;
+#ifdef Q_WS_MAEMO_5
+  setAttribute(Qt::WA_Maemo5StackedWindow);
+#endif
 
   setupUi(this);
+  setupWidgets();
+  setupButtons();
 
-  setWindowTitle(QString("Quick Velo'v - %1").arg(station->name()));
+  fetchImage();
+}
 
-  slotsProgressBar->setRange(0, station->totalSlots());
-  bikeProgressBar->setRange(0, station->totalSlots());
+StationDialog::~StationDialog()
+{
+}
+
+void
+StationDialog::setupWidgets()
+{
+  setWindowTitle(QString("%1").arg(station->name()));
+
   slotsProgressBar->setValue(station->freeSlots());
   bikeProgressBar->setValue(station->bikes());
+  slotsProgressBar->setRange(0, station->totalSlots());
+  bikeProgressBar->setRange(0, station->totalSlots());
 
   descriptionLabel->setText(station->description());
   stationLabel->setText(station->name());
@@ -54,30 +68,48 @@ StationDialog::StationDialog(Station *s, QWidget * parent)
   connect(QApplication::desktop(), SIGNAL(resized(int)), this, SLOT(orientationChanged()));
 #endif
 
+  if (station->plugin()) {
+    bikeLabel->setPixmap(station->plugin()->bikeIcon().pixmap(bikeLabel->size()));
+  }
+
   iconLabel->setText("");
   iconLabel->hide();
   resize(sizeHint());
+}
 
-  nm = new QNetworkAccessManager(this);
-  QNetworkReply *rep = nm->get(QNetworkRequest(Station::stationImageUrl(station->id())));
-  connect(rep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(requestError(QNetworkReply::NetworkError)));
-  connect(rep, SIGNAL(finished()), this, SLOT(requestFinished()));
-#ifdef Q_WS_MAEMO_5
-  setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
-  setAttribute(Qt::WA_Maemo5StackedWindow);
-#endif
+void
+StationDialog::setupButtons()
+{
+  Settings conf;
+  bool bookmark;
 
-  connect(gmapButton, SIGNAL(clicked()), this, SLOT(gmap()));
   connect(bookmarkButton, SIGNAL(clicked(bool)), this, SLOT(bookmark(bool)));
-  connect(velovButton, SIGNAL(clicked()), this, SLOT(velov()));
 
   conf.beginGroup("Bookmarks");
   bookmark = conf.value(QString("%1").arg(station->id())).toBool();
   bookmarkButton->setChecked(bookmark ? Qt::Checked : Qt::Unchecked);
 }
 
-StationDialog::~StationDialog()
+void
+StationDialog::fetchImage()
 {
+  if (!stations)
+    return;
+
+  QUrl url = stations->stationImageUrl(station->id());
+
+  if (url.isEmpty())
+    return ;
+
+  nm = new QNetworkAccessManager(this);
+  QNetworkReply *rep = nm->get(QNetworkRequest(url));
+
+  connect(rep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(requestError(QNetworkReply::NetworkError)));
+  connect(rep, SIGNAL(finished()), this, SLOT(requestFinished()));
+
+#ifdef Q_WS_MAEMO_5
+  setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+#endif
 }
 
 void
@@ -137,25 +169,4 @@ void StationDialog::bookmark(bool bookmark)
     conf.setValue(key, true);
   else
     conf.remove(key);
-}
-
-void StationDialog::gmap()
-{
-  QLocale c(QLocale::C);
-  QString str("http://maps.google.com/maps?q=");
-
-  str += c.toString(station->pos().x());
-  str += ",";
-  str += c.toString(station->pos().y());
-
-  QDesktopServices::openUrl(str);
-}
-
-void StationDialog::velov()
-{
-  QString str("http://www.velov.grandlyon.com/Plan-interactif.61.0.html?&gid=%1");
-
-  str = str.arg(station->id());
-
-  QDesktopServices::openUrl(str);
 }

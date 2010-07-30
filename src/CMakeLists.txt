@@ -8,39 +8,43 @@ include( ${QT_USE_FILE} )
 
 # Include the library include directories, and the current build directory (moc)
 include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}
-	${CMAKE_CURRENT_BINARY_DIR}
-	${lugdulov_BINARY_DIR}
-	${QJSON_INCLUDE_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}
+  ${CMAKE_CURRENT_BINARY_DIR}
+  ${lugdulov_BINARY_DIR}
+  ${QJSON_INCLUDE_DIR}
 )
 
 link_directories(
-	${QJSON_LIBRARY_DIRS}
+  ${QJSON_LIBRARY_DIRS}
 )
 
 set(lugdulov_SRCS
   main.cpp
   mainwindow.cpp
-  mainlistwidget.cpp
+  stationslistwidget.cpp
   stations.cpp
-  stationsbuiltin.cpp
   station.cpp
   settings.cpp
   stationwidget.cpp
-  stationdialog.cpp)
+  stationdialog.cpp
+  stationsmanager.cpp
+  stationslistdialog.cpp)
 
 set(lugdulov_UIS
   mainwindow.ui
   stationwidget.ui
-  stationdialog.ui)
+  stationdialog.ui
+  stationslistdialog.ui)
 
 set(lugdulov_MOC_HDRS
   mainwindow.h
-  mainlistwidget.h
+  stationslistwidget.h
   stations.h
   settings.h
   stationwidget.h
-  stationdialog.h)
+  stationdialog.h
+  stationsmanager.h
+  stationslistdialog.h)
 
 set(lugdulov_RCS ../res/lugdulov.qrc ../i18n/i18n.qrc)
 set(lugdulov_TRS ../i18n/lugdulov_fr.ts)
@@ -57,13 +61,15 @@ qt4_wrap_ui(UI_HDRS ${lugdulov_UIS})
 qt4_add_resources(RC_SRCS ${lugdulov_RCS})
 
 add_executable(
-	lugdulov
-	${lugdulov_SRCS}
-	${UI_HDRS}
-	${MOC_SOURCE}
-	${RC_SRCS}
-	${QM_FILES}
+  lugdulov
+  ${lugdulov_SRCS}
+  ${UI_HDRS}
+  ${MOC_SOURCE}
+  ${RC_SRCS}
+  ${QM_FILES}
 )
+
+add_subdirectory(lyon)
 
 if (QTLOCATION_FOUND)
   include_directories(${QTLOCATION_INCLUDE_DIR})
@@ -81,10 +87,14 @@ if (Q_WS_MAEMO_5)
   target_link_libraries(lugdulov QtMaemo5)
 endif()
 
+if (BUILD_STATIC_PLUGINS)
+  target_link_libraries(lugdulov stationslyon)
+endif ()
+
 target_link_libraries(
-	lugdulov
-	${QT_LIBRARIES}
-	${QJSON_LIBRARIES}
+  lugdulov
+  ${QT_LIBRARIES}
+  ${QJSON_LIBRARIES}
 )
 
 install(TARGETS lugdulov

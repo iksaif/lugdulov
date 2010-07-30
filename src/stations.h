@@ -19,37 +19,35 @@
 #ifndef STATIONS_H
 #define STATIONS_H
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-#include <QtCore/QMap>
+#include <QtCore/QUrl>
+#include <QtGui/QIcon>
 
 class Station;
 
 class Stations : public QObject
 {
   Q_OBJECT
- private:
-  struct Request {
-    enum Type { Null = 0, Properties, PropertiesNear, Status } type;
-    int id;
-    QString region;
-  };
 
  public:
   Stations(QObject *parent);
-  ~Stations();
+  virtual ~Stations();
+
+  virtual QString name() const = 0;
+  virtual QString bikeName() const = 0;
+  virtual QIcon bikeIcon() const = 0;
+  virtual bool intersect(const QPointF & pos) = 0;
+
+  virtual QStringList regions() = 0;
+  virtual QUrl stationImageUrl(int id) = 0;
 
  public slots:
-  void fetchBuiltIn();
-  void fetchPos(const QPointF & pos, int num = 5);
-  void fetchAll();
-  void fetchFromFile(const QString & file);
-  void fetchFromUrl(const QUrl & url);
-  void update(Station *station);
-
- private slots:
-  void error(QNetworkReply::NetworkError code);
-  void finished();
+  virtual void fetchAll() = 0;
+  virtual void fetchOnline() = 0;
+  virtual void fetchPos(const QPointF & pos, int num = 5) = 0;
+  virtual void fetchFromFile(const QString & file) = 0;
+  virtual void fetchFromUrl(const QUrl & url) = 0;
+  virtual void update(Station *station) = 0;
+  virtual void update(QList < Station * > station) = 0;
 
  signals:
   void started();
@@ -60,24 +58,19 @@ class Stations : public QObject
   void stationUpdated(Station *station, bool nearest);
   void statusUpdated(Station *station);
   void error(const QString & title, const QString & message);
-
- private:
-  void fetch(int id);
-  void fetchStatus(int id);
-  void fetch(const QString & region);
-
-  void request(const QUrl & url, Request::Type type, int id = -1,
-	       const QString & region = QString());
-  void handleProperties(const QByteArray & data, Request req);
-  void handleStatus(const QByteArray & data, Request req);
-
- private:
-  QNetworkAccessManager *nm;
-
-  QMap < int , Station * > stations;
-  QMap < QNetworkReply *, Request > replies;
-  int step;
-  int count;
 };
+
+class StationsFactory {
+ public:
+  virtual ~StationsFactory() {}
+
+  virtual QString id() const = 0;
+  virtual QString name() const = 0;
+  virtual QIcon icon() const = 0;
+  virtual QList < Stations * > stations(QObject * parent) = 0;
+};
+
+Q_DECLARE_INTERFACE(StationsFactory,
+		    "net.iksaif.lugdulov.StationsFactoryInterface/1.0")
 
 #endif /* STATIONS_H */

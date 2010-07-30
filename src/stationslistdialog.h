@@ -16,44 +16,47 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONDIALOG_H
-# define STATIONDIALOG_H
+#ifndef STATIONSLISTDIALOG_H
+# define STATIONSLISTDIALOG_H
 
-#include "config.h"
+#include "mobility.h"
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-
-#include "ui_stationdialog.h"
+#include "ui_stationslistdialog.h"
 
 class Stations;
 class Station;
 
-class StationDialog : public QDialog, private Ui_StationDialog
+class StationsListDialog : public QDialog, private Ui_StationsListDialog
 {
   Q_OBJECT
 
-public:
-  StationDialog(Stations *stations, Station *station,
-		QWidget * parent = 0);
-  ~StationDialog();
+ public:
+  enum Mode { Search, Bookmarks };
 
-private:
-  void fetchImage();
-  void setupWidgets();
-  void setupButtons();
+  StationsListDialog(QWidget *parent = 0);
+  ~StationsListDialog();
 
-private slots:
-  void bookmark(bool checked);
+  void setMode(Mode mode);
+  void setStations(Stations *stations);
 
-  void requestError(QNetworkReply::NetworkError code);
-  void requestFinished();
-  void orientationChanged();
+ private:
+  void setupListWidget();
 
-private:
-  Station *station;
+ private slots:
+#ifdef HAVE_QT_LOCATION
+  void fetchNear();
+  void positionUpdated(QGeoPositionInfo info);
+  void positionRequestTimeout();
+#endif
+
+  void progress(qint64 done, qint64 total);
+  void error(const QString & title, const QString & message);
+
+ private:
   Stations *stations;
-  QNetworkAccessManager *nm;
+#ifdef HAVE_QT_LOCATION
+  QGeoPositionInfo position;
+#endif
 };
 
-#endif /* STATIONDIALOG_H */
+#endif

@@ -24,8 +24,10 @@
 #include <QDebug>
 
 #include "stations.h"
+#include "stationsmanager.h"
 #include "station.h"
 #include "mainwindow.h"
+#include "stationslistdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
@@ -39,26 +41,27 @@ MainWindow::MainWindow(QWidget *parent)
   setAttribute(Qt::WA_Maemo5AutoOrientation, true);
 #endif
 
-  createStatusBar();
-  createStations();
   createActions();
-  setupListWidget();
+  createCombo();
 
-  lineEdit->setFocus(Qt::OtherFocusReason);
-
+  stations = NULL;
   QTimer::singleShot(0, this, SLOT(delayedInit()));
 }
 
-void
-MainWindow::createStations()
+
+MainWindow::~MainWindow()
 {
-  stations = new Stations(this);
+}
 
-  comboBox->addItems(Station::regions());
+void
+MainWindow::createCombo()
+{
+  manager = new StationsManager(this);
 
-  connect(stations, SIGNAL(done()), this, SLOT(done()));
-  connect(stations, SIGNAL(started()), this, SLOT(started()));
-  connect(stations, SIGNAL(progress(qint64, qint64)), this, SLOT(progress(qint64, qint64)));
+  foreach(Stations *stations, manager->stations())
+    stationsComboBox->addItem(stations->bikeIcon(), stations->name(), qVariantFromValue((void *) stations));
+
+  connect(stationsComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(comboIndexChanged(int)));
 }
 
 void
@@ -67,38 +70,13 @@ MainWindow::createActions()
   quitAction->setIcon(QIcon::fromTheme("dialog-close"));
   aboutAction->setIcon(QIcon::fromTheme("dialog-information"));
   aboutQtAction->setIcon(QPixmap(":/trolltech/qmessagebox/images/qtlogo-64.png"));
-  pushButton->setIcon(QIcon::fromTheme("view-refresh"));
 
   connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
   connect(aboutQtAction, SIGNAL(triggered()), this, SLOT(aboutQt()));
-  connect(velovAction, SIGNAL(triggered()), this, SLOT(velov()));
-}
 
-void
-MainWindow::createStatusBar()
-{
-  updateBar = new QProgressBar();
-  updateBar->hide();
-  statusBar()->addPermanentWidget(updateBar, 0);
-#ifdef Q_WS_MAEMO_5
-  statusBar()->hide();
-#endif
-}
-
-void
-MainWindow::setupListWidget()
-{
-  connect(stations, SIGNAL(stationUpdated(Station *, bool)),
-	  listWidget, SLOT(stationUpdated(Station *, bool)));
-  connect(stations, SIGNAL(stationsUpdated(QList < Station *>, bool)),
-	  listWidget, SLOT(stationsUpdated(QList < Station *>, bool)));
-  connect(stations, SIGNAL(statusUpdated(Station *)),
-	  listWidget, SLOT(statusUpdated(Station *)));
-
-  connect(lineEdit, SIGNAL(textEdited(const QString &)),
-	  listWidget, SLOT(filter(const QString &)));
-  connect(pushButton, SIGNAL(clicked()), listWidget, SLOT(update()));
-  connect(comboBox, SIGNAL(activated(const QString &)), listWidget, SLOT(setRegion(const QString &)));
+  connect(searchLinkButton, SIGNAL(clicked(bool)), this, SLOT(search()));
+  connect(mapLinkButton, SIGNAL(clicked(bool)), this, SLOT(map()));
+  connect(bookmarkLinkButton, SIGNAL(clicked(bool)), this, SLOT(bookmarks()));
 }
 
 void
@@ -113,22 +91,11 @@ MainWindow::delayedInit()
   if (!session->waitForOpened(-1)) {
     QMessageBox::critical(this, tr("Network Error"), session->errorString());
     QApplication::instance()->quit();
+    return ;
   }
 #endif
-
-  fetchStations();
-  //stations->fetchFromFile(":/res/stations.json");
-  //stations->fetchAll();
-}
-
 #ifdef HAVE_QT_LOCATION
-void
-MainWindow::fetchStations()
-{
   localisation = QGeoPositionInfoSource::createDefaultSource(this);
-
-  // For bookmarks
-  QTimer::singleShot(100, stations, SLOT(fetchBuiltIn()));
 
   if (!localisation)
     return ;
@@ -137,15 +104,16 @@ MainWindow::fetchStations()
 
   connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)),
 	  this, SLOT(positionUpdated(QGeoPositionInfo)));
-  connect(localisation, SIGNAL(requestTimeout()),
-	  this, SLOT(requestTimeout()));
+  connect(localisation, SIGNAL(requestTimeout()), this, SLOT(positionRequestTimeout()));
   localisation->setUpdateInterval(30000);
   localisation->startUpdates();
   localisation->requestUpdate(15000);
+#endif
 }
 
+#ifdef HAVE_QT_LOCATION
 void
-MainWindow::requestTimeout()
+MainWindow::positionRequestTimeout()
 {
 
 }
@@ -158,25 +126,41 @@ MainWindow::positionUpdated(QGeoPositionInfo info)
   if (!coord.isValid())
     return ;
 
-  statusMsg(tr("GPS Position updated."));
-
+  if (!position.coordinate().isValid())
+    statusMsg(tr("Got GPS Fix."));
   position = info;
 
-  listWidget->clearNear();
-  stations->fetchPos(QPointF(coord.latitude(), coord.longitude()), 5);
-}
-
-#else
-void
-MainWindow::fetchStations()
-{
-  QTimer::singleShot(100, stations, SLOT(fetchBuiltIn()));
-  QTimer::singleShot(200, listWidget, SLOT(update()));
+  foreach (Stations *stations, manager->stations()) {
+    if (stations->intersect(QPointF(coord.latitude(), coord.longitude()))) {
+      setStations(stations);
+      break;
+    }
+  }
 }
 #endif
 
-MainWindow::~MainWindow()
+void
+MainWindow::comboIndexChanged(int index)
 {
+  QVariant data = stationsComboBox->itemData(index);
+
+  setStations((Stations *)(data.value<void *>()));
+}
+
+void
+MainWindow::setStations(Stations *sta)
+{
+  if (!sta || stations == sta)
+    return ;
+
+  stations = sta;
+
+  for (int i = 0; i < stationsComboBox->count(); ++i) {
+    QVariant data = stationsComboBox->itemData(i);
+
+    if (stations == (Stations *)data.value<void *>())
+      stationsComboBox->setCurrentIndex(i);
+  }
 }
 
 void
@@ -209,39 +193,6 @@ MainWindow::aboutQt()
 }
 
 void
-MainWindow::velov()
-{
-  QDesktopServices::openUrl(QUrl("http://www.velov.grandlyon.com/"));
-}
-
-void
-MainWindow::started()
-{
-  updateBar->setRange(0, 1);
-  updateBar->setValue(0);
-  updateBar->show();
-}
-
-void
-MainWindow::done()
-{
-  updateBar->hide();
-}
-
-void
-MainWindow::progress(qint64 done, qint64 total)
-{
-  if (total != updateBar->maximum()) {
-    updateBar->reset();
-    updateBar->setRange(0, total);
-  }
-#ifdef Q_WS_MAEMO_5
-  setAttribute(Qt::WA_Maemo5ShowProgressIndicator, !(done == total));
-#endif
-  updateBar->setValue(done);
-}
-
-void
 MainWindow::statusMsg(const QString & msg, int timeout)
 {
 #ifdef Q_WS_MAEMO_5
@@ -254,7 +205,50 @@ MainWindow::statusMsg(const QString & msg, int timeout)
 }
 
 void
-MainWindow::error(const QString & title, const QString & message)
+MainWindow::search()
 {
-  QMessageBox::warning(this, title, message);
+  if (!stations) {
+    chooseStations();
+    return ;
+  }
+
+  StationsListDialog *dlg = new StationsListDialog(this);
+
+  dlg->setMode(StationsListDialog::Search);
+  dlg->setStations(stations);
+  dlg->exec();
+}
+
+void
+MainWindow::map()
+{
+  if (!stations) {
+    chooseStations();
+    return ;
+  }
+
+}
+
+void
+MainWindow::bookmarks()
+{
+  if (!stations) {
+    chooseStations();
+    return ;
+  }
+
+  StationsListDialog *dlg = new StationsListDialog(this);
+
+  dlg->setMode(StationsListDialog::Bookmarks);
+  dlg->setStations(stations);
+  dlg->exec();
+}
+
+void
+MainWindow::chooseStations()
+{
+  QMessageBox::warning(this, tr("Please set Location."),
+		       tr("We can't guess your current location, "
+			  "please choose one in the list."));
+  stationsComboBox->showPopup();
 }

@@ -16,7 +16,7 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include "stationsbuiltin.h"
+#include "stationslyonbuiltin.h"
 #include "station.h"
 
 static struct {
@@ -373,12 +373,12 @@ static struct {
         {0, 0, NULL, NULL, 0., 0.}
 };
 
-QList < Station * > builtinStations()
+QList < Station * > builtinStationsLyon(Stations *plugin)
 {
   QList < Station * > list;
 
   for (int i = 0; stations[i].numStation; ++i) {
-    Station *station = new Station();
+    Station *station = new Station(plugin);
 
     station->setId(stations[i].numStation);
     station->setName(QString::fromUtf8(stations[i].nomStation));

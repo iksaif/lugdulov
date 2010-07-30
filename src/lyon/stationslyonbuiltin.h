@@ -16,15 +16,14 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtCore/QUrl>
+#ifndef STATIONSBUILTIN_H
+#define STATIONSBUILTIN_H
 
-#include "stations.h"
+#include <QtCore/QList>
 
-Stations::Stations(QObject *parent)
-  : QObject(parent)
-{
-}
+class Station;
+class Stations;
 
-Stations::~Stations()
-{
-}
+QList < Station * > builtinStationsLyon(Stations *plugin);
+
+#endif

@@ -18,7 +18,8 @@
 
 #include "station.h"
 
-Station::Station()
+Station::Station(Stations *plugin)
+  : plugin_(plugin)
 {
   id_ = -1;
   distance_ = bikes_ = freeSlots_ = ticket_ = totalSlots_ = -1;
@@ -26,6 +27,12 @@ Station::Station()
 
 Station::~Station()
 {
+}
+
+Stations *
+Station::plugin()
+{
+  return plugin_;
 }
 
 bool
@@ -152,54 +159,4 @@ void
 Station::setTicket(int ticket)
 {
   ticket_ = ticket;
-}
-
-QUrl
-Station::stationJsonUrl(int id)
-{
-  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsParId.php?gid=%1").arg(id);
-}
-
-QUrl
-Station::stationsJsonUrl(const QString &region)
-{
-  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsParArrondissement.php?arrondissement=%1").arg(region);
-}
-
-QUrl
-Station::stationStatusUrl(int id)
-{
-  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/DispoStationsParId.php?id=%1").arg(id);
-}
-
-QUrl
-Station::stationImageUrl(int id)
-{
-  return QString("http://www.velov.grandlyon.com/uploads/tx_gsstationsvelov/%1.jpg").arg(id);
-}
-
-QUrl
-Station::stationsJsonUrl(const QPointF &pos, int num)
-{
-  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsParCoord.php?lat=%1&long=%2&nombreStation=%3").arg(pos.x()).arg(pos.y()).arg(num);
-}
-
-QStringList
-Station::regions()
-{
-  QStringList reg;
-
-  reg << "69381";
-  reg << "69382";
-  reg << "69383";
-  reg << "69384";
-  reg << "69385";
-  reg << "69386";
-  reg << "69387";
-  reg << "69388";
-  reg << "69389";
-  reg << "69266";
-  reg << "69034";
-  reg << "69256";
-  return reg;
 }

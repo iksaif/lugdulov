@@ -21,9 +21,14 @@ def station_image_url(id):
     return "http://www.velov.grandlyon.com/uploads/tx_gsstationsvelov/%d.jpg" % id
 
 def usage():
-    print "velov.py [options] [-o out]"
+    print "lyon.py [options] [-o out]"
+    print "Options:"
+    print " -v           verbose"
+    print " -h, --help   help"
+    print " -o, --output output file"
+    print " -f, --full   also dump status"
+    print " -c, --cpp    dump cpp file"
     sys.exit(1)
-
 
 def stations(region):
     url = stations_json_url(region)

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>529</width>
-    <height>570</height>
+    <width>318</width>
+    <height>310</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,43 +19,100 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" colspan="4">
-     <widget class="QLineEdit" name="lineEdit"/>
-    </item>
-    <item row="0" column="5">
-     <widget class="QPushButton" name="pushButton">
+    <item row="2" column="0">
+     <widget class="QLabel" name="titleLabel">
       <property name="text">
-       <string>Refresh</string>
+       <string>Stations:</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="4">
-     <widget class="QComboBox" name="comboBox">
+    <item row="2" column="1">
+     <widget class="QComboBox" name="stationsComboBox">
       <item>
        <property name="text">
-        <string>All</string>
+        <string>Auto</string>
        </property>
       </item>
      </widget>
     </item>
-    <item row="2" column="0" colspan="6">
-     <widget class="MainListWidget" name="listWidget">
-      <property name="alternatingRowColors">
-       <bool>true</bool>
+    <item row="4" column="0" rowspan="2" colspan="2">
+     <widget class="QCommandLinkButton" name="searchLinkButton">
+      <property name="text">
+       <string>Search Stations</string>
       </property>
-      <property name="selectionRectVisible">
-       <bool>true</bool>
+      <property name="icon">
+       <iconset resource="../res/lugdulov.qrc">
+        <normaloff>:/res/slot.png</normaloff>:/res/slot.png</iconset>
+      </property>
+      <property name="description">
+       <string>Search stations by name, check their status and bookmark them.</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0" colspan="2">
+     <widget class="QCommandLinkButton" name="bookmarkLinkButton">
+      <property name="text">
+       <string>Favorites Stations</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../res/lugdulov.qrc">
+        <normaloff>:/res/favorites.png</normaloff>:/res/favorites.png</iconset>
+      </property>
+      <property name="description">
+       <string>Manage your favorites stations and check their status quickly</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0" colspan="2">
+     <widget class="QCommandLinkButton" name="mapLinkButton">
+      <property name="text">
+       <string>Maps</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../res/lugdulov.qrc">
+        <normaloff>:/res/map.png</normaloff>:/res/map.png</iconset>
+      </property>
+      <property name="description">
+       <string>Show nearby stations on a Map.</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Lugdulo'V</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="../res/lugdulov.qrc">:/res/icon.png</pixmap>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>529</width>
+     <width>318</width>
      <height>19</height>
     </rect>
    </property>
@@ -65,19 +122,16 @@
     </property>
     <addaction name="quitAction"/>
    </widget>
-   <widget class="QMenu" name="menu_About">
+   <widget class="QMenu" name="menu_Help">
     <property name="title">
      <string>&amp;Help</string>
     </property>
-    <addaction name="velovAction"/>
-    <addaction name="separator"/>
     <addaction name="aboutQtAction"/>
     <addaction name="aboutAction"/>
    </widget>
    <addaction name="menu_File"/>
-   <addaction name="menu_About"/>
+   <addaction name="menu_Help"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="aboutQtAction">
    <property name="text">
     <string>About &amp;Qt...</string>
@@ -93,19 +147,7 @@
     <string>&amp;Quit</string>
    </property>
   </action>
-  <action name="velovAction">
-   <property name="text">
-    <string>&amp;Velo'v Grand Lyon ...</string>
-   </property>
-  </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>MainListWidget</class>
-   <extends>QListWidget</extends>
-   <header>mainlistwidget.h</header>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="../res/lugdulov.qrc"/>
  </resources>

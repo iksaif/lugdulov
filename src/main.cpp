@@ -25,6 +25,10 @@
 #include "mainwindow.h"
 #include "settings.h"
 
+#ifdef BUILD_STATIC_PLUGINS
+Q_IMPORT_PLUGIN(stationslyon)
+#endif
+
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
