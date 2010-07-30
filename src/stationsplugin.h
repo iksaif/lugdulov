@@ -32,6 +32,7 @@ class StationsPlugin : public QObject
   StationsPlugin(QObject *parent);
   virtual ~StationsPlugin();
 
+  virtual QString id() const = 0;
   virtual QString name() const = 0;
   virtual QString bikeName() const = 0;
   virtual QIcon bikeIcon() const = 0;

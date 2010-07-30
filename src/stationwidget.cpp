@@ -67,9 +67,6 @@ StationWidget::update()
     descr += QString(" (%2m)").arg((int)station->distance());
   dstLabel->setText(descr);
 
-
-  Settings conf;
-  conf.beginGroup("Bookmarks");
-  if (!conf.value(QString("%1").arg(station->id())).toBool())
+  if (!Settings::bookmarked(station))
     bookmarkLabel->hide();
 }

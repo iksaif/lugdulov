@@ -56,8 +56,6 @@ StationsListWidget::StationsListWidget(QWidget *parent)
   connect(this, SIGNAL(itemDoubleClicked(QListWidgetItem *)),
 	  this, SLOT(openStationDialog(QListWidgetItem *)));
 #endif
-
-  loadBookmarks();
 }
 
 StationsListWidget::~StationsListWidget()
@@ -82,10 +80,14 @@ StationsListWidget::clearNear()
 void
 StationsListWidget::loadBookmarks()
 {
+  if (!stations)
+    return ;
+
   Settings conf;
 
   bookmarks.clear();
   conf.beginGroup("Bookmarks");
+  conf.beginGroup(stations->id());
   foreach (QString id, conf.childKeys())
     bookmarks[id.toInt()] = true;
 }
@@ -120,6 +122,8 @@ StationsListWidget::setStationsPlugin(StationsPlugin *sta)
 
   if (!stations)
     return ;
+
+  loadBookmarks();
 
   connect(stations, SIGNAL(stationUpdated(Station *, bool)),
 	  this, SLOT(stationUpdated(Station *, bool)));
@@ -293,19 +297,9 @@ StationsListWidget::action(QAction *action)
 
     }
     if (action == bookmarkAction) {
-      Settings conf;
-      bool bookmark;
-      QString key("%1");
+      bool bookmark = Settings::bookmarked(station);
 
-      key = key.arg(station->id());
-
-      conf.beginGroup("Bookmarks");
-      bookmark = conf.value(key).toBool();
-
-      if (!bookmark)
-	conf.setValue(key, true);
-      else
-	conf.remove(key);
+      Settings::bookmark(station, !bookmark);
       bookmarks[station->id()] = !bookmark;
     }
   }

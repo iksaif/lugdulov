@@ -80,14 +80,10 @@ StationDialog::setupWidgets()
 void
 StationDialog::setupButtons()
 {
-  Settings conf;
-  bool bookmark;
 
   connect(bookmarkButton, SIGNAL(clicked(bool)), this, SLOT(bookmark(bool)));
 
-  conf.beginGroup("Bookmarks");
-  bookmark = conf.value(QString("%1").arg(station->id())).toBool();
-  bookmarkButton->setChecked(bookmark ? Qt::Checked : Qt::Unchecked);
+  bookmarkButton->setChecked(Settings::bookmarked(station) ? Qt::Checked : Qt::Unchecked);
 }
 
 void
@@ -156,17 +152,8 @@ void StationDialog::orientationChanged()
   else
     iconLabel->show();
 }
-#include <QDebug>
+
 void StationDialog::bookmark(bool bookmark)
 {
-  Settings conf;
-  QString key("%1");
-
-  key = key.arg(station->id());
-
-  conf.beginGroup("Bookmarks");
-  if (bookmark)
-    conf.setValue(key, true);
-  else
-    conf.remove(key);
+  Settings::bookmark(station, bookmark);
 }

@@ -21,6 +21,8 @@
 #include <QtCore/QDir>
 
 #include "settings.h"
+#include "station.h"
+#include "stationsplugin.h"
 
 Settings::Settings(QObject *parent)
   : QSettings(QSettings::IniFormat, QSettings::UserScope,
@@ -56,6 +58,34 @@ Settings::path()
   Settings *conf = settings();
 
   return QFileInfo(conf->fileName()).dir().canonicalPath();
+}
+
+bool
+Settings::bookmarked(Station *station)
+{
+  Settings *conf = Settings::settings();
+
+  conf->beginGroup("Bookmarks");
+  conf->beginGroup(station->plugin()->id());
+
+  return conf->value(QString("%1").arg(station->id())).toBool();
+}
+
+void
+Settings::bookmark(Station *station, bool bookmark)
+{
+  Settings *conf = Settings::settings();
+  QString key("%1");
+
+  key = key.arg(station->id());
+
+  conf->beginGroup("Bookmarks");
+  conf->beginGroup(station->plugin()->id());
+
+  if (bookmark)
+    conf->setValue(key, true);
+  else
+    conf->remove(key);
 }
 
 Settings *Settings::instance_ = NULL;

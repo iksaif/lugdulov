@@ -72,6 +72,12 @@ StationsPluginLyon::~StationsPluginLyon()
 }
 
 QString
+StationsPluginLyon::id() const
+{
+  return QLatin1String("lyon");
+}
+
+QString
 StationsPluginLyon::name() const
 {
   return QLatin1String("Lyon");

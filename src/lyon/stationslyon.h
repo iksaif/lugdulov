@@ -51,6 +51,7 @@ class StationsPluginLyon : public StationsPlugin
   StationsPluginLyon(QObject *parent);
   ~StationsPluginLyon();
 
+  QString id() const;
   QString name() const;
   QString bikeName() const;
   QIcon bikeIcon() const;

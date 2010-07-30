@@ -21,6 +21,8 @@
 
 #include <QtCore/QSettings>
 
+class Station;
+
 class Settings : public QSettings {
   Q_OBJECT
 public:
@@ -28,6 +30,9 @@ public:
   ~Settings();
   static Settings *settings();
   static QString path();
+  static bool bookmarked(Station *station);
+  static void bookmark(Station *station, bool bookmark);
+
 private:
   static Settings *instance_;
 };
