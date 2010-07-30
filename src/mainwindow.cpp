@@ -28,6 +28,7 @@
 #include "station.h"
 #include "mainwindow.h"
 #include "stationslistdialog.h"
+#include "settings.h"
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
@@ -41,10 +42,11 @@ MainWindow::MainWindow(QWidget *parent)
   setAttribute(Qt::WA_Maemo5AutoOrientation, true);
 #endif
 
+  plugin = NULL;
+
   createActions();
   createCombo();
 
-  plugin = NULL;
   QTimer::singleShot(0, this, SLOT(delayedInit()));
 }
 
@@ -56,11 +58,20 @@ MainWindow::~MainWindow()
 void
 MainWindow::createCombo()
 {
+  Settings conf;
+  QString selected = conf.value("StationsPlugin").toString();
+  StationsPlugin *selectedPlugin;
+
   manager = new StationsPluginManager(this);
 
-  foreach(StationsPlugin *plugin, manager->stations())
+  foreach(StationsPlugin *plugin, manager->stations()) {
     stationsComboBox->addItem(plugin->bikeIcon(), plugin->name(), qVariantFromValue((void *) plugin));
 
+    if (plugin->id() == selected)
+      selectedPlugin = plugin;
+  }
+
+  setStationsPlugin(selectedPlugin);
   connect(stationsComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(comboIndexChanged(int)));
 }
 
@@ -143,8 +154,14 @@ void
 MainWindow::comboIndexChanged(int index)
 {
   QVariant data = stationsComboBox->itemData(index);
+  StationsPlugin *plugin = (StationsPlugin *)data.value<void *>();
 
-  setStationsPlugin((StationsPlugin *)(data.value<void *>()));
+  if (plugin) {
+    Settings conf;
+
+    setStationsPlugin(plugin);
+    conf.setValue("StationsPlugin", plugin->id());
+  }
 }
 
 void
