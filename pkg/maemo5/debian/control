@@ -10,7 +10,7 @@ Package: lugdulov
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 XB-Description-fr_FR: Recherche de stations de vélos à Lyon
-XB-Maemo-Display-Name: SeriesFinale
+XB-Maemo-Display-Name: Lugdulov
 Description: Find a bike in Lyon.
 XB-Maemo-Icon-26:
  iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAAK/I
