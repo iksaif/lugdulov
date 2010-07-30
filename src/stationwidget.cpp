@@ -35,8 +35,7 @@ StationWidget::StationWidget(Station *station, QWidget * parent)
 #endif
 
   if (station->plugin())
-    bikeIcon->setPixmap(station->plugin()->bikeIcon().pixmap(bikeIcon->size()));
-
+    bikeIcon->setPixmap(station->plugin()->bikeIcon().pixmap(bikeIcon->pixmap()->size()));
   update();
 }
 

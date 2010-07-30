@@ -69,7 +69,7 @@ StationDialog::setupWidgets()
 #endif
 
   if (station->plugin()) {
-    bikeLabel->setPixmap(station->plugin()->bikeIcon().pixmap(bikeLabel->size()));
+    bikeLabel->setPixmap(station->plugin()->bikeIcon().pixmap(bikeLabel->pixmap()->size()));
   }
 
   iconLabel->setText("");
