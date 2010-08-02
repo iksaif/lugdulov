@@ -334,23 +334,24 @@ StationsPluginLyon::fetch(const QString & region)
   request(StationsPluginLyon::stationsJsonUrl(region), Request::Properties, -1, region);
 }
 
+const QString StationsPluginLyon::baseUrl = QLatin1String("http://www.velov.grandlyon.com/velovmap/zhp/inc/");
 
 QUrl
 StationsPluginLyon::stationJsonUrl(int id)
 {
-  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsPluginParId.php?gid=%1").arg(id);
+  return baseUrl + QString("StationsPluginParId.php?gid=%1").arg(id);
 }
 
 QUrl
 StationsPluginLyon::stationsJsonUrl(const QString &region)
 {
-  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsPluginParArrondissement.php?arrondissement=%1").arg(region);
+  return baseUrl + QString("StationsPluginParArrondissement.php?arrondissement=%1").arg(region);
 }
 
 QUrl
 StationsPluginLyon::stationStatusUrl(int id)
 {
-  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/DispoStationsPluginParId.php?id=%1").arg(id);
+  return baseUrl + QString("DispoStationsPluginParId.php?id=%1").arg(id);
 }
 
 QUrl

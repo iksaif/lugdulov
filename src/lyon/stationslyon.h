@@ -105,6 +105,8 @@ class StationsPluginLyon : public StationsPlugin
   QMap < QNetworkReply *, Request > replies;
   int step;
   int count;
+
+  static const QString baseUrl;
 };
 
 #endif /* STATIONS_LYON_H */
