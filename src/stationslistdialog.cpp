@@ -26,6 +26,7 @@
 #include "stationsplugin.h"
 #include "station.h"
 #include "stationslistdialog.h"
+#include "stationsmodel.h"
 
 StationsListDialog::StationsListDialog(QWidget *parent)
   : QDialog(parent)
@@ -37,13 +38,14 @@ StationsListDialog::StationsListDialog(QWidget *parent)
   setAttribute(Qt::WA_Maemo5AutoOrientation, true);
 #endif
 
-  setupListWidget();
+  //  setupListWidget();
 
   refreshButton->setIcon(QIcon::fromTheme("view-refresh"));
   nearButton->hide();
   lineEdit->setFocus(Qt::OtherFocusReason);
 
-  stations = NULL;
+  model = NULL;
+  plugin = NULL;
 }
 
 StationsListDialog::~StationsListDialog()
@@ -53,11 +55,12 @@ StationsListDialog::~StationsListDialog()
 void
 StationsListDialog::setupListWidget()
 {
-  connect(lineEdit, SIGNAL(textEdited(const QString &)),
+  /*  connect(lineEdit, SIGNAL(textEdited(const QString &)),
 	  listWidget, SLOT(filter(const QString &)));
   connect(comboBox, SIGNAL(activated(const QString &)),
 	  listWidget, SLOT(setRegion(const QString &)));
   connect(refreshButton, SIGNAL(clicked()), listWidget, SLOT(update()));
+  */
 #ifdef HAVE_QT_LOCATION
   connect(nearButton, SIGNAL(clicked()), this, SLOT(fetchNear()));
 #endif
@@ -71,14 +74,14 @@ StationsListDialog::setMode(Mode mode)
     lineEdit->show();
     nearButton->show();
     refreshButton->show();
-    listWidget->showBookmarks(false);
+    //listWidget->showBookmarks(false);
     comboBox->show();
   } else {
     setWindowTitle(tr("Favorites StationsPlugin"));
     lineEdit->hide();
     nearButton->hide();
     refreshButton->hide();
-    listWidget->showBookmarks(true);
+    //listWidget->showBookmarks(true);
     comboBox->hide();
   }
 }
@@ -90,8 +93,8 @@ StationsListDialog::fetchNear()
 {
   QGeoCoordinate coord = position.coordinate();
 
-  listWidget->clearNear();
-  stations->fetchPos(QPointF(coord.latitude(), coord.longitude()), 5);
+  //listWidget->clearNear();
+  plugin->fetchPos(QPointF(coord.latitude(), coord.longitude()), 5);
 }
 
 void
@@ -111,7 +114,7 @@ StationsListDialog::positionUpdated(QGeoPositionInfo info)
 
   position = info;
 
-  if (stations)
+  if (plugin)
     nearButton->show();
 }
 #endif
@@ -119,31 +122,35 @@ StationsListDialog::positionUpdated(QGeoPositionInfo info)
 void
 StationsListDialog::setStationsPlugin(StationsPlugin *sta)
 {
-  if (sta == stations)
+  if (sta == plugin)
     return ;
 
-  if (stations) {
-    disconnect(stations, 0, this, 0);
+  if (plugin) {
+    disconnect(plugin, 0, this, 0);
   }
 
-  stations = sta;
+  plugin = sta;
 
-  if (!stations)
+  if (!plugin)
     return ;
 
   comboBox->clear();
   comboBox->addItem(tr("All"));
-  comboBox->addItems(stations->regions());
+  comboBox->addItems(plugin->regions());
 
-  listWidget->setStationsPlugin(stations);
+  //listWidget->setStationsPlugin(stations);
+  if (model)
+    delete model;
+  model = new StationsModel(plugin, this);
+  listView->setModel(model);
 
-  connect(stations, SIGNAL(progress(qint64, qint64)), this, SLOT(progress(qint64, qint64)));
-  connect(stations, SIGNAL(error(const QString &, const QString &)),
+  connect(plugin, SIGNAL(progress(qint64, qint64)), this, SLOT(progress(qint64, qint64)));
+  connect(plugin, SIGNAL(error(const QString &, const QString &)),
 	  this, SLOT(error(const QString &, const QString &)));
 
   if (position.coordinate().isValid())
     nearButton->show();
-  QTimer::singleShot(1, stations, SLOT(fetchAll()));
+  QTimer::singleShot(1, plugin, SLOT(fetchAll()));
 }
 
 void

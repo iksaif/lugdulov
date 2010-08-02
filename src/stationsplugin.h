@@ -47,6 +47,7 @@ class StationsPlugin : public QObject
   virtual void fetchPos(const QPointF & pos, int num = 5) = 0;
   virtual void fetchFromFile(const QString & file) = 0;
   virtual void fetchFromUrl(const QUrl & url) = 0;
+
   virtual void update(Station *station) = 0;
   virtual void update(QList < Station * > station) = 0;
 
@@ -55,9 +56,9 @@ class StationsPlugin : public QObject
   void progress(qint64 done, qint64 total);
   void done();
 
-  void stationsUpdated(QList < Station * > stations, bool nearest);
-  void stationUpdated(Station *station, bool nearest);
-  void statusUpdated(Station *station);
+  void stationsCreated(QList < Station * > stations);
+  void stationsUpdated(QList < Station * > stations);
+
   void error(const QString & title, const QString & message);
 };
 

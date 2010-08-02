@@ -21,14 +21,14 @@ link_directories(
 set(lugdulov_SRCS
   main.cpp
   mainwindow.cpp
-  stationslistwidget.cpp
-  stations.cpp
+  stationsplugin.cpp
   station.cpp
   settings.cpp
   stationwidget.cpp
   stationdialog.cpp
   stationsmanager.cpp
-  stationslistdialog.cpp)
+  stationslistdialog.cpp
+  stationsmodel.cpp)
 
 set(lugdulov_UIS
   mainwindow.ui
@@ -38,13 +38,13 @@ set(lugdulov_UIS
 
 set(lugdulov_MOC_HDRS
   mainwindow.h
-  stationslistwidget.h
   stationsplugin.h
   settings.h
   stationwidget.h
   stationdialog.h
   stationspluginmanager.h
-  stationslistdialog.h)
+  stationslistdialog.h
+  stationsmodel.h)
 
 set(lugdulov_RCS ../res/lugdulov.qrc ../i18n/i18n.qrc)
 set(lugdulov_TRS ../i18n/lugdulov_fr.ts)

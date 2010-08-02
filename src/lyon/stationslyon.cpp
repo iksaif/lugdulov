@@ -107,7 +107,7 @@ StationsPluginLyon::intersect(const QPointF & pos)
 void
 StationsPluginLyon::fetchPos(const QPointF & pos, int num)
 {
-  request(stationsJsonUrl(pos, num), Request::PropertiesNear);
+  request(stationsJsonUrl(pos, num), Request::Properties);
 }
 
 void
@@ -125,10 +125,16 @@ void
 StationsPluginLyon::fetchAll()
 {
   QList < Station * > list = builtinStationsPluginLyon(this);
+  QList < Station * > created;
 
-  foreach (Station *station, list)
-    stations[station->id()] = station;
-  emit stationsUpdated(list, false);
+  foreach (Station *station, list) {
+    if (!stations[station->id()]) {
+      stations[station->id()] = station;
+      created << station;
+    }
+  }
+  if (created.size())
+    emit stationsCreated(created);
 }
 
 void
@@ -187,8 +193,7 @@ StationsPluginLyon::finished()
     return ;
   }
 
-  if (req.type == Request::Properties ||
-      req.type == Request::PropertiesNear) {
+  if (req.type == Request::Properties) {
     handleProperties(rep->readAll(), req);
   }
   if (req.type == Request::Status) {
@@ -212,8 +217,7 @@ StationsPluginLyon::handleProperties(const QByteArray & data, Request req)
 {
   QJson::Parser parser;
   bool ok;
-  QList < Station * > list;
-  QMap < Station * , bool > status;
+  QList < Station * > created, updated;
   QVariant result = parser.parse(data, &ok);
 
   if (!ok)
@@ -233,8 +237,10 @@ StationsPluginLyon::handleProperties(const QByteArray & data, Request req)
       continue;
 
     id = sta["numStation"].toInt();
-    if (!stations[id])
+    if (!stations[id]) {
       stations[id] = new Station(this);
+      created << stations[id];
+    }
 
     station = stations[id];
     station->setId(sta["numStation"].toInt());
@@ -254,18 +260,15 @@ StationsPluginLyon::handleProperties(const QByteArray & data, Request req)
       station->setTotalSlots(sta["total"].toInt());
       station->setBikes(sta["available"].toInt());
       station->setTicket(sta["ticket"].toInt());
-      status[station] = true;
     }
 
-    list << station;
+    updated << station;
   }
 
-  emit stationsUpdated(list, req.type == Request::PropertiesNear);
-
-  foreach (Station *station, list) {
-    if (status[station])
-      emit statusUpdated(station);
-  }
+  if (created.size())
+    emit stationsCreated(created);
+  if (updated.size())
+    emit stationsUpdated(updated);
 }
 
 void
@@ -273,11 +276,11 @@ StationsPluginLyon::handleStatus(const QByteArray & data, Request req)
 {
   int id = req.id;
   Station *station;
+  QList < Station * > stations;
 
-  if (!stations[id]) {
-    fetch(id);
-    stations[id] = new Station(this);
-  }
+  if (!stations[id])
+    return ;
+
   station = stations[id];
 
   QDomDocument doc;
@@ -291,7 +294,8 @@ StationsPluginLyon::handleStatus(const QByteArray & data, Request req)
   station->setBikes(node.firstChildElement("available").text().toInt());
   station->setTicket(node.firstChildElement("ticket").text().toInt());
 
-  emit statusUpdated(station);
+  stations << station;
+  emit stationsUpdated(stations);
 }
 
 void

@@ -33,8 +33,15 @@
      </property>
     </widget>
    </item>
+   <item row="0" column="2">
+    <widget class="QPushButton" name="nearButton">
+     <property name="text">
+      <string>Nearest</string>
+     </property>
+    </widget>
+   </item>
    <item row="1" column="0" colspan="4">
-    <widget class="StationsListWidget" name="listWidget">
+    <widget class="QListView" name="listView">
      <property name="alternatingRowColors">
       <bool>true</bool>
      </property>
@@ -43,22 +50,8 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="2">
-    <widget class="QPushButton" name="nearButton">
-     <property name="text">
-      <string>Nearest</string>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>StationsListWidget</class>
-   <extends>QListWidget</extends>
-   <header>stationslistwidget.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -42,7 +42,7 @@ class StationsPluginLyon : public StationsPlugin
   Q_OBJECT
  private:
   struct Request {
-    enum Type { Null = 0, Properties, PropertiesNear, Status } type;
+    enum Type { Null = 0, Properties, Status } type;
     int id;
     QString region;
   };
@@ -78,9 +78,9 @@ class StationsPluginLyon : public StationsPlugin
   void progress(qint64 done, qint64 total);
   void done();
 
-  void stationsUpdated(QList < Station * > stations, bool nearest);
-  void stationUpdated(Station *station, bool nearest);
-  void statusUpdated(Station *station);
+  void stationsFetched(QList < Station * > stations);
+  void stationsUpdated(QList < Station * > stations);
+
   void error(const QString & title, const QString & message);
 
  private:

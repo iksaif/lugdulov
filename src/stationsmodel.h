@@ -16,49 +16,41 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONSLISTDIALOG_H
-# define STATIONSLISTDIALOG_H
+#ifndef STATIONSMODEL_H
+# define STATIONSMODEL_H
 
-#include "mobility.h"
+#include <QtCore/QAbstractListModel>
 
-#include "ui_stationslistdialog.h"
-
-class StationsModel;
 class StationsPlugin;
 class Station;
 
-class StationsListDialog : public QDialog, private Ui_StationsListDialog
+class StationsModel : public QAbstractListModel
 {
-  Q_OBJECT
+    Q_OBJECT
+public:
+    enum {
+      StationRole = Qt::UserRole,
+      StationIdRole,
+      BookmarkRole
+    };
 
- public:
-  enum Mode { Search, Bookmarks };
+    StationsModel(StationsPlugin *plugin, QObject *parent = 0);
+    ~StationsModel();
 
-  StationsListDialog(QWidget *parent = 0);
-  ~StationsListDialog();
+    int rowCount(const QModelIndex & parent = QModelIndex()) const;
+    QVariant data(const QModelIndex & index, int role) const;
 
-  void setMode(Mode mode);
-  void setStationsPlugin(StationsPlugin *plugin);
+    void clear();
+    void updateStatus(const QModelIndex & index);
 
- private:
-  void setupListWidget();
+public slots:
+    void stationsCreated(QList < Station * > station);
+    void stationsUpdated(QList < Station * > station);
 
- private slots:
-#ifdef HAVE_QT_LOCATION
-  void fetchNear();
-  void positionUpdated(QGeoPositionInfo info);
-  void positionRequestTimeout();
-#endif
+private:
+    QList < Station * > stations;
 
-  void progress(qint64 done, qint64 total);
-  void error(const QString & title, const QString & message);
-
- private:
-  StationsPlugin *plugin;
-  StationsModel *model;
-#ifdef HAVE_QT_LOCATION
-  QGeoPositionInfo position;
-#endif
+    StationsPlugin *plugin;
 };
 
 #endif
