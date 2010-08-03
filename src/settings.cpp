@@ -88,4 +88,17 @@ Settings::bookmark(Station *station, bool bookmark)
     conf->remove(key);
 }
 
+QList < int >
+Settings::bookmarks(StationsPlugin *plugin)
+{
+  Settings conf;
+  QList < int > ret;
+
+  conf.beginGroup("Bookmarks");
+  conf.beginGroup(plugin->id());
+  foreach (QString id, conf.childKeys())
+    ret << id.toInt();
+  return ret;
+}
+
 Settings *Settings::instance_ = NULL;

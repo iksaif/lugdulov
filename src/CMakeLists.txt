@@ -28,7 +28,8 @@ set(lugdulov_SRCS
   stationdialog.cpp
   stationsmanager.cpp
   stationslistdialog.cpp
-  stationsmodel.cpp)
+  stationsmodel.cpp
+  stationssortfilterproxymodel.cpp)
 
 set(lugdulov_UIS
   mainwindow.ui
@@ -44,7 +45,8 @@ set(lugdulov_MOC_HDRS
   stationdialog.h
   stationspluginmanager.h
   stationslistdialog.h
-  stationsmodel.h)
+  stationsmodel.h
+  stationssortfilterproxymodel.h)
 
 set(lugdulov_RCS ../res/lugdulov.qrc ../i18n/i18n.qrc)
 set(lugdulov_TRS ../i18n/lugdulov_fr.ts)

@@ -63,8 +63,8 @@ StationWidget::update()
   }
 #endif
 
-  if (station->distance() != -1)
-    descr += QString(" (%2m)").arg((int)station->distance());
+  if (station->distanceTo(QPointF()) != -1)
+    descr += QString(" (%2m)").arg((int)station->distanceTo(QPointF()));
   dstLabel->setText(descr);
 
   if (!Settings::bookmarked(station))

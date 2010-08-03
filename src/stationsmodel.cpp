@@ -21,11 +21,11 @@
 #include "station.h"
 
 StationsModel::StationsModel(StationsPlugin *plugin, QObject *parent)
-  : QAbstractListModel(parent)
+  : QAbstractListModel(parent), plugin_(plugin)
 {
-  connect(plugin, SIGNAL(stationsCreated(QList < Station *>)),
+  connect(plugin_, SIGNAL(stationsCreated(QList < Station *>)),
 	  this, SLOT(stationsCreated(QList < Station *>)));
-  connect(plugin, SIGNAL(stationsUpdated(QList < Station *>)),
+  connect(plugin_, SIGNAL(stationsUpdated(QList < Station *>)),
 	  this, SLOT(stationsUpdated(QList < Station *>)));
 }
 
@@ -53,10 +53,14 @@ StationsModel::data(const QModelIndex & index, int role) const
     return station->name();
   else if (role == StationRole)
     return QVariant::fromValue((void *)station);
-  else if (role == BookmarkRole)
+  else if (role == StationIdRole)
     return station->id();
-  else if (role == BookmarkRole)
-    return false;
+  else if (role == StationNameRole)
+    return station->name();
+  else if (role == StationSlotsRole)
+    return station->freeSlots();
+  else if (role == StationBikesRole)
+    return station->bikes();
 
   return QVariant();
 }
@@ -92,5 +96,11 @@ StationsModel::updateStatus(const QModelIndex & index)
   if (!index.isValid() || index.column() != 0)
     return;
 
-  plugin->update((Station *)index.data(StationsModel::StationRole).value<void *>());
+  plugin_->update((Station *)index.data(StationsModel::StationRole).value<void *>());
+}
+
+StationsPlugin *
+StationsModel::plugin()
+{
+  return plugin_;
 }

@@ -32,18 +32,18 @@ class Station
   ~Station();
 
   StationsPlugin *plugin();
-  bool isValid();
+  bool isValid() const;
 
-  int id();
-  QString name();
-  QString description();
-  QString region();
-  QPointF pos();
-  int bikes();
-  int freeSlots();
-  int totalSlots();
-  int ticket();
-  double distance();
+  int id() const;
+  QString name() const;
+  QString description() const;
+  QString region() const;
+  QPointF pos() const;
+  int bikes() const;
+  int freeSlots() const;
+  int totalSlots() const;
+  int ticket() const;
+  qreal distanceTo(const QPointF & pt) const;
 
   void setId(int id);
   void setName(const QString & name);
@@ -54,7 +54,6 @@ class Station
   void setFreeSlots(int freeSlots);
   void setTotalSlots(int totalSlots);
   void setTicket(int ticket);
-  void setDistance(double dst);
 
  private:
   void setStatus(const QString & xml);
@@ -69,7 +68,6 @@ class Station
   int freeSlots_;
   int totalSlots_;
   int ticket_;
-  double distance_;
   StationsPlugin *plugin_;
 };
 

@@ -31,8 +31,10 @@ public:
     enum {
       StationRole = Qt::UserRole,
       StationIdRole,
-      BookmarkRole
-    };
+      StationNameRole,
+      StationBikesRole,
+      StationSlotsRole
+    } Roles;
 
     StationsModel(StationsPlugin *plugin, QObject *parent = 0);
     ~StationsModel();
@@ -42,6 +44,7 @@ public:
 
     void clear();
     void updateStatus(const QModelIndex & index);
+    StationsPlugin *plugin();
 
 public slots:
     void stationsCreated(QList < Station * > station);
@@ -50,7 +53,7 @@ public slots:
 private:
     QList < Station * > stations;
 
-    StationsPlugin *plugin;
+    StationsPlugin *plugin_;
 };
 
 #endif

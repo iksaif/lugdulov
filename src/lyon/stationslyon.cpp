@@ -247,7 +247,6 @@ StationsPluginLyon::handleProperties(const QByteArray & data, Request req)
     station->setName(sta["nomStation"].toString());
     station->setDescription(sta["infoStation"].toString());
     station->setPos(QPointF(sta["x"].toReal(), sta["y"].toReal()));
-    station->setDistance(sta["distance"].toReal());
     if (req.region.isEmpty())
       station->setRegion(sta["codePostal"].toString()); /* Ext */
     else
