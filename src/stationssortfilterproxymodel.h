@@ -37,6 +37,7 @@ public:
     StationsSortFilterProxyModel(QObject *parent = 0);
     ~StationsSortFilterProxyModel();
 
+    QVariant data(const QModelIndex & index, int role) const;
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
 
     int stationLimit() const;

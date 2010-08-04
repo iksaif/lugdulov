@@ -45,9 +45,15 @@ StationsModel::data(const QModelIndex & index, int role) const
 {
   Station *station;
 
+  if (!index.isValid())
+    return QVariant();
+
   Q_ASSERT(index.column() == 0);
 
   station = stations.at(index.row());
+
+  if (!station)
+    return QVariant();
 
   if (role == Qt::DisplayRole)
     return station->name();

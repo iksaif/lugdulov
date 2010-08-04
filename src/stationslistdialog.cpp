@@ -27,6 +27,8 @@
 #include "station.h"
 #include "stationslistdialog.h"
 #include "stationsmodel.h"
+#include "stationdelegate.h"
+#include "stationssortfilterproxymodel.h"
 
 StationsListDialog::StationsListDialog(QWidget *parent)
   : QDialog(parent)
@@ -142,7 +144,19 @@ StationsListDialog::setStationsPlugin(StationsPlugin *sta)
   if (model)
     delete model;
   model = new StationsModel(plugin, this);
-  listView->setModel(model);
+  StationsSortFilterProxyModel *proxy = new StationsSortFilterProxyModel(this);
+  proxy->setFilterRole(StationsModel::StationNameRole);
+  proxy->setFilterWildcard("*a*");
+  proxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
+  proxy->setPosition(QPointF(45.76765100000000, 4.832158000000000));
+  proxy->setSortRole(StationsSortFilterProxyModel::StationDistanceRole);
+  proxy->setDynamicSortFilter(true);
+  proxy->sort(0);
+  proxy->setStationLimit(5);
+  proxy->setSourceModel(model);
+  listView->setModel(proxy);
+  listView->setAlternatingRowColors(true);
+  listView->setItemDelegate(new StationDelegate(listView));
 
   connect(plugin, SIGNAL(progress(qint64, qint64)), this, SLOT(progress(qint64, qint64)));
   connect(plugin, SIGNAL(error(const QString &, const QString &)),

@@ -16,32 +16,30 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONWIDGET_H
-# define STATIONWIDGET_H
+#ifndef STATIONSDELEGATE_H
+# define STATIONSDELEGATE_H
 
-#include "config.h"
+#include <QtGui/QStyledItemDelegate>
+#include <QtGui/QFontMetrics>
+#include <QtCore/QModelIndex>
+#include <QtCore/QSize>
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
+class QStyledItemModel;
+class QObject;
+class QPainter;
 
-#include "ui_stationwidget.h"
-
-class StationsPlugin;
-class Station;
-
-class StationWidget : public QWidget, private Ui_StationWidget
+class StationDelegate : public QStyledItemDelegate
 {
-  Q_OBJECT
-
+    Q_OBJECT
 public:
-  StationWidget(Station *station, QWidget * parent = 0);
-  ~StationWidget();
+  StationDelegate(QObject *parent = 0);
+  virtual ~StationDelegate();
 
-public slots:
-  void update();
+  void paint(QPainter *painter, const QStyleOptionViewItem &option,
+	     const QModelIndex &index) const;
 
-private:
-  Station *station;
+  QSize sizeHint(const QStyleOptionViewItem &option,
+		 const QModelIndex &index ) const;
 };
 
-#endif /* STATIONWIDGET_H */
+#endif

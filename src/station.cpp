@@ -116,7 +116,7 @@ qreal
 Station::distanceTo(const QPointF & a) const
 {
   const QPointF & b = pos_;
-  const qreal R = 6371; // km
+  const qreal R = 6371000; // km
   qreal dLat = (b.x() - a.x()) * M_PI / 180;
   qreal dLon = (b.y() - a.y()) * M_PI / 180;
   qreal e = sin(dLat/2) * sin(dLat/2) +

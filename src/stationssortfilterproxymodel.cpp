@@ -32,6 +32,24 @@ StationsSortFilterProxyModel::~StationsSortFilterProxyModel()
 {
 }
 
+QVariant
+StationsSortFilterProxyModel::data(const QModelIndex & index, int role) const
+{
+  Q_ASSERT(index.column() == 0);
+
+  if (role == StationBookmarkRole || role == StationDistanceRole) {
+    Station *station = (Station *)QSortFilterProxyModel::data(index, StationsModel::StationRole).value<void *>();
+
+    if (!station)
+      return QVariant();
+    else if (role == StationBookmarkRole)
+      return bookmarks[station->id()];
+    else if (role == StationDistanceRole)
+      return distance(station);
+  }
+  return QSortFilterProxyModel::data(index, role);
+}
+
 int
 StationsSortFilterProxyModel::rowCount(const QModelIndex & parent) const
 {
@@ -54,6 +72,8 @@ StationsSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelInde
     Station *l = (Station *)sourceModel()->data(left, StationsModel::StationRole).value<void *>();
     Station *r = (Station *)sourceModel()->data(right, StationsModel::StationRole).value<void *>();
 
+    if (!l || !r)
+      return false;
     if (sortRole() == StationBookmarkRole)
       return bookmarks[l->id()] < bookmarks[r->id()];
     else if (sortRole() == StationDistanceRole)
