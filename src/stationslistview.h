@@ -36,6 +36,9 @@ class StationsListView : public QListView
   void setUpdateInterval(int sec);
   int updateInterval();
 
+ public slots:
+  void forceUpdate();
+
  protected:
   virtual void scrollContentsBy(int dx, int dy);
   virtual void rowsInserted(const QModelIndex & parent, int start, int end);

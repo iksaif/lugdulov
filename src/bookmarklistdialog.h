@@ -16,28 +16,18 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef SETTINGS_H
-# define SETTINGS_H
+#ifndef BOOKMARKLISTDIALOG_H
+# define BOOKMARKLISTDIALOG_H
 
-#include <QtCore/QSettings>
+#include "stationslistdialog.h"
 
-class Station;
-class StationsPlugin;
-
-class Settings : public QSettings {
+class BookmarkListDialog : public StationsListDialog
+{
   Q_OBJECT
-public:
-  Settings(QObject * parent = 0);
-  ~Settings();
-  static Settings *settings();
-  static QString path();
-  static bool bookmarked(Station *station);
-  static void bookmark(Station *station, bool bookmark);
-  static QList < int > bookmarks(StationsPlugin *plugin);
 
-private:
-  static Settings *instance_;
+ public:
+  BookmarkListDialog(StationsPlugin *plugin, QWidget *parent = 0);
+  ~BookmarkListDialog();
 };
 
 #endif
-

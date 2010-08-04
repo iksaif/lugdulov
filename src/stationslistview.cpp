@@ -71,7 +71,13 @@ StationsListView::updateInterval()
 {
   return timer->interval() / 1000;
 }
-#include <QDebug>
+
+void
+StationsListView::forceUpdate()
+{
+  updated.clear();
+  update();
+}
 
 void
 StationsListView::update()
@@ -96,7 +102,6 @@ StationsListView::update()
     if (!station || updated[station] > time)
       continue ;
 
-    qDebug() << station << station->name();
     station->plugin()->update(station);
     updated[station] = QTime::currentTime();
   }
@@ -120,5 +125,6 @@ void
 StationsListView::scrollContentsBy(int dx, int dy)
 {
   QListView::scrollContentsBy(dx, dy);
-  update();
+  // Delayed a little because the user may be still scrolling
+  QTimer::singleShot(500, this, SLOT(update()));
 }

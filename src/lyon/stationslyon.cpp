@@ -125,16 +125,10 @@ void
 StationsPluginLyon::fetchAll()
 {
   QList < Station * > list = builtinStationsPluginLyon(this);
-  QList < Station * > created;
 
-  foreach (Station *station, list) {
-    if (!stations[station->id()]) {
-      stations[station->id()] = station;
-      created << station;
-    }
-  }
-  if (created.size())
-    emit stationsCreated(created);
+  foreach (Station *station, list)
+    stations[station->id()] = station;
+  emit stationsCreated(list);
 }
 
 void
@@ -237,10 +231,10 @@ StationsPluginLyon::handleProperties(const QByteArray & data, Request req)
       continue;
 
     id = sta["numStation"].toInt();
-    if (!stations[id]) {
+    if (!stations[id])
       stations[id] = new Station(this);
-      created << stations[id];
-    }
+    created << stations[id];
+
 
     station = stations[id];
     station->setId(sta["numStation"].toInt());

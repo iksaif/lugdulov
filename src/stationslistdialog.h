@@ -26,19 +26,20 @@
 class StationsModel;
 class StationsPlugin;
 class Station;
+class StationsSortFilterProxyModel;
+class StationsView;
 
 class StationsListDialog : public QDialog, private Ui_StationsListDialog
 {
   Q_OBJECT
 
  public:
-  enum Mode { Search, Bookmarks };
-
-  StationsListDialog(QWidget *parent = 0);
+  StationsListDialog(StationsPlugin *plugin, QWidget *parent = 0);
   ~StationsListDialog();
 
-  void setMode(Mode mode);
-  void setStationsPlugin(StationsPlugin *plugin);
+ public slots:
+  void positionUpdated(QGeoPositionInfo info);
+  void positionRequestTimeout();
 
  private:
   void setupListWidget();
@@ -46,16 +47,17 @@ class StationsListDialog : public QDialog, private Ui_StationsListDialog
  private slots:
 #ifdef HAVE_QT_LOCATION
   void fetchNear();
-  void positionUpdated(QGeoPositionInfo info);
-  void positionRequestTimeout();
 #endif
 
+  void filter(const QString & text);
   void progress(qint64 done, qint64 total);
   void error(const QString & title, const QString & message);
 
- private:
+ protected:
   StationsPlugin *plugin;
   StationsModel *model;
+  StationsSortFilterProxyModel *proxy;
+  StationsView *view;
 #ifdef HAVE_QT_LOCATION
   QGeoPositionInfo position;
 #endif

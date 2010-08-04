@@ -80,8 +80,14 @@ StationsModel::clear()
 void
 StationsModel::stationsCreated(QList < Station * > list)
 {
-  beginInsertRows(QModelIndex(), stations.size(), stations.size() + list.size());
-  stations.append(list);
+  QList < Station * > copy;
+
+  foreach (Station *station, list)
+    if (!stations.contains(station))
+	copy.append(station);
+
+  beginInsertRows(QModelIndex(), stations.size(), stations.size() + copy.size());
+  stations.append(copy);
   endInsertRows();
 }
 

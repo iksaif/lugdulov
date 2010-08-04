@@ -28,6 +28,7 @@
 #include "station.h"
 #include "mainwindow.h"
 #include "stationslistdialog.h"
+#include "bookmarklistdialog.h"
 #include "settings.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -229,11 +230,9 @@ MainWindow::search()
     return ;
   }
 
-  StationsListDialog *dlg = new StationsListDialog(this);
+  StationsListDialog dlg(plugin, this);
 
-  dlg->setMode(StationsListDialog::Search);
-  dlg->setStationsPlugin(plugin);
-  dlg->exec();
+  dlg.exec();
 }
 
 void
@@ -254,11 +253,10 @@ MainWindow::bookmarks()
     return ;
   }
 
-  StationsListDialog *dlg = new StationsListDialog(this);
+  BookmarkListDialog dlg(plugin, this);
 
-  dlg->setMode(StationsListDialog::Bookmarks);
-  dlg->setStationsPlugin(plugin);
-  dlg->exec();
+  //dlg->setMode(StationsListDialog::Bookmarks);
+  dlg.exec();
 }
 
 void

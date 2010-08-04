@@ -27,6 +27,7 @@ set(lugdulov_SRCS
   stationdialog.cpp
   stationsmanager.cpp
   stationslistdialog.cpp
+  bookmarklistdialog.cpp
   stationdelegate.cpp
   stationsmodel.cpp
   stationssortfilterproxymodel.cpp
@@ -44,6 +45,7 @@ set(lugdulov_MOC_HDRS
   stationdialog.h
   stationspluginmanager.h
   stationslistdialog.h
+  bookmarklistdialog.h
   stationdelegate.h
   stationsmodel.h
   stationssortfilterproxymodel.h

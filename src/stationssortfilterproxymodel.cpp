@@ -62,7 +62,17 @@ StationsSortFilterProxyModel::rowCount(const QModelIndex & parent) const
 bool
 StationsSortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
-  return QSortFilterProxyModel::filterAcceptsRow(sourceRow, sourceParent);
+  bool accept = true;
+
+  if (bookmarksEnabled_) {
+    QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
+    Station *l = (Station *)sourceModel()->data(index, StationsModel::StationRole).value<void *>();
+
+    if (l)
+      accept = bookmarks[l->id()];
+  }
+
+  return accept && QSortFilterProxyModel::filterAcceptsRow(sourceRow, sourceParent);
 }
 
 bool

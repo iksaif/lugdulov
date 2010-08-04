@@ -29,9 +29,10 @@
 #include "stationsmodel.h"
 #include "stationdelegate.h"
 #include "stationssortfilterproxymodel.h"
+#include "stationslistview.h"
 
-StationsListDialog::StationsListDialog(QWidget *parent)
-  : QDialog(parent)
+StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
+  : QDialog(parent), plugin(plugin)
 {
   setupUi(this);
 
@@ -40,54 +41,41 @@ StationsListDialog::StationsListDialog(QWidget *parent)
   setAttribute(Qt::WA_Maemo5AutoOrientation, true);
 #endif
 
-  //  setupListWidget();
-
   refreshButton->setIcon(QIcon::fromTheme("view-refresh"));
   nearButton->hide();
   lineEdit->setFocus(Qt::OtherFocusReason);
 
-  model = NULL;
-  plugin = NULL;
+  connect(lineEdit, SIGNAL(textEdited(const QString &)), this, SLOT(filter(const QString &)));
+  connect(refreshButton, SIGNAL(clicked()), listView, SLOT(forceUpdate()));
+#ifdef HAVE_QT_LOCATION
+  connect(nearButton, SIGNAL(clicked()), this, SLOT(fetchNear()));
+#endif
+
+  listView->setAlternatingRowColors(true);
+  listView->setItemDelegate(new StationDelegate(listView));
+
+  model = new StationsModel(plugin, this);
+  proxy = new StationsSortFilterProxyModel(this);
+
+  //proxy->setStationLimit(5);
+  proxy->setSourceModel(model);
+  listView->setModel(proxy);
+
+  connect(plugin, SIGNAL(progress(qint64, qint64)), this, SLOT(progress(qint64, qint64)));
+  connect(plugin, SIGNAL(error(const QString &, const QString &)),
+	  this, SLOT(error(const QString &, const QString &)));
+
+#ifdef HAVE_QT_LOCATION
+  if (position.coordinate().isValid())
+    nearButton->show();
+#endif
+
+  QTimer::singleShot(1, plugin, SLOT(fetchAll()));
 }
 
 StationsListDialog::~StationsListDialog()
 {
 }
-
-void
-StationsListDialog::setupListWidget()
-{
-  /*  connect(lineEdit, SIGNAL(textEdited(const QString &)),
-	  listWidget, SLOT(filter(const QString &)));
-  connect(comboBox, SIGNAL(activated(const QString &)),
-	  listWidget, SLOT(setRegion(const QString &)));
-  connect(refreshButton, SIGNAL(clicked()), listWidget, SLOT(update()));
-  */
-#ifdef HAVE_QT_LOCATION
-  connect(nearButton, SIGNAL(clicked()), this, SLOT(fetchNear()));
-#endif
-}
-
-void
-StationsListDialog::setMode(Mode mode)
-{
-  if (mode == Search) {
-    setWindowTitle(tr("Search StationsPlugin"));
-    lineEdit->show();
-    nearButton->show();
-    refreshButton->show();
-    //listWidget->showBookmarks(false);
-    comboBox->show();
-  } else {
-    setWindowTitle(tr("Favorites StationsPlugin"));
-    lineEdit->hide();
-    nearButton->hide();
-    refreshButton->hide();
-    //listWidget->showBookmarks(true);
-    comboBox->hide();
-  }
-}
-
 
 #ifdef HAVE_QT_LOCATION
 void
@@ -95,8 +83,10 @@ StationsListDialog::fetchNear()
 {
   QGeoCoordinate coord = position.coordinate();
 
-  //listWidget->clearNear();
-  plugin->fetchPos(QPointF(coord.latitude(), coord.longitude()), 5);
+  if (proxy) {
+    proxy->setSortRole(StationsSortFilterProxyModel::StationDistanceRole);
+    proxy->sort(0);
+  }
 }
 
 void
@@ -118,53 +108,19 @@ StationsListDialog::positionUpdated(QGeoPositionInfo info)
 
   if (plugin)
     nearButton->show();
+  if (proxy)
+    proxy->setPosition(QPointF(coord.longitude(), coord.latitude()));
 }
 #endif
 
 void
-StationsListDialog::setStationsPlugin(StationsPlugin *sta)
+StationsListDialog::filter(const QString & text)
 {
-  if (sta == plugin)
+  if (!proxy)
     return ;
-
-  if (plugin) {
-    disconnect(plugin, 0, this, 0);
-  }
-
-  plugin = sta;
-
-  if (!plugin)
-    return ;
-
-  comboBox->clear();
-  comboBox->addItem(tr("All"));
-  comboBox->addItems(plugin->regions());
-
-  //listWidget->setStationsPlugin(stations);
-  if (model)
-    delete model;
-  model = new StationsModel(plugin, this);
-  StationsSortFilterProxyModel *proxy = new StationsSortFilterProxyModel(this);
   proxy->setFilterRole(StationsModel::StationNameRole);
-  proxy->setFilterWildcard("*a*");
+  proxy->setFilterWildcard(QString("*%1*").arg(text));
   proxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
-  proxy->setPosition(QPointF(45.76765100000000, 4.832158000000000));
-  proxy->setSortRole(StationsSortFilterProxyModel::StationDistanceRole);
-  proxy->setDynamicSortFilter(true);
-  proxy->sort(0);
-  proxy->setStationLimit(5);
-  proxy->setSourceModel(model);
-  listView->setModel(proxy);
-  listView->setAlternatingRowColors(true);
-  listView->setItemDelegate(new StationDelegate(listView));
-
-  connect(plugin, SIGNAL(progress(qint64, qint64)), this, SLOT(progress(qint64, qint64)));
-  connect(plugin, SIGNAL(error(const QString &, const QString &)),
-	  this, SLOT(error(const QString &, const QString &)));
-
-  if (position.coordinate().isValid())
-    nearButton->show();
-  QTimer::singleShot(1, plugin, SLOT(fetchAll()));
 }
 
 void

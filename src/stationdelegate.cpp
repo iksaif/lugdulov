@@ -96,7 +96,7 @@ StationDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
   qreal distance = index.data(StationsSortFilterProxyModel::StationDistanceRole).toDouble();
   QString distanceText;
 
-  if (distance)
+  if (distance >= 0)
     distanceText.sprintf(" (%dm)", (int)distance);
 
   description = station->description();
@@ -166,11 +166,13 @@ StationDelegate::sizeHint(const QStyleOptionViewItem &option,
   QSize s;
   QFontMetrics fm(option.font);
 
+  if (!station)
+    return QSize();
+
   /* Wow oO */
   s.setHeight(48 + fm.height() * 2);
-  s.setWidth(qMax(qMax((int)(fm.width(station->description() + QLatin1String("xxxm"))),
-		       (int)(fm.width(station->name()) * 1.2)),
-		  (48 + fm.width("000")) * 2));
+  s.setWidth(qMax((int)(fm.width(station->name()) * 1.2), (48 + fm.width("000")) * 2));
+
   /*
    * Maemo is very, very bad with nonstandard row sizes.
    *  It involves a lot of pixmap resizing and other horrors which is *really* noticably slow.

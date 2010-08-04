@@ -16,28 +16,18 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef SETTINGS_H
-# define SETTINGS_H
+#include "bookmarklistdialog.h"
+#include "stationslistdialog.h"
+#include "settings.h"
+#include "stationssortfilterproxymodel.h"
 
-#include <QtCore/QSettings>
+BookmarkListDialog::BookmarkListDialog(StationsPlugin *plugin, QWidget *parent)
+  : StationsListDialog(plugin, parent)
+{
+  proxy->setBookmarks(Settings::bookmarks(plugin));
+  proxy->enableBookmarks(true);
+}
 
-class Station;
-class StationsPlugin;
-
-class Settings : public QSettings {
-  Q_OBJECT
-public:
-  Settings(QObject * parent = 0);
-  ~Settings();
-  static Settings *settings();
-  static QString path();
-  static bool bookmarked(Station *station);
-  static void bookmark(Station *station, bool bookmark);
-  static QList < int > bookmarks(StationsPlugin *plugin);
-
-private:
-  static Settings *instance_;
-};
-
-#endif
-
+BookmarkListDialog::~BookmarkListDialog()
+{
+}
