@@ -61,7 +61,7 @@ MainWindow::createCombo()
 {
   Settings conf;
   QString selected = conf.value("StationsPlugin").toString();
-  StationsPlugin *selectedPlugin;
+  StationsPlugin *selectedPlugin = NULL;
 
   manager = new StationsPluginManager(this);
 
@@ -255,7 +255,6 @@ MainWindow::bookmarks()
 
   BookmarkListDialog dlg(plugin, this);
 
-  //dlg->setMode(StationsListDialog::Bookmarks);
   dlg.exec();
 }
 
