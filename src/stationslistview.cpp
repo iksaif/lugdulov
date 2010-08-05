@@ -23,6 +23,8 @@
 #include "stationsmodel.h"
 #include "station.h"
 #include "stationsplugin.h"
+#include "settings.h"
+#include "stationdialog.h"
 
 StationsListView::StationsListView(QWidget *parent)
   : QListView(parent)
@@ -32,6 +34,14 @@ StationsListView::StationsListView(QWidget *parent)
   timer = new QTimer(this);
   timer->setInterval(30000);
   connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+
+#ifdef Q_WS_MAEMO_5
+  connect(this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(showDetails(const QModelIndex &)));
+#else
+  connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(showDetails(const QModelIndex &)));
+#endif
+  setContextMenuPolicy(Qt::CustomContextMenu);
+  connect(this, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showContextMenu(const QPoint &)));
 }
 
 
@@ -43,6 +53,38 @@ void
 StationsListView::createContextMenu()
 {
   menu = new QMenu(this);
+  details  = menu->addAction(QIcon(":/res/slot.png"), tr("Details..."));
+  map      = menu->addAction(QIcon(":/res/map.png"), tr("Show on a map..."));
+  bookmark = menu->addAction(QIcon::fromTheme("bookmarks", QPixmap(":/res/favorites.png")),
+			     tr("Bookmark this station"));
+
+  connect(menu, SIGNAL(triggered(QAction *)), this, SLOT(action(QAction *)));
+
+  bookmark->setCheckable(true);
+}
+
+void
+StationsListView::showDetails(const QModelIndex & index)
+{
+    Station *station = (Station *)index.data(StationsModel::StationRole).value<void *>();
+
+    if (station)
+      StationDialog(station, this).exec();
+}
+
+void
+StationsListView::action(QAction *action)
+{
+  foreach (QModelIndex index, selectedIndexes()) {
+    Station *station = (Station *)index.data(StationsModel::StationRole).value<void *>();
+
+    if (action == details)
+      showDetails(index);
+    else if (action == map)
+      (void) action;
+    else if (action == bookmark)
+      Settings::bookmark(station, !Settings::bookmarked(station));
+  }
 }
 
 void
@@ -108,8 +150,14 @@ StationsListView::update()
 }
 
 void
-StationsListView::showContexMenu(const QPoint & pos)
+StationsListView::showContextMenu(const QPoint & pos)
 {
+  foreach (QModelIndex index, selectedIndexes()) {
+    Station *station = (Station *)index.data(StationsModel::StationRole).value<void *>();
+
+    if (station)
+      bookmark->setChecked(Settings::bookmarked(station) ? Qt::Checked : Qt::Unchecked);
+  }
   menu->exec(pos);
 }
 

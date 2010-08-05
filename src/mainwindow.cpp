@@ -232,6 +232,12 @@ MainWindow::search()
 
   StationsListDialog dlg(plugin, this);
 
+#ifdef HAVE_QT_LOCATION
+  if (localisation) {
+    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), &dlg, SLOT(positionUpdated(QGeoPositionInfo)));
+    connect(localisation, SIGNAL(requestTimeout()), &dlg, SLOT(positionRequestTimeout()));
+  }
+#endif
   dlg.exec();
 }
 
@@ -255,7 +261,12 @@ MainWindow::bookmarks()
 
   BookmarkListDialog dlg(plugin, this);
 
-  //dlg->setMode(StationsListDialog::Bookmarks);
+#ifdef HAVE_QT_LOCATION
+  if (localisation) {
+    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), &dlg, SLOT(positionUpdated(QGeoPositionInfo)));
+    connect(localisation, SIGNAL(requestTimeout()), &dlg, SLOT(positionRequestTimeout()));
+  }
+#endif
   dlg.exec();
 }
 

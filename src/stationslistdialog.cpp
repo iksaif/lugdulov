@@ -23,6 +23,7 @@
 #include <QtCore/QTimer>
 #include <QDebug>
 
+#include "settings.h"
 #include "stationsplugin.h"
 #include "station.h"
 #include "stationslistdialog.h"
@@ -59,16 +60,12 @@ StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
 
   //proxy->setStationLimit(5);
   proxy->setSourceModel(model);
+  proxy->setBookmarks(Settings::bookmarks(plugin));
   listView->setModel(proxy);
 
   connect(plugin, SIGNAL(progress(qint64, qint64)), this, SLOT(progress(qint64, qint64)));
   connect(plugin, SIGNAL(error(const QString &, const QString &)),
 	  this, SLOT(error(const QString &, const QString &)));
-
-#ifdef HAVE_QT_LOCATION
-  if (position.coordinate().isValid())
-    nearButton->show();
-#endif
 
   QTimer::singleShot(1, plugin, SLOT(fetchAll()));
 }
@@ -83,10 +80,8 @@ StationsListDialog::fetchNear()
 {
   QGeoCoordinate coord = position.coordinate();
 
-  if (proxy) {
-    proxy->setSortRole(StationsSortFilterProxyModel::StationDistanceRole);
-    proxy->sort(0);
-  }
+  proxy->setSortRole(StationsSortFilterProxyModel::StationDistanceRole);
+  proxy->sort(0);
 }
 
 void
@@ -106,18 +101,14 @@ StationsListDialog::positionUpdated(QGeoPositionInfo info)
 
   position = info;
 
-  if (plugin)
-    nearButton->show();
-  if (proxy)
-    proxy->setPosition(QPointF(coord.longitude(), coord.latitude()));
+  nearButton->show();
+  proxy->setPosition(QPointF(coord.longitude(), coord.latitude()));
 }
 #endif
 
 void
 StationsListDialog::filter(const QString & text)
 {
-  if (!proxy)
-    return ;
   proxy->setFilterRole(StationsModel::StationNameRole);
   proxy->setFilterWildcard(QString("*%1*").arg(text));
   proxy->setFilterCaseSensitivity(Qt::CaseInsensitive);

@@ -45,7 +45,9 @@ class StationsListView : public QListView
 
  private slots:
   void update();
-  void showContexMenu(const QPoint & pos);
+  void showContextMenu(const QPoint & pos);
+  void action(QAction *action);
+  void showDetails(const QModelIndex & index);
 
  private:
   void createContextMenu();
@@ -54,7 +56,9 @@ class StationsListView : public QListView
   QTimer *timer;
   QMenu *menu;
   QMap < Station * , QTime > updated;
+  QAction *map;
+  QAction *bookmark;
+  QAction *details;
 };
-
 
 #endif

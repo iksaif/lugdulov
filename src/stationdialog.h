@@ -34,8 +34,7 @@ class StationDialog : public QDialog, private Ui_StationDialog
   Q_OBJECT
 
 public:
-  StationDialog(StationsPlugin *stations, Station *station,
-		QWidget * parent = 0);
+  StationDialog(Station *station, QWidget * parent = 0);
   ~StationDialog();
 
 private:
@@ -52,7 +51,6 @@ private slots:
 
 private:
   Station *station;
-  StationsPlugin *stations;
   QNetworkAccessManager *nm;
 };
 

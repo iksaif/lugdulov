@@ -25,15 +25,14 @@
 #include "stationsplugin.h"
 #include "settings.h"
 
-StationDialog::StationDialog(StationsPlugin *stations, Station *station, QWidget * parent)
+StationDialog::StationDialog(Station *station, QWidget * parent)
   :
 #ifdef Q_WS_MAEMO_5
   QDialog(parent, Qt::Window),
 #else
   QDialog(parent),
 #endif
-  station(station),
-  stations(stations)
+  station(station)
 {
 #ifdef Q_WS_MAEMO_5
   setAttribute(Qt::WA_Maemo5StackedWindow);
@@ -89,10 +88,7 @@ StationDialog::setupButtons()
 void
 StationDialog::fetchImage()
 {
-  if (!stations)
-    return;
-
-  QUrl url = stations->stationImageUrl(station->id());
+  QUrl url = station->plugin()->stationImageUrl(station->id());
 
   if (url.isEmpty())
     return ;

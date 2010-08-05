@@ -16,12 +16,9 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifdef HAVE_QT_LOCATION
-#include "mobility.h"
-#else
 #include <cmath>
-#endif
 
+#include "mobility.h"
 #include "station.h"
 
 Station::Station(StationsPlugin *plugin)
@@ -105,6 +102,9 @@ Station::ticket() const
 qreal
 Station::distanceTo(const QPointF & a) const
 {
+  if (a.x() == 0 && a.y() == 0)
+    return -1;
+
   const QPointF & b = pos_;
   QGeoCoordinate ga(a.x(), a.y());
   QGeoCoordinate gb(b.x(), b.y());
