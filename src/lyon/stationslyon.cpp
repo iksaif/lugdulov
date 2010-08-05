@@ -275,7 +275,7 @@ StationsPluginLyon::handleStatus(const QByteArray & data, Request req)
 {
   int id = req.id;
   Station *station;
-  QList < Station * > stations;
+  QList < Station * > updated;
 
   if (!stations[id])
     return ;
@@ -293,8 +293,8 @@ StationsPluginLyon::handleStatus(const QByteArray & data, Request req)
   station->setBikes(node.firstChildElement("available").text().toInt());
   station->setTicket(node.firstChildElement("ticket").text().toInt());
 
-  stations << station;
-  emit stationsUpdated(stations);
+  updated << station;
+  emit stationsUpdated(updated);
 }
 
 void
@@ -344,13 +344,13 @@ StationsPluginLyon::stationJsonUrl(int id)
 QUrl
 StationsPluginLyon::stationsJsonUrl(const QString &region)
 {
-  return baseUrl + QString("StationsPluginParArrondissement.php?arrondissement=%1").arg(region);
+  return baseUrl + QString("StationsParArrondissement.php?arrondissement=%1").arg(region);
 }
 
 QUrl
 StationsPluginLyon::stationStatusUrl(int id)
 {
-  return baseUrl + QString("DispoStationsPluginParId.php?id=%1").arg(id);
+  return baseUrl + QString("DispoStationsParId.php?id=%1").arg(id);
 }
 
 QUrl
@@ -362,7 +362,7 @@ StationsPluginLyon::stationImageUrl(int id)
 QUrl
 StationsPluginLyon::stationsJsonUrl(const QPointF &pos, int num)
 {
-  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsPluginParCoord.php?lat=%1&long=%2&nombreStation=%3").arg(pos.x()).arg(pos.y()).arg(num);
+  return QString("http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsParCoord.php?lat=%1&long=%2&nombreStation=%3").arg(pos.x()).arg(pos.y()).arg(num);
 }
 
 QStringList
