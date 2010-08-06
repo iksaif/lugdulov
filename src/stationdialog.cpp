@@ -19,6 +19,7 @@
 #include <QtGui/QMessageBox>
 #include <QtGui/QDesktopWidget>
 #include <QtGui/QDesktopServices>
+#include <QtGui/QPushButton>
 
 #include "stationdialog.h"
 #include "station.h"
@@ -42,6 +43,13 @@ StationDialog::StationDialog(Station *station, QWidget * parent)
   setupWidgets();
   setupButtons();
 
+  /* Update Station Status */
+  if (station->freeSlots() == -1) {
+    station->plugin()->update(station);
+    connect(station->plugin(), SIGNAL(stationsUpdated(QList < Station *>)),
+	    this, SLOT(setupWidgets()));
+  }
+  /* Could be done in StationsPlugin */
   fetchImage();
 }
 
@@ -54,10 +62,10 @@ StationDialog::setupWidgets()
 {
   setWindowTitle(QString("%1").arg(station->name()));
 
-  slotsProgressBar->setValue(station->freeSlots());
-  bikeProgressBar->setValue(station->bikes());
   slotsProgressBar->setRange(0, station->totalSlots());
   bikeProgressBar->setRange(0, station->totalSlots());
+  slotsProgressBar->setValue(station->freeSlots());
+  bikeProgressBar->setValue(station->bikes());
 
   descriptionLabel->setText(station->description());
   stationLabel->setText(station->name());
@@ -71,18 +79,38 @@ StationDialog::setupWidgets()
     bikeLabel->setPixmap(station->plugin()->bikeIcon().pixmap(bikeLabel->pixmap()->size()));
   }
 
-  iconLabel->setText("");
-  iconLabel->hide();
+  if (!iconLabel->pixmap()) {
+    iconLabel->setText("");
+    iconLabel->hide();
+  }
   resize(sizeHint());
 }
 
 void
 StationDialog::setupButtons()
 {
-
   connect(bookmarkButton, SIGNAL(clicked(bool)), this, SLOT(bookmark(bool)));
 
   bookmarkButton->setChecked(Settings::bookmarked(station) ? Qt::Checked : Qt::Unchecked);
+
+  foreach (QAction *action, station->plugin()->actions()) {
+    QPushButton *button = new QPushButton(this);
+
+    action->setParent(this);
+    button->addAction(action);
+    button->setIcon(action->icon());
+    button->setText(action->text());
+    connect(button, SIGNAL(clicked(bool)), this, SLOT(pluginAction()));
+    pluginButtonsLayout->addWidget(button);
+  }
+}
+
+void
+StationDialog::pluginAction()
+{
+  QAction *action = ((QPushButton *)sender())->actions()[0];
+
+  station->plugin()->actionTriggered(action, station, this);
 }
 
 void

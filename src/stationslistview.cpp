@@ -18,6 +18,7 @@
 
 #include <QtCore/QTimer>
 #include <QtGui/QMenu>
+#include <QtGui/QSortFilterProxyModel>
 
 #include "stationslistview.h"
 #include "stationsmodel.h"
@@ -29,6 +30,8 @@
 StationsListView::StationsListView(QWidget *parent)
   : QListView(parent)
 {
+  plugin = NULL;
+
   createContextMenu();
 
   timer = new QTimer(this);
@@ -49,14 +52,36 @@ StationsListView::~StationsListView()
 {
 }
 
+StationsPlugin *
+StationsListView::stationsPlugin()
+{
+  return plugin;
+}
+
+void
+StationsListView::setStationsPlugin(StationsPlugin *p)
+{
+  plugin = p;
+  delete menu;
+  createContextMenu();
+}
+
 void
 StationsListView::createContextMenu()
 {
+
   menu = new QMenu(this);
   details  = menu->addAction(QIcon(":/res/slot.png"), tr("Details..."));
   map      = menu->addAction(QIcon(":/res/map.png"), tr("Show on a map..."));
   bookmark = menu->addAction(QIcon::fromTheme("bookmarks", QPixmap(":/res/favorites.png")),
 			     tr("Bookmark this station"));
+
+  if (plugin) {
+    foreach (QAction *action, plugin->actions()) {
+      action->setParent(menu);
+      menu->addAction(action);
+    }
+  }
 
   connect(menu, SIGNAL(triggered(QAction *)), this, SLOT(action(QAction *)));
 
@@ -84,6 +109,8 @@ StationsListView::action(QAction *action)
       (void) action;
     else if (action == bookmark)
       Settings::bookmark(station, !Settings::bookmarked(station));
+    else if (plugin)
+	plugin->actionTriggered(action, station, this);
   }
 }
 
@@ -158,7 +185,7 @@ StationsListView::showContextMenu(const QPoint & pos)
     if (station)
       bookmark->setChecked(Settings::bookmarked(station) ? Qt::Checked : Qt::Unchecked);
   }
-  menu->exec(pos);
+  menu->exec(mapToGlobal(pos));
 }
 
 void

@@ -23,6 +23,7 @@
 #include <QtCore/QTime>
 
 class Station;
+class StationsPlugin;
 
 class StationsListView : public QListView
 {
@@ -35,6 +36,9 @@ class StationsListView : public QListView
   bool autoUpdateEnabled();
   void setUpdateInterval(int sec);
   int updateInterval();
+
+  StationsPlugin *stationsPlugin();
+  void setStationsPlugin(StationsPlugin *plugin);
 
  public slots:
   void forceUpdate();
@@ -53,6 +57,7 @@ class StationsListView : public QListView
   void createContextMenu();
 
  private:
+  StationsPlugin *plugin;
   QTimer *timer;
   QMenu *menu;
   QMap < Station * , QTime > updated;

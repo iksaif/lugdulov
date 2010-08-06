@@ -60,6 +60,13 @@ class StationsPluginLyon : public StationsPlugin
   QUrl stationImageUrl(int id);
   QStringList regions();
 
+  enum StationsLyonActions {
+    ActionVelovMap = 1,
+  };
+
+  QList < QAction * > actions();
+  void actionTriggered(QAction *action, Station *station, QWidget *parent = 0);
+
  public slots:
   void fetchOnline();
   void fetchPos(const QPointF & pos, int num = 5);

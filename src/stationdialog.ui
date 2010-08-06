@@ -103,32 +103,36 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="0" colspan="3">
-    <layout class="QGridLayout" name="gridLayout_2">
-     <item row="0" column="1">
-      <widget class="QPushButton" name="mapButton">
-       <property name="text">
-        <string>Map</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../res/lugdulov.qrc">
-         <normaloff>:/res/map.png</normaloff>:/res/map.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QPushButton" name="bookmarkButton">
-       <property name="text">
-        <string>Bookmark</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../res/lugdulov.qrc">
-         <normaloff>:/res/favorites.png</normaloff>:/res/favorites.png</iconset>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
+   <item row="6" column="0" colspan="2">
+    <layout class="QVBoxLayout" name="pluginButtonsLayout">
+     <item>
+      <layout class="QGridLayout" name="buttonLayouts">
+       <item row="0" column="1">
+        <widget class="QPushButton" name="mapButton">
+         <property name="text">
+          <string>Map</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../res/lugdulov.qrc">
+           <normaloff>:/res/map.png</normaloff>:/res/map.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="bookmarkButton">
+         <property name="text">
+          <string>Bookmark</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../res/lugdulov.qrc">
+           <normaloff>:/res/favorites.png</normaloff>:/res/favorites.png</iconset>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>

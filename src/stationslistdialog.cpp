@@ -61,7 +61,9 @@ StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
   //proxy->setStationLimit(5);
   proxy->setSourceModel(model);
   proxy->setBookmarks(Settings::bookmarks(plugin));
+  listView->setStationsPlugin(plugin);
   listView->setModel(proxy);
+
 
   connect(plugin, SIGNAL(progress(qint64, qint64)), this, SLOT(progress(qint64, qint64)));
   connect(plugin, SIGNAL(error(const QString &, const QString &)),

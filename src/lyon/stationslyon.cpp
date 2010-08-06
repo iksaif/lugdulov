@@ -17,6 +17,7 @@
  */
 
 #include <QtNetwork/QNetworkReply>
+#include <QtGui/QDesktopServices>
 #include <QtCore/QMap>
 #include <QtCore/QVariant>
 #include <QtCore/QFile>
@@ -377,6 +378,32 @@ StationsPluginLyon::regions()
   reg << "69034";
   reg << "69256";
   return reg;
+}
+
+QList < QAction * >
+StationsPluginLyon::actions()
+{
+  QList < QAction * > ret;
+  QAction *action;
+
+  action = new QAction(QIcon(":/lyon/icon.png"), tr("Velo'V map"), this);
+  action->setToolTip(tr("Show this station in the official Velo'V map"));
+  action->setData(ActionVelovMap);
+  ret << action;
+  return ret;
+}
+
+void
+StationsPluginLyon::actionTriggered(QAction *action, Station *station, QWidget *parent)
+{
+  int data = action->data().toInt();
+
+  if (data == ActionVelovMap) {
+    QString str("http://www.velov.grandlyon.com/Plan-interactif.61.0.html?&gid=%1");
+
+    str = str.arg(station->id());
+    QDesktopServices::openUrl(str);
+  }
 }
 
 Q_EXPORT_PLUGIN2(stationslyon, StationsPluginFactoryLyon)

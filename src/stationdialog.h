@@ -39,10 +39,11 @@ public:
 
 private:
   void fetchImage();
-  void setupWidgets();
   void setupButtons();
 
 private slots:
+  void setupWidgets();
+  void pluginAction();
   void bookmark(bool checked);
 
   void requestError(QNetworkReply::NetworkError code);
