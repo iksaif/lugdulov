@@ -10,6 +10,7 @@ include( ${QT_USE_FILE} )
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/plugins
+  ${CMAKE_CURRENT_SOURCE_DIR}/qmapcontrol
   ${CMAKE_CURRENT_BINARY_DIR}
   ${lugdulov_BINARY_DIR}
   ${QJSON_INCLUDE_DIR}
@@ -30,7 +31,8 @@ set(lugdulov_SRCS
   stationdelegate.cpp
   stationsmodel.cpp
   stationssortfilterproxymodel.cpp
-  stationslistview.cpp)
+  stationslistview.cpp
+  mapwidget.cpp)
 
 set(lugdulov_UIS
   mainwindow.ui
@@ -47,7 +49,8 @@ set(lugdulov_MOC_HDRS
   stationdelegate.h
   stationsmodel.h
   stationssortfilterproxymodel.h
-  stationslistview.h)
+  stationslistview.h
+  mapwidget.h)
 
 set(lugdulov_RCS ../res/lugdulov.qrc ../i18n/i18n.qrc)
 set(lugdulov_TRS ../i18n/lugdulov_fr.ts)
@@ -73,6 +76,7 @@ add_executable(
 )
 
 add_subdirectory(plugins)
+add_subdirectory(qmapcontrol)
 
 if (QTLOCATION_FOUND)
   include_directories(${QTLOCATION_INCLUDE_DIR})
@@ -98,6 +102,7 @@ endif ()
 target_link_libraries(
   lugdulov
   lugdulov_base
+  qmapcontrol
   ${QT_LIBRARIES}
   ${QJSON_LIBRARIES}
 )

@@ -25,6 +25,7 @@
 #include "station.h"
 #include "stationsplugin.h"
 #include "settings.h"
+#include "mapwidget.h"
 
 StationDialog::StationDialog(Station *station, QWidget * parent)
   :
@@ -90,6 +91,7 @@ void
 StationDialog::setupButtons()
 {
   connect(bookmarkButton, SIGNAL(clicked(bool)), this, SLOT(bookmark(bool)));
+  connect(mapButton, SIGNAL(clicked(bool)), this, SLOT(showMap()));
 
   bookmarkButton->setChecked(Settings::bookmarked(station) ? Qt::Checked : Qt::Unchecked);
 
@@ -103,6 +105,15 @@ StationDialog::setupButtons()
     connect(button, SIGNAL(clicked(bool)), this, SLOT(pluginAction()));
     pluginButtonsLayout->addWidget(button);
   }
+}
+
+void
+StationDialog::showMap()
+{
+  MapWidget *map = new MapWidget(this);
+
+  map->centerView(station->pos());
+  map->show();
 }
 
 void

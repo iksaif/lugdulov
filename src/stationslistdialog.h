@@ -37,9 +37,11 @@ class StationsListDialog : public QDialog, private Ui_StationsListDialog
   StationsListDialog(StationsPlugin *plugin, QWidget *parent = 0);
   ~StationsListDialog();
 
+#ifdef HAVE_QT_LOCATION
  public slots:
   void positionUpdated(QGeoPositionInfo info);
   void positionRequestTimeout();
+#endif
 
  private:
   void setupListWidget();

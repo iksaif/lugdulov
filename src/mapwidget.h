@@ -16,44 +16,31 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONDIALOG_H
-# define STATIONDIALOG_H
+#ifndef MAPWIDGET_H
+#define MAPWIDGET_H
 
-#include "config.h"
+#include <QtGui/QWidget>
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
+#include "mobility.h"
 
-#include "ui_stationdialog.h"
+#include "qmapcontrol.h"
 
-class StationsPlugin;
-class Station;
-
-class StationDialog : public QDialog, private Ui_StationDialog
+class MapWidget : public QWidget
 {
   Q_OBJECT
+ public:
+  MapWidget(QWidget * parent = 0);
+  ~MapWidget();
 
-public:
-  StationDialog(Station *station, QWidget * parent = 0);
-  ~StationDialog();
+ public slots:
+  void centerView(const QPointF & position);
+#ifdef HAVE_QT_LOCATION
+  void positionUpdated(const QGeoPositionInfo & info);
+#endif
 
-private:
-  void fetchImage();
-  void setupButtons();
-
-private slots:
-  void showMap();
-  void setupWidgets();
-  void pluginAction();
-  void bookmark(bool checked);
-
-  void requestError(QNetworkReply::NetworkError code);
-  void requestFinished();
-  void orientationChanged();
-
-private:
-  Station *station;
-  QNetworkAccessManager *nm;
+ private:
+  qmapcontrol::MapControl *mc;
+  QPushButton* followGpsButton;
 };
 
-#endif /* STATIONDIALOG_H */
+#endif
