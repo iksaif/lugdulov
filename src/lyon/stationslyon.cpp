@@ -98,8 +98,8 @@ StationsPluginLyon::bikeIcon() const
 bool
 StationsPluginLyon::intersect(const QPointF & pos)
 {
-  if (pos.x() > 45.815042 && pos.x() < 45.61764 &&
-      pos.y() > 4.799995  && pos.y() < 5.090103)
+  if (pos.x() > 45.61764 && pos.x() < 45.815042 &&
+      pos.y() > 4.799995 && pos.y() < 5.090103)
     return true;
   return false;
 }
@@ -312,19 +312,19 @@ StationsPluginLyon::request(const QUrl & url, Request::Type type, int id, const 
 void
 StationsPluginLyon::fetch(int id)
 {
-  request(StationsPluginLyon::stationJsonUrl(id), Request::Properties, id);
+  request(stationJsonUrl(id), Request::Properties, id);
 }
 
 void
 StationsPluginLyon::fetchStatus(int id)
 {
-  request(StationsPluginLyon::stationStatusUrl(id), Request::Status, id);
+  request(stationStatusUrl(id), Request::Status, id);
 }
 
 void
 StationsPluginLyon::fetch(const QString & region)
 {
-  request(StationsPluginLyon::stationsJsonUrl(region), Request::Properties, -1, region);
+  request(stationsJsonUrl(region), Request::Properties, -1, region);
 }
 
 const QString StationsPluginLyon::baseUrl = QLatin1String("http://www.velov.grandlyon.com/velovmap/zhp/inc/");
