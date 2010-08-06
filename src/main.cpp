@@ -19,6 +19,7 @@
 #include <QtGui/QApplication>
 #include <QtCore/QTranslator>
 #include <QtCore/QLibraryInfo>
+#include <QtCore/QtPlugin>
 
 #include "config.h"
 
@@ -26,12 +27,15 @@
 #include "settings.h"
 
 #ifdef BUILD_STATIC_PLUGINS
-Q_IMPORT_PLUGIN(stationslyon)
+Q_IMPORT_PLUGIN(stationslyon);
 #endif
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+#ifdef BUILD_STATIC_PLUGINS
+    Q_INIT_RESOURCE(lyon);
+#endif
 
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(),

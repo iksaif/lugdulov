@@ -62,6 +62,7 @@ StationsPluginManager::loadPlugins()
     loadPlugin(plugin);
   }
 
+#ifndef BUILD_STATIC_PLUGINS
   loadPlugins(QDir(PLUGINS_INSTALL_DIR));
 
   QDir dir = QCoreApplication::applicationDirPath();
@@ -82,6 +83,7 @@ StationsPluginManager::loadPlugins()
   dir.cd("plugins");
 
   loadPlugins(dir);
+#endif
 }
 
 void
