@@ -92,6 +92,7 @@ endif()
 
 if (BUILD_STATIC_PLUGINS)
   target_link_libraries(lugdulov stationslyon)
+  target_link_libraries(lugdulov stationsparis)
 endif ()
 
 target_link_libraries(
