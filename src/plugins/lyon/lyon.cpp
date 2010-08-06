@@ -26,11 +26,11 @@
 
 #include <QtCore/QDebug>
 
-#include <qjson/parser.h>
+#include <parser.h>
 
 #include "station.h"
-#include "stationslyon.h"
-#include "stationslyonbuiltin.h"
+#include "lyon.h"
+#include "builtin.h"
 
 QString
 StationsPluginFactoryLyon::id() const

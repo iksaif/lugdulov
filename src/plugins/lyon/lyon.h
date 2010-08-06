@@ -85,7 +85,7 @@ class StationsPluginLyon : public StationsPlugin
   void progress(qint64 done, qint64 total);
   void done();
 
-  void stationsFetched(QList < Station * > stations);
+  void stationsCreated(QList < Station * > stations);
   void stationsUpdated(QList < Station * > stations);
 
   void error(const QString & title, const QString & message);

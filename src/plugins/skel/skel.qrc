@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="skel">
+    <file>bike.png</file>
+    <file>icon.png</file>
+  </qresource>
+</RCC>
+

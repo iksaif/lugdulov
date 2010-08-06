@@ -27,9 +27,9 @@ class Station;
 
 class StationsPlugin : public QObject
 {
-  Q_OBJECT
+ Q_OBJECT
 
- public:
+public:
   StationsPlugin(QObject *parent);
   virtual ~StationsPlugin();
 
@@ -115,7 +115,7 @@ class StationsPlugin : public QObject
    */
   virtual void update(Station *station) = 0;
   virtual void update(QList < Station * > station) = 0;
-
+#if 0
  signals:
   /**
    * emited when the plugin is doing some online stuff (fetching
@@ -151,6 +151,7 @@ class StationsPlugin : public QObject
    * emited when an error occured
    */
   void error(const QString & title, const QString & message);
+#endif
 };
 
 /**

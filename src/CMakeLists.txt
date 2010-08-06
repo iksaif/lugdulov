@@ -9,6 +9,7 @@ include( ${QT_USE_FILE} )
 # Include the library include directories, and the current build directory (moc)
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}/plugins
   ${CMAKE_CURRENT_BINARY_DIR}
   ${lugdulov_BINARY_DIR}
   ${QJSON_INCLUDE_DIR}
@@ -21,11 +22,9 @@ link_directories(
 set(lugdulov_SRCS
   main.cpp
   mainwindow.cpp
-  stationsplugin.cpp
-  station.cpp
   settings.cpp
   stationdialog.cpp
-  stationsmanager.cpp
+  stationspluginmanager.cpp
   stationslistdialog.cpp
   bookmarklistdialog.cpp
   stationdelegate.cpp
@@ -40,7 +39,6 @@ set(lugdulov_UIS
 
 set(lugdulov_MOC_HDRS
   mainwindow.h
-  stationsplugin.h
   settings.h
   stationdialog.h
   stationspluginmanager.h
@@ -74,7 +72,7 @@ add_executable(
   ${QM_FILES}
 )
 
-add_subdirectory(lyon)
+add_subdirectory(plugins)
 
 if (QTLOCATION_FOUND)
   include_directories(${QTLOCATION_INCLUDE_DIR})
@@ -98,6 +96,7 @@ endif ()
 
 target_link_libraries(
   lugdulov
+  lugdulov_base
   ${QT_LIBRARIES}
   ${QJSON_LIBRARIES}
 )
