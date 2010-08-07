@@ -16,21 +16,22 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef MAPWIDGET_H
-#define MAPWIDGET_H
+#ifndef MAPDIALOG_H
+# define MAPDIALOG_H
 
-#include <QtGui/QWidget>
+#include <QtGui/QDialog>
 
-#include "mobility.h"
+#include "ui_mapdialog.h"
 
-#include "qmapcontrol.h"
+class StationsPlugin;
 
-class MapWidget : public QWidget
+class MapDialog : public QDialog, private Ui_MapDialog
 {
   Q_OBJECT
+
  public:
-  MapWidget(QWidget * parent = 0);
-  ~MapWidget();
+  MapDialog(StationsPlugin *plugin, QWidget *parent = 0);
+  ~MapDialog();
 
  public slots:
   void centerView(const QPointF & position);
@@ -38,13 +39,8 @@ class MapWidget : public QWidget
   void positionUpdated(const QGeoPositionInfo & info);
 #endif
 
- protected:
-  virtual void resizeEvent(QResizeEvent * event);
-
  private:
-  qmapcontrol::MapControl *mc;
-  qmapcontrol::TileMapAdapter *mapadapter;
-  QPushButton* followGpsButton;
+  StationsPlugin *plugin;
 };
 
 #endif

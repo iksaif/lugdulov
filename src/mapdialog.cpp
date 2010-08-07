@@ -16,35 +16,29 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef MAPWIDGET_H
-#define MAPWIDGET_H
+#include "mapdialog.h"
 
-#include <QtGui/QWidget>
-
-#include "mobility.h"
-
-#include "qmapcontrol.h"
-
-class MapWidget : public QWidget
+MapDialog::MapDialog(StationsPlugin *plugin, QWidget *parent)
+  : QDialog(parent), plugin(plugin)
 {
-  Q_OBJECT
- public:
-  MapWidget(QWidget * parent = 0);
-  ~MapWidget();
+  setupUi(this);
+}
 
- public slots:
-  void centerView(const QPointF & position);
+MapDialog::~MapDialog()
+{
+}
+
 #ifdef HAVE_QT_LOCATION
-  void positionUpdated(const QGeoPositionInfo & info);
+void
+MapDialog::positionUpdated(const QGeoPositionInfo & info)
+{
+  mapWidget->positionUpdated(info);
+}
 #endif
 
- protected:
-  virtual void resizeEvent(QResizeEvent * event);
+void
+MapDialog::centerView(const QPointF & pt)
+{
+  mapWidget->centerView(pt);
+}
 
- private:
-  qmapcontrol::MapControl *mc;
-  qmapcontrol::TileMapAdapter *mapadapter;
-  QPushButton* followGpsButton;
-};
-
-#endif

@@ -25,7 +25,7 @@
 #include "station.h"
 #include "stationsplugin.h"
 #include "settings.h"
-#include "mapwidget.h"
+#include "mapdialog.h"
 
 StationDialog::StationDialog(Station *station, QWidget * parent)
   :
@@ -110,10 +110,11 @@ StationDialog::setupButtons()
 void
 StationDialog::showMap()
 {
-  MapWidget *map = new MapWidget(this);
+  MapDialog map(station->plugin(),this);
 
-  map->centerView(station->pos());
-  map->show();
+  map.show();
+  map.centerView(station->pos());
+  map.exec();
 }
 
 void

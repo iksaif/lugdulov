@@ -22,12 +22,14 @@ using namespace qmapcontrol;
 
 MapWidget::MapWidget(QWidget *parent)
 {
-  mc = new MapControl(QSize(800,600));
-  TileMapAdapter* mapadapter = new TileMapAdapter("tile.openstreetmap.org", "/%1/%2/%3.png", 256, 0, 17);
+  mc = new MapControl(size());
+  mapadapter = new OSMMapAdapter();
+
   Layer* l = new Layer("Custom Layer", mapadapter, Layer::MapLayer);
 
-
   mc->addLayer(l);
+  mc->showScale(true);
+  mc->enablePersistentCache();
 
   QHBoxLayout* layout = new QHBoxLayout;
   layout->addWidget(mc);
@@ -52,6 +54,7 @@ MapWidget::MapWidget(QWidget *parent)
   innerlayout->addWidget(zoomout);
   innerlayout->addWidget(followGpsButton);
   mc->setLayout(innerlayout);
+  mc->setZoom(20);
 }
 
 MapWidget::~MapWidget()
@@ -70,6 +73,12 @@ MapWidget::positionUpdated(const QGeoPositionInfo & info)
 void
 MapWidget::centerView(const QPointF & pt)
 {
-  mc->setView(pt);
+  mc->setView(QPointF(pt.y(), pt.x()));
+  mc->setZoom(20);
 }
 
+void
+MapWidget::resizeEvent(QResizeEvent * event)
+{
+  mc->resize(event->size());
+}
