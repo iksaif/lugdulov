@@ -29,6 +29,7 @@
 #include "mainwindow.h"
 #include "stationslistdialog.h"
 #include "bookmarklistdialog.h"
+#include "mapdialog.h"
 #include "settings.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -66,7 +67,8 @@ MainWindow::createCombo()
   manager = new StationsPluginManager(this);
 
   foreach(StationsPlugin *plugin, manager->stations()) {
-    stationsComboBox->addItem(plugin->bikeIcon(), plugin->name(), qVariantFromValue((void *) plugin));
+    stationsComboBox->addItem(plugin->bikeIcon(), plugin->name(),
+			      qVariantFromValue((void *) plugin));
 
     if (plugin->id() == selected)
       selectedPlugin = plugin;
@@ -143,7 +145,7 @@ MainWindow::positionUpdated(QGeoPositionInfo info)
   position = info;
 
   foreach (StationsPlugin *plugin, manager->stations()) {
-    if (plugin->intersect(QPointF(coord.latitude(), coord.longitude()))) {
+    if (plugin->rect().contains(QPointF(coord.latitude(), coord.longitude()))) {
       setStationsPlugin(plugin);
       break;
     }
@@ -249,6 +251,23 @@ MainWindow::map()
     return ;
   }
 
+  MapDialog map(plugin, this);
+  QPointF pt = plugin->center();
+  int zoom = 15;
+
+  map.show();
+#ifdef HAVE_QT_LOCATION
+  if (localisation) {
+    QGeoCoordinate coord = position.coordinate();
+
+    if (coord.isValid()) {
+      pt = QPointF(coord.latitude(), coord.longitude());
+      zoom = 20;
+    }
+  }
+#endif
+  map.centerView(pt, zoom);
+  map.exec();
 }
 
 void

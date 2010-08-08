@@ -43,6 +43,11 @@ StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
 #endif
 
   refreshButton->setIcon(QIcon::fromTheme("view-refresh"));
+  nearButton->setIcon(QPixmap(":/res/gps.png"));
+#ifdef Q_WS_MAEMO_5
+  refreshButton->setText("");
+  nearButton->setText("");
+#endif
   nearButton->hide();
   lineEdit->setFocus(Qt::OtherFocusReason);
 

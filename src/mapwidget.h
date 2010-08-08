@@ -33,7 +33,7 @@ class MapWidget : public QWidget
   ~MapWidget();
 
  public slots:
-  void centerView(const QPointF & position);
+  void centerView(const QPointF & position, int zoom = -1);
 #ifdef HAVE_QT_LOCATION
   void positionUpdated(const QGeoPositionInfo & info);
 #endif
@@ -44,7 +44,7 @@ class MapWidget : public QWidget
  private:
   qmapcontrol::MapControl *mc;
   qmapcontrol::TileMapAdapter *mapadapter;
-  QPushButton* followGpsButton;
+  QPushButton* follow;
 };
 
 #endif

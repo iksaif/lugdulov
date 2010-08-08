@@ -26,6 +26,7 @@
 #include "stationsplugin.h"
 #include "settings.h"
 #include "stationdialog.h"
+#include "mapdialog.h"
 
 StationsListView::StationsListView(QWidget *parent)
   : QListView(parent)
@@ -105,9 +106,13 @@ StationsListView::action(QAction *action)
 
     if (action == details)
       showDetails(index);
-    else if (action == map)
-      (void) action;
-    else if (action == bookmark)
+    else if (action == map) {
+       MapDialog map(station->plugin(),this);
+
+       map.show();
+       map.centerView(station->pos());
+       map.exec();
+    } else if (action == bookmark)
       Settings::bookmark(station, !Settings::bookmarked(station));
     else if (plugin)
 	plugin->actionTriggered(action, station, this);

@@ -37,8 +37,8 @@ MapDialog::positionUpdated(const QGeoPositionInfo & info)
 #endif
 
 void
-MapDialog::centerView(const QPointF & pt)
+MapDialog::centerView(const QPointF & pt, int zoom)
 {
-  mapWidget->centerView(pt);
+  mapWidget->centerView(pt, zoom);
 }
 

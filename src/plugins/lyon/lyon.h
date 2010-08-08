@@ -55,7 +55,8 @@ class StationsPluginLyon : public StationsPlugin
   QString name() const;
   QString bikeName() const;
   QIcon bikeIcon() const;
-  bool intersect(const QPointF &pos);
+  QRectF rect() const;
+  QPointF center() const;
 
   QUrl stationImageUrl(int id);
   QStringList regions();

@@ -35,16 +35,31 @@ MapWidget::MapWidget(QWidget *parent)
   layout->addWidget(mc);
   setLayout(layout);
 
-  QPushButton* zoomin = new QPushButton("+");
-  QPushButton* zoomout = new QPushButton("-");
+  QPushButton* zoomin;
+  QPushButton* zoomout;
 
-  followGpsButton = new QPushButton("F");
-  followGpsButton->setCheckable(true);
-  followGpsButton->setChecked(true);
+  zoomin = new QPushButton(this);
+  zoomout = new QPushButton(this);
+  follow = new QPushButton(this);
+
+  zoomin->setIcon(QIcon::fromTheme("zoom-in", QPixmap(":/res/zoom-in.png")));
+  zoomout->setIcon(QIcon::fromTheme("zoom-out", QPixmap(":/res/zoom-out.png")));
+  follow->setIcon(QIcon::fromTheme("gps", QPixmap(":/res/gps.png")));
+
+  zoomin->setFlat(true);
+  zoomin->setIconSize(QSize(32, 32));
+
+  zoomout->setFlat(true);
+  zoomout->setIconSize(QSize(32, 32));
+
+  follow->setFlat(true);
+  follow->setIconSize(QSize(32, 32));
+  follow->setCheckable(true);
+  follow->setChecked(true);
 
   zoomin->setMaximumWidth(50);
   zoomout->setMaximumWidth(50);
-  followGpsButton->setMaximumWidth(50);
+  follow->setMaximumWidth(50);
 
   connect(zoomin, SIGNAL(clicked(bool)), mc, SLOT(zoomIn()));
   connect(zoomout, SIGNAL(clicked(bool)), mc, SLOT(zoomOut()));
@@ -52,9 +67,9 @@ MapWidget::MapWidget(QWidget *parent)
   QVBoxLayout* innerlayout = new QVBoxLayout;
   innerlayout->addWidget(zoomin);
   innerlayout->addWidget(zoomout);
-  innerlayout->addWidget(followGpsButton);
+  innerlayout->addWidget(follow);
   mc->setLayout(innerlayout);
-  mc->setZoom(20);
+  //mc->setZoom(20);
 }
 
 MapWidget::~MapWidget()
@@ -65,16 +80,17 @@ MapWidget::~MapWidget()
 void
 MapWidget::positionUpdated(const QGeoPositionInfo & info)
 {
-  if (followGpsButton->isChecked())
+  if (follow->isChecked())
     centerView(QPointF(info.coordinate().longitude(), info.coordinate().latitude()));
 }
 #endif
 
 void
-MapWidget::centerView(const QPointF & pt)
+MapWidget::centerView(const QPointF & pt, int zoom)
 {
   mc->setView(QPointF(pt.y(), pt.x()));
-  mc->setZoom(20);
+  if (zoom != -1)
+    mc->setZoom(zoom);
 }
 
 void

@@ -54,9 +54,14 @@ public:
   virtual QIcon bikeIcon() const = 0;
 
   /**
-   * Check if that position can be handled by this plugin
+   * Return the rect handled by this plugin
    */
-  virtual bool intersect(const QPointF & pos) = 0;
+  virtual QRectF rect() const = 0;
+
+  /**
+   * Returns the center of the city
+   */
+  virtual QPointF center() const = 0;
 
   /**
    * List of all regions

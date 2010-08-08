@@ -96,13 +96,20 @@ StationsPluginLyon::bikeIcon() const
   return QIcon(":/lyon/bike.png");
 }
 
-bool
-StationsPluginLyon::intersect(const QPointF & pos)
+QRectF
+StationsPluginLyon::rect() const
 {
-  if (pos.x() > 45.61764 && pos.x() < 45.815042 &&
-      pos.y() > 4.799995 && pos.y() < 5.090103)
-    return true;
-  return false;
+  QRectF rect;
+
+  rect.setTopLeft(QPointF(45.84832, 4.70040));
+  rect.setBottomRight(QPointF(45.64529, 5.10064));
+  return rect;
+}
+
+QPointF
+StationsPluginLyon::center() const
+{
+  return QPointF(45.76172, 4.83427);
 }
 
 void

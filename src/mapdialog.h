@@ -34,7 +34,7 @@ class MapDialog : public QDialog, private Ui_MapDialog
   ~MapDialog();
 
  public slots:
-  void centerView(const QPointF & position);
+  void centerView(const QPointF & position, int zoom = -1);
 #ifdef HAVE_QT_LOCATION
   void positionUpdated(const QGeoPositionInfo & info);
 #endif

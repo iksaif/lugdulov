@@ -94,13 +94,21 @@ StationsPluginParis::bikeIcon() const
   return QIcon(":/paris/bike.png");
 }
 
-bool
-StationsPluginParis::intersect(const QPointF & pos)
+QRectF
+StationsPluginParis::rect() const
 {
-  if (pos.x() > 49.038318 && pos.x() < 48.580014 &&
-      pos.y() > 2.095642  && pos.y() < 2.977467)
-    return true;
-  return false;
+  QRectF rect;
+
+  rect.setTopLeft(QPointF(48.580014, 2.095642));
+  rect.setBottomRight(QPointF(49.038318, 2.977467));
+  return rect;
+}
+
+
+QPointF
+StationsPluginParis::center() const
+{
+  return QPointF(48.85856, 2.34823);
 }
 
 void
