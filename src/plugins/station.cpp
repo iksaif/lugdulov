@@ -106,8 +106,8 @@ Station::distanceTo(const QPointF & a) const
     return -1;
 
   const QPointF & b = pos_;
-  QGeoCoordinate ga(a.x(), a.y());
-  QGeoCoordinate gb(b.x(), b.y());
+  QGeoCoordinate ga(a.y(), a.x());
+  QGeoCoordinate gb(b.y(), b.x());
 
   return ga.distanceTo(gb);
 }
@@ -120,10 +120,10 @@ Station::distanceTo(const QPointF & a) const
 
   const QPointF & b = pos_;
   const qreal R = 6371000; // km
-  qreal dLat = (b.x() - a.x()) * M_PI / 180;
-  qreal dLon = (b.y() - a.y()) * M_PI / 180;
+  qreal dLat = (b.y() - a.y()) * M_PI / 180;
+  qreal dLon = (b.x() - a.x()) * M_PI / 180;
   qreal e = sin(dLat/2) * sin(dLat/2) +
-    cos(a.x() * M_PI / 180) * cos(b.x() * M_PI / 180) *
+    cos(a.y() * M_PI / 180) * cos(b.y() * M_PI / 180) *
     sin(dLon/2) * sin(dLon/2);
   qreal c = 2 * atan2(sqrt(e), sqrt(1-e));
 

@@ -39,7 +39,7 @@ class MapDialog : public QDialog, private Ui_MapDialog
   void positionUpdated(const QGeoPositionInfo & info);
 #endif
 
- private:
+ protected:
   StationsPlugin *plugin;
 };
 

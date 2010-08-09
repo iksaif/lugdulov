@@ -241,6 +241,7 @@ namespace qmapcontrol
     void MapControl::mouseReleaseEvent(QMouseEvent* evnt)
     {
         mousepressed = false;
+
         if (mymousemode == Dragging)
         {
             QPointF ulCoord = clickToWorldCoordinate(pre_click_px);

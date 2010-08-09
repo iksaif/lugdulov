@@ -109,7 +109,7 @@ StationsListDialog::positionUpdated(QGeoPositionInfo info)
   position = info;
 
   nearButton->show();
-  proxy->setPosition(QPointF(coord.longitude(), coord.latitude()));
+  proxy->setPosition(QPointF(coord.latitude(), coord.longitude()));
 }
 #endif
 

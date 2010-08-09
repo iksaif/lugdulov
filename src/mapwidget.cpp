@@ -17,11 +17,20 @@
  */
 
 #include "mapwidget.h"
+#include "stationsmodel.h"
+#include "stationssortfilterproxymodel.h"
+#include "settings.h"
+#include "stationsplugin.h"
+#include "station.h"
 
 using namespace qmapcontrol;
 
 MapWidget::MapWidget(QWidget *parent)
 {
+  model = NULL;
+  proxy = NULL;
+  plugin = NULL;
+
   mc = new MapControl(size());
   mapadapter = new OSMMapAdapter();
 
@@ -70,27 +79,83 @@ MapWidget::MapWidget(QWidget *parent)
   innerlayout->addWidget(follow);
   mc->setLayout(innerlayout);
   //mc->setZoom(20);
+
+  connect(mc, SIGNAL(viewChanged(const QPointF &, int)),
+	  this, SLOT(viewChanged(const QPointF &, int)));
 }
 
 MapWidget::~MapWidget()
 {
 }
 
+void
+MapWidget::setPlugin(StationsPlugin *p)
+{
+  delete model;
+  delete proxy;
+
+  plugin = p;
+
+  model = new StationsModel(plugin, this);
+  proxy = new StationsSortFilterProxyModel(model);
+
+  proxy->setSourceModel(model);
+  proxy->setStationLimit(5);
+  proxy->setBookmarks(Settings::bookmarks(plugin));
+  proxy->setSortRole(StationsSortFilterProxyModel::StationDistanceRole);
+
+  plugin->fetchAll();
+}
+
 #ifdef HAVE_QT_LOCATION
 void
 MapWidget::positionUpdated(const QGeoPositionInfo & info)
 {
-  if (follow->isChecked())
-    centerView(QPointF(info.coordinate().longitude(), info.coordinate().latitude()));
+  if (!follow->isChecked())
+    return ;
+
+  coord = QPointF(info.coordinate().latitude(), info.coordinate().longitude());
+  centerView(coord);
 }
 #endif
 
 void
+MapWidget::viewChanged(const QPointF & coordinate, int zoom)
+{
+  if (coord == coordinate || !proxy)
+    return ;
+
+  coord = QPointF(coordinate.y(), coordinate.x());
+  refreshStations();
+}
+
+void
+MapWidget::refreshStations()
+{
+  if (coord.isNull())
+    return ;
+
+  /* refresh avec timer + garder stations + afficher les trucs */
+
+  proxy->setPosition(QPointF(coord.x(), coord.y()));
+  proxy->sort(0);
+  qDebug() << proxy->rowCount() << model->rowCount();
+  for (int i = 0; i < proxy->rowCount(); ++i) {
+    Station *station = (Station *)proxy->index(i, 0).data(StationsModel::StationRole).value<void *>();
+    qDebug() << i << station->name() << station->distanceTo(coord);
+  }
+}
+
+void
 MapWidget::centerView(const QPointF & pt, int zoom)
 {
+  coord = pt;
+
   mc->setView(QPointF(pt.y(), pt.x()));
   if (zoom != -1)
     mc->setZoom(zoom);
+
+  refreshStations();
 }
 
 void

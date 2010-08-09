@@ -22,6 +22,7 @@ MapDialog::MapDialog(StationsPlugin *plugin, QWidget *parent)
   : QDialog(parent), plugin(plugin)
 {
   setupUi(this);
+  mapWidget->setPlugin(plugin);
 }
 
 MapDialog::~MapDialog()

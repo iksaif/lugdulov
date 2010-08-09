@@ -25,6 +25,10 @@
 
 #include "qmapcontrol.h"
 
+class StationsModel;
+class StationsSortFilterProxyModel;
+class StationsPlugin;
+
 class MapWidget : public QWidget
 {
   Q_OBJECT
@@ -32,11 +36,15 @@ class MapWidget : public QWidget
   MapWidget(QWidget * parent = 0);
   ~MapWidget();
 
+  void setPlugin(StationsPlugin *p);
+
  public slots:
   void centerView(const QPointF & position, int zoom = -1);
 #ifdef HAVE_QT_LOCATION
   void positionUpdated(const QGeoPositionInfo & info);
 #endif
+  void viewChanged(const QPointF & coordinate, int zoom);
+  void refreshStations();
 
  protected:
   virtual void resizeEvent(QResizeEvent * event);
@@ -45,6 +53,10 @@ class MapWidget : public QWidget
   qmapcontrol::MapControl *mc;
   qmapcontrol::TileMapAdapter *mapadapter;
   QPushButton* follow;
+  StationsModel *model;
+  StationsSortFilterProxyModel *proxy;
+  QPointF coord;
+  StationsPlugin *plugin;
 };
 
 #endif
