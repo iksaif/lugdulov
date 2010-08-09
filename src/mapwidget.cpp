@@ -22,6 +22,7 @@
 #include "settings.h"
 #include "stationsplugin.h"
 #include "station.h"
+#include "stationdialog.h"
 
 using namespace qmapcontrol;
 
@@ -31,19 +32,26 @@ MapWidget::MapWidget(QWidget *parent)
   proxy = NULL;
   plugin = NULL;
 
-  mc = new MapControl(size());
-  mapadapter = new OSMMapAdapter();
+  setupMapControl();
+  createInnerLayout();
 
-  Layer* l = new Layer("Custom Layer", mapadapter, Layer::MapLayer);
+  stationsTimer = new QTimer(this);
+  stationsTimer->setInterval(1000);
+  connect(stationsTimer, SIGNAL(timeout()), this, SLOT(refreshStations()));
 
-  mc->addLayer(l);
-  mc->showScale(true);
-  mc->enablePersistentCache();
+  statusTimer = new QTimer(this);
+  statusTimer->setInterval(60000);
+  connect(statusTimer, SIGNAL(timeout()), this, SLOT(refreshStatus()));
+  statusTimer->start();
+}
 
-  QHBoxLayout* layout = new QHBoxLayout;
-  layout->addWidget(mc);
-  setLayout(layout);
+MapWidget::~MapWidget()
+{
+}
 
+void
+MapWidget::createInnerLayout()
+{
   QPushButton* zoomin;
   QPushButton* zoomout;
 
@@ -78,14 +86,33 @@ MapWidget::MapWidget(QWidget *parent)
   innerlayout->addWidget(zoomout);
   innerlayout->addWidget(follow);
   mc->setLayout(innerlayout);
-  //mc->setZoom(20);
+}
+
+void
+MapWidget::setupMapControl()
+{
+  mc = new MapControl(size());
+  mapadapter = new OSMMapAdapter();
+
+  Layer* l = new Layer("Custom Layer", mapadapter, Layer::MapLayer);
+
+  mc->addLayer(l);
+  mc->showScale(true);
+  mc->enablePersistentCache();
+
+  stationsLayer = new GeometryLayer("Stations", mapadapter);
+  mc->addLayer(stationsLayer);
+
+  connect(stationsLayer, SIGNAL(geometryClicked(Geometry*, QPoint)),
+	  this, SLOT(geometryClicked(Geometry*, QPoint)));
+
+
+  QHBoxLayout* layout = new QHBoxLayout;
+  layout->addWidget(mc);
+  setLayout(layout);
 
   connect(mc, SIGNAL(viewChanged(const QPointF &, int)),
 	  this, SLOT(viewChanged(const QPointF &, int)));
-}
-
-MapWidget::~MapWidget()
-{
 }
 
 void
@@ -100,9 +127,12 @@ MapWidget::setPlugin(StationsPlugin *p)
   proxy = new StationsSortFilterProxyModel(model);
 
   proxy->setSourceModel(model);
-  proxy->setStationLimit(5);
+  proxy->setStationLimit(10);
   proxy->setBookmarks(Settings::bookmarks(plugin));
   proxy->setSortRole(StationsSortFilterProxyModel::StationDistanceRole);
+
+  connect(model, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)),
+	  this, SLOT(dataChanged(const QModelIndex &, const QModelIndex &)));
 
   plugin->fetchAll();
 }
@@ -122,11 +152,42 @@ MapWidget::positionUpdated(const QGeoPositionInfo & info)
 void
 MapWidget::viewChanged(const QPointF & coordinate, int zoom)
 {
-  if (coord == coordinate || !proxy)
+  if (!proxy)
+    return ;
+
+  if (coord.y() == coordinate.x() && coord.x() == coordinate.y())
     return ;
 
   coord = QPointF(coordinate.y(), coordinate.x());
-  refreshStations();
+
+  if (stationsTimer->isActive())
+    stationsTimer->stop();
+  stationsTimer->start();
+}
+
+void
+MapWidget::geometryClicked(Geometry *geom, QPoint pt)
+{
+  if (stations.find((Point *)geom) == stations.end())
+    return ;
+
+  StationDialog dlg(stations[(Point *)geom], this);
+
+  dlg.exec();
+}
+
+void
+MapWidget::showStation(Station *station)
+{
+  if (geometries.find(station) != geometries.end())
+    return ;
+
+  QPixmap *pix = new QPixmap(station->plugin()->bikeIcon().pixmap(QSize(48, 48)));
+  Point *geom = new Point(station->pos().y(), station->pos().x(), pix, station->name());
+
+  stationsLayer->addGeometry(geom);
+  stations[geom] = station;
+  geometries[station] = geom;
 }
 
 void
@@ -135,15 +196,32 @@ MapWidget::refreshStations()
   if (coord.isNull())
     return ;
 
-  /* refresh avec timer + garder stations + afficher les trucs */
+  stationsTimer->stop();
 
   proxy->setPosition(QPointF(coord.x(), coord.y()));
   proxy->sort(0);
-  qDebug() << proxy->rowCount() << model->rowCount();
+
   for (int i = 0; i < proxy->rowCount(); ++i) {
     Station *station = (Station *)proxy->index(i, 0).data(StationsModel::StationRole).value<void *>();
-    qDebug() << i << station->name() << station->distanceTo(coord);
+
+    showStation(station);
   }
+  refreshStatus();
+}
+
+void
+MapWidget::refreshStatus()
+{
+  foreach (Point *geometry, stations.keys()) {
+    if (mc->getViewport().contains(geometry->coordinate()))
+      stations[geometry]->plugin()->update(stations[geometry]);
+  }
+}
+
+void
+MapWidget::dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight)
+{
+  //qDebug() << "dataChanged" << topLeft.row() << bottomRight.row();
 }
 
 void

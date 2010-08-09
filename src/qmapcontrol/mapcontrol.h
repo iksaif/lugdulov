@@ -214,6 +214,13 @@ namespace qmapcontrol
          */
         void showScale ( bool show );
 
+        //! The Viewport of the display
+        /*!
+         * Returns the visible viewport in world coordinates
+         * @return the visible viewport in world coordinates
+         */
+        QRectF getViewport() const;
+
     private:
         LayerManager* layermanager;
         QPoint screen_middle; // middle of the widget (half size)

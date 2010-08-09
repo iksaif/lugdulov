@@ -345,6 +345,11 @@ namespace qmapcontrol
         update();
     }
 
+    QRectF MapControl::getViewport() const
+    {
+        return layermanager->getViewport();
+    }
+
     void MapControl::setView(const QPointF& coordinate) const
     {
         layermanager->setView(coordinate);

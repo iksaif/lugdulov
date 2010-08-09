@@ -20,6 +20,8 @@
 #define MAPWIDGET_H
 
 #include <QtGui/QWidget>
+#include <QtCore/QTimer>
+#include <QtCore/QMap>
 
 #include "mobility.h"
 
@@ -28,6 +30,9 @@
 class StationsModel;
 class StationsSortFilterProxyModel;
 class StationsPlugin;
+class Station;
+
+using namespace qmapcontrol;
 
 class MapWidget : public QWidget
 {
@@ -43,20 +48,37 @@ class MapWidget : public QWidget
 #ifdef HAVE_QT_LOCATION
   void positionUpdated(const QGeoPositionInfo & info);
 #endif
+
+ private slots:
   void viewChanged(const QPointF & coordinate, int zoom);
   void refreshStations();
+  void refreshStatus();
+  void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight);
+  void geometryClicked(Geometry *geom, QPoint pt);
 
  protected:
   virtual void resizeEvent(QResizeEvent * event);
 
  private:
-  qmapcontrol::MapControl *mc;
-  qmapcontrol::TileMapAdapter *mapadapter;
+  void showStation(Station *station);
+  void createInnerLayout();
+  void setupMapControl();
+
+ private:
+  MapControl *mc;
+  TileMapAdapter *mapadapter;
+  GeometryLayer *stationsLayer;
+  QMap < Point *, Station * > stations;
+  QMap < Station *, Point * > geometries;
+
   QPushButton* follow;
   StationsModel *model;
   StationsSortFilterProxyModel *proxy;
   QPointF coord;
   StationsPlugin *plugin;
+
+  QTimer *stationsTimer;
+  QTimer *statusTimer;
 };
 
 #endif
