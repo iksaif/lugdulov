@@ -17,6 +17,7 @@
  */
 
 #include <QtNetwork/QNetworkReply>
+#include <QtGui/QDesktopServices>
 #include <QtCore/QMap>
 #include <QtCore/QVariant>
 #include <QtCore/QFile>
@@ -25,11 +26,11 @@
 
 #include <QtCore/QDebug>
 
-#include <qjson/parser.h>
+#include <parser.h>
 
 #include "station.h"
-#include "stationslyon.h"
-#include "stationslyonbuiltin.h"
+#include "lyon.h"
+#include "builtin.h"
 
 QString
 StationsPluginFactoryLyon::id() const
@@ -95,13 +96,20 @@ StationsPluginLyon::bikeIcon() const
   return QIcon(":/lyon/bike.png");
 }
 
-bool
-StationsPluginLyon::intersect(const QPointF & pos)
+QRectF
+StationsPluginLyon::rect() const
 {
-  if (pos.x() > 45.61764 && pos.x() < 45.815042 &&
-      pos.y() > 4.799995 && pos.y() < 5.090103)
-    return true;
-  return false;
+  QRectF rect;
+
+  rect.setTopLeft(QPointF(45.84832, 4.70040));
+  rect.setBottomRight(QPointF(45.64529, 5.10064));
+  return rect;
+}
+
+QPointF
+StationsPluginLyon::center() const
+{
+  return QPointF(45.76172, 4.83427);
 }
 
 void
@@ -151,7 +159,7 @@ StationsPluginLyon::update(Station *station)
 }
 
 void
-StationsPluginLyon::update(QList < Station * > stations)
+StationsPluginLyon::update(const QList < Station * > & stations)
 {
   foreach (Station *station, stations)
     update(station);
@@ -377,6 +385,32 @@ StationsPluginLyon::regions()
   reg << "69034";
   reg << "69256";
   return reg;
+}
+
+QList < QAction * >
+StationsPluginLyon::actions()
+{
+  QList < QAction * > ret;
+  QAction *action;
+
+  action = new QAction(QIcon(":/lyon/icon.png"), tr("Velo'V map"), this);
+  action->setToolTip(tr("Show this station in the official Velo'V map"));
+  action->setData(ActionVelovMap);
+  ret << action;
+  return ret;
+}
+
+void
+StationsPluginLyon::actionTriggered(QAction *action, Station *station, QWidget *parent)
+{
+  int data = action->data().toInt();
+
+  if (data == ActionVelovMap) {
+    QString str("http://www.velov.grandlyon.com/Plan-interactif.61.0.html?&gid=%1");
+
+    str = str.arg(station->id());
+    QDesktopServices::openUrl(str);
+  }
 }
 
 Q_EXPORT_PLUGIN2(stationslyon, StationsPluginFactoryLyon)

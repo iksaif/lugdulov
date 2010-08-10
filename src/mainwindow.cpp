@@ -16,12 +16,12 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include "config.h"
-
 #include <QtGui/QDesktopServices>
 #include <QtGui/QMessageBox>
 #include <QtCore/QTimer>
-#include <QDebug>
+#include <QtCore/QDebug>
+
+#include "lugdulov.h"
 
 #include "stationsplugin.h"
 #include "stationspluginmanager.h"
@@ -29,6 +29,7 @@
 #include "mainwindow.h"
 #include "stationslistdialog.h"
 #include "bookmarklistdialog.h"
+#include "mapdialog.h"
 #include "settings.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -38,9 +39,16 @@ MainWindow::MainWindow(QWidget *parent)
 
 #ifdef Q_WS_MAEMO_5
   menu_File->removeAction(quitAction);
-  menu_About->removeAction(aboutQtAction);
+  menu_Help->removeAction(aboutQtAction);
   setAttribute(Qt::WA_Maemo5StackedWindow);
   setAttribute(Qt::WA_Maemo5AutoOrientation, true);
+
+  mapLinkButton->setMaximumHeight(70);
+  searchLinkButton->setMaximumHeight(70);
+  bookmarkLinkButton->setMaximumHeight(70);
+
+  searchLinkButton->setDescription(tr("Search stations by name"));
+  bookmarkLinkButton->setDescription(tr("Manage your favorites stations."));
 #endif
 
   plugin = NULL;
@@ -66,7 +74,8 @@ MainWindow::createCombo()
   manager = new StationsPluginManager(this);
 
   foreach(StationsPlugin *plugin, manager->stations()) {
-    stationsComboBox->addItem(plugin->bikeIcon(), plugin->name(), qVariantFromValue((void *) plugin));
+    stationsComboBox->addItem(plugin->bikeIcon(), plugin->name(),
+			      qVariantFromValue((void *) plugin));
 
     if (plugin->id() == selected)
       selectedPlugin = plugin;
@@ -143,7 +152,7 @@ MainWindow::positionUpdated(QGeoPositionInfo info)
   position = info;
 
   foreach (StationsPlugin *plugin, manager->stations()) {
-    if (plugin->intersect(QPointF(coord.latitude(), coord.longitude()))) {
+    if (plugin->rect().contains(QPointF(coord.latitude(), coord.longitude()))) {
       setStationsPlugin(plugin);
       break;
     }
@@ -230,9 +239,15 @@ MainWindow::search()
     return ;
   }
 
-  StationsListDialog dlg(plugin, this);
+  StationsListDialog *dlg = new StationsListDialog(plugin, this);
 
-  dlg.exec();
+#ifdef HAVE_QT_LOCATION
+  if (localisation) {
+    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), dlg, SLOT(positionUpdated(QGeoPositionInfo)));
+    connect(localisation, SIGNAL(requestTimeout()), dlg, SLOT(positionRequestTimeout()));
+  }
+#endif
+  showAndDelete(dlg);
 }
 
 void
@@ -243,6 +258,24 @@ MainWindow::map()
     return ;
   }
 
+  MapDialog *map = new MapDialog(plugin, this);
+  QPointF pt = plugin->center();
+  int zoom = 15;
+
+#ifdef HAVE_QT_LOCATION
+  if (localisation) {
+    QGeoCoordinate coord = position.coordinate();
+
+    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), map, SLOT(positionUpdated(QGeoPositionInfo)));
+
+    if (coord.isValid()) {
+      pt = QPointF(coord.latitude(), coord.longitude());
+      zoom = 20;
+    }
+  }
+#endif
+  showAndDelete(map);
+  map->centerView(pt, zoom);
 }
 
 void
@@ -253,9 +286,15 @@ MainWindow::bookmarks()
     return ;
   }
 
-  BookmarkListDialog dlg(plugin, this);
+  BookmarkListDialog *dlg = new BookmarkListDialog(plugin, this);
 
-  dlg.exec();
+#ifdef HAVE_QT_LOCATION
+  if (localisation) {
+    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), dlg, SLOT(positionUpdated(QGeoPositionInfo)));
+    connect(localisation, SIGNAL(requestTimeout()), dlg, SLOT(positionRequestTimeout()));
+  }
+#endif
+  showAndDelete(dlg);
 }
 
 void

@@ -58,7 +58,7 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
   void setStationsPlugin(StationsPlugin *plugin);
 
 #ifdef Q_WS_MAEMO_5
-  void statusMsg(const QString & msg, int timeout = QMaemo5InformationBox::DefaultTimeoutx);
+  void statusMsg(const QString & msg, int timeout = QMaemo5InformationBox::DefaultTimeout);
 #else
   void statusMsg(const QString & msg, int timeout = 2000);
 #endif

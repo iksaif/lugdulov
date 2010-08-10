@@ -18,20 +18,40 @@
 
 #include <QtCore/QTimer>
 #include <QtGui/QMenu>
+#include <QtGui/QSortFilterProxyModel>
+
+#include "lugdulov.h"
 
 #include "stationslistview.h"
 #include "stationsmodel.h"
 #include "station.h"
 #include "stationsplugin.h"
+#include "settings.h"
+#include "stationdialog.h"
+#include "mapdialog.h"
 
 StationsListView::StationsListView(QWidget *parent)
   : QListView(parent)
 {
+  plugin = NULL;
+
   createContextMenu();
 
   timer = new QTimer(this);
   timer->setInterval(30000);
   connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+
+  scrollTimer = new QTimer(this);
+  scrollTimer->setInterval(500);
+  connect(scrollTimer, SIGNAL(timeout()), this, SLOT(update()));
+
+#ifdef Q_WS_MAEMO_5
+  connect(this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(showDetails(const QModelIndex &)));
+#else
+  connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(showDetails(const QModelIndex &)));
+#endif
+  setContextMenuPolicy(Qt::CustomContextMenu);
+  connect(this, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showContextMenu(const QPoint &)));
 }
 
 
@@ -39,10 +59,73 @@ StationsListView::~StationsListView()
 {
 }
 
+StationsPlugin *
+StationsListView::stationsPlugin()
+{
+  return plugin;
+}
+
+void
+StationsListView::setStationsPlugin(StationsPlugin *p)
+{
+  plugin = p;
+  delete menu;
+  createContextMenu();
+}
+
 void
 StationsListView::createContextMenu()
 {
+
   menu = new QMenu(this);
+  details  = menu->addAction(QIcon(":/res/slot.png"), tr("Details..."));
+  map      = menu->addAction(QIcon(":/res/map.png"), tr("Show on a map..."));
+  bookmark = menu->addAction(QIcon::fromTheme("bookmarks", QPixmap(":/res/favorites.png")),
+			     tr("Bookmark this station"));
+
+  if (plugin) {
+    foreach (QAction *action, plugin->actions()) {
+      action->setParent(menu);
+      menu->addAction(action);
+    }
+  }
+
+  connect(menu, SIGNAL(triggered(QAction *)), this, SLOT(action(QAction *)));
+
+  bookmark->setCheckable(true);
+}
+
+void
+StationsListView::showDetails(const QModelIndex & index)
+{
+    Station *station = (Station *)index.data(StationsModel::StationRole).value<void *>();
+
+    if (!station)
+      return ;
+
+    StationDialog *dlg = new StationDialog(station, parentWidget());
+
+    showAndDelete(dlg);
+}
+
+void
+StationsListView::action(QAction *action)
+{
+  foreach (QModelIndex index, selectedIndexes()) {
+    Station *station = (Station *)index.data(StationsModel::StationRole).value<void *>();
+
+    if (action == details)
+      showDetails(index);
+    else if (action == map) {
+       MapDialog *map = new MapDialog(station->plugin(), this);
+
+       map->centerView(station->pos());
+       showAndDelete(map);
+    } else if (action == bookmark)
+      Settings::bookmark(station, !Settings::bookmarked(station));
+    else if (plugin)
+	plugin->actionTriggered(action, station, this);
+  }
 }
 
 void
@@ -75,7 +158,8 @@ StationsListView::updateInterval()
 void
 StationsListView::forceUpdate()
 {
-  updated.clear();
+  if (plugin)
+    plugin->clearCache();
   update();
 }
 
@@ -85,7 +169,6 @@ StationsListView::update()
   QRect rect(0, 0, 0, 0);
   QModelIndex index;
   QModelIndexList list;
-  QTime time = QTime::currentTime().addMSecs(-timer->interval());
 
   while (viewport()->rect().contains(0, rect.y() + rect.height() + 1)){
     index = indexAt(QPoint(rect.x(), rect.y() + rect.height() + 1));
@@ -99,18 +182,23 @@ StationsListView::update()
   foreach (QModelIndex index, list) {
     Station *station = (Station *)index.data(StationsModel::StationRole).value<void *>();
 
-    if (!station || updated[station] > time)
+    if (!station)
       continue ;
 
-    station->plugin()->update(station);
-    updated[station] = QTime::currentTime();
+    plugin->updateCached(station);
   }
 }
 
 void
-StationsListView::showContexMenu(const QPoint & pos)
+StationsListView::showContextMenu(const QPoint & pos)
 {
-  menu->exec(pos);
+  foreach (QModelIndex index, selectedIndexes()) {
+    Station *station = (Station *)index.data(StationsModel::StationRole).value<void *>();
+
+    if (station)
+      bookmark->setChecked(Settings::bookmarked(station) ? Qt::Checked : Qt::Unchecked);
+  }
+  menu->exec(mapToGlobal(pos));
 }
 
 void
@@ -118,7 +206,7 @@ StationsListView::rowsInserted(const QModelIndex & parent, int start, int end)
 {
   QListView::rowsInserted(parent, start, end);
   // Delayed to allow QSortFilterProxyModel to do is work
-  QTimer::singleShot(500, this, SLOT(update()));
+  scrollTimer->start();
 }
 
 void
@@ -126,5 +214,5 @@ StationsListView::scrollContentsBy(int dx, int dy)
 {
   QListView::scrollContentsBy(dx, dy);
   // Delayed a little because the user may be still scrolling
-  QTimer::singleShot(500, this, SLOT(update()));
+  scrollTimer->start();
 }

@@ -34,16 +34,17 @@ class StationDialog : public QDialog, private Ui_StationDialog
   Q_OBJECT
 
 public:
-  StationDialog(StationsPlugin *stations, Station *station,
-		QWidget * parent = 0);
+  StationDialog(Station *station, QWidget * parent = 0);
   ~StationDialog();
 
 private:
   void fetchImage();
-  void setupWidgets();
   void setupButtons();
 
 private slots:
+  void showMap();
+  void setupWidgets();
+  void pluginAction();
   void bookmark(bool checked);
 
   void requestError(QNetworkReply::NetworkError code);
@@ -52,7 +53,6 @@ private slots:
 
 private:
   Station *station;
-  StationsPlugin *stations;
   QNetworkAccessManager *nm;
 };
 

@@ -18,13 +18,11 @@
 
 #include "bookmarklistdialog.h"
 #include "stationslistdialog.h"
-#include "settings.h"
 #include "stationssortfilterproxymodel.h"
 
 BookmarkListDialog::BookmarkListDialog(StationsPlugin *plugin, QWidget *parent)
   : StationsListDialog(plugin, parent)
 {
-  proxy->setBookmarks(Settings::bookmarks(plugin));
   proxy->enableBookmarks(true);
 }
 

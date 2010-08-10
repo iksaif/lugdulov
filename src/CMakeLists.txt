@@ -9,9 +9,12 @@ include( ${QT_USE_FILE} )
 # Include the library include directories, and the current build directory (moc)
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}/plugins
+  ${CMAKE_CURRENT_SOURCE_DIR}/qmapcontrol
   ${CMAKE_CURRENT_BINARY_DIR}
   ${lugdulov_BINARY_DIR}
   ${QJSON_INCLUDE_DIR}
+  ${QT_INCLUDE_DIR}
 )
 
 link_directories(
@@ -21,26 +24,26 @@ link_directories(
 set(lugdulov_SRCS
   main.cpp
   mainwindow.cpp
-  stationsplugin.cpp
-  station.cpp
   settings.cpp
   stationdialog.cpp
-  stationsmanager.cpp
+  stationspluginmanager.cpp
   stationslistdialog.cpp
   bookmarklistdialog.cpp
   stationdelegate.cpp
   stationsmodel.cpp
   stationssortfilterproxymodel.cpp
-  stationslistview.cpp)
+  stationslistview.cpp
+  mapdialog.cpp
+  mapwidget.cpp)
 
 set(lugdulov_UIS
   mainwindow.ui
   stationdialog.ui
-  stationslistdialog.ui)
+  stationslistdialog.ui
+  mapdialog.ui)
 
 set(lugdulov_MOC_HDRS
   mainwindow.h
-  stationsplugin.h
   settings.h
   stationdialog.h
   stationspluginmanager.h
@@ -49,7 +52,9 @@ set(lugdulov_MOC_HDRS
   stationdelegate.h
   stationsmodel.h
   stationssortfilterproxymodel.h
-  stationslistview.h)
+  stationslistview.h
+  mapdialog.h
+  mapwidget.h)
 
 set(lugdulov_RCS ../res/lugdulov.qrc ../i18n/i18n.qrc)
 set(lugdulov_TRS ../i18n/lugdulov_fr.ts)
@@ -74,7 +79,8 @@ add_executable(
   ${QM_FILES}
 )
 
-add_subdirectory(lyon)
+add_subdirectory(plugins)
+add_subdirectory(qmapcontrol)
 
 if (QTLOCATION_FOUND)
   include_directories(${QTLOCATION_INCLUDE_DIR})
@@ -94,10 +100,13 @@ endif()
 
 if (BUILD_STATIC_PLUGINS)
   target_link_libraries(lugdulov stationslyon)
+  target_link_libraries(lugdulov stationsparis)
 endif ()
 
 target_link_libraries(
   lugdulov
+  lugdulov_base
+  qmapcontrol
   ${QT_LIBRARIES}
   ${QJSON_LIBRARIES}
 )

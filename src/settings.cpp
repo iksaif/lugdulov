@@ -63,12 +63,16 @@ Settings::path()
 bool
 Settings::bookmarked(Station *station)
 {
+  bool ret;
+
   Settings *conf = Settings::settings();
 
   conf->beginGroup("Bookmarks");
   conf->beginGroup(station->plugin()->id());
-
-  return conf->value(QString("%1").arg(station->id())).toBool();
+  ret = conf->value(QString("%1").arg(station->id())).toBool();
+  conf->endGroup();
+  conf->endGroup();
+  return ret;
 }
 
 void
@@ -81,11 +85,12 @@ Settings::bookmark(Station *station, bool bookmark)
 
   conf->beginGroup("Bookmarks");
   conf->beginGroup(station->plugin()->id());
-
   if (bookmark)
     conf->setValue(key, true);
   else
     conf->remove(key);
+  conf->endGroup();
+  conf->endGroup();
 }
 
 QList < int >
@@ -98,6 +103,8 @@ Settings::bookmarks(StationsPlugin *plugin)
   conf.beginGroup(plugin->id());
   foreach (QString id, conf.childKeys())
     ret << id.toInt();
+  conf.endGroup();
+  conf.endGroup();
   return ret;
 }
 

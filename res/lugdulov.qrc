@@ -7,5 +7,9 @@
     <file>favorites.png</file>
     <file>google-maps.png</file>
     <file>icon.png</file>
+    <file>zoom-in.png</file>
+    <file>zoom-out.png</file>
+    <file>gps.png</file>
+    <file>view-refresh.png</file>
   </qresource>
 </RCC>

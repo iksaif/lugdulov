@@ -28,3 +28,47 @@ StationsPlugin::StationsPlugin(QObject *parent)
 StationsPlugin::~StationsPlugin()
 {
 }
+
+void
+StationsPlugin::clearCache()
+{
+  updated.clear();
+}
+
+void
+StationsPlugin::updateCached(Station *station)
+{
+  QTime time = QTime::currentTime().addMSecs(-30000);
+  QTime now = QTime::currentTime();
+  QList <Station * > stations;
+
+  stations << station;
+
+  if (updated[station] > time)
+    emit stationsUpdated(stations);
+  else
+    update(station);
+  updated[station] = now;
+}
+
+void
+StationsPlugin::updateCached(const QList < Station * > & stations)
+{
+  QTime time = QTime::currentTime().addMSecs(-30000);
+  QTime now = QTime::currentTime();
+
+  QList < Station * > done;
+  QList < Station * > todo;
+
+  foreach (Station *station, stations) {
+    if (updated[station] > time)
+      done << station;
+    else
+      todo << station;
+    updated[station] = now;
+  }
+
+  emit stationsUpdated(done);
+  update(todo);
+}
+

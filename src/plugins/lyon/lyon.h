@@ -55,10 +55,18 @@ class StationsPluginLyon : public StationsPlugin
   QString name() const;
   QString bikeName() const;
   QIcon bikeIcon() const;
-  bool intersect(const QPointF &pos);
+  QRectF rect() const;
+  QPointF center() const;
 
   QUrl stationImageUrl(int id);
   QStringList regions();
+
+  enum StationsLyonActions {
+    ActionVelovMap = 1,
+  };
+
+  QList < QAction * > actions();
+  void actionTriggered(QAction *action, Station *station, QWidget *parent = 0);
 
  public slots:
   void fetchOnline();
@@ -67,7 +75,7 @@ class StationsPluginLyon : public StationsPlugin
   void fetchFromFile(const QString & file);
   void fetchFromUrl(const QUrl & url);
   void update(Station *station);
-  void update(QList < Station * > station);
+  void update(const QList < Station * > & station);
 
  private slots:
   void error(QNetworkReply::NetworkError code);
@@ -78,7 +86,7 @@ class StationsPluginLyon : public StationsPlugin
   void progress(qint64 done, qint64 total);
   void done();
 
-  void stationsFetched(QList < Station * > stations);
+  void stationsCreated(QList < Station * > stations);
   void stationsUpdated(QList < Station * > stations);
 
   void error(const QString & title, const QString & message);

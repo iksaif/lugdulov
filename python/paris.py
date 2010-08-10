@@ -25,7 +25,18 @@ def usage():
 # <arrondissement number="20" minLat="48.81155366000667" minLng="2.303560301490029" maxLat="48.87821186640261" maxLng="2.475836648494102"/>
 
 def find_region(data, marker):
-    pass
+    for region in data['arrondissements']:
+        ret = data['arrondissements'][region]
+
+        if region == 0:
+            continue
+
+        if marker['lat'] >= ret['minLat'] and marker['lat'] <= ret['maxLat'] \
+                and marker['lng'] >= ret['minLng'] and marker['lng'] <= ret['maxLng']:
+            return region
+    return 0
+#       line = '\t{ %s, %s, "%s", "%s", "%s", %s, %s },' % (j['number'], j['arrondissementNumber'], j['name'].title(), j['address'].title(), j['fullAddress'].title(), j['lat'], j['lng'])
+#    pass
 
 def stations():
     import xml.dom.minidom
@@ -45,6 +56,8 @@ def stations():
         ret = {}
         for elem in ["name", "number", "address", "fullAddress", "lat", "lng"]:
             ret[elem] = marker.getAttribute(elem)
+            if elem in ['lat', 'lng']:
+                ret[elem] = float(ret[elem])
         data['markers'].append(ret)
 
     for arrondissement in arrondissements:
@@ -80,6 +93,7 @@ def dump_cpp(total, output):
 struct {
         int number;
         int arrondissementNumber;
+        const char *name;
         const char *address;
         const char *fullAddress;
         double x;
@@ -87,9 +101,9 @@ struct {
 } stations[] = {"""
     print >>output, struct
     for j in total['markers']:
-        line = '\t{ %s, %s, "%s", "%s", %s, %s },' % (j['number'], j['arrondissementNumber'], j['name'], j['address'], j['fullAddress'], j['x'], j['y'])
+        line = '\t{ %s, %s, "%s", "%s", "%s", %s, %s },' % (j['number'], j['arrondissementNumber'], j['name'].title(), j['address'].title(), j['fullAddress'].title(), j['lat'], j['lng'])
         print >>output, line
-    print >>output, "\t{0, 0, NULL, NULL, 0., 0.}"
+    print >>output, "\t{0, 0, NULL, NULL, NULL, 0., 0.}"
     print >>output, "};"
 
 def main():

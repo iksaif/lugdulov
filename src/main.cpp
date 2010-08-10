@@ -28,6 +28,7 @@
 
 #ifdef BUILD_STATIC_PLUGINS
 Q_IMPORT_PLUGIN(stationslyon);
+Q_IMPORT_PLUGIN(stationsparis);
 #endif
 
 int main(int argc, char *argv[])
@@ -35,6 +36,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 #ifdef BUILD_STATIC_PLUGINS
     Q_INIT_RESOURCE(lyon);
+    Q_INIT_RESOURCE(paris);
 #endif
 
     QTranslator qtTranslator;
