@@ -274,8 +274,8 @@ MainWindow::map()
     }
   }
 #endif
-  showAndDelete(map);
   map->centerView(pt, zoom);
+  showAndDelete(map);
 }
 
 void

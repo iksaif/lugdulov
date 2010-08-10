@@ -10,6 +10,7 @@
     <file>zoom-in.png</file>
     <file>zoom-out.png</file>
     <file>gps.png</file>
+    <file>circle.png</file>
     <file>view-refresh.png</file>
   </qresource>
 </RCC>
