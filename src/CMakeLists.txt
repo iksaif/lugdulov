@@ -14,6 +14,7 @@ include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}
   ${lugdulov_BINARY_DIR}
   ${QJSON_INCLUDE_DIR}
+  ${QT_INCLUDE_DIR}
 )
 
 link_directories(

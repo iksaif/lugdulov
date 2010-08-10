@@ -87,13 +87,19 @@ StationsPluginSkel::bikeIcon() const
   return QIcon(":/skel/bike.png");
 }
 
-bool
-StationsPluginSkel::intersect(const QPointF & pos)
+QPointF
+StationsPluginSkel::center() const
 {
-  if (pos.x() > 45.815042 && pos.x() < 45.61764 &&
-      pos.y() > 4.799995  && pos.y() < 5.090103)
-    return true;
-  return false;
+  return QPointF(48.85856, 2.34823);
+}
+
+StationsPluginSkel::rect() const
+{
+  QRectF rect;
+
+  rect.setTopLeft(QPointF(48.580014, 2.095642));
+  rect.setBottomRight(QPointF(49.038318, 2.977467));
+  return rect;
 }
 
 void
@@ -160,7 +166,7 @@ StationsPluginSkel::update(Station *station)
 }
 
 void
-StationsPluginSkel::update(QList < Station * > stations)
+StationsPluginSkel::update(const QList < Station * > & stations)
 {
   foreach (Station *station, stations)
     update(station);

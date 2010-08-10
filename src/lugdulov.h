@@ -16,36 +16,23 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef MAPDIALOG_H
-# define MAPDIALOG_H
+#ifndef LUGDULOV_H
+# define LUGDULOV_H
 
-#include <QtGui/QDialog>
+#include <QtGui/QWidget>
 
-#include "ui_mapdialog.h"
+#include "config.h"
 
-class StationsPlugin;
-
-class MapDialog : public QDialog, private Ui_MapDialog
+static inline void showAndDelete(QWidget *widget)
 {
-  Q_OBJECT
-
- public:
-  MapDialog(StationsPlugin *plugin, QWidget *parent = 0);
-  ~MapDialog();
-
- public slots:
-  void centerView(const QPointF & position, int zoom = -1);
-#ifdef HAVE_QT_LOCATION
-  void positionUpdated(const QGeoPositionInfo & info);
+#ifdef Q_WS_MAEMO_5
+  /* Can't use stacked windows with modal dialogs ...*/
+  widget->setAttribute(Qt::WA_DeleteOnClose, true);
+  widget->show();
+#else
+  widget->exec();
+  delete widget;
 #endif
-
- protected:
-  virtual void showEvent(QShowEvent *event);
-
- private:
-  QPointF coord;
-  int zoom;
-  StationsPlugin *plugin;
-};
+}
 
 #endif

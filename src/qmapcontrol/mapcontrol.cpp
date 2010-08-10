@@ -236,6 +236,7 @@ namespace qmapcontrol
 
         // emit(mouseEvent(evnt));
         emit(mouseEventCoordinate(evnt, clickToWorldCoordinate(evnt->pos())));
+	QWidget::mousePressEvent(evnt);
     }
 
     void MapControl::mouseReleaseEvent(QMouseEvent* evnt)
@@ -253,6 +254,7 @@ namespace qmapcontrol
         }
 
         emit(mouseEventCoordinate(evnt, clickToWorldCoordinate(evnt->pos())));
+	QWidget::mouseReleaseEvent(evnt);
     }
 
     void MapControl::mouseMoveEvent(QMouseEvent* evnt)
@@ -278,6 +280,7 @@ namespace qmapcontrol
 
         update();
         // emit(mouseEventCoordinate(evnt, clickToWorldCoordinate(evnt->pos())));
+	QWidget::mouseMoveEvent(evnt);
     }
 
     QPointF MapControl::clickToWorldCoordinate(QPoint click)

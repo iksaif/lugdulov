@@ -59,6 +59,7 @@ class StationsListView : public QListView
  private:
   StationsPlugin *plugin;
   QTimer *timer;
+  QTimer *scrollTimer;
   QMenu *menu;
   QMap < Station * , QTime > updated;
   QAction *map;

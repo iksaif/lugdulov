@@ -16,6 +16,7 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
+#include "lugdulov.h"
 #include "mapwidget.h"
 #include "stationsmodel.h"
 #include "stationssortfilterproxymodel.h"
@@ -73,6 +74,7 @@ MapWidget::createInnerLayout()
   follow->setIconSize(QSize(32, 32));
   follow->setCheckable(true);
   follow->setChecked(true);
+  follow->hide();
 
   zoomin->setMaximumWidth(50);
   zoomout->setMaximumWidth(50);
@@ -143,7 +145,7 @@ MapWidget::positionUpdated(const QGeoPositionInfo & info)
 {
   if (!follow->isChecked())
     return ;
-
+  follow->show();
   coord = QPointF(info.coordinate().latitude(), info.coordinate().longitude());
   centerView(coord);
 }
@@ -171,9 +173,9 @@ MapWidget::geometryClicked(Geometry *geom, QPoint pt)
   if (stations.find((Point *)geom) == stations.end())
     return ;
 
-  StationDialog dlg(stations[(Point *)geom], this);
+  StationDialog *dlg = new StationDialog(stations[(Point *)geom], this);
 
-  dlg.exec();
+  showAndDelete(dlg);
 }
 
 void
@@ -206,15 +208,17 @@ MapWidget::refreshStations()
 
     showStation(station);
   }
+
   refreshStatus();
 }
 
 void
 MapWidget::refreshStatus()
 {
+  return ; /* Not needed right now, only here for future usage */
   foreach (Point *geometry, stations.keys()) {
     if (mc->getViewport().contains(geometry->coordinate()))
-      stations[geometry]->plugin()->update(stations[geometry]);
+      stations[geometry]->plugin()->updateCached(stations[geometry]);
   }
 }
 
@@ -240,4 +244,5 @@ void
 MapWidget::resizeEvent(QResizeEvent * event)
 {
   mc->resize(event->size());
+  QWidget::resizeEvent(event);
 }

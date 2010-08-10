@@ -17,8 +17,11 @@
  */
 
 #include <QtGui/QApplication>
+#include <QtGui/QDesktopWidget>
 #include <QtGui/QPainter>
 #include <QtCore/QDebug>
+
+#include "config.h"
 
 #include "stationdelegate.h"
 #include "stationsmodel.h"
@@ -66,9 +69,7 @@ StationDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
 
   font = option.font;
   font.setBold(true);
-#ifndef Q_WS_MAEMO5
-  font.setPointSize(font.pointSize() + 2);
-#endif
+
   QRectF rect = option.rect;
 
   rect.setHeight(rect.height() - 10);
@@ -85,7 +86,7 @@ StationDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
   }
 
   font.setBold(false);
-#ifdef Q_WS_MAEMO5
+#ifdef Q_WS_MAEMO_5
   font.setPointSize(10);
 #else
   font.setPointSize(font.pointSize() - 1);
@@ -172,6 +173,10 @@ StationDelegate::sizeHint(const QStyleOptionViewItem &option,
   /* Wow oO */
   s.setHeight(48 + fm.height() * 2);
   s.setWidth(qMax((int)(fm.width(station->name()) * 1.2), (48 + fm.width("000")) * 2));
+
+#ifdef Q_WS_MAEMO_5
+  s.setWidth(400); /* Ugly .. but it works .. */
+#endif
 
   /*
    * Maemo is very, very bad with nonstandard row sizes.

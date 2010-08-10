@@ -49,7 +49,8 @@ class StationsPluginSkel : public StationsPlugin
   QString name() const;
   QString bikeName() const;
   QIcon bikeIcon() const;
-  bool intersect(const QPointF &pos);
+  QRectF rect() const;
+  QPointF center() const;
 
   QUrl stationImageUrl(int id);
   QStringList regions();
@@ -68,7 +69,7 @@ class StationsPluginSkel : public StationsPlugin
   void fetchFromFile(const QString & file);
   void fetchFromUrl(const QUrl & url);
   void update(Station *station);
-  void update(QList < Station * > station);
+  void update(const QList < Station * > & station);
 
  private slots:
   void error(QNetworkReply::NetworkError code);

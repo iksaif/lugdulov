@@ -16,12 +16,12 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include "config.h"
-
 #include <QtGui/QDesktopServices>
 #include <QtGui/QMessageBox>
 #include <QtCore/QTimer>
-#include <QDebug>
+#include <QtCore/QDebug>
+
+#include "lugdulov.h"
 
 #include "stationsplugin.h"
 #include "stationspluginmanager.h"
@@ -39,9 +39,16 @@ MainWindow::MainWindow(QWidget *parent)
 
 #ifdef Q_WS_MAEMO_5
   menu_File->removeAction(quitAction);
-  menu_About->removeAction(aboutQtAction);
+  menu_Help->removeAction(aboutQtAction);
   setAttribute(Qt::WA_Maemo5StackedWindow);
   setAttribute(Qt::WA_Maemo5AutoOrientation, true);
+
+  mapLinkButton->setMaximumHeight(70);
+  searchLinkButton->setMaximumHeight(70);
+  bookmarkLinkButton->setMaximumHeight(70);
+
+  searchLinkButton->setDescription(tr("Search stations by name"));
+  bookmarkLinkButton->setDescription(tr("Manage your favorites stations."));
 #endif
 
   plugin = NULL;
@@ -232,15 +239,15 @@ MainWindow::search()
     return ;
   }
 
-  StationsListDialog dlg(plugin, this);
+  StationsListDialog *dlg = new StationsListDialog(plugin, this);
 
 #ifdef HAVE_QT_LOCATION
   if (localisation) {
-    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), &dlg, SLOT(positionUpdated(QGeoPositionInfo)));
-    connect(localisation, SIGNAL(requestTimeout()), &dlg, SLOT(positionRequestTimeout()));
+    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), dlg, SLOT(positionUpdated(QGeoPositionInfo)));
+    connect(localisation, SIGNAL(requestTimeout()), dlg, SLOT(positionRequestTimeout()));
   }
 #endif
-  dlg.exec();
+  showAndDelete(dlg);
 }
 
 void
@@ -251,14 +258,15 @@ MainWindow::map()
     return ;
   }
 
-  MapDialog map(plugin, this);
+  MapDialog *map = new MapDialog(plugin, this);
   QPointF pt = plugin->center();
   int zoom = 15;
 
-  map.show();
 #ifdef HAVE_QT_LOCATION
   if (localisation) {
     QGeoCoordinate coord = position.coordinate();
+
+    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), map, SLOT(positionUpdated(QGeoPositionInfo)));
 
     if (coord.isValid()) {
       pt = QPointF(coord.latitude(), coord.longitude());
@@ -266,8 +274,8 @@ MainWindow::map()
     }
   }
 #endif
-  map.centerView(pt, zoom);
-  map.exec();
+  showAndDelete(map);
+  map->centerView(pt, zoom);
 }
 
 void
@@ -278,15 +286,15 @@ MainWindow::bookmarks()
     return ;
   }
 
-  BookmarkListDialog dlg(plugin, this);
+  BookmarkListDialog *dlg = new BookmarkListDialog(plugin, this);
 
 #ifdef HAVE_QT_LOCATION
   if (localisation) {
-    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), &dlg, SLOT(positionUpdated(QGeoPositionInfo)));
-    connect(localisation, SIGNAL(requestTimeout()), &dlg, SLOT(positionRequestTimeout()));
+    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), dlg, SLOT(positionUpdated(QGeoPositionInfo)));
+    connect(localisation, SIGNAL(requestTimeout()), dlg, SLOT(positionRequestTimeout()));
   }
 #endif
-  dlg.exec();
+  showAndDelete(dlg);
 }
 
 void

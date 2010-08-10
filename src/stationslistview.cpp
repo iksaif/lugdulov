@@ -20,6 +20,8 @@
 #include <QtGui/QMenu>
 #include <QtGui/QSortFilterProxyModel>
 
+#include "lugdulov.h"
+
 #include "stationslistview.h"
 #include "stationsmodel.h"
 #include "station.h"
@@ -38,6 +40,10 @@ StationsListView::StationsListView(QWidget *parent)
   timer = new QTimer(this);
   timer->setInterval(30000);
   connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+
+  scrollTimer = new QTimer(this);
+  scrollTimer->setInterval(500);
+  connect(scrollTimer, SIGNAL(timeout()), this, SLOT(update()));
 
 #ifdef Q_WS_MAEMO_5
   connect(this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(showDetails(const QModelIndex &)));
@@ -94,8 +100,12 @@ StationsListView::showDetails(const QModelIndex & index)
 {
     Station *station = (Station *)index.data(StationsModel::StationRole).value<void *>();
 
-    if (station)
-      StationDialog(station, this).exec();
+    if (!station)
+      return ;
+
+    StationDialog *dlg = new StationDialog(station, parentWidget());
+
+    showAndDelete(dlg);
 }
 
 void
@@ -107,11 +117,10 @@ StationsListView::action(QAction *action)
     if (action == details)
       showDetails(index);
     else if (action == map) {
-       MapDialog map(station->plugin(),this);
+       MapDialog *map = new MapDialog(station->plugin(), this);
 
-       map.show();
-       map.centerView(station->pos());
-       map.exec();
+       map->centerView(station->pos());
+       showAndDelete(map);
     } else if (action == bookmark)
       Settings::bookmark(station, !Settings::bookmarked(station));
     else if (plugin)
@@ -149,7 +158,8 @@ StationsListView::updateInterval()
 void
 StationsListView::forceUpdate()
 {
-  updated.clear();
+  if (plugin)
+    plugin->clearCache();
   update();
 }
 
@@ -159,7 +169,6 @@ StationsListView::update()
   QRect rect(0, 0, 0, 0);
   QModelIndex index;
   QModelIndexList list;
-  QTime time = QTime::currentTime().addMSecs(-timer->interval());
 
   while (viewport()->rect().contains(0, rect.y() + rect.height() + 1)){
     index = indexAt(QPoint(rect.x(), rect.y() + rect.height() + 1));
@@ -173,11 +182,10 @@ StationsListView::update()
   foreach (QModelIndex index, list) {
     Station *station = (Station *)index.data(StationsModel::StationRole).value<void *>();
 
-    if (!station || updated[station] > time)
+    if (!station)
       continue ;
 
-    station->plugin()->update(station);
-    updated[station] = QTime::currentTime();
+    plugin->updateCached(station);
   }
 }
 
@@ -198,7 +206,7 @@ StationsListView::rowsInserted(const QModelIndex & parent, int start, int end)
 {
   QListView::rowsInserted(parent, start, end);
   // Delayed to allow QSortFilterProxyModel to do is work
-  QTimer::singleShot(500, this, SLOT(update()));
+  scrollTimer->start();
 }
 
 void
@@ -206,5 +214,5 @@ StationsListView::scrollContentsBy(int dx, int dy)
 {
   QListView::scrollContentsBy(dx, dy);
   // Delayed a little because the user may be still scrolling
-  QTimer::singleShot(500, this, SLOT(update()));
+  scrollTimer->start();
 }

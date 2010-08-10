@@ -159,7 +159,7 @@ StationsPluginLyon::update(Station *station)
 }
 
 void
-StationsPluginLyon::update(QList < Station * > stations)
+StationsPluginLyon::update(const QList < Station * > & stations)
 {
   foreach (Station *station, stations)
     update(station);

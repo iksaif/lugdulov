@@ -75,7 +75,7 @@ class StationsPluginLyon : public StationsPlugin
   void fetchFromFile(const QString & file);
   void fetchFromUrl(const QUrl & url);
   void update(Station *station);
-  void update(QList < Station * > station);
+  void update(const QList < Station * > & station);
 
  private slots:
   void error(QNetworkReply::NetworkError code);

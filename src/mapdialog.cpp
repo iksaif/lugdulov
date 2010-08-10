@@ -16,11 +16,26 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
+#include "config.h"
+
 #include "mapdialog.h"
 
 MapDialog::MapDialog(StationsPlugin *plugin, QWidget *parent)
-  : QDialog(parent), plugin(plugin)
+  :
+#ifdef Q_WS_MAEMO_5
+  QDialog(parent, Qt::Window),
+#else
+  QDialog(parent),
+#endif
+  plugin(plugin)
 {
+#ifdef Q_WS_MAEMO_5
+  setAttribute(Qt::WA_Maemo5StackedWindow);
+  setAttribute(Qt::WA_Maemo5AutoOrientation, true);
+#endif
+
+  zoom = 15;
+
   setupUi(this);
   mapWidget->setPlugin(plugin);
 }
@@ -38,8 +53,20 @@ MapDialog::positionUpdated(const QGeoPositionInfo & info)
 #endif
 
 void
-MapDialog::centerView(const QPointF & pt, int zoom)
+MapDialog::centerView(const QPointF & pt, int z)
 {
-  mapWidget->centerView(pt, zoom);
+  coord = pt;
+  zoom = z;
+
+  if (isVisible())
+    mapWidget->centerView(pt, z);
 }
 
+void
+MapDialog::showEvent(QShowEvent *event)
+{
+  if (!coord.isNull())
+    mapWidget->centerView(coord, zoom);
+
+  QWidget::showEvent(event);
+}

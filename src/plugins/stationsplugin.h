@@ -19,6 +19,7 @@
 #ifndef STATIONS_H
 #define STATIONS_H
 
+#include <QtCore/QTime>
 #include <QtCore/QUrl>
 #include <QtGui/QIcon>
 #include <QtGui/QAction>
@@ -119,8 +120,12 @@ public:
    * and emit stationsUpdated()
    */
   virtual void update(Station *station) = 0;
-  virtual void update(QList < Station * > station) = 0;
-#if 0
+  virtual void update(const QList < Station * > & station) = 0;
+
+  void updateCached(Station *station);
+  void updateCached(const QList < Station * > & station);
+  void clearCache();
+
  signals:
   /**
    * emited when the plugin is doing some online stuff (fetching
@@ -156,7 +161,9 @@ public:
    * emited when an error occured
    */
   void error(const QString & title, const QString & message);
-#endif
+
+ protected:
+  QMap < Station * , QTime > updated;
 };
 
 /**

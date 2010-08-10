@@ -23,6 +23,8 @@
 #include <QtCore/QTimer>
 #include <QDebug>
 
+#include "config.h"
+
 #include "settings.h"
 #include "stationsplugin.h"
 #include "station.h"
@@ -33,7 +35,13 @@
 #include "stationslistview.h"
 
 StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
-  : QDialog(parent), plugin(plugin)
+  :
+#ifdef Q_WS_MAEMO_5
+  QDialog(parent, Qt::Window),
+#else
+  QDialog(parent),
+#endif
+  plugin(plugin)
 {
   setupUi(this);
 
@@ -42,7 +50,7 @@ StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
   setAttribute(Qt::WA_Maemo5AutoOrientation, true);
 #endif
 
-  refreshButton->setIcon(QIcon::fromTheme("view-refresh"));
+  refreshButton->setIcon(QIcon::fromTheme("view-refresh", QPixmap(":/res/view-refresh.png")));
   nearButton->setIcon(QPixmap(":/res/gps.png"));
 #ifdef Q_WS_MAEMO_5
   refreshButton->setText("");

@@ -21,6 +21,8 @@
 #include <QtGui/QDesktopServices>
 #include <QtGui/QPushButton>
 
+#include "lugdulov.h"
+
 #include "stationdialog.h"
 #include "station.h"
 #include "stationsplugin.h"
@@ -38,6 +40,7 @@ StationDialog::StationDialog(Station *station, QWidget * parent)
 {
 #ifdef Q_WS_MAEMO_5
   setAttribute(Qt::WA_Maemo5StackedWindow);
+  setAttribute(Qt::WA_Maemo5AutoOrientation, true);
 #endif
 
   setupUi(this);
@@ -110,11 +113,10 @@ StationDialog::setupButtons()
 void
 StationDialog::showMap()
 {
-  MapDialog map(station->plugin(),this);
+  MapDialog *map = new MapDialog(station->plugin(), this);
 
-  map.show();
-  map.centerView(station->pos());
-  map.exec();
+  map->centerView(station->pos());
+  showAndDelete(map);
 }
 
 void

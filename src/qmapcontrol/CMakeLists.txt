@@ -1,3 +1,4 @@
+
 set(qmapcontrol_SRCS
   circlepoint.cpp
   curve.cpp
