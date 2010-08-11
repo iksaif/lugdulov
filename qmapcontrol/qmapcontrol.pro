@@ -1,7 +1,8 @@
-DEPENDPATH += src
-INCLUDEPATH += src
-MOC_DIR = tmp
-OBJECTS_DIR = obj
+TEMPLATE = lib
+
+CONFIG += staticlib
+
+QT += network
 
 # Input
 HEADERS += curve.h \
@@ -53,4 +54,3 @@ SOURCES += curve.cpp \
 	   fixedimageoverlay.cpp \
 	   emptymapadapter.cpp
 
-QT += network

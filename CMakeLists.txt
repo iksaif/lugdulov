@@ -75,7 +75,20 @@ set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include" CACHE STRING "Director
 
 set (LUGDULOV_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
-add_subdirectory(src)
+# Use it
+set(QT_USE_QTGUI TRUE)
+set(QT_USE_QTNETWORK TRUE)
+set(QT_USE_QTXML TRUE)
+set(QT_USE_QTSQL TRUE)
+
+include( ${QT_USE_FILE} )
+
+# Find config.h
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+
+add_subdirectory(plugins)
+add_subdirectory(qmapcontrol)
+add_subdirectory(lugdulov)
 add_subdirectory(pkg)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake config.h ESCAPE_QUOTES)

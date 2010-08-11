@@ -1,3 +1,4 @@
+project(qmapcontrol)
 
 set(qmapcontrol_SRCS
   circlepoint.cpp

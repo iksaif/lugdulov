@@ -1,24 +1,12 @@
-# Use it
-set(QT_USE_QTGUI TRUE)
-set(QT_USE_QTNETWORK TRUE)
-set(QT_USE_QTXML TRUE)
-set(QT_USE_QTSQL TRUE)
-
-include( ${QT_USE_FILE} )
+project(lugdulov_core)
 
 # Include the library include directories, and the current build directory (moc)
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}
-  ${CMAKE_CURRENT_SOURCE_DIR}/plugins
-  ${CMAKE_CURRENT_SOURCE_DIR}/qmapcontrol
   ${CMAKE_CURRENT_BINARY_DIR}
-  ${lugdulov_BINARY_DIR}
-  ${QJSON_INCLUDE_DIR}
+  ${lugdulov_base_SOURCE_DIR}
+  ${qmapcontrol_SOURCE_DIR}
   ${QT_INCLUDE_DIR}
-)
-
-link_directories(
-  ${QJSON_LIBRARY_DIRS}
 )
 
 set(lugdulov_SRCS
@@ -56,8 +44,8 @@ set(lugdulov_MOC_HDRS
   mapdialog.h
   mapwidget.h)
 
-set(lugdulov_RCS ../res/lugdulov.qrc ../i18n/i18n.qrc)
-set(lugdulov_TRS ../i18n/lugdulov_fr.ts)
+set(lugdulov_RCS res/lugdulov.qrc i18n/i18n.qrc)
+set(lugdulov_TRS i18n/lugdulov_fr.ts)
 set_source_files_properties(${lugdulov_TRS} PROPERTIES OUTPUT_LOCATION ${lugdulov_SOURCE_DIR}/i18n)
 
 if (Q_WS_MAEMO_5)
@@ -78,9 +66,6 @@ add_executable(
   ${RC_SRCS}
   ${QM_FILES}
 )
-
-add_subdirectory(plugins)
-add_subdirectory(qmapcontrol)
 
 if (QTLOCATION_FOUND)
   include_directories(${QTLOCATION_INCLUDE_DIR})
@@ -108,7 +93,6 @@ target_link_libraries(
   lugdulov_base
   qmapcontrol
   ${QT_LIBRARIES}
-  ${QJSON_LIBRARIES}
 )
 
 install(TARGETS lugdulov

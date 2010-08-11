@@ -2,6 +2,7 @@ build/
 *.o
 moc_*.cpp
 ui_*.h
+qrc_*.cpp
 *~
 vb-agent
 res/.directory
@@ -9,3 +10,7 @@ res/.directory
 \#*#
 TODO
 *qm
+*a
+Makefile
+*prl
+bin/

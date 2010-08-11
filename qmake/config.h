@@ -1,3 +1,0 @@
-#define LUGDULOV_VERSION "0.1.0"
-#define HAVE_QT_LOCATION 1
-#define HAVE_QT_BEARER   1
