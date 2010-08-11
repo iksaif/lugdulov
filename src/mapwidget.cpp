@@ -108,6 +108,15 @@ MapWidget::setupMapControl()
   connect(stationsLayer, SIGNAL(geometryClicked(Geometry*, QPoint)),
 	  this, SLOT(geometryClicked(Geometry*, QPoint)));
 
+  positionLayer = new GeometryLayer("Position", mapadapter);
+  mc->addLayer(positionLayer);
+
+  positionMarker = new Point(0, 0, new QPixmap(":/res/circle.png"), tr("You are here"));
+  positionMarker->setBaselevel(15);
+  positionMarker->setMinsize(QSize(24, 24));
+  positionMarker->setMaxsize(QSize(48, 48));
+  positionMarker->setVisible(false);
+  positionLayer->addGeometry(positionMarker);
 
   QHBoxLayout* layout = new QHBoxLayout;
   layout->addWidget(mc);
@@ -147,6 +156,10 @@ MapWidget::positionUpdated(const QGeoPositionInfo & info)
     return ;
   follow->show();
   coord = QPointF(info.coordinate().latitude(), info.coordinate().longitude());
+  positionMarker->setVisible(true);
+  positionMarker->setCoordinate(QPointF(coord.y(), coord.x()));
+  qDebug() << coord << positionMarker->isVisible();
+
   centerView(coord);
 }
 #endif

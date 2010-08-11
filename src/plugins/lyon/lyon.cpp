@@ -166,7 +166,7 @@ StationsPluginLyon::update(const QList < Station * > & stations)
 }
 
 void
-StationsPluginLyon::error(QNetworkReply::NetworkError code)
+StationsPluginLyon::networkError(QNetworkReply::NetworkError code)
 {
   QNetworkReply *rep = dynamic_cast<QNetworkReply *>(sender());
 
@@ -306,7 +306,7 @@ StationsPluginLyon::request(const QUrl & url, Request::Type type, int id, const 
   Request req = {type, id, region};
 
   rep = nm->get(QNetworkRequest(url));
-  connect(rep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(error(QNetworkReply::NetworkError)));
+  connect(rep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(networkError(QNetworkReply::NetworkError)));
   connect(rep, SIGNAL(finished()), this, SLOT(finished()));
 
   if (count == 0) {

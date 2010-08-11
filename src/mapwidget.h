@@ -68,6 +68,9 @@ class MapWidget : public QWidget
   MapControl *mc;
   TileMapAdapter *mapadapter;
   GeometryLayer *stationsLayer;
+  GeometryLayer *positionLayer;
+  Point *positionMarker;
+
   QMap < Point *, Station * > stations;
   QMap < Station *, Point * > geometries;
 

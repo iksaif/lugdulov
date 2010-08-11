@@ -50,7 +50,7 @@ StationDialog::StationDialog(Station *station, QWidget * parent)
   /* Update Station Status */
   if (station->freeSlots() == -1) {
     station->plugin()->update(station);
-    connect(station->plugin(), SIGNAL(stationsUpdated(QList < Station *>)),
+    connect(station->plugin(), SIGNAL(stationsUpdated(const QList < Station * > &)),
 	    this, SLOT(setupWidgets()));
   }
   /* Could be done in StationsPlugin */

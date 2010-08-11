@@ -23,10 +23,10 @@
 StationsModel::StationsModel(StationsPlugin *plugin, QObject *parent)
   : QAbstractListModel(parent), plugin_(plugin)
 {
-  connect(plugin_, SIGNAL(stationsCreated(QList < Station *>)),
-	  this, SLOT(stationsCreated(QList < Station *>)));
-  connect(plugin_, SIGNAL(stationsUpdated(QList < Station *>)),
-	  this, SLOT(stationsUpdated(QList < Station *>)));
+  connect(plugin_, SIGNAL(stationsCreated(const QList < Station *> &)),
+	  this, SLOT(stationsCreated(const QList < Station *> &)));
+  connect(plugin_, SIGNAL(stationsUpdated(const QList < Station *> &)),
+	  this, SLOT(stationsUpdated(const QList < Station *> &)));
 }
 
 StationsModel::~StationsModel()
@@ -78,7 +78,7 @@ StationsModel::clear()
 }
 
 void
-StationsModel::stationsCreated(QList < Station * > list)
+StationsModel::stationsCreated(const QList < Station * > &list)
 {
   QList < Station * > copy;
 
@@ -92,7 +92,7 @@ StationsModel::stationsCreated(QList < Station * > list)
 }
 
 void
-StationsModel::stationsUpdated(QList < Station * > list)
+StationsModel::stationsUpdated(const QList < Station * > &list)
 {
   foreach (Station *station, list) {
     QModelIndex idx = index(stations.indexOf(station));

@@ -47,8 +47,8 @@ public:
     StationsPlugin *plugin();
 
 public slots:
-    void stationsCreated(QList < Station * > station);
-    void stationsUpdated(QList < Station * > station);
+    void stationsCreated(const QList < Station * > & station);
+    void stationsUpdated(const QList < Station * > & station);
 
 private:
     QList < Station * > stations;

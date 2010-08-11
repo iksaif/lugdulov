@@ -47,10 +47,6 @@ class StationsListDialog : public QDialog, private Ui_StationsListDialog
   void setupListWidget();
 
  private slots:
-#ifdef HAVE_QT_LOCATION
-  void fetchNear();
-#endif
-
   void filter(const QString & text);
   void progress(qint64 done, qint64 total);
   void error(const QString & title, const QString & message);

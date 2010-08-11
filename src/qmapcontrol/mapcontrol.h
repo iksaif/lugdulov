@@ -335,8 +335,6 @@ namespace qmapcontrol
         void tick();
         void loadingFinished();
         void positionChanged ( Geometry* geom );
-    private:
-	QPixmap circle;
     };
 }
 #endif

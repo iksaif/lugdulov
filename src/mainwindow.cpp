@@ -245,6 +245,9 @@ MainWindow::search()
   if (localisation) {
     connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), dlg, SLOT(positionUpdated(QGeoPositionInfo)));
     connect(localisation, SIGNAL(requestTimeout()), dlg, SLOT(positionRequestTimeout()));
+
+    if (position.isValid())
+      dlg->positionUpdated(position);
   }
 #endif
   showAndDelete(dlg);
@@ -264,17 +267,17 @@ MainWindow::map()
 
 #ifdef HAVE_QT_LOCATION
   if (localisation) {
-    QGeoCoordinate coord = position.coordinate();
-
     connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), map, SLOT(positionUpdated(QGeoPositionInfo)));
 
-    if (coord.isValid()) {
-      pt = QPointF(coord.latitude(), coord.longitude());
-      zoom = 20;
+    if (position.isValid()) {
+      zoom = 0;
+      map->positionUpdated(position);
     }
   }
 #endif
-  map->centerView(pt, zoom);
+  if (zoom)
+    map->centerView(pt, zoom);
+  map->positionUpdated(position);
   showAndDelete(map);
 }
 
@@ -292,6 +295,9 @@ MainWindow::bookmarks()
   if (localisation) {
     connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), dlg, SLOT(positionUpdated(QGeoPositionInfo)));
     connect(localisation, SIGNAL(requestTimeout()), dlg, SLOT(positionRequestTimeout()));
+
+    if (position.isValid())
+      dlg->positionUpdated(position);
   }
 #endif
   showAndDelete(dlg);

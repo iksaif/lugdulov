@@ -51,19 +51,13 @@ StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
 #endif
 
   refreshButton->setIcon(QIcon::fromTheme("view-refresh", QPixmap(":/res/view-refresh.png")));
-  nearButton->setIcon(QPixmap(":/res/gps.png"));
 #ifdef Q_WS_MAEMO_5
   refreshButton->setText("");
-  nearButton->setText("");
 #endif
-  nearButton->hide();
   lineEdit->setFocus(Qt::OtherFocusReason);
 
   connect(lineEdit, SIGNAL(textEdited(const QString &)), this, SLOT(filter(const QString &)));
   connect(refreshButton, SIGNAL(clicked()), listView, SLOT(forceUpdate()));
-#ifdef HAVE_QT_LOCATION
-  connect(nearButton, SIGNAL(clicked()), this, SLOT(fetchNear()));
-#endif
 
   listView->setAlternatingRowColors(true);
   listView->setItemDelegate(new StationDelegate(listView));
@@ -74,6 +68,7 @@ StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
   //proxy->setStationLimit(5);
   proxy->setSourceModel(model);
   proxy->setBookmarks(Settings::bookmarks(plugin));
+  proxy->setSortRole(StationsSortFilterProxyModel::StationDistanceRole);
   listView->setStationsPlugin(plugin);
   listView->setModel(proxy);
 
@@ -91,19 +86,9 @@ StationsListDialog::~StationsListDialog()
 
 #ifdef HAVE_QT_LOCATION
 void
-StationsListDialog::fetchNear()
-{
-  QGeoCoordinate coord = position.coordinate();
-
-  proxy->setSortRole(StationsSortFilterProxyModel::StationDistanceRole);
-  proxy->sort(0);
-}
-
-void
 StationsListDialog::positionRequestTimeout()
 {
   position = QGeoPositionInfo();
-  nearButton->hide();
 }
 
 void
@@ -116,8 +101,8 @@ StationsListDialog::positionUpdated(QGeoPositionInfo info)
 
   position = info;
 
-  nearButton->show();
   proxy->setPosition(QPointF(coord.latitude(), coord.longitude()));
+  proxy->sort(0);
 }
 #endif
 

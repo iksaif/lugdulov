@@ -40,7 +40,6 @@ namespace qmapcontrol
         connect(ImageManager::instance(), SIGNAL(loadingFinished()),
                 this, SLOT(loadingFinished()));
 
-	circle = QPixmap(":/res/circle.png");
         this->setMaximumSize(size.width()+1, size.height()+1);
     }
 
@@ -180,14 +179,19 @@ namespace qmapcontrol
                 painter.drawText(QPoint((int)line+10,size.height()-15), distance);
             }
         }
-	/*
+	QPen pen = painter.pen();
+	int width = pen.width();
+
+	pen.setWidth(width + 1);
+	painter.setPen(pen);
+
         painter.drawLine(screen_middle.x(), screen_middle.y()-10,
                          screen_middle.x(), screen_middle.y()+10); // |
         painter.drawLine(screen_middle.x()-10, screen_middle.y(),
                          screen_middle.x()+10, screen_middle.y()); // -
-	*/
-	painter.drawPixmap(screen_middle.x() - 24, screen_middle.y() - 24,
-			   48, 48, circle);
+
+	pen.setWidth(width);
+	painter.setPen(pen);
 
         // int cross_x = int(layermanager->getMapmiddle_px().x())%256;
         // int cross_y = int(layermanager->getMapmiddle_px().y())%256;

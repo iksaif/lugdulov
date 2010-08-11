@@ -150,12 +150,12 @@ public:
   /**
    * emited by fetch*() functions
    */
-  void stationsCreated(QList < Station * > stations);
+  void stationsCreated(const QList < Station * > & stations);
 
   /**
    * emited by update() functions
    */
-  void stationsUpdated(QList < Station * > stations);
+  void stationsUpdated(const QList < Station * > & stations);
 
   /**
    * emited when an error occured

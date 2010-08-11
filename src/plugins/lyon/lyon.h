@@ -78,19 +78,19 @@ class StationsPluginLyon : public StationsPlugin
   void update(const QList < Station * > & station);
 
  private slots:
-  void error(QNetworkReply::NetworkError code);
+  void networkError(QNetworkReply::NetworkError code);
   void finished();
-
+  /*
  signals:
   void started();
   void progress(qint64 done, qint64 total);
   void done();
 
-  void stationsCreated(QList < Station * > stations);
-  void stationsUpdated(QList < Station * > stations);
+  void stationsCreated(const QList < Station * > & stations);
+  void stationsUpdated(const QList < Station * > & stations);
 
   void error(const QString & title, const QString & message);
-
+  */
  private:
   QUrl stationJsonUrl(int id);
   QUrl stationsJsonUrl(const QString &region);
