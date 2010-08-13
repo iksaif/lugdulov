@@ -46,7 +46,7 @@ set(lugdulov_MOC_HDRS
 
 set(lugdulov_RCS res/lugdulov.qrc i18n/i18n.qrc)
 set(lugdulov_TRS i18n/lugdulov_fr.ts)
-set_source_files_properties(${lugdulov_TRS} PROPERTIES OUTPUT_LOCATION ${lugdulov_SOURCE_DIR}/i18n)
+set_source_files_properties(${lugdulov_TRS} PROPERTIES OUTPUT_LOCATION ${lugdulov_core_SOURCE_DIR}/i18n)
 
 if (Q_WS_MAEMO_5)
   maemo_qt4_add_translation(QM_FILES ${lugdulov_TRS})
