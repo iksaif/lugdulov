@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     app.installTranslator(&qtTranslator);
 
     QTranslator lugdulovTranslator;
-    lugdulovTranslator.load("lugdulov_" + QLocale::system().name(), ":/");
+    qDebug() << lugdulovTranslator.load("lugdulov_" + QLocale::system().name(), ":/");
     app.installTranslator(&lugdulovTranslator);
 
     QCoreApplication::setOrganizationName("Lugdulov");

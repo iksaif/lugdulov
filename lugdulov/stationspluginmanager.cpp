@@ -19,6 +19,8 @@
 #include <QtCore/QtPlugin>
 #include <QtCore/QPluginLoader>
 #include <QtCore/QCoreApplication>
+#include <QtCore/QTranslator>
+#include <QtCore/QLibraryInfo>
 
 #include <QtCore/QDebug>
 
@@ -117,6 +119,13 @@ StationsPluginManager::loadPlugin(QObject *plugin)
   if (!factory)
     return ;
 
-  qDebug() << "lugdulov: stations plugin " << factory->name() << "loaded.";
+  qDebug() << "lugdulov: stations plugin " << factory->id() << factory->name() << "loaded.";
+
   factories[factory->id()] = factory;
+
+  QTranslator *translator = new QTranslator(plugin);
+
+  translator->load("lugdulov_" + factory->id() + "_" + QLocale::system().name(),
+		   ":/" + factory->id() + "/");
+  QCoreApplication::instance()->installTranslator(ranslator);
 }

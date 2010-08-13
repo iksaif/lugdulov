@@ -2,172 +2,217 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="fr_FR">
 <context>
-    <name>MainListWidget</name>
-    <message>
-        <location filename="../src/mainlistwidget.cpp" line="41"/>
-        <source>Bookmark this station</source>
-        <translation>Ajouter aux favoris</translation>
-    </message>
-    <message>
-        <location filename="../src/mainlistwidget.cpp" line="42"/>
-        <source>Show in Google Maps...</source>
-        <translation>Montrer sur Google Maps...</translation>
-    </message>
-    <message>
-        <location filename="../src/mainlistwidget.cpp" line="43"/>
-        <source>Show in Velo&apos;v Website...</source>
-        <translation>Montrer sur le plan Velo&apos;v...</translation>
-    </message>
-    <message>
-        <location filename="../src/mainlistwidget.cpp" line="140"/>
-        <source>All</source>
-        <translation>Tous</translation>
-    </message>
-</context>
-<context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="114"/>
+        <location filename="../mainwindow.cpp" line="50"/>
+        <source>Search stations by name</source>
+        <translation>Chercher une station</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="51"/>
+        <source>Manage your favorites stations.</source>
+        <translation>Vos stations favorites.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="113"/>
         <source>Network Error</source>
         <translation>Erreur Réseau</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="129"/>
+        <location filename="../mainwindow.cpp" line="124"/>
         <source>Waiting for GPS fix...</source>
         <translation>En attente d&apos;un signal GPS valide...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="160"/>
-        <source>GPS Position updated.</source>
-        <translation>Position GPS mise à jour.</translation>
+        <location filename="../mainwindow.cpp" line="151"/>
+        <source>Got GPS Fix.</source>
+        <translation>Signal GPS ok.</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="184"/>
+        <location filename="../mainwindow.cpp" line="309"/>
+        <source>Please set Location.</source>
+        <translation>Choisissez votre ville.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="310"/>
+        <source>We can&apos;t guess your current location, please choose one in the list.</source>
+        <translation>Impossible de déterminer votre position actuelle, veuillez choisir une ville dans la liste.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="196"/>
         <source>About Lugdulo&apos;v </source>
         <translation>A propos de Lugdulo&apos;V</translation>
     </message>
     <message>
-        <source>About Quick Velo&apos;V </source>
-        <translation type="obsolete">À propos de Lugdulo&apos;v</translation>
-    </message>
-    <message>
-        <location filename="../src/mainwindow.cpp" line="185"/>
+        <location filename="../mainwindow.cpp" line="197"/>
         <source>Version: </source>
         <translation>Version:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="14"/>
+        <location filename="../mainwindow.ui" line="14"/>
         <source>Lugdulo&apos;v</source>
         <translation>Lugdulo&apos;V</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="28"/>
-        <source>Refresh</source>
-        <translation>Rafraîchir</translation>
+        <location filename="../mainwindow.ui" line="25"/>
+        <source>Stations:</source>
+        <translation>Stations:</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="36"/>
-        <source>All</source>
-        <translation>Tous</translation>
+        <location filename="../mainwindow.ui" line="33"/>
+        <source>Auto</source>
+        <translation>Automatique</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="64"/>
+        <location filename="../mainwindow.ui" line="41"/>
+        <source>Search Stations</source>
+        <translation>Chercher Une Station</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="48"/>
+        <source>Search stations by name, check their status and bookmark them.</source>
+        <translation>Chercher une station par son nom et vérifier son status.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="55"/>
+        <source>Favorites Stations</source>
+        <translation>Stations préférées</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="62"/>
+        <source>Manage your favorites stations and check their status quickly</source>
+        <translation>Gérer vos stations favorites</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="69"/>
+        <source>Maps</source>
+        <translation>Carte</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="76"/>
+        <source>Show nearby stations on a Map.</source>
+        <translation>Afficher les stations proches sur une carte.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="90"/>
+        <source>Lugdulo&apos;V</source>
+        <translation>Lugdulo&apos;V</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="121"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="70"/>
+        <location filename="../mainwindow.ui" line="127"/>
         <source>&amp;Help</source>
-        <translation type="unfinished">&amp;Aide</translation>
+        <translation>&amp;Aide</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="83"/>
+        <location filename="../mainwindow.ui" line="137"/>
         <source>About &amp;Qt...</source>
         <translation>A propos de &amp;Qt...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="88"/>
+        <location filename="../mainwindow.ui" line="142"/>
         <source>&amp;About...</source>
         <translation>&amp;A propos...</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="93"/>
+        <location filename="../mainwindow.ui" line="147"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quitter</translation>
     </message>
+</context>
+<context>
+    <name>MapDialog</name>
     <message>
-        <location filename="../src/mainwindow.ui" line="98"/>
-        <source>&amp;Velo&apos;v Grand Lyon ...</source>
-        <translation>&amp;Velo&apos;v Grand Lyon</translation>
+        <location filename="../mapdialog.ui" line="14"/>
+        <source>Stations Map</source>
+        <translation>Carte des Stations</translation>
+    </message>
+</context>
+<context>
+    <name>MapWidget</name>
+    <message>
+        <location filename="../mapwidget.cpp" line="114"/>
+        <source>You are here</source>
+        <translation>Vous êtes ici</translation>
     </message>
 </context>
 <context>
     <name>StationDialog</name>
     <message>
-        <location filename="../src/stationdialog.cpp" line="92"/>
+        <location filename="../stationdialog.cpp" line="155"/>
         <source>Network Error</source>
         <translation>Erreur Réseau</translation>
     </message>
     <message>
-        <location filename="../src/stationdialog.ui" line="14"/>
+        <location filename="../stationdialog.ui" line="14"/>
         <source>Station Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Station</translation>
     </message>
     <message>
-        <location filename="../src/stationdialog.ui" line="27"/>
+        <location filename="../stationdialog.ui" line="27"/>
         <source>Station</source>
         <translation>Station</translation>
     </message>
     <message>
-        <location filename="../src/stationdialog.ui" line="49"/>
+        <location filename="../stationdialog.ui" line="49"/>
         <source>Icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Icone</translation>
     </message>
     <message>
-        <location filename="../src/stationdialog.ui" line="62"/>
+        <location filename="../stationdialog.ui" line="62"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Description</translation>
     </message>
     <message>
-        <location filename="../src/stationdialog.ui" line="131"/>
-        <source>Gmap</source>
-        <translation type="unfinished"></translation>
+        <location filename="../stationdialog.ui" line="82"/>
+        <location filename="../stationdialog.ui" line="102"/>
+        <source>%v/%m</source>
+        <translation>%v/%m</translation>
     </message>
     <message>
-        <location filename="../src/stationdialog.ui" line="142"/>
-        <source>Velo&apos;v</source>
-        <translation type="unfinished"></translation>
+        <location filename="../stationdialog.ui" line="113"/>
+        <source>Map</source>
+        <translation>Carte</translation>
     </message>
     <message>
-        <location filename="../src/stationdialog.ui" line="153"/>
+        <location filename="../stationdialog.ui" line="124"/>
         <source>Bookmark</source>
         <translation>Favoris</translation>
     </message>
 </context>
 <context>
-    <name>StationWidget</name>
+    <name>StationsListDialog</name>
     <message>
-        <location filename="../src/stationwidget.cpp" line="59"/>
-        <source>...</source>
-        <translation>...</translation>
+        <location filename="../stationslistdialog.ui" line="14"/>
+        <source>Search Stations</source>
+        <translation>Chercher des Stations</translation>
     </message>
     <message>
-        <location filename="../src/stationwidget.ui" line="20"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/stationwidget.ui" line="64"/>
-        <source>100m</source>
-        <translation type="unfinished"></translation>
+        <location filename="../stationslistdialog.ui" line="23"/>
+        <source>Refresh</source>
+        <translation>Rafraîchir</translation>
     </message>
 </context>
 <context>
-    <name>Stations</name>
+    <name>StationsListView</name>
     <message>
-        <location filename="../src/stations.cpp" line="100"/>
-        <source>Network Error</source>
-        <translation>Erreur Réseau</translation>
+        <location filename="../stationslistview.cpp" line="81"/>
+        <source>Details...</source>
+        <translation>Détails...</translation>
+    </message>
+    <message>
+        <location filename="../stationslistview.cpp" line="82"/>
+        <source>Show on a map...</source>
+        <translation>Afficher sur la carte...</translation>
+    </message>
+    <message>
+        <location filename="../stationslistview.cpp" line="84"/>
+        <source>Bookmark this station</source>
+        <translation>Ajouter aux favoris</translation>
     </message>
 </context>
 </TS>

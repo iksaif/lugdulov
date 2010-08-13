@@ -1,17 +1,24 @@
 TEMPLATE = app
+
 QT += gui \
     xml \
     network
+
 TARGET = lugdulov
+
 DESTDIR = ../bin
+
 include(../lugdulov.pri)
+
 INCLUDEPATH += ../qmake/ \
     ../plugins/common/ \
     ../qmapcontrol/
+
 LIBS += -L../plugins/common/ \
     -llugdulov_base \
     -L../qmapcontrol/ \
     -lqmapcontrol
+
 HEADERS += mainwindow.h \
     settings.h \
     stationdialog.h \
@@ -24,6 +31,7 @@ HEADERS += mainwindow.h \
     stationslistview.h \
     mapdialog.h \
     mapwidget.h
+
 SOURCES += main.cpp \
     mainwindow.cpp \
     settings.cpp \
@@ -37,8 +45,10 @@ SOURCES += main.cpp \
     stationslistview.cpp \
     mapdialog.cpp \
     mapwidget.cpp
+
 TRANSLATIONS = i18n/lugdulov_fr.ts
-symbian: { 
+
+symbian: {
     TARGET.EPOCALLOWDLLDATA = 1
     TARGET.CAPABILITY = ReadDeviceData \
         WriteDeviceData
@@ -46,6 +56,7 @@ symbian: {
     LugdulovDeployment.path = /sys/bin
     DEPLOYMENT += LugdulovDeployment
 }
+
 OTHER_FILES += res/velov.png \
     res/slot.png \
     res/icon.png \
@@ -64,9 +75,11 @@ OTHER_FILES += res/velov.png \
     res/favorites.png \
     res/circle.png \
     res/bike.png
+
 FORMS += mainwindow.ui \
     stationdialog.ui \
     stationslistdialog.ui \
     mapdialog.ui
+
 RESOURCES += res/lugdulov.qrc \
     i18n/i18n.qrc

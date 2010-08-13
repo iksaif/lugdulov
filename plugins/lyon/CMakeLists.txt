@@ -1,3 +1,5 @@
+project(lyon)
+
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}
@@ -5,11 +7,18 @@ include_directories(
   ${QJSON_INCLUDE_DIR}
 )
 
-
 set(lyon_SRCS lyon.cpp builtin.cpp)
+set(lyon_TRS lugdulov_lyon_fr.ts)
+set_source_files_properties(${lyon_TRS} PROPERTIES OUTPUT_LOCATION ${lyon_SOURCE_DIR})
 
 qt4_wrap_cpp(lyon_MOC_SRCS lyon.h)
 qt4_add_resources(lyon_RC_SRCS lyon.qrc)
+
+if (Q_WS_MAEMO_5)
+  maemo_qt4_add_translation(QM_FILES ${lyon_TRS})
+else()
+  qt4_add_translation(QM_FILES ${lyon_TRS})
+endif()
 
 link_directories(
   ${QT_LIBRARY_DIR}
