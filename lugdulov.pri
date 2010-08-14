@@ -6,7 +6,7 @@ BINDIR = $${PREFIX}/bin
 LIBDIR = $${PREFIX}/lib
 
 
-VERSION = 0.1.0
+VERSION = 0.2.0
 LUGDULOV_CONFIG = bearer location
 LUGDULOV_INSTALL_PLUGINS = $${LIBDIR}/lugdulov
 

@@ -5,7 +5,7 @@ project(lugdulov)
 include(CMakeDependentOption)
 
 set(VERSION_MAJOR "0")
-set(VERSION_MINOR "1")
+set(VERSION_MINOR "2")
 set(VERSION_PATCH "0")
 
 if(CMAKE_SYSTEM_NAME MATCHES Linux)
@@ -94,7 +94,7 @@ add_subdirectory(pkg)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake config.h ESCAPE_QUOTES)
 
 ## Package ##
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Series Watcher")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Lugdulo'V")
 set(CPACK_PACKAGE_VENDOR "iksaif.net")
 set(CPACK_PACKAGE_VERSION_MAJOR ${VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${VERSION_MINOR})
@@ -117,6 +117,8 @@ if(WIN32)
         "${QT_BINARY_DIR}/QtXml${QT_VERSION_MAJOR}.dll"
         "${QT_BINARY_DIR}/QtGui${QT_VERSION_MAJOR}.dll"
         "${QT_BINARY_DIR}/QtNetwork${QT_VERSION_MAJOR}.dll"
+        "${QT_BINARY_DIR}/mingwm10.dll"
+        "${QT_BINARY_DIR}/libgcc_s_dw2-1.dll"
         "${CMAKE_BINARY_DIR}/bin/libqjson.dll"
         DESTINATION bin
   )
@@ -135,6 +137,7 @@ if(WIN32)
   set(CPACK_NSIS_HELP_LINK "http://xf.iksaif.net/dev/lugdulov.html")
   set(CPACK_NSIS_URL_INFO_ABOUT "http://xf.iksaif.net/dev/lugdulov.html")
   set(CPACK_NSIS_CONTACT "Corentin Chary <corentin.chary@gmail.com>")
+  set(CPACK_PACKAGE_INSTALL_DIRECTORY "lugdulov")
 else(WIN32)
   set(CPACK_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}-${CMAKE_SYSTEM_NAME}")
   set(CPACK_SOURCE_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}")
