@@ -23,27 +23,15 @@
 
 #ifdef HAVE_QT_LOCATION
 /* Can't use QtLocation/ prefix because Maemo installation is crappy */
-# ifdef Q_WS_MAEMO_5
-#  include <QGeoCoordinate>
-#  include <QGeoPositionInfo>
-#  include <QGeoPositionInfoSource>
-# else
-#  include <QtLocation/QGeoCoordinate>
-#  include <QtLocation/QGeoPositionInfo>
-#  include <QtLocation/QGeoPositionInfoSource>
-# endif
+# include <QtLocation/QGeoCoordinate>
+# include <QtLocation/QGeoPositionInfo>
+# include <QtLocation/QGeoPositionInfoSource>
 #endif
 
 #ifdef HAVE_QT_BEARER
-# ifdef Q_WS_MAEMO_5
-#  include <QNetworkConfigurationManager>
-#  include <QNetworkConfiguration>
-#  include <QNetworkSession>
-# else
-#  include <QtBearer/QNetworkConfigurationManager>
-#  include <QtBearer/QNetworkConfiguration>
-#  include <QtBearer/QNetworkSession>
-# endif
+# include <QtBearer/QNetworkConfigurationManager>
+# include <QtBearer/QNetworkConfiguration>
+# include <QtBearer/QNetworkSession>
 #endif
 
 #if defined(HAVE_QT_LOCATION) || defined(HAVE_QT_BEARER)
