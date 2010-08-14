@@ -110,24 +110,34 @@ set(CPACK_SOURCE_IGNORE_FILES
   "~$"
   "^${PROJECT_SOURCE_DIR}/\\\\.git"
   "^${PROJECT_SOURCE_DIR}/build/")
-set(CPACK_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}-${CMAKE_SYSTEM_NAME}")
-set(CPACK_SOURCE_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}")
-
 
 if(WIN32)
+  install(FILES
+        "${QT_BINARY_DIR}/QtCore${QT_VERSION_MAJOR}.dll"
+        "${QT_BINARY_DIR}/QtXml${QT_VERSION_MAJOR}.dll"
+        "${QT_BINARY_DIR}/QtGui${QT_VERSION_MAJOR}.dll"
+        "${QT_BINARY_DIR}/QtNetwork${QT_VERSION_MAJOR}.dll"
+        "${CMAKE_BINARY_DIR}/bin/libqjson.dll"
+        DESTINATION bin
+  )
+  set(CPACK_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}-win32")
+  set(CPACK_SOURCE_PACKAGE_FILE_NAME "lugdulov")
   # set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\MyExecutable.exe")
-  set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/res/lugdulov.ico")
-  set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/res/lugdulov.ico")
-  set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/res/package.bmp")
+  set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/lugdulov/res/lugdulov.ico")
+  set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/lugdulov/res/lugdulov.ico")
+  #set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/lugdulov/res/lugdulov.ico")
+  set(CPACK_PACKAGE_EXECUTABLES "lugdulov;Lugdulo'V")
   set(CPACK_BINARY_NSIS "ON")
+  set(CPACK_NSIS_MODIFY_PATH "OFF")
   set(CPACK_BINARY_CYGWIN "OFF")
   set(CPACK_SOURCE_CYGWIN "OFF")
   set(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_INSTALL_DIRECTORY} Lugdulo'v")
   set(CPACK_NSIS_HELP_LINK "http://xf.iksaif.net/dev/lugdulov.html")
   set(CPACK_NSIS_URL_INFO_ABOUT "http://xf.iksaif.net/dev/lugdulov.html")
   set(CPACK_NSIS_CONTACT "Corentin Chary <corentin.chary@gmail.com>")
-  set(CPACK_NSIS_MODIFY_PATH ON)
 else(WIN32)
+  set(CPACK_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}-${CMAKE_SYSTEM_NAME}")
+  set(CPACK_SOURCE_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}")
   set(CPACK_GENERATOR "DEB")
   set(CPACK_SOURCE_GENERATOR "TGZ;TBZ2")
   ## Debian specific ##

@@ -26,7 +26,7 @@
 
 #include <QtCore/QDebug>
 
-#include <parser.h>
+#include <qjson/parser.h>
 
 #include "station.h"
 #include "lyon.h"

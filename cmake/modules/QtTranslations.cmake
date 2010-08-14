@@ -1,5 +1,5 @@
-# Maemo FintQt4.cmake is outdated ....
-MACRO(MAEMO_QT4_ADD_TRANSLATION _qm_files)
+# Some FintQt4.cmake are outdated ....
+MACRO(_QT4_ADD_TRANSLATION _qm_files)
   FOREACH (_current_FILE ${ARGN})
     GET_FILENAME_COMPONENT(_abs_FILE ${_current_FILE} ABSOLUTE)
     GET_FILENAME_COMPONENT(qm ${_abs_FILE} NAME_WE)
@@ -18,4 +18,4 @@ MACRO(MAEMO_QT4_ADD_TRANSLATION _qm_files)
       )
     SET(${_qm_files} ${${_qm_files}} ${qm})
   ENDFOREACH (_current_FILE)
-ENDMACRO(MAEMO_QT4_ADD_TRANSLATION)
+ENDMACRO(_QT4_ADD_TRANSLATION)

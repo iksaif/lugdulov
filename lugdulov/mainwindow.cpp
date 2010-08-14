@@ -277,7 +277,6 @@ MainWindow::map()
 #endif
   if (zoom)
     map->centerView(pt, zoom);
-  map->positionUpdated(position);
   showAndDelete(map);
 }
 

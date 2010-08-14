@@ -127,5 +127,5 @@ StationsPluginManager::loadPlugin(QObject *plugin)
 
   translator->load("lugdulov_" + factory->id() + "_" + QLocale::system().name(),
 		   ":/" + factory->id() + "/");
-  QCoreApplication::instance()->installTranslator(ranslator);
+  QCoreApplication::instance()->installTranslator(translator);
 }
