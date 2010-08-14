@@ -14,11 +14,7 @@ set_source_files_properties(${paris_TRS} PROPERTIES OUTPUT_LOCATION ${paris_SOUR
 qt4_wrap_cpp(paris_MOC_SRCS paris.h)
 qt4_add_resources(paris_RC_SRCS paris.qrc)
 
-if (Q_WS_MAEMO_5)
-  maemo_qt4_add_translation(QM_FILES ${paris_TRS})
-else()
-  qt4_add_translation(QM_FILES ${paris_TRS})
-endif()
+_qt4_add_translation(QM_FILES ${paris_TRS})
 
 add_plugin(stationsparis ${paris_SRCS} ${paris_MOC_SRCS} ${paris_RC_SRCS})
 

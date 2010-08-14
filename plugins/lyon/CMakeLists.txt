@@ -14,11 +14,7 @@ set_source_files_properties(${lyon_TRS} PROPERTIES OUTPUT_LOCATION ${lyon_SOURCE
 qt4_wrap_cpp(lyon_MOC_SRCS lyon.h)
 qt4_add_resources(lyon_RC_SRCS lyon.qrc)
 
-if (Q_WS_MAEMO_5)
-  maemo_qt4_add_translation(QM_FILES ${lyon_TRS})
-else()
-  qt4_add_translation(QM_FILES ${lyon_TRS})
-endif()
+_qt4_add_translation(QM_FILES ${lyon_TRS})
 
 link_directories(
   ${QT_LIBRARY_DIR}

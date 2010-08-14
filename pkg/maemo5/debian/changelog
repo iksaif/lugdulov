@@ -1,3 +1,11 @@
+lugdulov (0.2.0-1) unstable; urgency=low
+
+  * Maps dialog
+  * Plugins architecture (Lyon and Paris plugins availables)
+  * Bug fixes and some new features
+
+ -- Corentin Chary <corentincj@iksaif.net>  Thu, 15 Aug 2010 16:02:59 +0200
+
 lugdulov (0.1.0-1) unstable; urgency=low
 
   * Initial release
