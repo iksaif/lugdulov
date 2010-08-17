@@ -3,11 +3,38 @@ include(../pluginbase.pri)
 
 INCLUDEPATH += $$QJSON_INCLUDE_PATH
 
-HEADERS += factory.h lyon.h paris.h \
-        cergypontoise.h
+HEADERS += factory.h \
+  aixenprovence.h \
+  amiens.h \
+  besancon.h \
+  cergypontoise.h \
+  creteil.h \
+  lyon.h \
+  marseille.h \
+  mulhouse.h \
+  nancy.h \
+  nantes.h \
+  paris.h \
+  plainecommune.h \
+  rouen.h \
+  toulouse.h
 
-SOURCES += factory.cpp lyon.cpp lyon_p.cpp paris.cpp \
-        cergypontoise.cpp
+SOURCES += factory.cpp \
+  aixenprovence.cpp \
+  amiens.cpp \
+  besancon.cpp \
+  cergypontoise.cpp \
+  creteil.cpp \
+  lyon.cpp \
+  lyon_p.cpp \
+  marseille.cpp \
+  mulhouse.cpp \
+  nancy.cpp \
+  nantes.cpp \
+  paris.cpp \
+  plainecommune.cpp \
+  rouen.cpp \
+  toulouse.cpp
 
 RESOURCES += france.qrc
 

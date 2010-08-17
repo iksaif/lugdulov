@@ -19,9 +19,20 @@
 #include <QtCore/QtPlugin>
 
 #include "factory.h"
-#include "lyon.h"
-#include "paris.h"
+#include "aixenprovence.h"
+#include "amiens.h"
+#include "besancon.h"
 #include "cergypontoise.h"
+#include "creteil.h"
+#include "lyon.h"
+#include "marseille.h"
+#include "mulhouse.h"
+#include "nancy.h"
+#include "nantes.h"
+#include "paris.h"
+#include "plainecommune.h"
+#include "rouen.h"
+#include "toulouse.h"
 
 QString
 StationsPluginFactoryFrance::id() const
@@ -49,8 +60,19 @@ StationsPluginFactoryFrance::stations(QObject *parent)
   QList < StationsPlugin * > ret;
 
   ret << new StationsPluginLyon(parent);
-  ret << new StationsPluginParis(parent);
+  ret << new StationsPluginAixenprovence(parent);
+  ret << new StationsPluginAmiens(parent);
+  ret << new StationsPluginBesancon(parent);
   ret << new StationsPluginCergyPontoise(parent);
+  ret << new StationsPluginCreteil(parent);
+  ret << new StationsPluginMarseille(parent);
+  ret << new StationsPluginMulhouse(parent);
+  ret << new StationsPluginNancy(parent);
+  ret << new StationsPluginNantes(parent);
+  ret << new StationsPluginParis(parent);
+  ret << new StationsPluginPlainecommune(parent);
+  ret << new StationsPluginRouen(parent);
+  ret << new StationsPluginToulouse(parent);
   return ret;
 }
 

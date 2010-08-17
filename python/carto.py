@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import urllib2
 import sys
@@ -7,20 +8,120 @@ import json
 
 # This files is for cities that implements the "carto" standard
 
-france = {'max_lat' : 50, 'min_lat' : 42, 'max_lng' : 9, 'min_lng' : -9}
-
 cities = {}
 cities['cergypontoise'] = {'code'    : 'cergypontoise',
                            'city'    : 'Cergy-Pontoise',
+                           'bike'    : 'Velo2',
                            'service' : 'http://www.velo2.cergypontoise.fr/service/',
-                           'exclude' : [],#[53004, 50101, 54904, 54905, 50012],
-                           'limits'  : france}
+                           'center'  : (49.03, 2.06)}
 
 cities['paris'] = {'code'    : 'paris',
                    'city'    : 'Paris',
+                   'bike'    : 'Vélib\'',
                    'service' : 'http://www.velib.paris.fr/service/',
-                   'exclude' : [],
-                   'limits'  : france}
+                   'center'  : (48.86, 2.33)}
+
+cities['creteil'] = {'code'    : 'creteil',
+                     'city'    : 'Creteil',
+                     'bike'    : 'Cristolib',
+                     'service' : 'http://www.cristolib.fr/service/',
+                     'center'  : (48.78, 2.46)}
+
+cities['aixenprovence'] = {'code'    : 'aixenprovence',
+                           'city'    : 'Aix-en-Provence',
+                           'bike'    : 'V\'Hello',
+                           'service' : 'http://www.vhello.fr/service/',
+                           'center'  : (43.53, 5.43)}
+
+cities['amiens'] = {'code'    : 'amiens',
+                    'city'    : 'Amiens',
+                    'bike'    : 'Velam',
+                    'service' : 'http://www.velam.amiens.fr/service/',
+                    'center'  : (49.90, 2.30)}
+
+cities['besancon'] = {'code'    : 'besancon',
+                      'city'    : u'Besançon',
+                      'bike'    : 'VéloCité',
+                      'service' : 'http://www.velocite.besancon.fr/service/',
+                      'center'  : (47.25, 6.03)}
+
+cities['marseille'] = {'code'    : 'marseille',
+                       'city'    : 'Marseille',
+                       'bike'    : 'Le Vélo',
+                       'service' : 'http://www.levelo-mpm.fr/service/',
+                       'center'  : (43.30, 5.40)}
+
+cities['mulhouse'] = {'code'    : 'mulhouse',
+                      'city'    : 'Mulhouse',
+                      'bike'    : 'VéloCité',
+                      'service' : 'http://www.velocite.mulhouse.fr/service/',
+                      'center'  : (47.75, 7.32)}
+
+cities['nancy'] = {'code'    : 'nancy',
+                   'city'    : 'Nancy',
+                   'bike'    : 'vélOStan',
+                   'service' : 'http://www.velostanlib.fr/service/',
+                   'center'  : (48.68, 6.20)}
+
+cities['nantes'] = {'code'    : 'nantes',
+                    'city'    : 'Nantes',
+                    'bike'    : 'Bicloo',
+                    'service' : 'http://www.bicloo.nantesmetropole.fr/service/',
+                    'center'  : (47.21, -1.55)}
+
+cities['plainecommune'] = {'code'    : 'plainecommune',
+                           'city'    : 'Plaine Commune',
+                           'bike'    : 'Velcom',
+                           'service' : 'http://www.velcom.fr/service/',
+                           'center'  : (48.92, 2.37)}
+
+cities['rouen'] = {'code'    : 'rouen',
+                   'city'    : 'Rouen',
+                   'bike'    : 'Cyclic',
+                   'service' : 'http://cyclic.rouen.fr/service/',
+                   'center'  : (49.43, 1.08)}
+
+cities['toulouse'] = {'code'    : 'toulouse',
+                      'city'    : 'Toulouse',
+                      'bike'    : 'Vélouse',
+                      'service' : 'http://www.velo.toulouse.fr/service/',
+                      'center'  : (43.60, 1.43)}
+
+cities['bruxelles'] = {'code'    : 'bruxelles',
+                       'city'    : 'Bruxelles',
+                       'bike'    : 'Villo',
+                       'service' : 'http://www.villo.be/service/',
+                       'center'  : (50.833, 4.333)}
+
+cities['dublin'] = {'code'    : 'dublin',
+                    'city'    : 'Dublin',
+                    'bike'    : 'Dubline Bikes',
+                    'service' : 'http://www.dublinbikes.ie/service/',
+                    'center'  : (53.333, -6.249)}
+
+cities['luxembourg'] = {'code'    : 'luxembourg',
+                        'city'    : 'Luxembourg',
+                        'bike'    : 'Veloh',
+                        'service' : 'http://www.veloh.lu/service/',
+                        'center'  : (49.612, 6.130)}
+
+cities['santander'] = {'code'    : 'santander',
+                       'city'    : 'Santander',
+                       'bike'    : 'Tusbic',
+                       'service' : 'http://www.tusbic.es/service/',
+                       'center'  : (43.465, -3.804)}
+
+cities['seville'] = {'code'    : 'seville',
+                     'city'    : 'Seville',
+                     'bike'    : 'Sevici',
+                     'service' : 'http://www.sevici.es/service/',
+                     'center'  : (37.377, -5.987)}
+
+cities['toyama'] = {'code'    : 'toyama',
+                    'city'    : 'Toyama',
+                    'bike'    : 'Cyclocity',
+                    'service' : 'http://www.cyclocity.jp/service/',
+                    'center'  : (36.69, 137.21)}
 
 def station_status_url(service, id):
     return service + "stationdetails/%d" % id
@@ -122,13 +223,19 @@ static const struct {
     lng_min = 999.0
     lng_max = -999.0
 
+    if 'center' in city:
+        city['limits'] = {'max_lat' : city['center'][0] + 0.2,
+                          'min_lat' : city['center'][0] - 0.2,
+                          'max_lng' : city['center'][1] + 0.2,
+                          'min_lng' : city['center'][1] - 0.2}
+
     for j in total['markers']:
         lat = float(j['lat'])
         lng = float(j['lng'])
         skip = False
 
 	# begin dirty hack for dirty data :-(
-	if int(j['number']) in city['exclude'] or \
+	if ('exclude' in city and int(j['number']) in city['exclude']) or \
                 lat > city['limits']['max_lat'] or lat < city['limits']['min_lat'] or \
                 lng > city['limits']['max_lng'] or lng < city['limits']['min_lng']:
             skip = True
@@ -170,11 +277,27 @@ static const struct {
     data = data.replace('<regions>', regions)
     print >>output, data.encode('utf8')
 
+def dump_tpl(city, data, output):
+    data = data.replace('<BikeName>', city['bike']);
+    data = data.replace('<CityName>', city['city'].encode('utf8'));
+    data = data.replace('<City>', city['code'].title());
+    data = data.replace('<city>', city['code']);
+    data = data.replace('<CITY>', city['code'].upper());
+    print >>output, data
+
+def dump_header(city, output):
+    data = open('carto_header.tpl').read()
+    return dump_tpl(city, data, output)
+
+def dump_class(city, output):
+    data = open('carto_class.tpl').read()
+    return dump_tpl(city, data, output)
+
 def main():
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "ho:fvc",
-                                   ["help", "output=", "full", "version", "cpp"])
+        opts, args = getopt.getopt(sys.argv[1:], "ho:fvcpt",
+                                   ["help", "output=", "full", "version", "cpp", "class", "header"])
     except getopt.GetoptError, err:
         print str(err)
         usage()
@@ -182,7 +305,7 @@ def main():
     output = None
     verbose = False
     full = False
-    cpp = False
+    mode = "json"
     for o, a in opts:
         if o == "-v":
             verbose = True
@@ -194,7 +317,11 @@ def main():
         elif o in ("-f", "--full"):
             full = True
         elif o in ("-c", "--cpp"):
-            cpp = True
+            mode = "cpp"
+        elif o in ("-p", "--class"):
+            mode = "class"
+        elif o in ("-t", "--header"):
+            mode = "header"
         else:
             assert False, "unhandled option"
 
@@ -208,6 +335,14 @@ def main():
     city = cities[args[0]]
 
     total = {u'markers' : []}
+
+    if mode == "header":
+        dump_header(city, output)
+        return
+
+    if mode == "class":
+        dump_class(city, output)
+        return
 
     if verbose:
         print >>sys.stderr, stations_xml_url(city['service'], i)
@@ -226,7 +361,7 @@ def main():
                 print err
         j['arrondissementNumber'] = find_region(data, j)
         total['markers'].append(j)
-    if cpp:
+    if mode == "cpp":
         dump_cpp(city, data, total, output)
     else:
         dump_json(total, output)
