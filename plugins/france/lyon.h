@@ -26,16 +26,6 @@
 #include "stationsplugin.h"
 
 class Station;
-class StationsPluginFactoryLyon : public QObject, public StationsPluginFactory
-{
-  Q_OBJECT
-  Q_INTERFACES(StationsPluginFactory)
- public:
-  QString id() const;
-  QString name() const;
-  QIcon icon() const;
-  QList < StationsPlugin * > stations(QObject * parent);
-};
 
 class StationsPluginLyon : public StationsPlugin
 {
@@ -80,7 +70,7 @@ class StationsPluginLyon : public StationsPlugin
  private slots:
   void networkError(QNetworkReply::NetworkError code);
   void finished();
-  /*
+
  signals:
   void started();
   void progress(qint64 done, qint64 total);
@@ -90,7 +80,7 @@ class StationsPluginLyon : public StationsPlugin
   void stationsUpdated(const QList < Station * > & stations);
 
   void error(const QString & title, const QString & message);
-  */
+
  private:
   QUrl stationJsonUrl(int id);
   QUrl stationsJsonUrl(const QString &region);

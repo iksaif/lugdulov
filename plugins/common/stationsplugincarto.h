@@ -16,8 +16,8 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_PARIS_H
-#define STATIONS_PARIS_H
+#ifndef STATIONS_CARTO_H
+#define STATIONS_CARTO_H
 
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
@@ -26,50 +26,37 @@
 #include "stationsplugin.h"
 
 class Station;
-class StationsPluginFactoryParis : public QObject, public StationsPluginFactory
-{
-  Q_OBJECT
-  Q_INTERFACES(StationsPluginFactory)
- public:
-  QString id() const;
-  QString name() const;
-  QIcon icon() const;
-  QList < StationsPlugin * > stations(QObject * parent);
-};
+class StationsPluginCartoPrivate;
 
-class StationsPluginParis : public StationsPlugin
+class StationsPluginCarto : public StationsPlugin
 {
   Q_OBJECT
  private:
  public:
-  StationsPluginParis(QObject *parent);
-  ~StationsPluginParis();
+  StationsPluginCarto(QObject *parent);
+  virtual ~StationsPluginCarto();
 
-  QString id() const;
-  QString name() const;
-  QString bikeName() const;
-  QIcon bikeIcon() const;
-  QRectF rect() const;
-  QPointF center() const;
+  virtual QRectF rect() const;
+  virtual QPointF center() const;
 
-  QUrl stationImageUrl(int id);
-  QStringList regions();
+  virtual QUrl stationImageUrl(int id);
+  virtual QStringList regions();
 
-  QList < QAction * > actions();
-  void actionTriggered(QAction *action, Station *station, QWidget *parent = 0);
+  virtual QList < QAction * > actions();
+  virtual void actionTriggered(QAction *action, Station *station, QWidget *parent = 0);
 
  public slots:
-  void fetchOnline();
-  void fetchPos(const QPointF & pos, int num = 5);
-  void fetchAll();
-  void fetchFromFile(const QString & file);
-  void fetchFromUrl(const QUrl & url);
-  void update(Station *station);
-  void update(const QList < Station * > & station);
+  virtual void fetchOnline();
+  virtual void fetchPos(const QPointF & pos, int num = 5);
+  virtual void fetchAll();
+  virtual void fetchFromFile(const QString & file);
+  virtual void fetchFromUrl(const QUrl & url);
+  virtual void update(Station *station);
+  virtual void update(const QList < Station * > & station);
 
  private slots:
-  void error(QNetworkReply::NetworkError code);
-  void finished();
+  virtual void error(QNetworkReply::NetworkError code);
+  virtual void finished();
 
  signals:
   void started();
@@ -81,13 +68,15 @@ class StationsPluginParis : public StationsPlugin
 
   void error(const QString & title, const QString & message);
 
- private:
-  QUrl stationStatusUrl(int id);
-  QUrl stationCartoUrl();
+ protected:
+  virtual QUrl stationStatusUrl(int id);
+  virtual QUrl stationCartoUrl();
 
 
   void request(const QUrl & url, int id = -1);
   void handleStatus(const QByteArray & data, int id);
+
+  StationsPluginCartoPrivate *d;
 
  private:
   QNetworkAccessManager *nm;
@@ -98,4 +87,4 @@ class StationsPluginParis : public StationsPlugin
   int count;
 };
 
-#endif /* STATIONS_PARIS_H */
+#endif /* STATIONS_CARTO_H */

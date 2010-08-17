@@ -8,6 +8,6 @@ CONFIG += staticlib
 
 TARGET = lugdulov_base
 
-SOURCES = station.cpp stationsplugin.cpp
-HEADERS = station.h stationsplugin.h
+SOURCES = station.cpp stationsplugin.cpp stationsplugincarto.cpp
+HEADERS = station.h stationsplugin.h stationsplugincarto.h
 

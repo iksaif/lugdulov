@@ -16,14 +16,21 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONSBUILTIN_H
-#define STATIONSBUILTIN_H
+#ifndef STATIONS_CARTO_PRIVATE_H
+#define STATIONS_CARTO_PRIVATE_H
 
-#include <QtCore/QList>
+#include <QtCore/QStringList>
+#include <QtCore/QPointF>
+#include <QtCore/QRectF>
 
-class Station;
-class StationsPlugin;
+struct StationsPluginCartoPrivate {
+  QRectF rect;
+  QPointF center;
+  QString statusUrl;
+  QString cartoUrl;
 
-QList < Station * > builtinStationsPluginLyon(StationsPlugin *plugin);
+  virtual QList < Station * > fetchAll(StationsPlugin *parent) = 0;
+  virtual QStringList regions() = 0;
+};
 
-#endif
+#endif /* STATIONS_CARTO_PRIVATE_H */

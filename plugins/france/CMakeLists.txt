@@ -1,0 +1,44 @@
+project(france)
+
+include_directories(
+  ${CMAKE_CURRENT_SOURCE_DIR}
+  ${CMAKE_CURRENT_BINARY_DIR}
+  ${lugdulov_base_SOURCE_DIR}
+  ${QJSON_INCLUDE_DIR}
+)
+
+set(france_SRCS
+  factory.cpp
+  lyon.cpp
+  lyon_p.cpp
+  paris.cpp)
+
+set(france_TRS
+  lugdulov_france_fr.ts)
+
+set(france_HDRS
+  factory.h
+  lyon.h
+  paris.h)
+
+set_source_files_properties(${france_TRS} PROPERTIES OUTPUT_LOCATION ${france_SOURCE_DIR})
+
+qt4_wrap_cpp(france_MOC_SRCS ${france_HDRS})
+
+qt4_add_resources(france_RC_SRCS france.qrc)
+
+_qt4_add_translation(QM_FILES ${france_TRS})
+
+link_directories(
+  ${QT_LIBRARY_DIR}
+  ${QJSON_LIBRARY_DIRS}
+)
+
+add_plugin(stationsfrance ${france_SRCS} ${france_MOC_SRCS} ${france_RC_SRCS})
+
+target_link_libraries(
+  stationsfrance
+  lugdulov_base
+  ${QT_LIBRARIES}
+  ${QJSON_LIBRARIES}
+)

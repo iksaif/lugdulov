@@ -1,8 +1,0 @@
-<RCC>
-  <qresource prefix="paris">
-    <file>bike.png</file>
-    <file>icon.png</file>
-    <file>lugdulov_paris_fr.qm</file>
-  </qresource>
-</RCC>
-

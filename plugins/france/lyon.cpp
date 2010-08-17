@@ -30,34 +30,7 @@
 
 #include "station.h"
 #include "lyon.h"
-#include "builtin.h"
-
-QString
-StationsPluginFactoryLyon::id() const
-{
-  return QLatin1String("lyon");
-}
-
-QString
-StationsPluginFactoryLyon::name() const
-{
-  return QLatin1String("Velo'v StationsPlugin - Author: Corentin Chary <corentin.chary@gmail.com>");
-}
-
-QIcon
-StationsPluginFactoryLyon::icon() const
-{
-  return QIcon(":/lyon/bike.png");
-}
-
-QList < StationsPlugin * >
-StationsPluginFactoryLyon::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
-
-  ret << new StationsPluginLyon(parent);
-  return ret;
-}
+#include "lyon_p.h"
 
 StationsPluginLyon::StationsPluginLyon(QObject *parent)
   : StationsPlugin(parent)
@@ -93,7 +66,7 @@ StationsPluginLyon::bikeName() const
 QIcon
 StationsPluginLyon::bikeIcon() const
 {
-  return QIcon(":/lyon/bike.png");
+  return QIcon(":/france/velov.png");
 }
 
 QRectF
@@ -393,7 +366,7 @@ StationsPluginLyon::actions()
   QList < QAction * > ret;
   QAction *action;
 
-  action = new QAction(QIcon(":/lyon/icon.png"), tr("Velo'V map"), this);
+  action = new QAction(QIcon(":/france/velov-icon.png"), tr("Velo'V map"), this);
   action->setToolTip(tr("Show this station in the official Velo'V map"));
   action->setData(ActionVelovMap);
   ret << action;
@@ -412,5 +385,3 @@ StationsPluginLyon::actionTriggered(QAction *action, Station *station, QWidget *
     QDesktopServices::openUrl(str);
   }
 }
-
-Q_EXPORT_PLUGIN2(stationslyon, StationsPluginFactoryLyon)

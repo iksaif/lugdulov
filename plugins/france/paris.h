@@ -16,14 +16,22 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONSBUILTIN_H
-#define STATIONSBUILTIN_H
+#ifndef STATIONS_PARIS_H
+#define STATIONS_PARIS_H
 
-#include <QtCore/QList>
+#include "stationsplugincarto.h"
 
-class Station;
-class StationsPlugin;
+class StationsPluginParis : public StationsPluginCarto
+{
+  Q_OBJECT
+ public:
+  StationsPluginParis(QObject *parent);
+  ~StationsPluginParis();
 
-QList < Station * > builtinStationsPluginParis(StationsPlugin *plugin);
+  QString id() const;
+  QString name() const;
+  QString bikeName() const;
+  QIcon bikeIcon() const;
+};
 
-#endif
+#endif /* STATIONS_PARIS_H */

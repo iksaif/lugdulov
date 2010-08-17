@@ -22,141 +22,93 @@
 #include <QtCore/QVariant>
 #include <QtCore/QFile>
 #include <QtCore/QtPlugin>
+#include <QtCore/QStringList>
 #include <QtXml/QDomNode>
 
 #include <QtCore/QDebug>
 
 #include "station.h"
-#include "paris.h"
-#include "builtin.h"
+#include "stationsplugincarto.h"
+#include "stationsplugincarto_p.h"
 
-QString
-StationsPluginFactoryParis::id() const
-{
-  return QLatin1String("paris");
-}
-
-QString
-StationsPluginFactoryParis::name() const
-{
-  return QLatin1String("Velib StationsPlugin - Author: Corentin Chary <corentin.chary@gmail.com>");
-}
-
-QIcon
-StationsPluginFactoryParis::icon() const
-{
-  return QIcon(":/paris/bike.png");
-}
-
-QList < StationsPlugin * >
-StationsPluginFactoryParis::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
-
-  ret << new StationsPluginParis(parent);
-  return ret;
-}
-
-StationsPluginParis::StationsPluginParis(QObject *parent)
+StationsPluginCarto::StationsPluginCarto(QObject *parent)
   : StationsPlugin(parent)
 {
   nm = new QNetworkAccessManager(this);
   count = 0;
   step = 0;
+  d = NULL;
 }
 
-StationsPluginParis::~StationsPluginParis()
+StationsPluginCarto::~StationsPluginCarto()
 {
   qDeleteAll(stations);
 }
 
-QString
-StationsPluginParis::id() const
-{
-  return QLatin1String("paris");
-}
-
-QString
-StationsPluginParis::name() const
-{
-  return QLatin1String("Paris");
-}
-
-QString
-StationsPluginParis::bikeName() const
-{
-  return QLatin1String("Velib");
-}
-
-QIcon
-StationsPluginParis::bikeIcon() const
-{
-  return QIcon(":/paris/bike.png");
-}
-
 QRectF
-StationsPluginParis::rect() const
+StationsPluginCarto::rect() const
 {
-  QRectF rect;
-
-  rect.setTopLeft(QPointF(48.580014, 2.095642));
-  rect.setBottomRight(QPointF(49.038318, 2.977467));
-  return rect;
+  return d->rect;
 }
 
 
 QPointF
-StationsPluginParis::center() const
+StationsPluginCarto::center() const
 {
-  return QPointF(48.85856, 2.34823);
+  return d->center;
 }
 
 void
-StationsPluginParis::fetchPos(const QPointF &, int)
-{
-}
-
-void
-StationsPluginParis::fetchFromFile(const QString &)
+StationsPluginCarto::fetchPos(const QPointF &, int)
 {
 }
 
 void
-StationsPluginParis::fetchAll()
+StationsPluginCarto::fetchFromFile(const QString &)
 {
-  QList < Station * > list = builtinStationsPluginParis(this);
+}
 
-  foreach (Station *station, list)
-    stations[station->id()] = station;
+void
+StationsPluginCarto::fetchAll()
+{
+  QList < Station * > list = d->fetchAll(this);
+
+  if (stations.count())
+    list = stations.values();
+  else {
+    foreach (Station *station, list)
+      stations[station->id()] = station;
+  }
   emit stationsCreated(list);
 }
 
 void
-StationsPluginParis::fetchFromUrl(const QUrl &)
-{
-}
-
-void
-StationsPluginParis::fetchOnline()
+StationsPluginCarto::fetchFromUrl(const QUrl &)
 {
   /* FIXME download carto XML file from official website */
 }
 
 void
-StationsPluginParis::update(Station *station)
+StationsPluginCarto::fetchOnline()
+{
+  /* FIXME download carto XML file from official website */
+}
+
+void
+StationsPluginCarto::update(Station *station)
 {
   request(stationStatusUrl(station->id()), station->id());
 }
 
 void
-StationsPluginParis::update(const QList < Station * > & stations)
+StationsPluginCarto::update(const QList < Station * > & stations)
 {
   foreach (Station *station, stations)
     update(station);
 }
 
 void
-StationsPluginParis::error(QNetworkReply::NetworkError code)
+StationsPluginCarto::error(QNetworkReply::NetworkError code)
 {
   QNetworkReply *rep = dynamic_cast<QNetworkReply *>(sender());
 
@@ -171,7 +123,7 @@ StationsPluginParis::error(QNetworkReply::NetworkError code)
 }
 
 void
-StationsPluginParis::finished()
+StationsPluginCarto::finished()
 {
   QNetworkReply *rep = dynamic_cast<QNetworkReply *>(sender());
   int id = replies[rep];
@@ -201,7 +153,7 @@ StationsPluginParis::finished()
 }
 
 void
-StationsPluginParis::handleStatus(const QByteArray & data, int id)
+StationsPluginCarto::handleStatus(const QByteArray & data, int id)
 {
   Station *station;
   QList < Station * > updated;
@@ -227,12 +179,13 @@ StationsPluginParis::handleStatus(const QByteArray & data, int id)
 }
 
 void
-StationsPluginParis::request(const QUrl & url, int id)
+StationsPluginCarto::request(const QUrl & url, int id)
 {
   QNetworkReply *rep;
 
   rep = nm->get(QNetworkRequest(url));
-  connect(rep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(error(QNetworkReply::NetworkError)));
+  connect(rep, SIGNAL(error(QNetworkReply::NetworkError)),
+	  this, SLOT(error(QNetworkReply::NetworkError)));
   connect(rep, SIGNAL(finished()), this, SLOT(finished()));
 
   if (count == 0) {
@@ -244,44 +197,39 @@ StationsPluginParis::request(const QUrl & url, int id)
 }
 
 QUrl
-StationsPluginParis::stationStatusUrl(int id)
+StationsPluginCarto::stationStatusUrl(int id)
 {
-  return QString("http://www.velib.paris.fr/service/stationdetails/%1").arg(id);
+  return d->statusUrl.arg(id);
 }
 
 QUrl
-StationsPluginParis::stationCartoUrl()
+StationsPluginCarto::stationCartoUrl()
 {
-  return QString("http://www.velib.paris.fr/service/carto");
+  return d->cartoUrl;
 }
 
 QUrl
-StationsPluginParis::stationImageUrl(int id)
+StationsPluginCarto::stationImageUrl(int id)
 {
   return QUrl();
 }
 
 QStringList
-StationsPluginParis::regions()
+StationsPluginCarto::regions()
 {
-  QStringList reg;
-
-  /* FIXME */
-  return reg;
+  return d->regions();
 }
 
 QList < QAction * >
-StationsPluginParis::actions()
+StationsPluginCarto::actions()
 {
   QList < QAction * > ret;
 
-  /* Fill me */
   return ret;
 }
 
 void
-StationsPluginParis::actionTriggered(QAction *action, Station *station, QWidget *parent)
+StationsPluginCarto::actionTriggered(QAction *action, Station *station, QWidget *parent)
 {
 }
 
-Q_EXPORT_PLUGIN2(stationsparis, StationsPluginFactoryParis)

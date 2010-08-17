@@ -1,8 +1,0 @@
-<RCC>
-  <qresource prefix="lyon">
-    <file>bike.png</file>
-    <file>icon.png</file>
-    <file>lugdulov_lyon_fr.qm</file>
-  </qresource>
-</RCC>
-
