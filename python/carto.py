@@ -10,6 +10,12 @@ import json
 france = {'max_lat' : 50, 'min_lat' : 42, 'max_lng' : 9, 'min_lng' : -9}
 
 cities = {}
+cities['cergypontoise'] = {'code'    : 'cergypontoise',
+                           'city'    : 'Cergy-Pontoise',
+                           'service' : 'http://www.velo2.cergypontoise.fr/service/',
+                           'exclude' : [],#[53004, 50101, 54904, 54905, 50012],
+                           'limits'  : france}
+
 cities['paris'] = {'code'    : 'paris',
                    'city'    : 'Paris',
                    'service' : 'http://www.velib.paris.fr/service/',

@@ -16,42 +16,43 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtCore/QtPlugin>
+#include <QtCore/QDebug>
 
-#include "factory.h"
-#include "lyon.h"
-#include "paris.h"
+#include "station.h"
 #include "cergypontoise.h"
+#include "cergypontoise_p.h"
 
-QString
-StationsPluginFactoryFrance::id() const
+StationsPluginCergyPontoise::StationsPluginCergyPontoise(QObject *parent)
+  : StationsPluginCarto(parent)
 {
-  return QLatin1String("France");
+  d = new StationsPluginCartoPrivateCergypontoise();
+}
+
+StationsPluginCergyPontoise::~StationsPluginCergyPontoise()
+{
+  delete d;
 }
 
 QString
-StationsPluginFactoryFrance::name() const
+StationsPluginCergyPontoise::id() const
 {
-  return QString::fromUtf8("Réseaux Français - Authors:"
-			   "Patrick Installé <PatrickInstalle@P-Installe.be>,"
-			   "Corentin Chary <corentin.chary@gmail.com>");
+  return QLatin1String("cergypontoise");
+}
+
+QString
+StationsPluginCergyPontoise::name() const
+{
+  return QLatin1String("Cergy-Pontoise");
+}
+
+QString
+StationsPluginCergyPontoise::bikeName() const
+{
+  return QLatin1String("Velo2");
 }
 
 QIcon
-StationsPluginFactoryFrance::icon() const
+StationsPluginCergyPontoise::bikeIcon() const
 {
-  return QIcon(":/france/bike.png");
+  return QIcon(":/france/generic.png");
 }
-
-QList < StationsPlugin * >
-StationsPluginFactoryFrance::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
-
-  ret << new StationsPluginLyon(parent);
-  ret << new StationsPluginParis(parent);
-  ret << new StationsPluginCergyPontoise(parent);
-  return ret;
-}
-
-Q_EXPORT_PLUGIN2(stationsfrance, StationsPluginFactoryFrance)

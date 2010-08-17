@@ -11,7 +11,8 @@ set(france_SRCS
   factory.cpp
   lyon.cpp
   lyon_p.cpp
-  paris.cpp)
+  paris.cpp
+  cergypontoise.cpp)
 
 set(france_TRS
   lugdulov_france_fr.ts)
@@ -19,7 +20,8 @@ set(france_TRS
 set(france_HDRS
   factory.h
   lyon.h
-  paris.h)
+  paris.h
+  cergypontoise.h)
 
 set_source_files_properties(${france_TRS} PROPERTIES OUTPUT_LOCATION ${france_SOURCE_DIR})
 
