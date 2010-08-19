@@ -34,8 +34,6 @@ MapDialog::MapDialog(StationsPlugin *plugin, QWidget *parent)
   setAttribute(Qt::WA_Maemo5AutoOrientation, true);
 #endif
 
-  zoom = 15;
-
   setupUi(this);
   mapWidget->setPlugin(plugin);
 }
@@ -55,18 +53,5 @@ MapDialog::positionUpdated(const QGeoPositionInfo & info)
 void
 MapDialog::centerView(const QPointF & pt, int z)
 {
-  coord = pt;
-  zoom = z;
-
-  if (isVisible())
-    mapWidget->centerView(pt, z);
-}
-
-void
-MapDialog::showEvent(QShowEvent *event)
-{
-  if (!coord.isNull())
-    mapWidget->centerView(coord, zoom);
-
-  QWidget::showEvent(event);
+  mapWidget->centerView(pt, z);
 }

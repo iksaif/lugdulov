@@ -66,7 +66,7 @@ namespace qmapcontrol
          */
         QPixmap getImage(const QString& host, const QString& path);
 
-        QPixmap prefetchImage(const QString& host, const QString& path);
+        void prefetchImage(const QString& host, const QString& path);
 
         void receivedImage(const QPixmap pixmap, const QString& url);
 

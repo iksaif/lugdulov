@@ -94,6 +94,7 @@ void
 MapWidget::setupMapControl()
 {
   mc = new MapControl(size());
+  //mapadapter = new GoogleMapAdapter();
   mapadapter = new OSMMapAdapter();
 
   Layer* l = new Layer("Custom Layer", mapadapter, Layer::MapLayer);

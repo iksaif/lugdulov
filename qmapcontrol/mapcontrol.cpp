@@ -26,8 +26,8 @@
 #include "mapcontrol.h"
 namespace qmapcontrol
 {
-    MapControl::MapControl(QSize size, MouseMode mousemode)
-        : size(size), mymousemode(mousemode), scaleVisible(false)
+    MapControl::MapControl(QSize size, MouseMode mousemode, bool showScale, bool showCrosshairs)
+        : size(size), mymousemode(mousemode), scaleVisible(showScale), crosshairsVisible(showCrosshairs)
     {
         layermanager = new LayerManager(this, size);
         screen_middle = QPoint(size.width()/2, size.height()/2);
@@ -179,19 +179,14 @@ namespace qmapcontrol
                 painter.drawText(QPoint((int)line+10,size.height()-15), distance);
             }
         }
-	QPen pen = painter.pen();
-	int width = pen.width();
 
-	pen.setWidth(width + 1);
-	painter.setPen(pen);
-
-        painter.drawLine(screen_middle.x(), screen_middle.y()-10,
-                         screen_middle.x(), screen_middle.y()+10); // |
-        painter.drawLine(screen_middle.x()-10, screen_middle.y(),
-                         screen_middle.x()+10, screen_middle.y()); // -
-
-	pen.setWidth(width);
-	painter.setPen(pen);
+        if (crosshairsVisible)
+        {
+            painter.drawLine(screen_middle.x(), screen_middle.y()-10,
+                             screen_middle.x(), screen_middle.y()+10); // |
+            painter.drawLine(screen_middle.x()-10, screen_middle.y(),
+                             screen_middle.x()+10, screen_middle.y()); // -
+        }
 
         // int cross_x = int(layermanager->getMapmiddle_px().x())%256;
         // int cross_y = int(layermanager->getMapmiddle_px().y())%256;
@@ -244,13 +239,11 @@ namespace qmapcontrol
 
         // emit(mouseEvent(evnt));
         emit(mouseEventCoordinate(evnt, clickToWorldCoordinate(evnt->pos())));
-	QWidget::mousePressEvent(evnt);
     }
 
     void MapControl::mouseReleaseEvent(QMouseEvent* evnt)
     {
         mousepressed = false;
-
         if (mymousemode == Dragging)
         {
             QPointF ulCoord = clickToWorldCoordinate(pre_click_px);
@@ -262,7 +255,6 @@ namespace qmapcontrol
         }
 
         emit(mouseEventCoordinate(evnt, clickToWorldCoordinate(evnt->pos())));
-	QWidget::mouseReleaseEvent(evnt);
     }
 
     void MapControl::mouseMoveEvent(QMouseEvent* evnt)
@@ -288,7 +280,6 @@ namespace qmapcontrol
 
         update();
         // emit(mouseEventCoordinate(evnt, clickToWorldCoordinate(evnt->pos())));
-	QWidget::mouseMoveEvent(evnt);
     }
 
     QPointF MapControl::clickToWorldCoordinate(QPoint click)
@@ -356,11 +347,6 @@ namespace qmapcontrol
         update();
     }
 
-    QRectF MapControl::getViewport() const
-    {
-        return layermanager->getViewport();
-    }
-
     void MapControl::setView(const QPointF& coordinate) const
     {
         layermanager->setView(coordinate);
@@ -415,9 +401,19 @@ namespace qmapcontrol
         ImageManager::instance()->setProxy(host, port);
     }
 
-    void MapControl::showScale(bool show)
+    void MapControl::showScale(bool visible)
     {
-        scaleVisible = show;
+        scaleVisible = visible;
+    }
+
+    void MapControl::showCrosshairs(bool visible)
+    {
+        crosshairsVisible = visible;
+    }
+
+    QRectF MapControl::getViewport() const
+    {
+      return layermanager->getViewport();
     }
 
     void MapControl::resize(const QSize newSize)

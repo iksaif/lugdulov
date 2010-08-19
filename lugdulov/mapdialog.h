@@ -39,12 +39,7 @@ class MapDialog : public QDialog, private Ui_MapDialog
   void positionUpdated(const QGeoPositionInfo & info);
 #endif
 
- protected:
-  virtual void showEvent(QShowEvent *event);
-
  private:
-  QPointF coord;
-  int zoom;
   StationsPlugin *plugin;
 };
 

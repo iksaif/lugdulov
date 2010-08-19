@@ -34,7 +34,7 @@ namespace qmapcontrol
 
         if (QPixmapCache::cacheLimit() <= 20000)
         {
-            QPixmapCache::setCacheLimit(20000);	// in kb
+            QPixmapCache::setCacheLimit(20000);	// in kB
         }
     }
 
@@ -53,7 +53,6 @@ namespace qmapcontrol
         //qDebug() << "ImageManager::getImage";
         QPixmap pm;
         //pm.fill(Qt::black);
-
         //is image cached (memory) or currently loading?
         if (!QPixmapCache::find(url, pm) && !net->imageIsLoading(url))
             //	if (!images.contains(url) && !net->imageIsLoading(url))
@@ -62,7 +61,7 @@ namespace qmapcontrol
             if (doPersistentCaching && tileExist(url))
             {
                 loadTile(url,pm);
-                QPixmapCache::insert(url.toAscii().toBase64(), pm);
+                QPixmapCache::insert(url, pm);
             }
             else
             {
@@ -75,15 +74,20 @@ namespace qmapcontrol
         return pm;
     }
 
-    QPixmap ImageManager::prefetchImage(const QString& host, const QString& url)
+    void ImageManager::prefetchImage(const QString& host, const QString& url)
     {
-#ifdef Q_WS_QWS
-        // on mobile devices we don´t want the display resfreshing when tiles are received which are
+	QPixmap pm;
+
+        // TODO See if this actually helps on the N900 & Symbian Phones
+//#if defined Q_WS_QWS || defined Q_WS_MAEMO_5 || defined Q_WS_S60
+        // on mobile devices we don´t want the display refreshing when tiles are received which are
         // prefetched... This is a performance issue, because mobile devices are very slow in
         // repainting the screen
         prefetch.append(url);
-#endif
-        return getImage(host, url);
+//#endif
+        if (!QPixmapCache::find(url, &pm) && !net->imageIsLoading(url))
+            if (!doPersistentCaching || !tileExist(url))
+                net->loadImage(host, url);
     }
 
     void ImageManager::receivedImage(const QPixmap pixmap, const QString& url)
@@ -105,7 +109,7 @@ namespace qmapcontrol
         else
         {
 
-#ifdef Q_WS_QWS
+#if defined Q_WS_QWS || defined Q_WS_MAEMO_5 || defined Q_WS_S60
             prefetch.remove(prefetch.indexOf(url));
 #endif
         }
@@ -140,8 +144,6 @@ namespace qmapcontrol
 
     bool ImageManager::saveTile(QString tileName,QPixmap tileData)
     {
-        tileName.replace("/","-");
-
         QFile file(cacheDir.absolutePath() + "/" + tileName.toAscii().toBase64());
 
         //qDebug() << "writing: " << file.fileName();
@@ -160,7 +162,6 @@ namespace qmapcontrol
     }
     bool ImageManager::loadTile(QString tileName,QPixmap &tileData)
     {
-        tileName.replace("/","-");
         QFile file(cacheDir.absolutePath() + "/" + tileName.toAscii().toBase64());
         if (!file.open(QIODevice::ReadOnly )) {
             return false;
@@ -172,7 +173,6 @@ namespace qmapcontrol
     }
     bool ImageManager::tileExist(QString tileName)
     {
-        tileName.replace("/","-");
         QFile file(cacheDir.absolutePath() + "/" + tileName.toAscii().toBase64());
         if (file.exists())
             return true;
