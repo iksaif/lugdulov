@@ -108,7 +108,7 @@ StationsModel::updateStatus(const QModelIndex & index)
   if (!index.isValid() || index.column() != 0)
     return;
 
-  plugin_->update((Station *)index.data(StationsModel::StationRole).value<void *>());
+  plugin_->updateCached((Station *)index.data(StationsModel::StationRole).value<void *>());
 }
 
 StationsPlugin *
