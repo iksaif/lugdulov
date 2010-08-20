@@ -73,13 +73,14 @@ StationsPluginCarto::fetchAll()
 {
   QList < Station * > list = d->fetchAll(this);
 
-  if (stations.count())
-    list = stations.values();
-  else {
-    foreach (Station *station, list)
-      stations[station->id()] = station;
+  foreach (Station *station, list) {
+    if (stations.find(station->id()) == stations.end())
+      stations.insert(station->id(), station);
+    else
+      delete station;
   }
-  emit stationsCreated(list);
+
+  emit stationsCreated(stations.values());
 }
 
 void

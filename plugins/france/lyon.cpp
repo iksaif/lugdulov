@@ -107,9 +107,14 @@ StationsPluginLyon::fetchAll()
 {
   QList < Station * > list = builtinStationsPluginLyon(this);
 
-  foreach (Station *station, list)
-    stations[station->id()] = station;
-  emit stationsCreated(list);
+  foreach (Station *station, list) {
+    if (stations.find(station->id()) == stations.end())
+      stations.insert(station->id(), station);
+    else
+      delete station;
+  }
+
+  emit stationsCreated(stations.values());
 }
 
 void
