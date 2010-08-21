@@ -78,13 +78,8 @@ namespace qmapcontrol
     {
 	QPixmap pm;
 
-        // TODO See if this actually helps on the N900 & Symbian Phones
-//#if defined Q_WS_QWS || defined Q_WS_MAEMO_5 || defined Q_WS_S60
-        // on mobile devices we don´t want the display refreshing when tiles are received which are
-        // prefetched... This is a performance issue, because mobile devices are very slow in
-        // repainting the screen
         prefetch.append(url);
-//#endif
+
         if (!QPixmapCache::find(url, &pm) && !net->imageIsLoading(url))
             if (!doPersistentCaching || !tileExist(url))
                 net->loadImage(host, url);
@@ -108,10 +103,7 @@ namespace qmapcontrol
         }
         else
         {
-
-#if defined Q_WS_QWS || defined Q_WS_MAEMO_5 || defined Q_WS_S60
             prefetch.remove(prefetch.indexOf(url));
-#endif
         }
     }
 
@@ -144,24 +136,21 @@ namespace qmapcontrol
 
     bool ImageManager::saveTile(QString tileName,QPixmap tileData)
     {
+	tileName.replace("/","-");
         QFile file(cacheDir.absolutePath() + "/" + tileName.toAscii().toBase64());
 
         //qDebug() << "writing: " << file.fileName();
-        if (!file.open(QIODevice::ReadWrite )){
-            qDebug()<<"error reading file";
+        if (!file.open(QIODevice::WriteOnly)){
+            qDebug() << "error opening file";
             return false;
         }
-        QByteArray bytes;
-        QBuffer buffer(&bytes);
-        buffer.open(QIODevice::WriteOnly);
-        tileData.save(&buffer, "PNG");
-
-        file.write(bytes);
+        tileData.save(&file, "PNG");
         file.close();
         return true;
     }
     bool ImageManager::loadTile(QString tileName,QPixmap &tileData)
     {
+	tileName.replace("/","-");
         QFile file(cacheDir.absolutePath() + "/" + tileName.toAscii().toBase64());
         if (!file.open(QIODevice::ReadOnly )) {
             return false;
@@ -173,6 +162,7 @@ namespace qmapcontrol
     }
     bool ImageManager::tileExist(QString tileName)
     {
+	tileName.replace("/","-");
         QFile file(cacheDir.absolutePath() + "/" + tileName.toAscii().toBase64());
         if (file.exists())
             return true;

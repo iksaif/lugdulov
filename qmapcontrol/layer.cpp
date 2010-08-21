@@ -149,7 +149,6 @@ namespace qmapcontrol
             //mat.translate(-480/2,-640/2);
 
             //mapmiddle_px = mat.map(mapmiddle_px);
-            //qDebug() << ":: " << mapmiddle_px;
             _draw(painter, mapmiddle_px);
         }
 
