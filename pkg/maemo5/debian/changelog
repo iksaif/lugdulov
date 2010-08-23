@@ -1,3 +1,10 @@
+lugdulov (0.2.1-1) unstable; urgency=low
+
+  * Plugins: Cergy-Pontoise, Creteil, Aix-en-Provence, Amiens, Besançon, Marseille, Mulhouse, Nancy, Nantes, Plaine Commune, Rouen, Toulouse, Bruxelles, Dublin, Luxembourg, Seville, Santander, Tomaya
+  * Maps: some performances fixes
+
+ -- Corentin Chary <corentincj@iksaif.net>  Thu, 15 Aug 2010 16:02:59 +0200
+
 lugdulov (0.2.0-1) unstable; urgency=low
 
   * Maps dialog
