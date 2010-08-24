@@ -24,6 +24,7 @@
 #include "stationsplugin.h"
 #include "station.h"
 #include "stationdialog.h"
+#include "imagemanager.h"
 
 using namespace qmapcontrol;
 
@@ -44,6 +45,8 @@ MapWidget::MapWidget(QWidget *parent)
   statusTimer->setInterval(60000);
   connect(statusTimer, SIGNAL(timeout()), this, SLOT(refreshStatus()));
   statusTimer->start();
+
+  ImageManager::instance()->abortLoading(); // Don't load south pole images
 }
 
 MapWidget::~MapWidget()
@@ -153,13 +156,13 @@ MapWidget::setPlugin(StationsPlugin *p)
 void
 MapWidget::positionUpdated(const QGeoPositionInfo & info)
 {
-  if (!follow->isChecked())
-    return ;
   follow->show();
   coord = QPointF(info.coordinate().latitude(), info.coordinate().longitude());
   positionMarker->setVisible(true);
   positionMarker->setCoordinate(QPointF(coord.y(), coord.x()));
-  qDebug() << coord << positionMarker->isVisible();
+
+  if (!follow->isChecked())
+    return ;
 
   centerView(coord);
 }
