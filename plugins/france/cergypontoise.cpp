@@ -22,37 +22,38 @@
 #include "cergypontoise.h"
 #include "cergypontoise_p.h"
 
-StationsPluginCergyPontoise::StationsPluginCergyPontoise(QObject *parent)
+StationsPluginCergypontoise::StationsPluginCergypontoise(QObject *parent)
   : StationsPluginCarto(parent)
 {
-  d = new StationsPluginCartoPrivateCergypontoise();
+  d = new StationsPluginSimplePrivateCergypontoise();
 }
 
-StationsPluginCergyPontoise::~StationsPluginCergyPontoise()
+StationsPluginCergypontoise::~StationsPluginCergypontoise()
 {
   delete d;
 }
 
 QString
-StationsPluginCergyPontoise::id() const
+StationsPluginCergypontoise::id() const
 {
   return QLatin1String("cergypontoise");
 }
 
 QString
-StationsPluginCergyPontoise::name() const
+StationsPluginCergypontoise::name() const
 {
-  return QLatin1String("Cergy-Pontoise");
+  return QString::fromUtf8("Cergy-Pontoise");
 }
 
 QString
-StationsPluginCergyPontoise::bikeName() const
+StationsPluginCergypontoise::bikeName() const
 {
-  return QLatin1String("Velo2");
+  return QString::fromUtf8("Velo2");
 }
 
 QIcon
-StationsPluginCergyPontoise::bikeIcon() const
+StationsPluginCergypontoise::bikeIcon() const
 {
-  return QIcon(":/france/generic.png");
+  return QIcon(":/res/bike.png");
 }
+

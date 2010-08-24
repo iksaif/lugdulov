@@ -16,21 +16,21 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_H
-#define STATIONS_CARTO_PRIVATE_H
+#ifndef STATIONS_SIMPLE_PRIVATE_H
+#define STATIONS_SIMPLE_PRIVATE_H
 
 #include <QtCore/QStringList>
 #include <QtCore/QPointF>
 #include <QtCore/QRectF>
 
-struct StationsPluginCartoPrivate {
+struct StationsPluginSimplePrivate {
   QRectF rect;
   QPointF center;
   QString statusUrl;
-  QString cartoUrl;
+  QString infosUrl;
 
   virtual QList < Station * > fetchAll(StationsPlugin *parent) = 0;
   virtual QStringList regions() = 0;
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_H */

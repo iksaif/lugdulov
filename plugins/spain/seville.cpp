@@ -25,7 +25,7 @@
 StationsPluginSeville::StationsPluginSeville(QObject *parent)
   : StationsPluginCarto(parent)
 {
-  d = new StationsPluginCartoPrivateSeville();
+  d = new StationsPluginSimplePrivateSeville();
 }
 
 StationsPluginSeville::~StationsPluginSeville()

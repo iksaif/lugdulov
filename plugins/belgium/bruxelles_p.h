@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_BRUXELLES_H
-#define STATIONS_CARTO_PRIVATE_BRUXELLES_H
+#ifndef STATIONS_SIMPLE_PRIVATE_BRUXELLES_H
+#define STATIONS_SIMPLE_PRIVATE_BRUXELLES_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -52,6 +52,7 @@ static const struct {
 	{ 112, 0, "112 - Page/Edelknaap", "Page-Edelknaap  -  Chaussee De Waterloo/  Waterloose Steenweg 440 - 442", "Page-Edelknaap  -  Chaussee De Waterloo/  Waterloose Steenweg 440 - 442  ", 50.8215673716, 4.35664748052 },
 	{ 113, 0, "113 - Abbaye De La Cambre / Abdij Ter Kameren", "Abbaye De La Cambre/Abdij Ter Kameren - Avenue Emile Duray (Face Au N° 2) /Emile Duraylaan (Tegenover N° 2)", "Abbaye De La Cambre/Abdij Ter Kameren - Avenue Emile Duray (Face Au N° 2) /Emile Duraylaan (Tegenover N° 2)  ", 50.8199500656, 4.37536158268 },
 	{ 114, 0, "114 - De Beco/De Beco", "De Beco  -  Avenue Emile De Beco (N° 128) / Emile De Becolaan (N° 128)", "De Beco  -  Avenue Emile De Beco (N° 128) / Emile De Becolaan (N° 128)  ", 50.8207725364, 4.38476282561 },
+	{ 115, 0, "115 - Petite Suisse/Klein Zwitserland", "Petite Suisse / Klein Zwitserland - Place De La Petite Suisse (Face 16-18) / Klein Zwitserlandplein (Tegenover 16 - 18)", "Petite Suisse / Klein Zwitserland - Place De La Petite Suisse (Face 16-18) / Klein Zwitserlandplein (Tegenover 16 - 18)  ", 50.8180417598, 4.38561769287 },
 	{ 116, 0, "116 - Fraiteur", "Fraiteur - Boulevard De La Plaine  (Entree Ulb) / Pleinlaan (Ingang Vub)", "Fraiteur - Boulevard De La Plaine  (Entree Ulb) / Pleinlaan (Ingang Vub)  ", 50.8185366562, 4.39555211657 },
 	{ 117, 0, "117 - Cimetiere D'Ixelles/Begraafplaats Elsene", "Cimetiere D'Ixelles / Begraafplaats Van Elsene - Avenue De L'Universite/Hogeschoollaan 1-3-5", "Cimetiere D'Ixelles / Begraafplaats Van Elsene - Avenue De L'Universite/Hogeschoollaan 1-3-5  ", 50.815725947, 4.38962490312 },
 	{ 118, 0, "118 - Buyl/Buyl", "Buyl -  Avenue Adolphe Buyl / Adolphe Buyllaan 1-3", "Buyl -  Avenue Adolphe Buyl / Adolphe Buyllaan 1-3  ", 50.8180154415, 4.37983998259 },
@@ -214,12 +215,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateBruxelles : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateBruxelles() {
-    rect = QRectF(QPointF(50.811225525419, 4.301384731563), QPointF(50.880946798042, 4.410798795267));
-    center = QPointF(50.846086161730, 4.356091763415);
+struct StationsPluginSimplePrivateBruxelles : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateBruxelles() {
+    rect = QRectF(QPointF(50.811225525419, 4.307117101895), QPointF(50.880946798042, 4.410686395849));
+    center = QPointF(50.846086161730, 4.358901748872);
     statusUrl = "http://www.villo.be/service/stationdetails/%1";
-    cartoUrl = "http://www.villo.be/service/carto";
+    infosUrl = "http://www.villo.be/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -248,5 +249,5 @@ struct StationsPluginCartoPrivateBruxelles : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_BRUXELLES_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_BRUXELLES_H */
 

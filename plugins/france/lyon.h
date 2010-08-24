@@ -23,20 +23,13 @@
 #include <QtNetwork/QNetworkReply>
 #include <QtCore/QMap>
 
-#include "stationsplugin.h"
+#include "stationspluginsimple.h"
 
 class Station;
 
-class StationsPluginLyon : public StationsPlugin
+class StationsPluginLyon : public StationsPluginSimple
 {
   Q_OBJECT
- private:
-  struct Request {
-    enum Type { Null = 0, Properties, Status } type;
-    int id;
-    QString region;
-  };
-
  public:
   StationsPluginLyon(QObject *parent);
   ~StationsPluginLyon();
@@ -45,11 +38,7 @@ class StationsPluginLyon : public StationsPlugin
   QString name() const;
   QString bikeName() const;
   QIcon bikeIcon() const;
-  QRectF rect() const;
-  QPointF center() const;
-
-  QUrl stationImageUrl(int id);
-  QStringList regions();
+  QUrl imageUrl(int id);
 
   enum StationsLyonActions {
     ActionVelovMap = 1,
@@ -60,49 +49,13 @@ class StationsPluginLyon : public StationsPlugin
 
  public slots:
   void fetchOnline();
-  void fetchPos(const QPointF & pos, int num = 5);
-  void fetchAll();
-  void fetchFromFile(const QString & file);
-  void fetchFromUrl(const QUrl & url);
-  void update(Station *station);
-  void update(const QList < Station * > & station);
-
- private slots:
-  void networkError(QNetworkReply::NetworkError code);
-  void finished();
-
- signals:
-  void started();
-  void progress(qint64 done, qint64 total);
-  void done();
-
-  void stationsCreated(const QList < Station * > & stations);
-  void stationsUpdated(const QList < Station * > & stations);
-
-  void error(const QString & title, const QString & message);
 
  private:
-  QUrl stationJsonUrl(int id);
+  void handleInfos(const QByteArray & data);
+  void handleStatus(const QByteArray & data, int id);
+
   QUrl stationsJsonUrl(const QString &region);
-  QUrl stationsJsonUrl(const QPointF &pos, int num = 5);
-  QUrl stationStatusUrl(int id);
-
-  void fetch(int id);
-  void fetchStatus(int id);
-  void fetch(const QString & region);
-
-  void request(const QUrl & url, Request::Type type, int id = -1,
-	       const QString & region = QString());
-  void handleProperties(const QByteArray & data, Request req);
-  void handleStatus(const QByteArray & data, Request req);
-
- private:
-  QNetworkAccessManager *nm;
-
-  QMap < int , Station * > stations;
-  QMap < QNetworkReply *, Request > replies;
-  int step;
-  int count;
+  QUrl statusUrl(int id);
 
   static const QString baseUrl;
 };

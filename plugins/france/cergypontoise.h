@@ -21,12 +21,12 @@
 
 #include "stationsplugincarto.h"
 
-class StationsPluginCergyPontoise : public StationsPluginCarto
+class StationsPluginCergypontoise : public StationsPluginCarto
 {
   Q_OBJECT
  public:
-  StationsPluginCergyPontoise(QObject *parent);
-  ~StationsPluginCergyPontoise();
+  StationsPluginCergypontoise(QObject *parent);
+  ~StationsPluginCergypontoise();
 
   QString id() const;
   QString name() const;
@@ -35,3 +35,4 @@ class StationsPluginCergyPontoise : public StationsPluginCarto
 };
 
 #endif /* STATIONS_CERGYPONTOISE_H */
+

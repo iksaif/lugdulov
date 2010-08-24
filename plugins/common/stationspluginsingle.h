@@ -16,44 +16,33 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtCore/QDebug>
+#ifndef STATIONS_SINGLE_H
+#define STATIONS_SINGLE_H
 
-#include "station.h"
-#include "besancon.h"
-#include "besancon_p.h"
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QtCore/QMap>
 
-StationsPluginBesancon::StationsPluginBesancon(QObject *parent)
-  : StationsPluginCarto(parent)
+#include "stationspluginsimple.h"
+
+class Station;
+
+class StationsPluginSingle : public StationsPluginSimple
 {
-  d = new StationsPluginSimplePrivateBesancon();
-}
+  Q_OBJECT
+ public:
+  StationsPluginSingle(QObject *parent);
+  virtual ~StationsPluginSingle();
 
-StationsPluginBesancon::~StationsPluginBesancon()
-{
-  delete d;
-}
+ public slots:
+  virtual void update(Station *station);
+  virtual void update(const QList < Station * > & station);
 
-QString
-StationsPluginBesancon::id() const
-{
-  return QLatin1String("besancon");
-}
+ protected:
+  virtual QUrl statusUrl(int id);
 
-QString
-StationsPluginBesancon::name() const
-{
-  return QString::fromUtf8("Besançon");
-}
+  virtual void handleInfos(const QByteArray & data) = 0;
+  virtual void handleStatus(const QByteArray & data, int id);
+};
 
-QString
-StationsPluginBesancon::bikeName() const
-{
-  return QString::fromUtf8("VéloCité");
-}
-
-QIcon
-StationsPluginBesancon::bikeIcon() const
-{
-  return QIcon(":/res/bike.png");
-}
-
+#endif /* STATIONS_SINGLE_H */

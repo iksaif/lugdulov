@@ -63,7 +63,7 @@ StationsPluginFactoryFrance::stations(QObject *parent)
   ret << new StationsPluginAixenprovence(parent);
   ret << new StationsPluginAmiens(parent);
   ret << new StationsPluginBesancon(parent);
-  ret << new StationsPluginCergyPontoise(parent);
+  ret << new StationsPluginCergypontoise(parent);
   ret << new StationsPluginCreteil(parent);
   ret << new StationsPluginMarseille(parent);
   ret << new StationsPluginMulhouse(parent);

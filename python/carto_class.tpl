@@ -25,7 +25,7 @@
 StationsPlugin<City>::StationsPlugin<City>(QObject *parent)
   : StationsPluginCarto(parent)
 {
-  d = new StationsPluginCartoPrivate<City>();
+  d = new StationsPluginSimplePrivate<City>();
 }
 
 StationsPlugin<City>::~StationsPlugin<City>()

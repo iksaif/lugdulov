@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_DUBLIN_H
-#define STATIONS_CARTO_PRIVATE_DUBLIN_H
+#ifndef STATIONS_SIMPLE_PRIVATE_DUBLIN_H
+#define STATIONS_SIMPLE_PRIVATE_DUBLIN_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -75,12 +75,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateDublin : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateDublin() {
+struct StationsPluginSimplePrivateDublin : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateDublin() {
     rect = QRectF(QPointF(53.329784320000, -6.278866780000), QPointF(53.359823680000, -6.244922220000));
     center = QPointF(53.344804000000, -6.261894500000);
     statusUrl = "http://www.dublinbikes.ie/service/stationdetails/%1";
-    cartoUrl = "http://www.dublinbikes.ie/service/carto";
+    infosUrl = "http://www.dublinbikes.ie/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -109,5 +109,5 @@ struct StationsPluginCartoPrivateDublin : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_DUBLIN_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_DUBLIN_H */
 

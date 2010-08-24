@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_TOYAMA_H
-#define STATIONS_CARTO_PRIVATE_TOYAMA_H
+#ifndef STATIONS_SIMPLE_PRIVATE_TOYAMA_H
+#define STATIONS_SIMPLE_PRIVATE_TOYAMA_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -50,12 +50,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateToyama : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateToyama() {
+struct StationsPluginSimplePrivateToyama : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateToyama() {
     rect = QRectF(QPointF(36.688551980000, 137.208484480000), QPointF(36.706181020000, 137.221095520000));
     center = QPointF(36.697366500000, 137.214790000000);
     statusUrl = "http://www.cyclocity.jp/service/stationdetails/%1";
-    cartoUrl = "http://www.cyclocity.jp/service/carto";
+    infosUrl = "http://www.cyclocity.jp/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -84,5 +84,5 @@ struct StationsPluginCartoPrivateToyama : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_TOYAMA_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_TOYAMA_H */
 

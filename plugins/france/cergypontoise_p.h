@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_CERGYPONTOISE_H
-#define STATIONS_CARTO_PRIVATE_CERGYPONTOISE_H
+#ifndef STATIONS_SIMPLE_PRIVATE_CERGYPONTOISE_H
+#define STATIONS_SIMPLE_PRIVATE_CERGYPONTOISE_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -112,12 +112,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateCergypontoise : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateCergypontoise() {
+struct StationsPluginSimplePrivateCergypontoise : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateCergypontoise() {
     rect = QRectF(QPointF(49.010394186159, 2.000348077688), QPointF(49.053119120656, 2.112619036786));
     center = QPointF(49.031756653407, 2.056483557237);
     statusUrl = "http://www.velo2.cergypontoise.fr/service/stationdetails/%1";
-    cartoUrl = "http://www.velo2.cergypontoise.fr/service/carto";
+    infosUrl = "http://www.velo2.cergypontoise.fr/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -148,5 +148,5 @@ struct StationsPluginCartoPrivateCergypontoise : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_CERGYPONTOISE_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_CERGYPONTOISE_H */
 

@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_TOULOUSE_H
-#define STATIONS_CARTO_PRIVATE_TOULOUSE_H
+#ifndef STATIONS_SIMPLE_PRIVATE_TOULOUSE_H
+#define STATIONS_SIMPLE_PRIVATE_TOULOUSE_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -286,12 +286,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateToulouse : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateToulouse() {
+struct StationsPluginSimplePrivateToulouse : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateToulouse() {
     rect = QRectF(QPointF(43.555531897661, 1.400592104323), QPointF(43.644545367270, 1.489530191453));
     center = QPointF(43.600038632465, 1.445061147888);
     statusUrl = "http://www.velo.toulouse.fr/service/stationdetails/%1";
-    cartoUrl = "http://www.velo.toulouse.fr/service/carto";
+    infosUrl = "http://www.velo.toulouse.fr/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -320,5 +320,5 @@ struct StationsPluginCartoPrivateToulouse : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_TOULOUSE_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_TOULOUSE_H */
 

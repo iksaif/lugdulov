@@ -25,7 +25,7 @@
 StationsPluginPlainecommune::StationsPluginPlainecommune(QObject *parent)
   : StationsPluginCarto(parent)
 {
-  d = new StationsPluginCartoPrivatePlainecommune();
+  d = new StationsPluginSimplePrivatePlainecommune();
 }
 
 StationsPluginPlainecommune::~StationsPluginPlainecommune()

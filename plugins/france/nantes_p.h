@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_NANTES_H
-#define STATIONS_CARTO_PRIVATE_NANTES_H
+#ifndef STATIONS_SIMPLE_PRIVATE_NANTES_H
+#define STATIONS_SIMPLE_PRIVATE_NANTES_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -123,12 +123,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateNantes : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateNantes() {
-    rect = QRectF(QPointF(47.200331924045, -1.579666552867), QPointF(47.228272293171, -1.524843469052));
-    center = QPointF(47.214302108608, -1.552255010959);
+struct StationsPluginSimplePrivateNantes : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateNantes() {
+    rect = QRectF(QPointF(47.203581846648, -1.579666552867), QPointF(47.228208569199, -1.524843469052));
+    center = QPointF(47.215895207923, -1.552255010959);
     statusUrl = "http://www.bicloo.nantesmetropole.fr/service/stationdetails/%1";
-    cartoUrl = "http://www.bicloo.nantesmetropole.fr/service/carto";
+    infosUrl = "http://www.bicloo.nantesmetropole.fr/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -157,5 +157,5 @@ struct StationsPluginCartoPrivateNantes : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_NANTES_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_NANTES_H */
 

@@ -28,6 +28,8 @@ def usage():
     print " -o, --output output file"
     print " -f, --full   also dump status"
     print " -c, --cpp    dump cpp file"
+    print " -p, --class  dump class file"
+    print " -t, --header dump header file"
     sys.exit(1)
 
 def stations(region):
@@ -61,21 +63,71 @@ def dump_json(total, output):
     print >>output, json.dumps(total)
 
 def dump_cpp(total, output):
-    struct = """
-struct {
-        int codePostal;
-        int numStation;
-        const char *nomStation;
-        const char *infoStation;
+    stations = """
+static const struct {
+        int number;
+        int arrondissementNumber;
+        const char *name;
+        const char *address;
         double x;
         double y;
-} stations[] = {"""
-    print >>output, struct
+} stations[] = {\n"""
+
+    lat_min  = 999.0
+    lat_max  = -999.0
+    lng_min = 999.0
+    lng_max = -999.0
+
+    center = (45.767299, 4.8343287) # FIXME
+    limits = {'max_lat' : center[0] + 0.2,
+              'min_lat' : center[0] - 0.2,
+              'max_lng' : center[1] + 0.2,
+              'min_lng' : center[1] - 0.2}
+    reg = {}
+
     for j in total['markers']:
-        line = '\t{ %s, %s, "%s", "%s", %s, %s },' % (j['codePostal'], j['numStation'], j['nomStation'], j['infoStation'], j['x'], j['y'])
-        print >>output, line
-    print >>output, "\t{0, 0, NULL, NULL, 0., 0.}"
-    print >>output, "};"
+        lat = float(j['x'])
+        lng = float(j['y'])
+        skip = False
+
+	if lat > limits['max_lat'] or lat < limits['min_lat'] or \
+                lng > limits['max_lng'] or lng < limits['min_lng']:
+            skip = True
+        if skip:
+            stations += "//"
+        stations += '\t{ %s, %s, "%s", "%s", %s, %s },\n' % (j['numStation'], j['codePostal'], j['nomStation'], j['infoStation'], j['x'], j['y'])
+
+        if not skip:
+            reg[j['codePostal']] = True
+            if lat_min > float(lat) : lat_min = float(lat)
+            if lat_max < float(lat) : lat_max = float(lat)
+            if lng_min > float(lng) : lng_min = float(lng)
+            if lng_max < float(lng) : lng_max = float(lng)
+
+    stations += "\t{0, 0, NULL, NULL, 0., 0.}\n"
+    stations += "};\n"
+
+    lat_border = (lat_max - lat_min) / 50
+    lng_border = (lng_max - lng_min) / 50
+
+    rect = "QRectF(QPointF(%.12f, %.12f), " % (lat_min - lat_border, lng_min - lng_border)
+    rect += "QPointF(%.12f, %.12f))" % (lat_max + lat_border, lng_max + lng_border)
+    center = "QPointF(%.12f, %.12f)" % ((lat_min + lat_max) / 2, (lng_min + lng_max) / 2)
+
+    regions = ""
+    for region in reg.keys():
+        regions += '    ret << "%s";\n' % region
+
+    data = open('carto_p.tpl').read()
+    data = data.replace('<stations>', stations)
+    data = data.replace('<rect>', rect)
+    data = data.replace('<center>', center);
+    data = data.replace('<CITY>', "LYON");
+    data = data.replace('<City>', "Lyon");
+    data = data.replace('<statusUrl>', '')
+    data = data.replace('<cartoUrl>', '')
+    data = data.replace('<regions>', regions)
+    print >>output, data.encode('utf8')
 
 def main():
 

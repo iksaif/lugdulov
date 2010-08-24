@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_CRETEIL_H
-#define STATIONS_CARTO_PRIVATE_CRETEIL_H
+#ifndef STATIONS_SIMPLE_PRIVATE_CRETEIL_H
+#define STATIONS_SIMPLE_PRIVATE_CRETEIL_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -83,12 +83,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateCreteil : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateCreteil() {
+struct StationsPluginSimplePrivateCreteil : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateCreteil() {
     rect = QRectF(QPointF(48.765381613571, 2.445747328097), QPointF(48.799491047434, 2.471816179287));
     center = QPointF(48.782436330502, 2.458781753692);
     statusUrl = "http://www.cristolib.fr/service/stationdetails/%1";
-    cartoUrl = "http://www.cristolib.fr/service/carto";
+    infosUrl = "http://www.cristolib.fr/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -119,5 +119,5 @@ struct StationsPluginCartoPrivateCreteil : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_CRETEIL_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_CRETEIL_H */
 

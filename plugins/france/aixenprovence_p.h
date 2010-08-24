@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_AIXENPROVENCE_H
-#define STATIONS_CARTO_PRIVATE_AIXENPROVENCE_H
+#ifndef STATIONS_SIMPLE_PRIVATE_AIXENPROVENCE_H
+#define STATIONS_SIMPLE_PRIVATE_AIXENPROVENCE_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -51,12 +51,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateAixenprovence : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateAixenprovence() {
+struct StationsPluginSimplePrivateAixenprovence : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateAixenprovence() {
     rect = QRectF(QPointF(43.518233998492, 5.430649262296), QPointF(43.533052761794, 5.460394690706));
     center = QPointF(43.525643380143, 5.445521976501);
     statusUrl = "http://www.vhello.fr/service/stationdetails/%1";
-    cartoUrl = "http://www.vhello.fr/service/carto";
+    infosUrl = "http://www.vhello.fr/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -85,5 +85,5 @@ struct StationsPluginCartoPrivateAixenprovence : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_AIXENPROVENCE_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_AIXENPROVENCE_H */
 

@@ -25,7 +25,7 @@
 StationsPluginToyama::StationsPluginToyama(QObject *parent)
   : StationsPluginCarto(parent)
 {
-  d = new StationsPluginCartoPrivateToyama();
+  d = new StationsPluginSimplePrivateToyama();
 }
 
 StationsPluginToyama::~StationsPluginToyama()

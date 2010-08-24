@@ -25,7 +25,7 @@
 StationsPluginDublin::StationsPluginDublin(QObject *parent)
   : StationsPluginCarto(parent)
 {
-  d = new StationsPluginCartoPrivateDublin();
+  d = new StationsPluginSimplePrivateDublin();
 }
 
 StationsPluginDublin::~StationsPluginDublin()

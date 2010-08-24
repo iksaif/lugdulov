@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_MARSEILLE_H
-#define STATIONS_CARTO_PRIVATE_MARSEILLE_H
+#ifndef STATIONS_SIMPLE_PRIVATE_MARSEILLE_H
+#define STATIONS_SIMPLE_PRIVATE_MARSEILLE_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -164,12 +164,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateMarseille : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateMarseille() {
+struct StationsPluginSimplePrivateMarseille : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateMarseille() {
     rect = QRectF(QPointF(43.238402980905, 5.348570388909), QPointF(43.313259188305, 5.407126889936));
     center = QPointF(43.275831084605, 5.377848639422);
     statusUrl = "http://www.levelo-mpm.fr/service/stationdetails/%1";
-    cartoUrl = "http://www.levelo-mpm.fr/service/carto";
+    infosUrl = "http://www.levelo-mpm.fr/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -198,5 +198,5 @@ struct StationsPluginCartoPrivateMarseille : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_MARSEILLE_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_MARSEILLE_H */
 

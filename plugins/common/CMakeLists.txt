@@ -2,11 +2,15 @@ project(lugdulov_base)
 
 set(lugdulov_base_SRCS
   stationsplugin.cpp
+  stationspluginsimple.cpp
+  stationspluginsingle.cpp
   stationsplugincarto.cpp
   station.cpp)
 
 set(lugdulov_base_MOC_HDRS
   stationsplugin.h
+  stationspluginsimple.h
+  stationspluginsingle.h
   stationsplugincarto.h)
 
 qt4_wrap_cpp(lugdulov_base_MOC_SOURCE ${lugdulov_base_MOC_HDRS})

@@ -25,7 +25,7 @@
 StationsPluginSantander::StationsPluginSantander(QObject *parent)
   : StationsPluginCarto(parent)
 {
-  d = new StationsPluginCartoPrivateSantander();
+  d = new StationsPluginSimplePrivateSantander();
 }
 
 StationsPluginSantander::~StationsPluginSantander()

@@ -25,7 +25,7 @@
 StationsPluginNancy::StationsPluginNancy(QObject *parent)
   : StationsPluginCarto(parent)
 {
-  d = new StationsPluginCartoPrivateNancy();
+  d = new StationsPluginSimplePrivateNancy();
 }
 
 StationsPluginNancy::~StationsPluginNancy()

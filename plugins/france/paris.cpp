@@ -25,7 +25,7 @@
 StationsPluginParis::StationsPluginParis(QObject *parent)
   : StationsPluginCarto(parent)
 {
-  d = new StationsPluginCartoPrivateParis();
+  d = new StationsPluginSimplePrivateParis();
 }
 
 StationsPluginParis::~StationsPluginParis()
@@ -42,13 +42,13 @@ StationsPluginParis::id() const
 QString
 StationsPluginParis::name() const
 {
-  return QLatin1String("Paris");
+  return QString::fromUtf8("Paris");
 }
 
 QString
 StationsPluginParis::bikeName() const
 {
-  return QLatin1String("Velib");
+  return QString::fromUtf8("Vélib'");
 }
 
 QIcon
@@ -56,3 +56,4 @@ StationsPluginParis::bikeIcon() const
 {
   return QIcon(":/france/velib.png");
 }
+

@@ -130,13 +130,15 @@ def stations_xml_url(service):
     return service + "carto"
 
 def usage():
-    print "cergypontoise.py [options] [-o out] city"
+    print "carto.py [options] [-o out] city"
     print "Options:"
     print " -v           verbose"
     print " -h, --help   help"
     print " -o, --output output file"
     print " -f, --full   also dump status"
     print " -c, --cpp    dump cpp file"
+    print " -p, --class  dump class file"
+    print " -t, --header dump header file"
     print "Cities:"
     print " " + ",".join(cities.keys())
     sys.exit(1)
@@ -247,10 +249,10 @@ static const struct {
                  j['address'].title(), j['fullAddress'].title(), j['lat'], j['lng'])
 
         if not skip:
-            if lat_min > float(j['lat']) : lat_min = float(j['lat'])
-            if lat_max < float(j['lat']) : lat_max = float(j['lat'])
-            if lng_min > float(j['lng']) : lng_min = float(j['lng'])
-            if lng_max < float(j['lng']) : lng_max = float(j['lng'])
+            if lat_min > float(lat) : lat_min = float(lat)
+            if lat_max < float(lat) : lat_max = float(lat)
+            if lng_min > float(lng) : lng_min = float(lng)
+            if lng_max < float(lng) : lng_max = float(lng)
 
     stations += "\t{0, 0, NULL, NULL, NULL, 0., 0.}\n"
     stations += "};\n"
@@ -266,14 +268,14 @@ static const struct {
     for region in data['arrondissements']:
         regions += '    ret << "%d";\n' % region
 
-    data = open('carto_template.h').read()
+    data = open('carto_p.tpl').read()
     data = data.replace('<stations>', stations)
     data = data.replace('<rect>', rect)
     data = data.replace('<center>', center);
     data = data.replace('<CITY>', city['code'].upper());
     data = data.replace('<City>', city['code'].title());
     data = data.replace('<statusUrl>', city['service'] + 'stationdetails/%1')
-    data = data.replace('<cartoUrl>', city['service'] + 'carto')
+    data = data.replace('<infosUrl>', city['service'] + 'carto')
     data = data.replace('<regions>', regions)
     print >>output, data.encode('utf8')
 

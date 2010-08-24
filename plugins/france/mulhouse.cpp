@@ -25,7 +25,7 @@
 StationsPluginMulhouse::StationsPluginMulhouse(QObject *parent)
   : StationsPluginCarto(parent)
 {
-  d = new StationsPluginCartoPrivateMulhouse();
+  d = new StationsPluginSimplePrivateMulhouse();
 }
 
 StationsPluginMulhouse::~StationsPluginMulhouse()

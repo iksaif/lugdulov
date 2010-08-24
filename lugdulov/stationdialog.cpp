@@ -130,7 +130,7 @@ StationDialog::pluginAction()
 void
 StationDialog::fetchImage()
 {
-  QUrl url = station->plugin()->stationImageUrl(station->id());
+  QUrl url = station->plugin()->imageUrl(station->id());
 
   if (url.isEmpty())
     return ;

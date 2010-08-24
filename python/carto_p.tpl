@@ -16,19 +16,19 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_<CITY>_H
-#define STATIONS_CARTO_PRIVATE_<CITY>_H
+#ifndef STATIONS_SIMPLE_PRIVATE_<CITY>_H
+#define STATIONS_SIMPLE_PRIVATE_<CITY>_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 <stations>
 
-struct StationsPluginCartoPrivate<City> : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivate<City>() {
+struct StationsPluginSimplePrivate<City> : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivate<City>() {
     rect = <rect>;
     center = <center>;
     statusUrl = "<statusUrl>";
-    cartoUrl = "<cartoUrl>";
+    infosUrl = "<infosUrl>";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -56,4 +56,4 @@ struct StationsPluginCartoPrivate<City> : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_<CITY>_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_<CITY>_H */

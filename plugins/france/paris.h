@@ -35,3 +35,4 @@ class StationsPluginParis : public StationsPluginCarto
 };
 
 #endif /* STATIONS_PARIS_H */
+

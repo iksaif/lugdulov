@@ -25,7 +25,7 @@
 StationsPluginCreteil::StationsPluginCreteil(QObject *parent)
   : StationsPluginCarto(parent)
 {
-  d = new StationsPluginCartoPrivateCreteil();
+  d = new StationsPluginSimplePrivateCreteil();
 }
 
 StationsPluginCreteil::~StationsPluginCreteil()

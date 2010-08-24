@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_SEVILLE_H
-#define STATIONS_CARTO_PRIVATE_SEVILLE_H
+#ifndef STATIONS_SIMPLE_PRIVATE_SEVILLE_H
+#define STATIONS_SIMPLE_PRIVATE_SEVILLE_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -191,6 +191,7 @@ static const struct {
 	{ 147, 0, "147_Carretera De Carmona", "Aprox. C/ Maestro Solano", "Aprox. C/ Maestro Solano  ", 37.4007955315, -5.97522815646 },
 	{ 13, 0, "013_Calle Feria", "Aprox. C/ Resolana", "Aprox. C/ Resolana  ", 37.4031335348, -5.99191821634 },
 	{ 3, 0, "003_Puerta De La Barqueta", "Aprox. Puente De La Barqueta", "Aprox. Puente De La Barqueta  ", 37.4056415424, -5.99848824083 },
+	{ 45, 0, "045_Carretera De Carmona", "Aprox. C/ De Francisco De Ariño", "Aprox. C/ De Francisco De Ariño  ", 37.3999205271, -5.97781616503 },
 	{ 88, 0, "088_Calle Americo Vespucio", "Aprox. C/ Hermanos D'Eluyar", "Aprox. C/ Hermanos D'Eluyar  ", 37.4093412771, -6.00633885939 },
 	{ 67, 0, "067_Calle Leonardo Da Vinci", "Aprox. C/ Albert Einstein", "Aprox. C/ Albert Einstein  ", 37.4041625333, -6.00730227091 },
 	{ 95, 0, "095_Calle Américo Vespucio", "Aprox. C/ Juan Bautista Muñoz", "Aprox. C/ Juan Bautista Muñoz  ", 37.4121735656, -6.00633827212 },
@@ -280,12 +281,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateSeville : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateSeville() {
+struct StationsPluginSimplePrivateSeville : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateSeville() {
     rect = QRectF(QPointF(37.343728489241, -6.013869840524), QPointF(37.426347254142, -5.916912389927));
     center = QPointF(37.385037871692, -5.965391115226);
     statusUrl = "http://www.sevici.es/service/stationdetails/%1";
-    cartoUrl = "http://www.sevici.es/service/carto";
+    infosUrl = "http://www.sevici.es/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -314,5 +315,5 @@ struct StationsPluginCartoPrivateSeville : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_SEVILLE_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_SEVILLE_H */
 

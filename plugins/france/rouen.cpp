@@ -25,7 +25,7 @@
 StationsPluginRouen::StationsPluginRouen(QObject *parent)
   : StationsPluginCarto(parent)
 {
-  d = new StationsPluginCartoPrivateRouen();
+  d = new StationsPluginSimplePrivateRouen();
 }
 
 StationsPluginRouen::~StationsPluginRouen()

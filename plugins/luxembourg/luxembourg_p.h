@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_LUXEMBOURG_H
-#define STATIONS_CARTO_PRIVATE_LUXEMBOURG_H
+#ifndef STATIONS_SIMPLE_PRIVATE_LUXEMBOURG_H
+#define STATIONS_SIMPLE_PRIVATE_LUXEMBOURG_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -81,12 +81,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateLuxembourg : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateLuxembourg() {
+struct StationsPluginSimplePrivateLuxembourg : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateLuxembourg() {
     rect = QRectF(QPointF(49.589968260000, 6.096249700000), QPointF(49.635714740000, 6.171665300000));
     center = QPointF(49.612841500000, 6.133957500000);
     statusUrl = "http://www.veloh.lu/service/stationdetails/%1";
-    cartoUrl = "http://www.veloh.lu/service/carto";
+    infosUrl = "http://www.veloh.lu/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -115,5 +115,5 @@ struct StationsPluginCartoPrivateLuxembourg : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_LUXEMBOURG_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_LUXEMBOURG_H */
 

@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_SANTANDER_H
-#define STATIONS_CARTO_PRIVATE_SANTANDER_H
+#ifndef STATIONS_SIMPLE_PRIVATE_SANTANDER_H
+#define STATIONS_SIMPLE_PRIVATE_SANTANDER_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -49,12 +49,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateSantander : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateSantander() {
+struct StationsPluginSimplePrivateSantander : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateSantander() {
     rect = QRectF(QPointF(43.457556141047, -3.825670344499), QPointF(43.478881922207, -3.780477032706));
     center = QPointF(43.468219031627, -3.803073688603);
     statusUrl = "http://www.tusbic.es/service/stationdetails/%1";
-    cartoUrl = "http://www.tusbic.es/service/carto";
+    infosUrl = "http://www.tusbic.es/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -83,5 +83,5 @@ struct StationsPluginCartoPrivateSantander : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_SANTANDER_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_SANTANDER_H */
 

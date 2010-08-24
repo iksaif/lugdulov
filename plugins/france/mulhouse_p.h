@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_MULHOUSE_H
-#define STATIONS_CARTO_PRIVATE_MULHOUSE_H
+#ifndef STATIONS_SIMPLE_PRIVATE_MULHOUSE_H
+#define STATIONS_SIMPLE_PRIVATE_MULHOUSE_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -70,12 +70,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateMulhouse : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateMulhouse() {
+struct StationsPluginSimplePrivateMulhouse : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateMulhouse() {
     rect = QRectF(QPointF(47.732666625491, 7.313448285585), QPointF(47.760947395276, 7.355953680194));
     center = QPointF(47.746807010384, 7.334700982889);
     statusUrl = "http://www.velocite.mulhouse.fr/service/stationdetails/%1";
-    cartoUrl = "http://www.velocite.mulhouse.fr/service/carto";
+    infosUrl = "http://www.velocite.mulhouse.fr/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -104,5 +104,5 @@ struct StationsPluginCartoPrivateMulhouse : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_MULHOUSE_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_MULHOUSE_H */
 

@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_AMIENS_H
-#define STATIONS_CARTO_PRIVATE_AMIENS_H
+#ifndef STATIONS_SIMPLE_PRIVATE_AMIENS_H
+#define STATIONS_SIMPLE_PRIVATE_AMIENS_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -60,12 +60,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateAmiens : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateAmiens() {
+struct StationsPluginSimplePrivateAmiens : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateAmiens() {
     rect = QRectF(QPointF(49.887509951428, 2.282143428252), QPointF(49.902224882371, 2.309301688230));
     center = QPointF(49.894867416900, 2.295722558241);
     statusUrl = "http://www.velam.amiens.fr/service/stationdetails/%1";
-    cartoUrl = "http://www.velam.amiens.fr/service/carto";
+    infosUrl = "http://www.velam.amiens.fr/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -94,5 +94,5 @@ struct StationsPluginCartoPrivateAmiens : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_AMIENS_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_AMIENS_H */
 

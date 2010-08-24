@@ -15,7 +15,6 @@ set(france_SRCS
   cergypontoise.cpp
   creteil.cpp
   lyon.cpp
-  lyon_p.cpp
   marseille.cpp
   mulhouse.cpp
   nancy.cpp

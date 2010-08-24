@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_BESANCON_H
-#define STATIONS_CARTO_PRIVATE_BESANCON_H
+#ifndef STATIONS_SIMPLE_PRIVATE_BESANCON_H
+#define STATIONS_SIMPLE_PRIVATE_BESANCON_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -65,12 +65,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateBesancon : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateBesancon() {
+struct StationsPluginSimplePrivateBesancon : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateBesancon() {
     rect = QRectF(QPointF(47.230464685463, 6.005943617992), QPointF(47.247649351927, 6.035914422218));
     center = QPointF(47.239057018695, 6.020929020105);
     statusUrl = "http://www.velocite.besancon.fr/service/stationdetails/%1";
-    cartoUrl = "http://www.velocite.besancon.fr/service/carto";
+    infosUrl = "http://www.velocite.besancon.fr/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -99,5 +99,5 @@ struct StationsPluginCartoPrivateBesancon : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_BESANCON_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_BESANCON_H */
 

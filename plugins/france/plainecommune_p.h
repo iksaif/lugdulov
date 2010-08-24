@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_PLAINECOMMUNE_H
-#define STATIONS_CARTO_PRIVATE_PLAINECOMMUNE_H
+#ifndef STATIONS_SIMPLE_PRIVATE_PLAINECOMMUNE_H
+#define STATIONS_SIMPLE_PRIVATE_PLAINECOMMUNE_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -80,12 +80,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivatePlainecommune : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivatePlainecommune() {
+struct StationsPluginSimplePrivatePlainecommune : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivatePlainecommune() {
     rect = QRectF(QPointF(48.903046180517, 2.347786516421), QPointF(48.946111888468, 2.393817415288));
     center = QPointF(48.924579034493, 2.370801965854);
     statusUrl = "http://www.velcom.fr/service/stationdetails/%1";
-    cartoUrl = "http://www.velcom.fr/service/carto";
+    infosUrl = "http://www.velcom.fr/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -116,5 +116,5 @@ struct StationsPluginCartoPrivatePlainecommune : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_PLAINECOMMUNE_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_PLAINECOMMUNE_H */
 

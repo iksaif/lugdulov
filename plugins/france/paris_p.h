@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_PARIS_H
-#define STATIONS_CARTO_PRIVATE_PARIS_H
+#ifndef STATIONS_SIMPLE_PRIVATE_PARIS_H
+#define STATIONS_SIMPLE_PRIVATE_PARIS_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -959,6 +959,7 @@ static const struct {
 	{ 21113, 10, "21113 - Petit (Clichy)", "2, Rue Petit -", "2, Rue Petit - 92110 Clichy", 48.8995002105, 2.29655139178 },
 	{ 21203, 10, "21203 - Briand (Montrouge)", "Place Jules Ferry / Avenue Aristide Briand -", "Place Jules Ferry / Avenue Aristide Briand - 92120 Montrouge", 48.8123014955, 2.32570108244 },
 	{ 28002, 10, "28002 - Soljenitsyne (Puteaux)", "Rue Alexandre Soljenitsyne -", "Rue Alexandre Soljenitsyne - 92800 Puteaux", 48.8843040555, 2.24889473291 },
+	{ 31007, 10, "31007 - Paris 1 (Montreuil)", "63/65 Rue De Paris -", "63/65 Rue De Paris - 93100 Montreuil", 48.8572196764, 2.43278723185 },
 	{ 31004, 10, "31004 - Paris 2 (Montreuil)", "175/179 Rue De Paris -", "175/179 Rue De Paris - 93100 Montreuil", 48.8553404794, 2.4219969056 },
 	{ 21211, 10, "21211 - Marne (Montrouge)", "100 Avenue De La Marne -", "100 Avenue De La Marne - 92120 Montrouge", 48.8119737276, 2.30356030149 },
 	{ 28003, 10, "28003 - Jaures (Puteaux)", "152 Rue Jean Jaures -", "152 Rue Jean Jaures - 92800 Puteaux", 48.8808082224, 2.23775423863 },
@@ -982,7 +983,6 @@ static const struct {
 	{ 31012, 10, "31012 - Carnot (Montreuil)", "35/37 Rue Carnot -", "35/37 Rue Carnot - 93100 Montreuil", 48.8560170267, 2.44151541004 },
 	{ 31008, 10, "31008 - Vincennes (Montreuil)", "7 Bis Rue De Vincennes-", "7 Bis Rue De Vincennes- 93100 Montreuil", 48.8576920794, 2.43756886174 },
 	{ 31011, 10, "31011 - Stalingrad 2 (Montreuil)", "27 Rue De Stalingrad-", "27 Rue De Stalingrad- 93100 Montreuil", 48.8589993592, 2.4432103778 },
-	{ 31007, 10, "31007 - Paris 1 (Montreuil)", "63/65 Rue De Paris -", "63/65 Rue De Paris - 93100 Montreuil", 48.8572196764, 2.43278723185 },
 	{ 31005, 10, "31005 - Paris 2  (Montreuil)", "127/129 Rue De Paris -", "127/129 Rue De Paris - 93100 Montreuil", 48.8562178939, 2.42658828216 },
 	{ 41605, 10, "41605 - General De Gaulle 2 (Saint Mande)", "120 Avenue General De Gaulle -", "120 Avenue General De Gaulle - 94160 Saint Mande", 48.8361991838, 2.41897039649 },
 	{ 41604, 10, "41604 - Lagny (Saint Mande)", "126 Rue Lagny / Angle Avenue Joffre -", "126 Rue Lagny / Angle Avenue Joffre - 94160 Saint Mande", 48.8492046318, 2.41826912195 },
@@ -1235,12 +1235,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateParis : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateParis() {
+struct StationsPluginSimplePrivateParis : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateParis() {
     rect = QRectF(QPointF(48.804263611253, 2.217282548168), QPointF(48.917541221202, 2.485379797193));
     center = QPointF(48.860902416227, 2.351331172680);
     statusUrl = "http://www.velib.paris.fr/service/stationdetails/%1";
-    cartoUrl = "http://www.velib.paris.fr/service/carto";
+    infosUrl = "http://www.velib.paris.fr/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -1294,5 +1294,5 @@ struct StationsPluginCartoPrivateParis : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_PARIS_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_PARIS_H */
 

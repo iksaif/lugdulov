@@ -25,7 +25,7 @@
 StationsPluginAmiens::StationsPluginAmiens(QObject *parent)
   : StationsPluginCarto(parent)
 {
-  d = new StationsPluginCartoPrivateAmiens();
+  d = new StationsPluginSimplePrivateAmiens();
 }
 
 StationsPluginAmiens::~StationsPluginAmiens()

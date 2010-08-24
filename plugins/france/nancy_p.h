@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_NANCY_H
-#define STATIONS_CARTO_PRIVATE_NANCY_H
+#ifndef STATIONS_SIMPLE_PRIVATE_NANCY_H
+#define STATIONS_SIMPLE_PRIVATE_NANCY_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -60,12 +60,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateNancy : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateNancy() {
+struct StationsPluginSimplePrivateNancy : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateNancy() {
     rect = QRectF(QPointF(48.682999654389, 6.166844565318), QPointF(48.701228707210, 6.196861608399));
     center = QPointF(48.692114180800, 6.181853086858);
     statusUrl = "http://www.velostanlib.fr/service/stationdetails/%1";
-    cartoUrl = "http://www.velostanlib.fr/service/carto";
+    infosUrl = "http://www.velostanlib.fr/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -94,5 +94,5 @@ struct StationsPluginCartoPrivateNancy : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_NANCY_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_NANCY_H */
 

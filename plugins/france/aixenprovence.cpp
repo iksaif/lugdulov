@@ -25,7 +25,7 @@
 StationsPluginAixenprovence::StationsPluginAixenprovence(QObject *parent)
   : StationsPluginCarto(parent)
 {
-  d = new StationsPluginCartoPrivateAixenprovence();
+  d = new StationsPluginSimplePrivateAixenprovence();
 }
 
 StationsPluginAixenprovence::~StationsPluginAixenprovence()

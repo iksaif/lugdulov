@@ -16,10 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_PRIVATE_ROUEN_H
-#define STATIONS_CARTO_PRIVATE_ROUEN_H
+#ifndef STATIONS_SIMPLE_PRIVATE_ROUEN_H
+#define STATIONS_SIMPLE_PRIVATE_ROUEN_H
 
-#include "stationsplugincarto_p.h"
+#include "stationspluginsimple_p.h"
 
 
 static const struct {
@@ -52,12 +52,12 @@ static const struct {
 };
 
 
-struct StationsPluginCartoPrivateRouen : StationsPluginCartoPrivate {
-  StationsPluginCartoPrivateRouen() {
+struct StationsPluginSimplePrivateRouen : StationsPluginSimplePrivate {
+  StationsPluginSimplePrivateRouen() {
     rect = QRectF(QPointF(49.425375770135, 1.075833631204), QPointF(49.448655197633, 1.106576715704));
     center = QPointF(49.437015483884, 1.091205173454);
     statusUrl = "http://cyclic.rouen.fr/service/stationdetails/%1";
-    cartoUrl = "http://cyclic.rouen.fr/service/carto";
+    infosUrl = "http://cyclic.rouen.fr/service/carto";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {
@@ -86,5 +86,5 @@ struct StationsPluginCartoPrivateRouen : StationsPluginCartoPrivate {
   }
 };
 
-#endif /* STATIONS_CARTO_PRIVATE_ROUEN_H */
+#endif /* STATIONS_SIMPLE_PRIVATE_ROUEN_H */
 

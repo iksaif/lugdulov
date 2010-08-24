@@ -25,7 +25,7 @@
 StationsPluginNantes::StationsPluginNantes(QObject *parent)
   : StationsPluginCarto(parent)
 {
-  d = new StationsPluginCartoPrivateNantes();
+  d = new StationsPluginSimplePrivateNantes();
 }
 
 StationsPluginNantes::~StationsPluginNantes()

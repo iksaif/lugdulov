@@ -72,7 +72,7 @@ public:
   /**
    * Return an image url for a given station id
    */
-  virtual QUrl stationImageUrl(int id) = 0;
+  virtual QUrl imageUrl(int id) = 0;
 
   /**
    * Returns all custom actions for that plugin
@@ -96,12 +96,6 @@ public:
    * online content only (not required)
    */
   virtual void fetchOnline() = 0;
-
-  /**
-   * emit stationsCreated() for the nearest @num stations of @pos
-   * (not required)
-   */
-  virtual void fetchPos(const QPointF & pos, int num = 5) = 0;
 
   /**
    * emit stationsCreated() for each available stations using
