@@ -88,8 +88,12 @@ if (Q_WS_MAEMO_5)
 endif()
 
 if (BUILD_STATIC_PLUGINS)
-  target_link_libraries(lugdulov stationslyon)
-  target_link_libraries(lugdulov stationsparis)
+  target_link_libraries(lugdulov stationsfrance)
+  target_link_libraries(lugdulov stationsbelgium)
+  target_link_libraries(lugdulov stationsireland)
+  target_link_libraries(lugdulov stationsjapan)
+  target_link_libraries(lugdulov stationsluxembourg)
+  target_link_libraries(lugdulov stationsspain)
 endif ()
 
 target_link_libraries(

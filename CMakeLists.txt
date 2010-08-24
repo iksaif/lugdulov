@@ -13,11 +13,7 @@ if(CMAKE_SYSTEM_NAME MATCHES Linux)
 endif()
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/)
 
-if(CMAKE_SYSTEM_NAME MATCHES Linux)
-  cmake_dependent_option(BUILD_STATIC_PLUGINS "build static plugins [default: off]" OFF "NOT BUILD_SHARED_LIBS" ON)
-else()
-  set(BUILD_STATIC_PLUGINS ON)
-endif()
+cmake_dependent_option(BUILD_STATIC_PLUGINS "build static plugins [default: off]" OFF "NOT BUILD_SHARED_LIBS" ON)
 
 include(lugdulov)
 include(QtTranslations) # Local file for maemo_qt4_add_translation()

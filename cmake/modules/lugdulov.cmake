@@ -29,6 +29,9 @@ macro(ADD_PLUGIN)
   else()
     add_definitions(-DQT_SHARED)
     add_library(${LIBNAME} SHARED ${SRCFILES})
-    install(TARGETS ${LIBNAME} LIBRARY DESTINATION lib/lugdulov/plugins)
+    install(TARGETS ${LIBNAME}
+      LIBRARY DESTINATION lib/lugdulov/plugins
+      RUNTIME DESTINATION lib/lugdulov/plugins
+      )
   endif()
 endmacro()

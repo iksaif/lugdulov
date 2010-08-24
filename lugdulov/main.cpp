@@ -27,16 +27,24 @@
 #include "settings.h"
 
 #ifdef BUILD_STATIC_PLUGINS
-Q_IMPORT_PLUGIN(stationslyon);
-Q_IMPORT_PLUGIN(stationsparis);
+Q_IMPORT_PLUGIN(stationsfrance);
+Q_IMPORT_PLUGIN(stationsbelgium);
+Q_IMPORT_PLUGIN(stationsireland);
+Q_IMPORT_PLUGIN(stationsjapan);
+Q_IMPORT_PLUGIN(stationsluxembourg);
+Q_IMPORT_PLUGIN(stationsspain);
 #endif
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 #ifdef BUILD_STATIC_PLUGINS
-    Q_INIT_RESOURCE(lyon);
-    Q_INIT_RESOURCE(paris);
+    Q_INIT_RESOURCE(france);
+    Q_INIT_RESOURCE(belgium);
+    Q_INIT_RESOURCE(ireland);
+    Q_INIT_RESOURCE(japan);
+    Q_INIT_RESOURCE(luxembourg);
+    Q_INIT_RESOURCE(spain);
 #endif
 
     QTranslator qtTranslator;
