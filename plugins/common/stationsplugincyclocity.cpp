@@ -28,25 +28,25 @@
 #include <QtCore/QDebug>
 
 #include "station.h"
-#include "stationsplugincarto.h"
+#include "stationsplugincyclocity.h"
 
-StationsPluginCarto::StationsPluginCarto(QObject *parent)
+StationsPluginCycloCity::StationsPluginCycloCity(QObject *parent)
   : StationsPluginSimple(parent)
 {
 }
 
-StationsPluginCarto::~StationsPluginCarto()
+StationsPluginCycloCity::~StationsPluginCycloCity()
 {
 }
 
 void
-StationsPluginCarto::handleInfos(const QByteArray & data)
+StationsPluginCycloCity::handleInfos(const QByteArray & data)
 {
   // FIXME
 }
 
 void
-StationsPluginCarto::handleStatus(const QByteArray & data, int id)
+StationsPluginCycloCit::handleStatus(const QByteArray & data, int id)
 {
   Station *station;
   QList < Station * > updated;

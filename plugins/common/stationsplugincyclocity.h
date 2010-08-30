@@ -16,8 +16,8 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CARTO_H
-#define STATIONS_CARTO_H
+#ifndef STATIONS_CYCLOCITY_H
+#define STATIONS_CYCLOCITY_H
 
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
@@ -27,16 +27,16 @@
 
 class Station;
 
-class StationsPluginCarto : public StationsPluginSimple
+class StationsPluginCycloCity : public StationsPluginSimple
 {
   Q_OBJECT
  public:
-  StationsPluginCarto(QObject *parent);
-  virtual ~StationsPluginCarto();
+  StationsPluginCycloCity(QObject *parent);
+  virtual ~StationsPluginCycloCity();
 
  protected:
   virtual void handleInfos(const QByteArray & data);
   virtual void handleStatus(const QByteArray & data, int id);
 };
 
-#endif /* STATIONS_CARTO_H */
+#endif /* STATIONS_CYCLOCITY_H */
