@@ -19,9 +19,9 @@
 #ifndef STATIONS_SANTANDER_H
 #define STATIONS_SANTANDER_H
 
-#include "stationsplugincarto.h"
+#include "stationsplugincyclocity.h"
 
-class StationsPluginSantander : public StationsPluginCarto
+class StationsPluginSantander : public StationsPluginCycloCity
 {
   Q_OBJECT
  public:

@@ -23,7 +23,7 @@
 #include "nancy_p.h"
 
 StationsPluginNancy::StationsPluginNancy(QObject *parent)
-  : StationsPluginCarto(parent)
+  : StationsPluginCycloCity(parent)
 {
   d = new StationsPluginSimplePrivateNancy();
 }

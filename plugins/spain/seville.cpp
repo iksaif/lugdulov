@@ -23,7 +23,7 @@
 #include "seville_p.h"
 
 StationsPluginSeville::StationsPluginSeville(QObject *parent)
-  : StationsPluginCarto(parent)
+  : StationsPluginCycloCity(parent)
 {
   d = new StationsPluginSimplePrivateSeville();
 }
@@ -42,7 +42,7 @@ StationsPluginSeville::id() const
 QString
 StationsPluginSeville::name() const
 {
-  return QString::fromUtf8("Seville");
+  return QString::fromUtf8("Séville");
 }
 
 QString

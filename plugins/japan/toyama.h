@@ -19,9 +19,9 @@
 #ifndef STATIONS_TOYAMA_H
 #define STATIONS_TOYAMA_H
 
-#include "stationsplugincarto.h"
+#include "stationsplugincyclocity.h"
 
-class StationsPluginToyama : public StationsPluginCarto
+class StationsPluginToyama : public StationsPluginCycloCity
 {
   Q_OBJECT
  public:

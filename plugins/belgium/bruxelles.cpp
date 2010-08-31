@@ -23,7 +23,7 @@
 #include "bruxelles_p.h"
 
 StationsPluginBruxelles::StationsPluginBruxelles(QObject *parent)
-  : StationsPluginCarto(parent)
+  : StationsPluginCycloCity(parent)
 {
   d = new StationsPluginSimplePrivateBruxelles();
 }

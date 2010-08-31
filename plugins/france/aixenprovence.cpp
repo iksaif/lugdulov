@@ -23,7 +23,7 @@
 #include "aixenprovence_p.h"
 
 StationsPluginAixenprovence::StationsPluginAixenprovence(QObject *parent)
-  : StationsPluginCarto(parent)
+  : StationsPluginCycloCity(parent)
 {
   d = new StationsPluginSimplePrivateAixenprovence();
 }

@@ -27,32 +27,31 @@ static const struct {
         int arrondissementNumber;
         const char *name;
         const char *address;
-        const char *fullAddress;
         double x;
         double y;
 } stations[] = {
-	{ 7, 0, "007_Facultad De Derecho", "Aprox. Facultad De Ciencias", "Aprox. Facultad De Ciencias  ", 43.4701661089, -3.80649947753 },
-	{ 6, 0, "006_Faculdad De Ciencias", "Aprox. Glorieta De Los Delfines", "Aprox. Glorieta De Los Delfines  ", 43.4711061117, -3.8005864589 },
-	{ 11, 0, "011_Puerto Chico", "Aprox.Paseo Pereda Y San Martín", "Aprox.Paseo Pereda Y San Martín  ", 43.4626775408, -3.79656941603 },
-	{ 12, 0, "012_Calle Alta", "Aprox. Mercado De México", "Aprox. Mercado De México  ", 43.4579662522, -3.82480124235 },
-	{ 13, 0, "013_Calle De San Fernando", "Aprox. Paseo Del Alameda", "Aprox. Paseo Del Alameda  ", 43.4607255432, -3.81797824492 },
-	{ 4, 0, "004_Cormorán", "Aprox. C/ De Manuel García Lago", "Aprox. C/ De Manuel García Lago  ", 43.478471811, -3.78865314567 },
-	{ 1, 0, "001_Jardines De Pereda", "Aprox. Correos Y Castelar", "Aprox. Correos Y Castelar  ", 43.461432786, -3.80331477168 },
-	{ 10, 0, "010_Plaza De San Martin", "Aprox. Avda De La Reina Victoria Y Castelar", "Aprox. Avda De La Reina Victoria Y Castelar  ", 43.4635521249, -3.78800547923 },
-	{ 5, 0, "005_Glorieta De Los Delfines", "Aprox. Avda De Los Castros", "Aprox. Avda De Los Castros  ", 43.4719661075, -3.7928544962 },
-	{ 2, 0, "002_Plaza De Las Brisas", "Aprox. Jardines De Piquio", "Aprox. Jardines De Piquio  ", 43.4744126705, -3.78578134528 },
-	{ 8, 0, "008_Plaza De Italia", "Aprox. C/ De Joaquín Costa", "Aprox. C/ De Joaquín Costa  ", 43.4718048258, -3.78134613486 },
-	{ 3, 0, "003_Parque Las Llamas", "Aprox. Palacio De Deportes", "Aprox. Palacio De Deportes  ", 43.4757322604, -3.79806387098 },
-//	{ 9, 0, "009_Avenida De La Magdalena", "Aprox. Avda De La Reina Victoria", "Aprox. Avda De La Reina Victoria  ", 89.9989063612, -136.261831457 },
-	{ 14, 0, "014_Atilano Rodriguez", "Aprox. Paseo De Pereda Y San Fernando", "Aprox. Paseo De Pereda Y San Fernando  ", 43.4583838909, -3.81046839133 },
-	{0, 0, NULL, NULL, NULL, 0., 0.}
+	{ 7, 0, "007_Facultad De Derecho", "Aprox. Facultad De Ciencias", 43.4701661089, -3.80649947753 },
+	{ 6, 0, "006_Faculdad De Ciencias", "Aprox. Glorieta De Los Delfines", 43.4711061117, -3.8005864589 },
+	{ 11, 0, "011_Puerto Chico", "Aprox.Paseo Pereda Y San Martín", 43.4626775408, -3.79656941603 },
+	{ 12, 0, "012_Calle Alta", "Aprox. Mercado De México", 43.4579662522, -3.82480124235 },
+	{ 13, 0, "013_Calle De San Fernando", "Aprox. Paseo Del Alameda", 43.4607255432, -3.81797824492 },
+	{ 4, 0, "004_Cormorán", "Aprox. C/ De Manuel García Lago", 43.478471811, -3.78865314567 },
+	{ 1, 0, "001_Jardines De Pereda", "Aprox. Correos Y Castelar", 43.461432786, -3.80331477168 },
+	{ 10, 0, "010_Plaza De San Martin", "Aprox. Avda De La Reina Victoria Y Castelar", 43.4635521249, -3.78800547923 },
+	{ 5, 0, "005_Glorieta De Los Delfines", "Aprox. Avda De Los Castros", 43.4719661075, -3.7928544962 },
+	{ 2, 0, "002_Plaza De Las Brisas", "Aprox. Jardines De Piquio", 43.4744126705, -3.78578134528 },
+	{ 8, 0, "008_Plaza De Italia", "Aprox. C/ De Joaquín Costa", 43.4718048258, -3.78134613486 },
+	{ 3, 0, "003_Parque Las Llamas", "Aprox. Palacio De Deportes", 43.4757322604, -3.79806387098 },
+//	{ 9, 0, "009_Avenida De La Magdalena", "Aprox. Avda De La Reina Victoria", 89.9989063612, -136.261831457 },
+	{ 14, 0, "014_Atilano Rodriguez", "Aprox. Paseo De Pereda Y San Fernando", 43.4583838909, -3.81046839133 },
+	{0, 0, NULL, NULL, 0., 0.}
 };
 
 
 struct StationsPluginSimplePrivateSantander : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateSantander() {
-    rect = QRectF(QPointF(43.457556141047, -3.825670344499), QPointF(43.478881922207, -3.780477032706));
-    center = QPointF(43.468219031627, -3.803073688603);
+    rect = QRectF(QPointF(43.260960, -3.824801), QPointF(43.478472, -3.607934));
+    center = QPointF(43.460960, -3.807934);
     statusUrl = "http://www.tusbic.es/service/stationdetails/%1";
     infosUrl = "http://www.tusbic.es/service/carto";
   }

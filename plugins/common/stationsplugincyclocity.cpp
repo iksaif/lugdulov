@@ -46,7 +46,7 @@ StationsPluginCycloCity::handleInfos(const QByteArray & data)
 }
 
 void
-StationsPluginCycloCit::handleStatus(const QByteArray & data, int id)
+StationsPluginCycloCity::handleStatus(const QByteArray & data, int id)
 {
   Station *station;
   QList < Station * > updated;

@@ -23,7 +23,7 @@
 #include "cergypontoise_p.h"
 
 StationsPluginCergypontoise::StationsPluginCergypontoise(QObject *parent)
-  : StationsPluginCarto(parent)
+  : StationsPluginCycloCity(parent)
 {
   d = new StationsPluginSimplePrivateCergypontoise();
 }

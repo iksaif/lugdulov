@@ -23,7 +23,7 @@
 #include "plainecommune_p.h"
 
 StationsPluginPlainecommune::StationsPluginPlainecommune(QObject *parent)
-  : StationsPluginCarto(parent)
+  : StationsPluginCycloCity(parent)
 {
   d = new StationsPluginSimplePrivatePlainecommune();
 }

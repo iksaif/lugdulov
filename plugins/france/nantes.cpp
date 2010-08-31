@@ -23,7 +23,7 @@
 #include "nantes_p.h"
 
 StationsPluginNantes::StationsPluginNantes(QObject *parent)
-  : StationsPluginCarto(parent)
+  : StationsPluginCycloCity(parent)
 {
   d = new StationsPluginSimplePrivateNantes();
 }

@@ -23,7 +23,7 @@
 #include "paris_p.h"
 
 StationsPluginParis::StationsPluginParis(QObject *parent)
-  : StationsPluginCarto(parent)
+  : StationsPluginCycloCity(parent)
 {
   d = new StationsPluginSimplePrivateParis();
 }
@@ -54,6 +54,6 @@ StationsPluginParis::bikeName() const
 QIcon
 StationsPluginParis::bikeIcon() const
 {
-  return QIcon(":/france/velib.png");
+  return QIcon(":/res/bike.png");
 }
 

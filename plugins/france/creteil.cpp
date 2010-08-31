@@ -23,7 +23,7 @@
 #include "creteil_p.h"
 
 StationsPluginCreteil::StationsPluginCreteil(QObject *parent)
-  : StationsPluginCarto(parent)
+  : StationsPluginCycloCity(parent)
 {
   d = new StationsPluginSimplePrivateCreteil();
 }
@@ -42,7 +42,7 @@ StationsPluginCreteil::id() const
 QString
 StationsPluginCreteil::name() const
 {
-  return QString::fromUtf8("Creteil");
+  return QString::fromUtf8("Créteil");
 }
 
 QString

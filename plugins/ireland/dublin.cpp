@@ -23,7 +23,7 @@
 #include "dublin_p.h"
 
 StationsPluginDublin::StationsPluginDublin(QObject *parent)
-  : StationsPluginCarto(parent)
+  : StationsPluginCycloCity(parent)
 {
   d = new StationsPluginSimplePrivateDublin();
 }

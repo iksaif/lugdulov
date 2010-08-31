@@ -23,7 +23,7 @@
 #include "besancon_p.h"
 
 StationsPluginBesancon::StationsPluginBesancon(QObject *parent)
-  : StationsPluginCarto(parent)
+  : StationsPluginCycloCity(parent)
 {
   d = new StationsPluginSimplePrivateBesancon();
 }

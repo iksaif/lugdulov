@@ -19,9 +19,9 @@
 #ifndef STATIONS_BESANCON_H
 #define STATIONS_BESANCON_H
 
-#include "stationsplugincarto.h"
+#include "stationsplugincyclocity.h"
 
-class StationsPluginBesancon : public StationsPluginCarto
+class StationsPluginBesancon : public StationsPluginCycloCity
 {
   Q_OBJECT
  public:

@@ -23,7 +23,7 @@
 #include "santander_p.h"
 
 StationsPluginSantander::StationsPluginSantander(QObject *parent)
-  : StationsPluginCarto(parent)
+  : StationsPluginCycloCity(parent)
 {
   d = new StationsPluginSimplePrivateSantander();
 }

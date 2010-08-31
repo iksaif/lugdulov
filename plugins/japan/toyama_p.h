@@ -27,33 +27,32 @@ static const struct {
         int arrondissementNumber;
         const char *name;
         const char *address;
-        const char *fullAddress;
         double x;
         double y;
 } stations[] = {
-	{ 1, 0, "", "奥田新町８番 8 Okudashin-Machi", "奥田新町８番 8 Okudashin-Machi  ", 36.705842, 137.215829 },
-	{ 2, 0, "富山駅北 Toyama Station North", "牛島町１７番 17 Ushijima-Cho", "牛島町１７番 17 Ushijima-Cho  ", 36.703055, 137.214531 },
-	{ 11, 0, "大手町 Ote-Machi", "大手町", "大手町  ", 36.691732, 137.211425 },
-	{ 3, 0, "富山駅南① Toyama Station South 1", "明輪町１番 1 Meirin-Cho", "明輪町１番 1 Meirin-Cho  ", 36.700744, 137.212211 },
-	{ 4, 0, "富山駅南② Toyama Station South 2", "新富町１丁目", "新富町１丁目  ", 36.699916, 137.212889 },
-	{ 5, 0, "", "", "  ", 36.697144, 137.21636 },
-	{ 6, 0, "市役所 City Hall", "新", "新  ", 36.696277, 137.213238 },
-	{ 7, 0, "北新町１丁目 Kitashin-Machi 1", "北新町１丁目３番 1-3 Kitashin-Machi", "北新町１丁目３番 1-3 Kitashin-Machi  ", 36.693935, 137.220853 },
-	{ 8, 0, "", "", "  ", 36.694109, 137.216014 },
-	{ 9, 0, "城址公", "", "  ", 36.693453, 137.212635 },
-	{ 10, 0, "丸の内 Marunouchi", "丸の内３丁目１番 3-1 Marunouchi", "丸の内３丁目１番 3-1 Marunouchi  ", 36.692294, 137.209547 },
-	{ 12, 0, "", "", "  ", 36.691711, 137.215395 },
-	{ 13, 0, "旅籠町 Hatago-Machi", "旅籠町", "旅籠町  ", 36.6893, 137.208727 },
-	{ 14, 0, "西町 Nishi-Cho", "西町３番 3 Nishi-Cho", "西町３番 3 Nishi-Cho  ", 36.688971, 137.214437 },
-	{ 15, 0, "堤町通り Tsutsumicho Street", "堤町通り１丁目", "堤町通り１丁目  ", 36.688891, 137.217613 },
-	{0, 0, NULL, NULL, NULL, 0., 0.}
+	{ 1, 0, "", "奥田新町８番 8 Okudashin-Machi", 36.705842, 137.215829 },
+	{ 2, 0, "富山駅北 Toyama Station North", "牛島町１７番 17 Ushijima-Cho", 36.703055, 137.214531 },
+	{ 11, 0, "大手町 Ote-Machi", "大手町", 36.691732, 137.211425 },
+	{ 3, 0, "富山駅南① Toyama Station South 1", "明輪町１番 1 Meirin-Cho", 36.700744, 137.212211 },
+	{ 4, 0, "富山駅南② Toyama Station South 2", "新富町１丁目", 36.699916, 137.212889 },
+	{ 5, 0, "", "", 36.697144, 137.21636 },
+	{ 6, 0, "市役所 City Hall", "新", 36.696277, 137.213238 },
+	{ 7, 0, "北新町１丁目 Kitashin-Machi 1", "北新町１丁目３番 1-3 Kitashin-Machi", 36.693935, 137.220853 },
+	{ 8, 0, "", "", 36.694109, 137.216014 },
+	{ 9, 0, "城址公", "", 36.693453, 137.212635 },
+	{ 10, 0, "丸の内 Marunouchi", "丸の内３丁目１番 3-1 Marunouchi", 36.692294, 137.209547 },
+	{ 12, 0, "", "", 36.691711, 137.215395 },
+	{ 13, 0, "旅籠町 Hatago-Machi", "旅籠町", 36.6893, 137.208727 },
+	{ 14, 0, "西町 Nishi-Cho", "西町３番 3 Nishi-Cho", 36.688971, 137.214437 },
+	{ 15, 0, "堤町通り Tsutsumicho Street", "堤町通り１丁目", 36.688891, 137.217613 },
+	{0, 0, NULL, NULL, 0., 0.}
 };
 
 
 struct StationsPluginSimplePrivateToyama : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateToyama() {
-    rect = QRectF(QPointF(36.688551980000, 137.208484480000), QPointF(36.706181020000, 137.221095520000));
-    center = QPointF(36.697366500000, 137.214790000000);
+    rect = QRectF(QPointF(36.495952, 36.895952), QPointF(137.013677, 137.413677));
+    center = QPointF(36.695952, 137.213677);
     statusUrl = "http://www.cyclocity.jp/service/stationdetails/%1";
     infosUrl = "http://www.cyclocity.jp/service/carto";
   }

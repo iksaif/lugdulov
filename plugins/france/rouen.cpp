@@ -23,7 +23,7 @@
 #include "rouen_p.h"
 
 StationsPluginRouen::StationsPluginRouen(QObject *parent)
-  : StationsPluginCarto(parent)
+  : StationsPluginCycloCity(parent)
 {
   d = new StationsPluginSimplePrivateRouen();
 }

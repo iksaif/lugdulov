@@ -19,9 +19,9 @@
 #ifndef STATIONS_MULHOUSE_H
 #define STATIONS_MULHOUSE_H
 
-#include "stationsplugincarto.h"
+#include "stationsplugincyclocity.h"
 
-class StationsPluginMulhouse : public StationsPluginCarto
+class StationsPluginMulhouse : public StationsPluginCycloCity
 {
   Q_OBJECT
  public:

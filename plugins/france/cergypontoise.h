@@ -19,9 +19,9 @@
 #ifndef STATIONS_CERGYPONTOISE_H
 #define STATIONS_CERGYPONTOISE_H
 
-#include "stationsplugincarto.h"
+#include "stationsplugincyclocity.h"
 
-class StationsPluginCergypontoise : public StationsPluginCarto
+class StationsPluginCergypontoise : public StationsPluginCycloCity
 {
   Q_OBJECT
  public:

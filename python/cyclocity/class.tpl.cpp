@@ -23,7 +23,7 @@
 #include "<city>_p.h"
 
 StationsPlugin<City>::StationsPlugin<City>(QObject *parent)
-  : StationsPluginCarto(parent)
+  : StationsPluginCycloCity(parent)
 {
   d = new StationsPluginSimplePrivate<City>();
 }

@@ -19,9 +19,9 @@
 #ifndef STATIONS_<CITY>_H
 #define STATIONS_<CITY>_H
 
-#include "stationsplugincarto.h"
+#include "stationsplugincyclocity.h"
 
-class StationsPlugin<City> : public StationsPluginCarto
+class StationsPlugin<City> : public StationsPluginCycloCity
 {
   Q_OBJECT
  public:

@@ -23,7 +23,7 @@
 #include "mulhouse_p.h"
 
 StationsPluginMulhouse::StationsPluginMulhouse(QObject *parent)
-  : StationsPluginCarto(parent)
+  : StationsPluginCycloCity(parent)
 {
   d = new StationsPluginSimplePrivateMulhouse();
 }

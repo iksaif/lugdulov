@@ -19,9 +19,9 @@
 #ifndef STATIONS_CRETEIL_H
 #define STATIONS_CRETEIL_H
 
-#include "stationsplugincarto.h"
+#include "stationsplugincyclocity.h"
 
-class StationsPluginCreteil : public StationsPluginCarto
+class StationsPluginCreteil : public StationsPluginCycloCity
 {
   Q_OBJECT
  public:

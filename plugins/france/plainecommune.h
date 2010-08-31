@@ -19,9 +19,9 @@
 #ifndef STATIONS_PLAINECOMMUNE_H
 #define STATIONS_PLAINECOMMUNE_H
 
-#include "stationsplugincarto.h"
+#include "stationsplugincyclocity.h"
 
-class StationsPluginPlainecommune : public StationsPluginCarto
+class StationsPluginPlainecommune : public StationsPluginCycloCity
 {
   Q_OBJECT
  public:

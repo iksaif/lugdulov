@@ -23,7 +23,7 @@
 #include "toyama_p.h"
 
 StationsPluginToyama::StationsPluginToyama(QObject *parent)
-  : StationsPluginCarto(parent)
+  : StationsPluginCycloCity(parent)
 {
   d = new StationsPluginSimplePrivateToyama();
 }

@@ -1,188 +1,169 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+  cyclocity.py
 
-import urllib2
-import json
+  Copyright (C) 2010 Corentin Chary <corentincj@iksaif.net>
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+  for more details.
+
+  You should have received a copy of the GNU General Public License along
+  with this program; if not, write to the Free Software Foundation, Inc.,
+  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
+  JCDecaux CycloCity
+
+"""
+
 import sys
-import getopt
+import os
+import urllib2
+import xml.dom.minidom
+import json
+import datetime
+from plugin import *
 
-regions = ["69381", "69382", "69383", "69384", "69385", "69386", "69387",
-           "69388", "69389", "69266", "69034", "69256"]
+class LyonVelov(Provider):
+    regions = ["69381", "69382", "69383", "69384", "69385", "69386", "69387",
+               "69388", "69389", "69266", "69034", "69256"]
+    center = (45.760747, 4.85235)
 
-def station_json_url(id):
-    return "http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsParId.php?gid=%d" % id
+    def station_json_url(self, id):
+        return "http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsParId.php?gid=%d" % int(id)
 
-def stations_json_url(region):
-    return "http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsParArrondissement.php?arrondissement=%s" % region
+    def stations_json_url(self, region):
+        return "http://www.velov.grandlyon.com/velovmap/zhp/inc/StationsParArrondissement.php?arrondissement=%s" % region
 
-def station_status_url(id):
-    return "http://www.velov.grandlyon.com/velovmap/zhp/inc/DispoStationsParId.php?id=%d" % id
+    def station_status_url(self, id):
+        return "http://www.velov.grandlyon.com/velovmap/zhp/inc/DispoStationsParId.php?id=%d" % int(id)
 
-def station_image_url(id):
-    return "http://www.velov.grandlyon.com/uploads/tx_gsstationsvelov/%d.jpg" % id
+    def station_image_url(self, id):
+        return "http://www.velov.grandlyon.com/uploads/tx_gsstationsvelov/%d.jpg" % int(id)
 
-def usage():
-    print "lyon.py [options] [-o out]"
-    print "Options:"
-    print " -v           verbose"
-    print " -h, --help   help"
-    print " -o, --output output file"
-    print " -f, --full   also dump status"
-    print " -c, --cpp    dump cpp file"
-    print " -p, --class  dump class file"
-    print " -t, --header dump header file"
-    sys.exit(1)
+    def get_countries(self):
+        country = Country()
+        country.uid = "fr"
+        country.name = "France"
+        return [country]
 
-def stations(region):
-    url = stations_json_url(region)
-    fp = urllib2.urlopen(url)
-    data = fp.read()
-    return json.loads(data)
+    def get_cities(self, country):
+        city = City()
+        city.uid = "lyon"
+        city.name = "Lyon"
+        city.bikeName = "Velo'V"
+        city.bikeIcon = ""
+        city.lat = self.center[0]
+        city.lng = self.center[1]
+        city.create_rect()
+        return [city]
 
-def station(id):
-    url = station_json_url(id)
-    fp = urllib2.urlopen(url)
-    data = fp.read()
-    return json.loads(data)
+    def get_city_bike_zone(self, city):
+        lat_min  = city.rect[0]
+        lat_max  = city.rect[1]
+        lng_min = city.rect[2]
+        lng_max = city.rect[3]
+        lat_center = city.lat
+        lng_center = city.lng
+        stations = self.get_stations(city)
+        for station in stations:
+            lat_place = float(station.lat)
+            lng_place = float(station.lng)
+            if lat_place > city.rect[0] \
+                and lat_place < city.rect[2] \
+                and lng_place > city.rect[1] \
+                and lng_place < city.rect[3]:
+                if lat_min > lat_place : lat_min = lat_place
+                if lat_max < lat_place : lat_max = lat_place
+                if lng_min > lng_place : lng_min = lng_place
+                if lng_max < lng_place : lng_max = lng_place
+        return lat_min, lng_min, lat_max, lng_max
 
-def status(id):
-    import xml.dom.minidom
+    def get_zones(self, city):
+        zones = []
+        for region in self.regions:
+            zone = Zone()
+            zone.uid = region
+            zone.rect = (0, 0, 0, 0)
+            zone.create_center()
+            zones.append(zone)
+        return zones
 
-    url = station_status_url(id)
-    fp = urllib2.urlopen(url)
-    data = fp.read()
+    def get_stations(self, city):
+        stations = []
 
-    dom = xml.dom.minidom.parseString(data)
-    station = dom.getElementsByTagName("station")[0]
+        for i in self.regions:
+            url = self.stations_json_url(i)
+            fp = urllib2.urlopen(url)
+            data = fp.read()
+            data = json.loads(data)
 
-    ret = {}
-    for elem in ["available", "free", "total", "ticket"]:
-        ret[elem] = station.getElementsByTagName(elem)[0].childNodes[0].data
-    return ret
+            for j in data['markers']:
+                station = Station()
+                station.name = j['nomStation']
+                station.uid = j['numStation']
+                station.id = j['numStation']
+                station.description = j['infoStation']
+                station.zone = i
+                if station.zone == '':
+                    station.zone = '0' # FIXME, try to guess zone
+                station.lat = float(j['x'])
+                station.lng = float(j['y'])
+                stations.append(station)
+        return stations
 
-def dump_json(total, output):
-    print >>output, json.dumps(total)
+    def get_status(self, station, city):
+        import xml.dom.minidom
 
-def dump_cpp(total, output):
-    stations = """
-static const struct {
-        int number;
-        int arrondissementNumber;
-        const char *name;
-        const char *address;
-        double x;
-        double y;
-} stations[] = {\n"""
+        url = self.station_status_url(station.id)
+        fp = urllib2.urlopen(url)
+        data = fp.read()
 
-    lat_min  = 999.0
-    lat_max  = -999.0
-    lng_min = 999.0
-    lng_max = -999.0
+        dom = xml.dom.minidom.parseString(data)
+        node = dom.getElementsByTagName("station")[0]
 
-    center = (45.767299, 4.8343287) # FIXME
-    limits = {'max_lat' : center[0] + 0.2,
-              'min_lat' : center[0] - 0.2,
-              'max_lng' : center[1] + 0.2,
-              'min_lng' : center[1] - 0.2}
-    reg = {}
+        status = {}
+        for elem in ["available", "free", "total", "ticket"]:
+            status[elem] = int(node.getElementsByTagName(elem)[0].childNodes[0].data)
+        station.ticket = status['ticket']
+        station.bikes = status['available']
+        station.slots = status['free']
+        return station
 
-    for j in total['markers']:
-        lat = float(j['x'])
-        lng = float(j['y'])
-        skip = False
+    def dump_priv(self, city):
+        data = open('cyclocity/priv.tpl.h').read()
+        city.rect = self.get_city_bike_zone(city)
+        data = self._dump_priv(data, city)
+        data = data.replace('<statusUrl>', '')
+        data = data.replace('<infosUrl>', '')
+        print data.encode('utf8')
 
-	if lat > limits['max_lat'] or lat < limits['min_lat'] or \
-                lng > limits['max_lng'] or lng < limits['min_lng']:
-            skip = True
-        if skip:
-            stations += "//"
-        stations += '\t{ %s, %s, "%s", "%s", %s, %s },\n' % (j['numStation'], j['codePostal'], j['nomStation'], j['infoStation'], j['x'], j['y'])
+def test():
+    prov = LyonVelov()
 
-        if not skip:
-            reg[j['codePostal']] = True
-            if lat_min > float(lat) : lat_min = float(lat)
-            if lat_max < float(lat) : lat_max = float(lat)
-            if lng_min > float(lng) : lng_min = float(lng)
-            if lng_max < float(lng) : lng_max = float(lng)
-
-    stations += "\t{0, 0, NULL, NULL, 0., 0.}\n"
-    stations += "};\n"
-
-    lat_border = (lat_max - lat_min) / 50
-    lng_border = (lng_max - lng_min) / 50
-
-    rect = "QRectF(QPointF(%.12f, %.12f), " % (lat_min - lat_border, lng_min - lng_border)
-    rect += "QPointF(%.12f, %.12f))" % (lat_max + lat_border, lng_max + lng_border)
-    center = "QPointF(%.12f, %.12f)" % ((lat_min + lat_max) / 2, (lng_min + lng_max) / 2)
-
-    regions = ""
-    for region in reg.keys():
-        regions += '    ret << "%s";\n' % region
-
-    data = open('carto_p.tpl').read()
-    data = data.replace('<stations>', stations)
-    data = data.replace('<rect>', rect)
-    data = data.replace('<center>', center);
-    data = data.replace('<CITY>', "LYON");
-    data = data.replace('<City>', "Lyon");
-    data = data.replace('<statusUrl>', '')
-    data = data.replace('<cartoUrl>', '')
-    data = data.replace('<regions>', regions)
-    print >>output, data.encode('utf8')
+    countries = prov.get_countries()
+    print countries
+    print countries[0]
+    cities = prov.get_cities(countries[0])
+    print cities
+    print cities[0]
+    zones = prov.get_zones(cities[0])
+    print zones
+    print zones[0]
+    stations = prov.get_stations(cities[0])
+    print "Stations: ", len(stations)
+    station = prov.get_status(stations[0], cities[0])
+    print station
 
 def main():
-
-    try:
-        opts, args = getopt.getopt(sys.argv[1:], "ho:fvc", ["help", "output=", "full", "version", "cpp"])
-    except getopt.GetoptError, err:
-        print str(err)
-        usage()
-        sys.exit(2)
-    output = None
-    verbose = False
-    full = False
-    cpp = False
-    for o, a in opts:
-        if o == "-v":
-            verbose = True
-        elif o in ("-h", "--help"):
-            usage()
-            sys.exit()
-        elif o in ("-o", "--output"):
-            output = a
-        elif o in ("-f", "--full"):
-            full = True
-        elif o in ("-c", "--cpp"):
-            cpp = True
-        else:
-            assert False, "unhandled option"
-
-    if output:
-        output = open(output, "w")
-    else:
-        output = sys.stdout
-
-    total = {u'markers' : []}
-    for i in regions:
-        if verbose:
-            print >>sys.stderr, stations_json_url(i)
-        data = stations(i)
-        if 'markers' not in data or not data['markers']:
-            continue
-        for j in data['markers']:
-            if full:
-                id = int(j['numStation'])
-                if verbose:
-                    print >>sys.stderr, station_status_url(id)
-                try:
-                    j['status'] = status(id)
-                except Exception, err:
-                    print err
-            j['codePostal'] = i
-            total['markers'].append(j)
-    if cpp:
-        dump_cpp(total, output)
-    else:
-        dump_json(total, output)
+    test()
 
 if __name__ == "__main__":
     main()

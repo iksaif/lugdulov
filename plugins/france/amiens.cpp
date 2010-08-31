@@ -23,7 +23,7 @@
 #include "amiens_p.h"
 
 StationsPluginAmiens::StationsPluginAmiens(QObject *parent)
-  : StationsPluginCarto(parent)
+  : StationsPluginCycloCity(parent)
 {
   d = new StationsPluginSimplePrivateAmiens();
 }

@@ -27,34 +27,33 @@ static const struct {
         int arrondissementNumber;
         const char *name;
         const char *address;
-        const char *fullAddress;
         double x;
         double y;
 } stations[] = {
-	{ 3, 0, "3- Brossolette/Churchill", "", "  ", 43.5185189747, 5.4433065422 },
-	{ 8, 0, "8- Cite Du Livre", "", "  ", 43.5247413812, 5.43992403319 },
-	{ 6, 0, "6- Gare Sncf", "", "  ", 43.5232148458, 5.44546523167 },
-	{ 5, 0, "5- Pkg Bellegarde", "", "  ", 43.5322417708, 5.45057973986 },
-	{ 1, 0, "1- Office Du Tourisme", "", "  ", 43.5258125443, 5.44521093141 },
-	{ 4, 0, "4- Briand/Pasteur", "", "  ", 43.5327677856, 5.4460589339 },
-	{ 13, 0, "13- Europe/Villeneuve", "Av De L Europe", "Av De L Europe  ", 43.5242715956, 5.43122128977 },
-	{ 14, 0, "14- Route Cezanne", "", "  ", 43.5265062249, 5.45982266324 },
-	{ 10, 0, "10- Lacepede/Opera", "", "  ", 43.5275833255, 5.45242746677 },
-	{ 15, 0, "15- Allees Provencales", "", "  ", 43.5266644033, 5.44248831556 },
-	{ 12, 0, "12- Palais De Justice", "", "  ", 43.5285546023, 5.44962483462 },
-	{ 2, 0, "2- Pkg Mignet", "", "  ", 43.5246738682, 5.44758411683 },
-	{ 9, 0, "9- Shumann", "", "  ", 43.5189701384, 5.44669288281 },
-	{ 7, 0, "7- Italie/Carnot", "", "  ", 43.524830747, 5.45399563147 },
-	{ 11, 0, "11- Sextius/Cordeliers", "", "  ", 43.5292828167, 5.44401510025 },
-	{ 16, 0, "16- Gare Routiere Europe", "", "  ", 43.5236136087, 5.44129665327 },
-	{0, 0, NULL, NULL, NULL, 0., 0.}
+	{ 3, 0, "3- Brossolette/Churchill", "", 43.5185189747, 5.4433065422 },
+	{ 8, 0, "8- Cite Du Livre", "", 43.5247413812, 5.43992403319 },
+	{ 6, 0, "6- Gare Sncf", "", 43.5232148458, 5.44546523167 },
+	{ 5, 0, "5- Pkg Bellegarde", "", 43.5322417708, 5.45057973986 },
+	{ 1, 0, "1- Office Du Tourisme", "", 43.5258125443, 5.44521093141 },
+	{ 4, 0, "4- Briand/Pasteur", "", 43.5327677856, 5.4460589339 },
+	{ 13, 0, "13- Europe/Villeneuve", "Av De L Europe", 43.5242715956, 5.43122128977 },
+	{ 14, 0, "14- Route Cezanne", "", 43.5265062249, 5.45982266324 },
+	{ 10, 0, "10- Lacepede/Opera", "", 43.5275833255, 5.45242746677 },
+	{ 15, 0, "15- Allees Provencales", "", 43.5266644033, 5.44248831556 },
+	{ 12, 0, "12- Palais De Justice", "", 43.5285546023, 5.44962483462 },
+	{ 2, 0, "2- Pkg Mignet", "", 43.5246738682, 5.44758411683 },
+	{ 9, 0, "9- Shumann", "", 43.5189701384, 5.44669288281 },
+	{ 7, 0, "7- Italie/Carnot", "", 43.524830747, 5.45399563147 },
+	{ 11, 0, "11- Sextius/Cordeliers", "", 43.5292828167, 5.44401510025 },
+	{ 16, 0, "16- Gare Routiere Europe", "", 43.5236136087, 5.44129665327 },
+	{0, 0, NULL, NULL, 0., 0.}
 };
 
 
 struct StationsPluginSimplePrivateAixenprovence : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateAixenprovence() {
-    rect = QRectF(QPointF(43.518233998492, 5.430649262296), QPointF(43.533052761794, 5.460394690706));
-    center = QPointF(43.525643380143, 5.445521976501);
+    rect = QRectF(QPointF(43.324909, 5.431221), QPointF(43.532768, 5.654144));
+    center = QPointF(43.524909, 5.454144);
     statusUrl = "http://www.vhello.fr/service/stationdetails/%1";
     infosUrl = "http://www.vhello.fr/service/carto";
   }
