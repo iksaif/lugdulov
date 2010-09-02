@@ -42,7 +42,36 @@ StationsPluginCycloCity::~StationsPluginCycloCity()
 void
 StationsPluginCycloCity::handleInfos(const QByteArray & data)
 {
-  // FIXME
+  QDomDocument doc;
+  QDomNode node;
+
+  doc.setContent(data);
+  node = doc.firstChildElement("marker");
+
+  while (!node.isNull()) {
+    QDomNamedNodeMap attr = node.attributes();
+    Station *station;
+    int id = attr.namedItem("number").nodeValue().toUInt();
+    QString name = attr.namedItem("name").nodeValue();
+    QString address = attr.namedItem("address").nodeValue();
+    double lat = attr.namedItem("lat").nodeValue().toDouble();
+    double lng = attr.namedItem("lng").nodeValue().toDouble();
+
+    if (stations.find(id) == stations.end()) {
+      station = new Station(this);
+      stations.insert(id, station);
+    } else
+      station = stations[id];
+
+    if (station->name().isEmpty())
+      station->setName(name);
+    if (station->description().isEmpty())
+      station->setDescription(address);
+    station->setPos(QPointF(lat, lng));
+
+    node = node.nextSiblingElement("marker");
+  }
+  emit stationsCreated(stations.values());
 }
 
 void

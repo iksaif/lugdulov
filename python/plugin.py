@@ -150,8 +150,8 @@ static const struct {
                 builtin += "//"
 
             builtin += '\t{ %s, %s, "%s", "%s", %s, %s },\n' % \
-                (station.id, station.zone, station.name.title(), \
-                     station.description.title(), station.lat, station.lng)
+                (station.id, station.zone, station.name.title().strip().replace('"', ''), \
+                     station.description.title().strip().replace('"', ''), station.lat, station.lng)
         builtin += "\t{0, 0, NULL, NULL, 0., 0.}\n"
         builtin += "};\n"
 

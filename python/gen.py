@@ -7,10 +7,12 @@ import sys
 def getproviders():
     import cyclocity
     import lyon
+    import citybike
 
     ret = []
-    ret.append(cyclocity.CycloCity())
-    ret.append(lyon.LyonVelov())
+    #ret.append(cyclocity.CycloCity())
+    #ret.append(lyon.LyonVelov())
+    ret.append(citybike.CityBike())
     return ret
 
 def dolist(args):

@@ -19,41 +19,41 @@
 #include <QtCore/QDebug>
 
 #include "station.h"
-#include "paris.h"
-#include "paris_p.h"
+#include "perpignan.h"
+#include "perpignan_p.h"
 
-StationsPluginParis::StationsPluginParis(QObject *parent)
-  : StationsPluginCycloCity(parent)
+StationsPluginPerpignan::StationsPluginPerpignan(QObject *parent)
+  : StationsPluginCityBike(parent)
 {
-  d = new StationsPluginSimplePrivateParis();
+  d = new StationsPluginSimplePrivatePerpignan();
 }
 
-StationsPluginParis::~StationsPluginParis()
+StationsPluginPerpignan::~StationsPluginPerpignan()
 {
   delete d;
 }
 
 QString
-StationsPluginParis::id() const
+StationsPluginPerpignan::id() const
 {
-  return QLatin1String("paris");
+  return QLatin1String("perpignan");
 }
 
 QString
-StationsPluginParis::name() const
+StationsPluginPerpignan::name() const
 {
-  return QString::fromUtf8("Paris");
+  return QString::fromUtf8("Perpignan");
 }
 
 QString
-StationsPluginParis::bikeName() const
+StationsPluginPerpignan::bikeName() const
 {
-  return QString::fromUtf8("Vélib'");
+  return QString::fromUtf8("Bip!");
 }
 
 QIcon
-StationsPluginParis::bikeIcon() const
+StationsPluginPerpignan::bikeIcon() const
 {
-  return QIcon(":/france/velib.png");
+  return QIcon(":/res/bike.png");
 }
 

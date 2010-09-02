@@ -9,12 +9,13 @@ include_directories(
 
 set(france_SRCS
   factory.cpp
+  lyon.cpp
+# cyclocity
   aixenprovence.cpp
   amiens.cpp
   besancon.cpp
   cergypontoise.cpp
   creteil.cpp
-  lyon.cpp
   marseille.cpp
   mulhouse.cpp
   nancy.cpp
@@ -22,19 +23,24 @@ set(france_SRCS
   paris.cpp
   plainecommune.cpp
   rouen.cpp
-  toulouse.cpp)
+  toulouse.cpp
+# citybike
+  caen.cpp
+  dijon.cpp
+  perpignan.cpp
+)
 
 set(france_TRS
   lugdulov_france_fr.ts)
 
 set(france_HDRS
   factory.h
+  lyon.h
   aixenprovence.h
   amiens.h
   besancon.h
   cergypontoise.h
   creteil.h
-  lyon.h
   marseille.h
   mulhouse.h
   nancy.h
@@ -42,7 +48,11 @@ set(france_HDRS
   paris.h
   plainecommune.h
   rouen.h
-  toulouse.h)
+  toulouse.h
+  caen.h
+  dijon.h
+  perpignan.h
+)
 
 set_source_files_properties(${france_TRS} PROPERTIES OUTPUT_LOCATION ${france_SOURCE_DIR})
 

@@ -16,44 +16,26 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtCore/QDebug>
+#ifndef STATIONS_CITYBIKE_H
+#define STATIONS_CITYBIKE_H
 
-#include "station.h"
-#include "paris.h"
-#include "paris_p.h"
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QtCore/QMap>
 
-StationsPluginParis::StationsPluginParis(QObject *parent)
-  : StationsPluginCycloCity(parent)
+#include "stationspluginsingle.h"
+
+class Station;
+
+class StationsPluginCityBike : public StationsPluginSingle
 {
-  d = new StationsPluginSimplePrivateParis();
-}
+  Q_OBJECT
+ public:
+  StationsPluginCityBike(QObject *parent);
+  virtual ~StationsPluginCityBike();
 
-StationsPluginParis::~StationsPluginParis()
-{
-  delete d;
-}
+ protected:
+  virtual void handleInfos(const QByteArray & data);
+};
 
-QString
-StationsPluginParis::id() const
-{
-  return QLatin1String("paris");
-}
-
-QString
-StationsPluginParis::name() const
-{
-  return QString::fromUtf8("Paris");
-}
-
-QString
-StationsPluginParis::bikeName() const
-{
-  return QString::fromUtf8("Vélib'");
-}
-
-QIcon
-StationsPluginParis::bikeIcon() const
-{
-  return QIcon(":/france/velib.png");
-}
-
+#endif /* STATIONS_CITYBIKE_H */

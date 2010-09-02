@@ -375,7 +375,6 @@ def test():
 
 def main():
     test()
-    #dump_cpp('paris', sys.stdout)
 
 if __name__ == '__main__':
     main()

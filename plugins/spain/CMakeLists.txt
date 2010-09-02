@@ -8,13 +8,19 @@ include_directories(
 
 set(spain_SRCS
   factory.cpp
+  # cyclocity
   seville.cpp
-  santander.cpp)
+  santander.cpp
+  # citybike
+  barcelone.cpp
+)
 
 set(spain_HDRS
   factory.h
   seville.h
-  santander.h)
+  santander.h
+  barcelone.h
+)
 
 qt4_wrap_cpp(spain_MOC_SRCS ${spain_HDRS})
 qt4_add_resources(spain_RC_SRCS spain.qrc)
