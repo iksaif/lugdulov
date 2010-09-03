@@ -1,6 +1,7 @@
 project(lugdulov_base)
 
 set(lugdulov_base_SRCS
+  tools.cpp
   stationsplugin.cpp
   stationspluginsimple.cpp
   stationspluginsingle.cpp

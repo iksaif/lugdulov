@@ -116,9 +116,9 @@ public:
   virtual void update(Station *station) = 0;
   virtual void update(const QList < Station * > & station) = 0;
 
-  void updateCached(Station *station);
-  void updateCached(const QList < Station * > & station);
-  void clearCache();
+  virtual void updateCached(Station *station);
+  virtual void updateCached(const QList < Station * > & station);
+  virtual void clearCache();
 
  signals:
   /**

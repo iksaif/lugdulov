@@ -46,9 +46,10 @@ StationsPlugin::updateCached(Station *station)
 
   if (updated[station] > time)
     emit stationsUpdated(stations);
-  else
+  else {
     update(station);
-  updated[station] = now;
+    updated[station] = now;
+  }
 }
 
 void
@@ -63,9 +64,10 @@ StationsPlugin::updateCached(const QList < Station * > & stations)
   foreach (Station *station, stations) {
     if (updated[station] > time)
       done << station;
-    else
+    else {
       todo << station;
-    updated[station] = now;
+      updated[station] = now;
+    }
   }
 
   emit stationsUpdated(done);

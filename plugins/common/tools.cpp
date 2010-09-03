@@ -16,37 +16,23 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_SINGLE_H
-#define STATIONS_SINGLE_H
+#include <QtCore/QStringList>
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-#include <QtCore/QMap>
+#include "tools.h"
 
-#include "stationspluginsimple.h"
-
-class Station;
-
-class StationsPluginSingle : public StationsPluginSimple
+QString
+Tools::ucFirst(const QString & str)
 {
-  Q_OBJECT
- public:
-  StationsPluginSingle(QObject *parent);
-  virtual ~StationsPluginSingle();
+  if (str.isEmpty())
+    return str;
 
-  void updateCached(Station *station);
-  void updateCached(const QList < Station * > & stations);
+  QStringList tokens = str.split(" ");
+  QList<QString>::iterator tokItr = tokens.begin();
 
-
- public slots:
-  virtual void update(Station *station);
-  virtual void update(const QList < Station * > & station);
-
- protected:
-  virtual QUrl statusUrl(int id);
-
-  virtual void handleInfos(const QByteArray & data) = 0;
-  virtual void handleStatus(const QByteArray & data, int id);
-};
-
-#endif /* STATIONS_SINGLE_H */
+  for (tokItr = tokens.begin(); tokItr != tokens.end(); ++tokItr) {
+    if (tokItr->isEmpty())
+      continue ;
+    (*tokItr)[0] = (*tokItr).at(0).toUpper();
+  }
+  return tokens.join(" ");
+}

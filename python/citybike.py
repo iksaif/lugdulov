@@ -191,14 +191,12 @@ class CityBike(Provider):
             #print dom_desc.childNodes[0].childNodes[0].toxml()
             #print dom_desc.childNodes[0].childNodes[0].childNodes[0].nodeValue
             #print dom_desc.childNodes[0].childNodes[0].childNodes[0].toxml()
-
-            name = dom_desc.childNodes[0].childNodes[0].childNodes[0].nodeValue.split(' - ')
+            name = dom_desc.childNodes[0].childNodes[0].childNodes[0].nodeValue
+            name = name.replace(u'\x92', "'")
+            name = name.split(' - ')
             if (len(name) < 2):
                 name = name[0]
                 name = name.split(',')
-            if (len(name) < 2):
-                name = name[0]
-                name = name.split(', ')
             if (len(name) < 2):
                 name = [name[0], name[0]]
 

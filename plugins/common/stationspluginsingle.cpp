@@ -35,3 +35,35 @@ StationsPluginSingle::handleStatus(const QByteArray & data, int id)
   Q_UNUSED(data);
   Q_UNUSED(id);
 }
+
+void
+StationsPluginSingle::updateCached(Station *station)
+{
+  QTime time = QTime::currentTime().addMSecs(-30000);
+  QTime now = QTime::currentTime();
+  QList <Station * > stations;
+
+  stations << station;
+
+  if (updated[NULL] > time)
+    emit stationsUpdated(stations);
+  else {
+    update(station);
+    updated[NULL] = now;
+  }
+}
+
+void
+StationsPluginSingle::updateCached(const QList < Station * > & stations)
+{
+  QTime time = QTime::currentTime().addMSecs(-30000);
+  QTime now = QTime::currentTime();
+
+  if (updated[NULL] > time)
+    emit stationsUpdated(stations);
+  else {
+    update(stations);
+    updated[NULL] = now;
+  }
+}
+

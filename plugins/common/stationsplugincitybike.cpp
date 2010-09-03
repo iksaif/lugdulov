@@ -27,8 +27,10 @@
 
 #include <QtCore/QDebug>
 
+#include "tools.h"
 #include "station.h"
 #include "stationsplugincitybike.h"
+#include "stationspluginsimple_p.h"
 
 StationsPluginCityBike::StationsPluginCityBike(QObject *parent)
   : StationsPluginSingle(parent)
@@ -42,76 +44,78 @@ StationsPluginCityBike::~StationsPluginCityBike()
 void
 StationsPluginCityBike::handleInfos(const QByteArray & data)
 {
-  /*
-        url = 'http://' + service['server'] + "/localizaciones/localizaciones.php"
-        fp = urllib2.urlopen(url)
-        data_html = fp.read()
+  QRegExp re("(<kml .*kml>)");
+  QStringList captured;
+  QDomDocument doc;
+  QDomNode node;
+  int id = 1;
 
-        match = re.search(r'(<kml .*kml>)', data_html, re.MULTILINE|re.DOTALL)
-        data_kml = match.group(0)
+  re.indexIn(data);
 
-        # the html page is coded in iso8859-1 and the kml is declared as utf-8
-        # dirty hack there is sometimes 0x92 char as single quote
-        #data_kml_mod = data_kml.replace(chr(146), "'")
-        data = data_kml.decode('iso-8859-1')
-        data = data.encode('utf-8')
+  captured = re.capturedTexts();
+  if (!captured.size())
+    return ;
 
-        dom = xml.dom.minidom.parseString(data)
+  doc.setContent(captured[0]);
+  node = doc.firstChild().firstChild().firstChildElement("Placemark");
+  while (!node.isNull()) {
+    QDomDocument subDoc;
+    QDomNodeList list;
+    Station *station;
+    QString str;
+    QStringList strl;
 
-        placemarkers = dom.getElementsByTagName("Placemark")
-        stations = []
-        n = 1
+    if (stations.find(id) == stations.end())
+      stations[id] = new Station(this);
+    station = stations[id];
 
-        for placemarker in placemarkers:
-            station = Station()
+    subDoc.setContent(node.firstChild().firstChild().nodeValue());
 
-            desc =  placemarker.childNodes[0].firstChild.toxml()#data
+    if (station->name().isEmpty() || station->description().isEmpty()) {
+      str = subDoc.firstChild().firstChild().firstChild().nodeValue();
+      str = str.replace("\x92", "'");
+      str = Tools::ucFirst(str.toLower());
+      if (str.contains(" - "))
+	strl = str.split(" - ");
+      else if (str.contains(','))
+	strl = str.split(",");
+      else {
+	strl << str;
+	strl << str;
+      }
+      strl[0] = strl[0].trimmed();
+      strl[1] = strl[1].trimmed();
+      station->setName(strl[0]);
+      station->setDescription(strl[1]);
+    }
 
-            #<div style="margin:10px">
-            #    <div style="font:bold 11px verdana;color:#379FC5;margin-bottom:10px">Place St Fiacre - Angle rue Vauban, </div>
-            #    <div style="text-align:right;float:left;font:bold 11px verdana">V�los<br />Parcs de stationnement</div>
-            #    <div style="margin-left:5px;float:left;font:bold 11px verdana;color:green">10<br />5<br /></div>
-            #</div>
+    str = node.firstChild().nextSibling().nextSibling().firstChild().firstChild().nodeValue();
+    strl = str.split(",");
 
-            desc = desc.replace('<![CDATA[', '').replace(']]>', '')
-            desc = desc.encode('utf8')
-            dom_desc = xml.dom.minidom.parseString(desc)
+    if (strl.size() > 2) {
+      station->setPos(QPointF(strl[1].toDouble(), strl[0].toDouble()));
+    }
 
-            #print dom_desc.childNodes[0].nodeValue
-            #print dom_desc.childNodes[0].toxml()
-            #print dom_desc.childNodes[0].childNodes[0].nodeValue
-            #print dom_desc.childNodes[0].childNodes[0].toxml()
-            #print dom_desc.childNodes[0].childNodes[0].childNodes[0].nodeValue
-            #print dom_desc.childNodes[0].childNodes[0].childNodes[0].toxml()
+    list = subDoc.firstChild().childNodes();
+    if (list.size() >= 3) {
+      list = list.at(2).childNodes();
+      if (list.size() >= 3) {
+	station->setBikes(list.at(0).nodeValue().toInt());
+	station->setFreeSlots(list.at(2).nodeValue().toInt());
+	station->setTotalSlots(station->bikes() + station->freeSlots());
+      }
+      node = node.nextSiblingElement("Placemark");
+    }
+    ++id;
+  }
 
-            name = dom_desc.childNodes[0].childNodes[0].childNodes[0].nodeValue.split(' - ')
-            if (len(name) < 2):
-                name = name[0]
-                name = name.split(',')
-            if (len(name) < 2):
-                name = name[0]
-                name = name.split(', ')
-            if (len(name) < 2):
-                name = [name[0], name[0]]
+  foreach (int id, stations.keys()) {
+    if (d->rect.contains(stations[id]->pos()))
+      continue ;
+    delete stations[id];
+    stations.remove(id);
+  }
 
-            station.name = name[0]
-            station.description = name[1]
-            station.name = station.name.replace("\\", "")
-            station.description = station.description.replace("\\", "")
-
-            station.uid = str(n)
-            station.id = station.uid
-            n += 1
-
-            #print dom_desc.childNodes[0].childNodes[2].childNodes[2].nodeValue
-            #print dom_desc.childNodes[0].childNodes[2].childNodes[2].toxml()
-
-            station.slots = int(dom_desc.childNodes[0].childNodes[2].childNodes[2].toxml())
-            station.bikes = int(dom_desc.childNodes[0].childNodes[2].childNodes[0].nodeValue)
-
-            coord = placemarker.childNodes[2].childNodes[0].childNodes[0].toxml()
-            station.lng = float(re.sub('[^0-9.-]','' , coord.split(',')[0]))
-            station.lat = float(re.sub('[^0-9.-]','' , coord.split(',')[1]))
-            station.zone = "0"
-*/
+  emit stationsCreated(stations.values());
+  emit stationsUpdated(stations.values());
 }

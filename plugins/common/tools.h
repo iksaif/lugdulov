@@ -16,37 +16,14 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_SINGLE_H
-#define STATIONS_SINGLE_H
+#ifndef TOOLS_H
+#define TOOLS_H
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-#include <QtCore/QMap>
+#include <QtCore/QString>
 
-#include "stationspluginsimple.h"
-
-class Station;
-
-class StationsPluginSingle : public StationsPluginSimple
-{
-  Q_OBJECT
+class Tools {
  public:
-  StationsPluginSingle(QObject *parent);
-  virtual ~StationsPluginSingle();
-
-  void updateCached(Station *station);
-  void updateCached(const QList < Station * > & stations);
-
-
- public slots:
-  virtual void update(Station *station);
-  virtual void update(const QList < Station * > & station);
-
- protected:
-  virtual QUrl statusUrl(int id);
-
-  virtual void handleInfos(const QByteArray & data) = 0;
-  virtual void handleStatus(const QByteArray & data, int id);
+  static QString ucFirst(const QString & str);
 };
 
-#endif /* STATIONS_SINGLE_H */
+#endif
