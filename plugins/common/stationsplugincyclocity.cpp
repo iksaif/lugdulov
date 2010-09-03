@@ -46,7 +46,7 @@ StationsPluginCycloCity::handleInfos(const QByteArray & data)
   QDomNode node;
 
   doc.setContent(data);
-  node = doc.firstChildElement("marker");
+  node = doc.firstChild().nextSibling().firstChild().firstChildElement("marker");
 
   while (!node.isNull()) {
     QDomNamedNodeMap attr = node.attributes();
@@ -60,6 +60,7 @@ StationsPluginCycloCity::handleInfos(const QByteArray & data)
     if (stations.find(id) == stations.end()) {
       station = new Station(this);
       stations.insert(id, station);
+      station->setId(id);
     } else
       station = stations[id];
 
