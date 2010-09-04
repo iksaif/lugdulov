@@ -107,6 +107,7 @@ class CityBike(Provider):
 
             city = City()
             city.uid = service['city_uid']
+            city.id = city.uid
             city.name = service['city_name']
             city.bikeName = service['bike_name']
             city.bikeIcon = ""

@@ -8,11 +8,13 @@ def getproviders():
     import cyclocity
     import lyon
     import citybike
+    import nextbike
 
     ret = []
     #ret.append(cyclocity.CycloCity())
     #ret.append(lyon.LyonVelov())
-    ret.append(citybike.CityBike())
+    #ret.append(citybike.CityBike())
+    ret.append(nextbike.NextBike())
     return ret
 
 def dolist(args):
@@ -39,7 +41,7 @@ def docountries(args):
                 ret[c.name] = c
     for k in ret.keys():
         c = ret[k]
-        print c.uid + " " + c.name + " "
+        print c.uid + ":" + c.name
 
 def docities(args):
     ret = []
@@ -53,7 +55,7 @@ def docities(args):
                 ret.append(j)
 
     for i in ret:
-        print i.uid + " " + i.name.encode('utf8')
+        print i.id.encode('utf8') + ":" + i.uid.encode('utf8') + ":" + i.name.encode('utf8')
 
 def find(city, country):
     for p in getproviders():
@@ -61,7 +63,7 @@ def find(city, country):
             if c.name != country and c.uid != country:
                 continue
             for j in p.get_cities(c):
-                if j.name == city or j.uid == city:
+                if j.name == city or j.uid == city or j.id == city:
                     return p, c, j
     return None, None, None
 

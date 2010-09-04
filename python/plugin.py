@@ -32,6 +32,7 @@ class Country():
         return self.name.encode('utf8') + " (" + self.uid + ")"
 
 class City():
+    id = ""
     uid = ""
     name = ""
     bikeName = "Bike"
@@ -162,20 +163,22 @@ static const struct {
         for zone in zones:
             regions += '    ret << "%d";\n' % int(zone.uid)
 
+        uid = city.uid.replace(".", "").replace("-", "_")
         data = data.replace('<stations>', builtin)
         data = data.replace('<rect>', rect)
         data = data.replace('<center>', center);
-        data = data.replace('<CITY>', city.uid.upper());
-        data = data.replace('<City>', city.uid.title());
+        data = data.replace('<CITY>', uid.upper());
+        data = data.replace('<City>', uid.title());
         data = data.replace('<regions>', regions)
         return data
 
     def _dump_gen(self, data, city):
+        uid = city.uid.replace(".", "").replace("-", "_")
         data = data.replace('<BikeName>', city.bikeName);
         data = data.replace('<CityName>', city.name);
-        data = data.replace('<City>', city.uid.title());
-        data = data.replace('<city>', city.uid.lower());
-        data = data.replace('<CITY>', city.uid.upper());
+        data = data.replace('<City>', uid.title());
+        data = data.replace('<city>', uid.lower());
+        data = data.replace('<CITY>', uid.upper());
         return data
 
     def _dump_class(self, tpl, city):

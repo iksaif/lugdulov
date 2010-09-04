@@ -241,6 +241,7 @@ class CycloCity(Provider):
 
             city = City()
             city.uid = service['city_uid']
+            city.id = city.uid
             city.name = service['city_Name']
             city.bikeName = service['bike_name']
             city.bikeIcon = ""

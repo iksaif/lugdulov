@@ -57,6 +57,7 @@ class LyonVelov(Provider):
     def get_cities(self, country):
         city = City()
         city.uid = "lyon"
+        city.id = city.uid
         city.name = "Lyon"
         city.bikeName = "Velo'V"
         city.bikeIcon = ""
