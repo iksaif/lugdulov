@@ -1,9 +1,17 @@
 opt/lugdulov/share/applications/hildon/lugdulov.desktop /usr/share/applications/hildon/
 opt/lugdulov/share/icons/hicolor/64x64/hildon/lugdulov.png  /usr/share/icons/hicolor/64x64/hildon/
 opt/lugdulov/bin/lugdulov
+opt/lugdulov/lib/lugdulov/plugins/libstationsaustria.so
 opt/lugdulov/lib/lugdulov/plugins/libstationsbelgium.so
-opt/lugdulov/lib/lugdulov/plugins/libstationsjapan.so
+opt/lugdulov/lib/lugdulov/plugins/libstationscanada.so
 opt/lugdulov/lib/lugdulov/plugins/libstationsfrance.so
-opt/lugdulov/lib/lugdulov/plugins/libstationsluxembourg.so
+opt/lugdulov/lib/lugdulov/plugins/libstationsgermany.so
 opt/lugdulov/lib/lugdulov/plugins/libstationsireland.so
+opt/lugdulov/lib/lugdulov/plugins/libstationsjapan.so
+opt/lugdulov/lib/lugdulov/plugins/libstationslatvia.so
+opt/lugdulov/lib/lugdulov/plugins/libstationslower-austria.so
+opt/lugdulov/lib/lugdulov/plugins/libstationsluxembourg.so
+opt/lugdulov/lib/lugdulov/plugins/libstationsnew-zealand.so
 opt/lugdulov/lib/lugdulov/plugins/libstationsspain.so
+opt/lugdulov/lib/lugdulov/plugins/libstationsswitzerland.so
+opt/lugdulov/lib/lugdulov/plugins/libstationsunited-kingdom.so

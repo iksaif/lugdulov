@@ -123,7 +123,7 @@ MainWindow::delayedInit()
   connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)),
 	  this, SLOT(positionUpdated(QGeoPositionInfo)));
   connect(localisation, SIGNAL(requestTimeout()), this, SLOT(positionRequestTimeout()));
-  localisation->setUpdateInterval(30000);
+  localisation->setUpdateInterval(5000);
   localisation->startUpdates();
   localisation->requestUpdate(15000);
 #endif

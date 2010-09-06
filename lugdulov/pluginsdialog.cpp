@@ -23,11 +23,22 @@
 #include "stationspluginmanager.h"
 
 PluginsDialog::PluginsDialog(StationsPluginManager *manager, QWidget *parent)
-  : QDialog(parent)
+  :
+#ifdef Q_WS_MAEMO_5
+  QDialog(parent, Qt::Window)
+#else
+  QDialog(parent)
+#endif
 {
   selected = NULL;
 
   setupUi(this);
+
+#ifdef Q_WS_MAEMO_5
+  setAttribute(Qt::WA_Maemo5StackedWindow);
+  setAttribute(Qt::WA_Maemo5AutoOrientation, true);
+  buttonBox->hide();
+#endif
 
   QMap < StationsPluginFactory *, StationsPlugin * > ret = manager->stations();
 
