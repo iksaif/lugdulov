@@ -37,7 +37,7 @@ static const struct {
 
 struct StationsPluginSimplePrivateSchwyz : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateSchwyz() {
-    rect = QRectF(QPointF(46.821100, 8.453280), QPointF(47.221100, 8.853280));
+    rect = QRectF(QPointF(46.021100, 7.653280), QPointF(48.021100, 9.653280));
     center = QPointF(47.021100, 8.653280);
     statusUrl = "";
     infosUrl = "http://nextbike.net/maps/nextbike-official.xml";

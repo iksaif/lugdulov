@@ -37,7 +37,7 @@ static const struct {
 
 struct StationsPluginSimplePrivateKussnacht_Am_Rigi : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateKussnacht_Am_Rigi() {
-    rect = QRectF(QPointF(46.881700, 8.239300), QPointF(47.281700, 8.639300));
+    rect = QRectF(QPointF(46.081700, 7.439300), QPointF(48.081700, 9.439300));
     center = QPointF(47.081700, 8.439300);
     statusUrl = "";
     infosUrl = "http://nextbike.net/maps/nextbike-official.xml";

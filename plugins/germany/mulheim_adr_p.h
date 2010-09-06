@@ -49,7 +49,7 @@ static const struct {
 
 struct StationsPluginSimplePrivateMulheim_Adr : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateMulheim_Adr() {
-    rect = QRectF(QPointF(51.230800, 6.674010), QPointF(51.630800, 7.074010));
+    rect = QRectF(QPointF(50.430800, 5.874010), QPointF(52.430800, 7.874010));
     center = QPointF(51.430800, 6.874010);
     statusUrl = "";
     infosUrl = "http://nextbike.net/maps/nextbike-official.xml";

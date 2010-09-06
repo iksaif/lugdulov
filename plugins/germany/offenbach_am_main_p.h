@@ -42,7 +42,7 @@ static const struct {
 
 struct StationsPluginSimplePrivateOffenbach_Am_Main : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateOffenbach_Am_Main() {
-    rect = QRectF(QPointF(49.909300, 8.538250), QPointF(50.309300, 8.938250));
+    rect = QRectF(QPointF(49.109300, 7.738250), QPointF(51.109300, 9.738250));
     center = QPointF(50.109300, 8.738250);
     statusUrl = "";
     infosUrl = "http://nextbike.net/maps/nextbike-official.xml";

@@ -44,7 +44,7 @@ static const struct {
 
 struct StationsPluginSimplePrivateOberhausen : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateOberhausen() {
-    rect = QRectF(QPointF(51.293600, 6.651690), QPointF(51.693600, 7.051690));
+    rect = QRectF(QPointF(50.493600, 5.851690), QPointF(52.493600, 7.851690));
     center = QPointF(51.493600, 6.851690);
     statusUrl = "";
     infosUrl = "http://nextbike.net/maps/nextbike-official.xml";

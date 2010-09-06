@@ -53,7 +53,7 @@ static const struct {
 
 struct StationsPluginSimplePrivateFriedrichshafen : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateFriedrichshafen() {
-    rect = QRectF(QPointF(47.451900, 9.278370), QPointF(47.851900, 9.678370));
+    rect = QRectF(QPointF(46.651900, 8.478370), QPointF(48.651900, 10.478370));
     center = QPointF(47.651900, 9.478370);
     statusUrl = "";
     infosUrl = "http://nextbike.net/maps/nextbike-official.xml";

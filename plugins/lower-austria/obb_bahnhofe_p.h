@@ -31,7 +31,7 @@ static const struct {
         double y;
 } stations[] = {
 	{ 47461, 0, "Klosterneuburg-Kierling Bhf", "", 48.309896, 16.326249 },
-	{ 47455, 0, "Amstetten Bhf", "", 48.121753, 14.877403 },
+//	{ 47455, 0, "Amstetten Bhf", "", 48.121753, 14.877403 },
 	{ 47456, 0, "Fels Am Wagram Bhf", "", 48.42917, 15.82306 },
 	{ 47457, 0, "Felixdorf Bhf", "", 47.887419, 16.247936 },
 	{ 47458, 0, "Gänserndorf Bhf", "", 48.33972, 16.73167 },
@@ -42,19 +42,19 @@ static const struct {
 	{ 47465, 0, "Leobendorf Bhf", "", 48.36472, 16.30167 },
 	{ 47467, 0, "Neunkirchen Bhf", "", 47.731549, 16.085742 },
 	{ 47469, 0, "Schwechat Bhf", "", 48.14278, 16.48194 },
-	{ 47471, 0, "St. Valentin Bhf", "", 48.17833, 14.52056 },
+//	{ 47471, 0, "St. Valentin Bhf", "", 48.17833, 14.52056 },
 	{ 47472, 0, "Stockerau Bhf", "", 48.382786, 16.212659 },
 	{ 47473, 0, "Ternitz Bhf", "", 47.71382, 16.033343 },
-	{ 47475, 0, "Ulmerfeld-Hausmening Bhf", "", 48.07491, 14.816011 },
+//	{ 47475, 0, "Ulmerfeld-Hausmening Bhf", "", 48.07491, 14.816011 },
 	{ 47477, 0, "Wolkersdorf Bhf", "", 48.379356, 16.512603 },
-	{ 47478, 0, "Ybbs A. D. Donau Bhf", "", 48.1574833654, 15.0983476639 },
+//	{ 47478, 0, "Ybbs A. D. Donau Bhf", "", 48.1574833654, 15.0983476639 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 
 
 struct StationsPluginSimplePrivateObb_Bahnhofe : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateObb_Bahnhofe() {
-    rect = QRectF(QPointF(47.819300, 16.109200), QPointF(48.219300, 16.509200));
+    rect = QRectF(QPointF(47.019300, 15.309200), QPointF(49.019300, 17.309200));
     center = QPointF(48.019300, 16.309200);
     statusUrl = "";
     infosUrl = "http://nextbike.net/maps/nextbike-official.xml";

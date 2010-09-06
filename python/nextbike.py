@@ -87,11 +87,11 @@ class NextBike(Provider):
             if city.name.find("(") != -1:
                 city.name = city.name.split('(')[0]
             city.uid = city.name.lower().strip().replace(' ', '-')
-            city.uid = normalize("NFD", city.uid).encode("ascii", "ignore") 
+            city.uid = normalize("NFD", city.uid).encode("ascii", "ignore")
             city.bikeName = 'nextbike'
             city.lat = float(node.getAttribute('lat'))
             city.lng = float(node.getAttribute('lng'))
-            city.create_rect()
+            city.create_rect(1)
             ret.append(city)
         return ret
 

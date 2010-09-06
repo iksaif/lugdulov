@@ -49,7 +49,7 @@ static const struct {
 
 struct StationsPluginSimplePrivateBregenzerwald : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateBregenzerwald() {
-    rect = QRectF(QPointF(47.175100, 9.733010), QPointF(47.575100, 10.133010));
+    rect = QRectF(QPointF(46.375100, 8.933010), QPointF(48.375100, 10.933010));
     center = QPointF(47.375100, 9.933010);
     statusUrl = "";
     infosUrl = "http://nextbike.net/maps/nextbike-official.xml";

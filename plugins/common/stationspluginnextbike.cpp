@@ -44,80 +44,63 @@ StationsPluginNextBike::~StationsPluginNextBike()
 void
 StationsPluginNextBike::handleInfos(const QByteArray & data)
 {
-  /*
-  QRegExp re("(<kml .*kml>)");
-  QStringList captured;
   QDomDocument doc;
-  QDomNode node;
-  int id = 1;
+  QDomNode country, city, node;
 
-  re.indexIn(data);
+  doc.setContent(data);
 
-  captured = re.capturedTexts();
-  if (!captured.size())
-    return ;
+  country = doc.firstChildElement("markers").firstChildElement("country");
 
-  doc.setContent(captured[0]);
-  node = doc.firstChild().firstChild().firstChildElement("Placemark");
+  while (!country.isNull()) {
+    city = country.firstChildElement("city");
+
+    while (!city.isNull()) {
+      QDomNamedNodeMap attrs = city.attributes();
+
+      if (attrs.contains("name") && attrs.namedItem("name").nodeValue() == name())
+	goto found;
+
+      city = city.nextSiblingElement("city");
+    }
+    country = country.nextSiblingElement("country");
+  }
+
+  return ;
+
+ found:
+  node = city.firstChildElement("place");
   while (!node.isNull()) {
-    QDomDocument subDoc;
-    QDomNodeList list;
     Station *station;
-    QString str;
-    QStringList strl;
+    QDomNamedNodeMap attrs = node.attributes();
+    int id;
+    qreal lat, lng;
+
+    id = attrs.namedItem("uid").nodeValue().toInt();
 
     if (stations.find(id) == stations.end())
       stations[id] = new Station(this);
     station = stations[id];
 
-    subDoc.setContent(node.firstChild().firstChild().nodeValue());
-
-    if (station->name().isEmpty() || station->description().isEmpty()) {
-      str = subDoc.firstChild().firstChild().firstChild().nodeValue();
-      str = str.replace("\x92", "'");
-      str = Tools::ucFirst(str.toLower());
-      if (str.contains(" - "))
-	strl = str.split(" - ");
-      else if (str.contains(','))
-	strl = str.split(",");
-      else {
-	strl << str;
-	strl << str;
-      }
-      strl[0] = strl[0].trimmed();
-      strl[1] = strl[1].trimmed();
-      station->setName(strl[0]);
-      station->setDescription(strl[1]);
+    station->setId(id);
+    if (station->name().isEmpty()) {
+      station->setName(attrs.namedItem("name").nodeValue());
     }
 
-    str = node.firstChild().nextSibling().nextSibling().firstChild().firstChild().nodeValue();
-    strl = str.split(",");
+    lat = attrs.namedItem("lat").nodeValue().toDouble();
+    lng = attrs.namedItem("lng").nodeValue().toDouble();
+    station->setPos(QPointF(lat, lng));
 
-    if (strl.size() > 2) {
-      station->setPos(QPointF(strl[1].toDouble(), strl[0].toDouble()));
+    station->setBikes(attrs.namedItem("bikes").nodeValue().replace("+", "").toInt());
+    if (attrs.contains("bike_racks")) {
+      station->setFreeSlots(attrs.namedItem("bike_racks").nodeValue().toInt());
+      station->setTotalSlots(station->bikes() + station->freeSlots());
+    } else {
+      station->setFreeSlots(-1);
+      station->setTotalSlots(-1);
     }
-
-    list = subDoc.firstChild().childNodes();
-    if (list.size() >= 3) {
-      list = list.at(2).childNodes();
-      if (list.size() >= 3) {
-	station->setBikes(list.at(0).nodeValue().toInt());
-	station->setFreeSlots(list.at(2).nodeValue().toInt());
-	station->setTotalSlots(station->bikes() + station->freeSlots());
-      }
-      node = node.nextSiblingElement("Placemark");
-    }
-    ++id;
-  }
-
-  foreach (int id, stations.keys()) {
-    if (d->rect.contains(stations[id]->pos()))
-      continue ;
-    delete stations[id];
-    stations.remove(id);
+    node = node.nextSiblingElement("place");
   }
 
   emit stationsCreated(stations.values());
   emit stationsUpdated(stations.values());
-  */
 }

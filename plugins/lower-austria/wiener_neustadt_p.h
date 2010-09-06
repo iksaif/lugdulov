@@ -53,7 +53,7 @@ static const struct {
 
 struct StationsPluginSimplePrivateWiener_Neustadt : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateWiener_Neustadt() {
-    rect = QRectF(QPointF(47.609000, 16.049800), QPointF(48.009000, 16.449800));
+    rect = QRectF(QPointF(46.809000, 15.249800), QPointF(48.809000, 17.249800));
     center = QPointF(47.809000, 16.249800);
     statusUrl = "";
     infosUrl = "http://nextbike.net/maps/nextbike-official.xml";

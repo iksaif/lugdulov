@@ -39,7 +39,7 @@ static const struct {
 
 struct StationsPluginSimplePrivateJurmala : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateJurmala() {
-    rect = QRectF(QPointF(56.773200, 23.622500), QPointF(57.173200, 24.022500));
+    rect = QRectF(QPointF(55.973200, 22.822500), QPointF(57.973200, 24.822500));
     center = QPointF(56.973200, 23.822500);
     statusUrl = "";
     infosUrl = "http://nextbike.net/maps/nextbike-official.xml";

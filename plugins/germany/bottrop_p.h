@@ -52,7 +52,7 @@ static const struct {
 
 struct StationsPluginSimplePrivateBottrop : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateBottrop() {
-    rect = QRectF(QPointF(51.326300, 6.746110), QPointF(51.726300, 7.146110));
+    rect = QRectF(QPointF(50.526300, 5.946110), QPointF(52.526300, 7.946110));
     center = QPointF(51.526300, 6.946110);
     statusUrl = "";
     infosUrl = "http://nextbike.net/maps/nextbike-official.xml";

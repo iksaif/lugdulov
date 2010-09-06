@@ -37,7 +37,7 @@ static const struct {
 
 struct StationsPluginSimplePrivateRotkreuz : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateRotkreuz() {
-    rect = QRectF(QPointF(46.944000, 8.240590), QPointF(47.344000, 8.640590));
+    rect = QRectF(QPointF(46.144000, 7.440590), QPointF(48.144000, 9.440590));
     center = QPointF(47.144000, 8.440590);
     statusUrl = "";
     infosUrl = "http://nextbike.net/maps/nextbike-official.xml";

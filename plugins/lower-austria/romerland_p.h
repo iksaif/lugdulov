@@ -36,7 +36,7 @@ static const struct {
 	{ 46610, 0, "Bruck An Der Leitha Parkbad", "", 48.02874, 16.79195 },
 	{ 46611, 0, "Bruck An Der Leitha Bh", "", 48.02878, 16.7785 },
 	{ 46612, 0, "Hainburg Frachtenbahnhof", "", 48.14479, 16.93267 },
-	{ 46613, 0, "Hainburg Bahnhof Ungartor", "", 4814858.0, 16.94776 },
+	{ 46613, 0, "Hainburg Bahnhof Ungartor", "", 48.14858, 16.94776 },
 	{ 46614, 0, "Hainburg Hauptplatz", "", 48.14738, 16.94136 },
 	{ 46615, 0, "Hainburg Kulturfabrik", "", 48.14723, 16.93752 },
 	{ 46616, 0, "Bad Deutschaltenburg Bahnhof", "", 48.13279, 16.91042 },
@@ -54,7 +54,7 @@ static const struct {
 
 struct StationsPluginSimplePrivateRomerland : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateRomerland() {
-    rect = QRectF(QPointF(47.905400, 16.666400), QPointF(48.305400, 17.066400));
+    rect = QRectF(QPointF(47.105400, 15.866400), QPointF(49.105400, 17.866400));
     center = QPointF(48.105400, 16.866400);
     statusUrl = "";
     infosUrl = "http://nextbike.net/maps/nextbike-official.xml";

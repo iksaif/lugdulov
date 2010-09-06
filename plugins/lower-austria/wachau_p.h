@@ -73,7 +73,7 @@ static const struct {
 
 struct StationsPluginSimplePrivateWachau : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateWachau() {
-    rect = QRectF(QPointF(48.118800, 15.216600), QPointF(48.518800, 15.616600));
+    rect = QRectF(QPointF(47.318800, 14.416600), QPointF(49.318800, 16.416600));
     center = QPointF(48.318800, 15.416600);
     statusUrl = "";
     infosUrl = "http://nextbike.net/maps/nextbike-official.xml";

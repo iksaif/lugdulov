@@ -40,7 +40,7 @@ static const struct {
 
 struct StationsPluginSimplePrivateCoburg : StationsPluginSimplePrivate {
   StationsPluginSimplePrivateCoburg() {
-    rect = QRectF(QPointF(50.058300, 10.765100), QPointF(50.458300, 11.165100));
+    rect = QRectF(QPointF(49.258300, 9.965100), QPointF(51.258300, 11.965100));
     center = QPointF(50.258300, 10.965100);
     statusUrl = "";
     infosUrl = "http://nextbike.net/maps/nextbike-official.xml";
