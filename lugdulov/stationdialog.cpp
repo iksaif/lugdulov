@@ -66,10 +66,33 @@ StationDialog::setupWidgets()
 {
   setWindowTitle(QString("%1").arg(station->name()));
 
-  slotsProgressBar->setRange(0, station->totalSlots());
-  bikeProgressBar->setRange(0, station->totalSlots());
-  slotsProgressBar->setValue(station->freeSlots());
-  bikeProgressBar->setValue(station->bikes());
+  if (station->totalSlots() >= 0) {
+    slotsProgressBar->setRange(0, station->totalSlots());
+    bikeProgressBar->setRange(0, station->totalSlots());
+    if (!station->freeSlots() >= 0)
+      slotsProgressBar->setValue(station->freeSlots());
+    if (!station->bikes() >= 0)
+      bikeProgressBar->setValue(station->bikes());
+    slotsProgressBar->setFormat("%v/%m");
+    bikeProgressBar->setFormat("%v/%m");
+  } else {
+    if (station->freeSlots() >= 0) {
+      if (station->freeSlots())
+	slotsProgressBar->setRange(0, station->freeSlots());
+      else
+	slotsProgressBar->setRange(0, 1);
+      slotsProgressBar->setValue(station->freeSlots());
+    }
+    if (station->bikes() >= 0) {
+      if (station->bikes())
+	bikeProgressBar->setRange(0, station->bikes());
+      else
+	bikeProgressBar->setRange(0, 1);
+      bikeProgressBar->setValue(station->bikes());
+    }
+    slotsProgressBar->setFormat("%v");
+    bikeProgressBar->setFormat("%v");
+  }
 
   descriptionLabel->setText(station->description());
   stationLabel->setText(station->name());

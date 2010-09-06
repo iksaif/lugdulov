@@ -69,14 +69,14 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../res/lugdulov.qrc">:/res/slot.png</pixmap>
+      <pixmap resource="res/lugdulov.qrc">:/res/slot.png</pixmap>
      </property>
     </widget>
    </item>
    <item row="3" column="1">
     <widget class="QProgressBar" name="slotsProgressBar">
      <property name="value">
-      <number>24</number>
+      <number>0</number>
      </property>
      <property name="format">
       <string>%v/%m</string>
@@ -89,14 +89,14 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../res/lugdulov.qrc">:/res/bike.png</pixmap>
+      <pixmap resource="res/lugdulov.qrc">:/res/bike.png</pixmap>
      </property>
     </widget>
    </item>
    <item row="4" column="1">
     <widget class="QProgressBar" name="bikeProgressBar">
      <property name="value">
-      <number>24</number>
+      <number>0</number>
      </property>
      <property name="format">
       <string>%v/%m</string>
@@ -113,7 +113,7 @@
           <string>Map</string>
          </property>
          <property name="icon">
-          <iconset resource="../res/lugdulov.qrc">
+          <iconset resource="res/lugdulov.qrc">
            <normaloff>:/res/map.png</normaloff>:/res/map.png</iconset>
          </property>
         </widget>
@@ -124,7 +124,7 @@
           <string>Bookmark</string>
          </property>
          <property name="icon">
-          <iconset resource="../res/lugdulov.qrc">
+          <iconset resource="res/lugdulov.qrc">
            <normaloff>:/res/favorites.png</normaloff>:/res/favorites.png</iconset>
          </property>
          <property name="checkable">
@@ -139,6 +139,7 @@
   </layout>
  </widget>
  <resources>
+  <include location="res/lugdulov.qrc"/>
   <include location="../res/lugdulov.qrc"/>
  </resources>
  <connections/>

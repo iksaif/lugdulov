@@ -142,7 +142,8 @@ StationDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
   pt.setX(rect.left() - slot.width());
   pt.setY(rect.center().y() - slot.height() / 2);
 
-  painter->drawPixmap(pt, slot);
+  if (station->freeSlots() >= 0)
+    painter->drawPixmap(pt, slot);
 
   rect.setTop(option.rect.top());
   rect.setLeft(pt.x() - fm.width(fakeText));
