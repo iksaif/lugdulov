@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 5), libqjson-dev, libqtm-dev, libqt4-dev, cmake
 Standards-Version: 3.7.2
 
 Package: lugdulov
-Architecture: any
+Architecture: armel
 Depends: ${shlibs:Depends}, ${misc:Depends}
 XB-Description-fr_FR: Recherche de stations de vélos.
 XB-Maemo-Display-Name: Lugdulov
