@@ -146,7 +146,7 @@ MapWidget::setPlugin(StationsPlugin *p)
   proxy->setBookmarks(Settings::bookmarks(plugin));
   proxy->setSortRole(StationsSortFilterProxyModel::StationDistanceRole);
 
-  connect(model, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)),
+  connect(proxy, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)),
 	  this, SLOT(dataChanged(const QModelIndex &, const QModelIndex &)));
   connect(model, SIGNAL(rowsInserted(const QModelIndex &, int, int)),
 	  this, SLOT(refreshStations()));
@@ -201,15 +201,39 @@ MapWidget::geometryClicked(Geometry *geom, QPoint pt)
 void
 MapWidget::showStation(Station *station)
 {
-  if (geometries.find(station) != geometries.end())
-    return ;
+  if (geometries.find(station) == geometries.end()) {
+    QPixmap *pix = new QPixmap(station->plugin()->bikeIcon().pixmap(QSize(48, 48)));
+    Point *geom = new Point(station->pos().y(), station->pos().x(), pix, station->name());
 
-  QPixmap *pix = new QPixmap(station->plugin()->bikeIcon().pixmap(QSize(48, 48)));
-  Point *geom = new Point(station->pos().y(), station->pos().x(), pix, station->name());
+    stationsLayer->addGeometry(geom);
+    stations[geom] = station;
+    geometries[station] = geom;
+  }
+  QPainter painter(geometries[station]->pixmap());
+  QRectF rect1, rect2;
 
-  stationsLayer->addGeometry(geom);
-  stations[geom] = station;
-  geometries[station] = geom;
+  rect1 = rect2 = QRectF(10, 0, 30, 3);
+
+  painter.setRenderHints(QPainter::Antialiasing|QPainter::SmoothPixmapTransform);
+  painter.setPen(Qt::NoPen);
+  if (station->bikes() > 0 && station->totalSlots() > 0) {
+    rect1.setWidth(rect1.width() * (double)station->bikes() / (double)station->totalSlots());
+    rect2.setWidth(rect2.width() * (double)station->freeSlots() / (double)station->totalSlots());
+    rect2.moveTo(rect1.x() + rect1.width(), rect2.y());
+  } else if (station->bikes() > 0) {
+    rect2 = QRectF();
+  } else {
+    rect1 = QRectF();
+  }
+
+  if (!rect1.isNull()) {
+    painter.setBrush(Qt::darkGreen);
+    painter.drawRect(rect1);
+  }
+  if (!rect2.isNull()) {
+    painter.setBrush(Qt::darkRed);
+    painter.drawRect(rect2);
+  }
 }
 
 void
@@ -244,7 +268,12 @@ MapWidget::refreshStatus()
 void
 MapWidget::dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight)
 {
-  //qDebug() << "dataChanged" << topLeft.row() << bottomRight.row();
+  for (int i = topLeft.row(); i <= bottomRight.row(); ++i) {
+    Station *station = (Station *)proxy->index(i, 0).data(StationsModel::StationRole).value<void *>();
+
+    showStation(station);
+  }
+  mc->updateRequestNew();
 }
 
 void
