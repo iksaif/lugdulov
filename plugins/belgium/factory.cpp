@@ -30,9 +30,7 @@ StationsPluginFactoryBelgium::id() const
 QString
 StationsPluginFactoryBelgium::name() const
 {
-  return QString::fromUtf8("Réseaux Belges - Authors:"
-			   "Patrick Installé <PatrickInstalle@P-Installe.be>,"
-			   "Corentin Chary <corentin.chary@gmail.com>");
+  return QString::fromUtf8("Réseaux Belges");
 }
 
 QIcon

@@ -46,9 +46,7 @@ StationsPluginFactoryFrance::id() const
 QString
 StationsPluginFactoryFrance::name() const
 {
-  return QString::fromUtf8("Réseaux Français - Authors:"
-			   "Patrick Installé <PatrickInstalle@P-Installe.be>,"
-			   "Corentin Chary <corentin.chary@gmail.com>");
+  return QString::fromUtf8("Réseaux Français");
 }
 
 QIcon

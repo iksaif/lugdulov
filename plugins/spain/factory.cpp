@@ -31,9 +31,7 @@ StationsPluginFactorySpain::id() const
 QString
 StationsPluginFactorySpain::name() const
 {
-  return QString::fromUtf8("Spain - Authors:"
-			   "Patrick Installé <PatrickInstalle@P-Installe.be>,"
-			   "Corentin Chary <corentin.chary@gmail.com>");
+  return QString::fromUtf8("Spain");
 }
 
 QIcon

@@ -66,7 +66,7 @@ StationsPluginFactoryGermany::id() const
 QString
 StationsPluginFactoryGermany::name() const
 {
-  return QString::fromUtf8("<Descr>");
+  return QString::fromUtf8("Germany");
 }
 
 QIcon

@@ -32,7 +32,7 @@ StationsPluginFactoryLatvia::id() const
 QString
 StationsPluginFactoryLatvia::name() const
 {
-  return QString::fromUtf8("<Descr>");
+  return QString::fromUtf8("Latvia");
 }
 
 QIcon

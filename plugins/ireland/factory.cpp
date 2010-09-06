@@ -30,9 +30,7 @@ StationsPluginFactoryIreland::id() const
 QString
 StationsPluginFactoryIreland::name() const
 {
-  return QString::fromUtf8("Irish Networks - Authors:"
-			   "Patrick Installé <PatrickInstalle@P-Installe.be>,"
-			   "Corentin Chary <corentin.chary@gmail.com>");
+  return QString::fromUtf8("Irish Networks");
 }
 
 QIcon

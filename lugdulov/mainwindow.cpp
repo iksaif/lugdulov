@@ -197,6 +197,7 @@ MainWindow::about()
 		     tr("Version: " LUGDULOV_VERSION "\n"
 			"Home: http://xf.iksaif.net/dev/lugdulov.html\n\n"
 			"Copyright (C) 2010 Corentin Chary <corentin.chary@gmail.com>\n"
+			"Copyright (C) 2010 Patrick Installé <PatrickInstalle@P-Installe.be>\n"
 			"\n"
 			"This program is free software; you can redistribute it and/or modify\n"
 			"it under the terms of the GNU General Public License as published by\n"

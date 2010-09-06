@@ -32,7 +32,7 @@ StationsPluginFactoryAustria::id() const
 QString
 StationsPluginFactoryAustria::name() const
 {
-  return QString::fromUtf8("<Descr>");
+  return QString::fromUtf8("Austria");
 }
 
 QIcon

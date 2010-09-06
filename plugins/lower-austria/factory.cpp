@@ -40,7 +40,7 @@ StationsPluginFactoryLowerAustria::id() const
 QString
 StationsPluginFactoryLowerAustria::name() const
 {
-  return QString::fromUtf8("<Descr>");
+  return QString::fromUtf8("Lower Austria");
 }
 
 QIcon

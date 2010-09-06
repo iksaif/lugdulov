@@ -31,7 +31,7 @@ StationsPluginFactoryNewZealand::id() const
 QString
 StationsPluginFactoryNewZealand::name() const
 {
-  return QString::fromUtf8("<Descr>");
+  return QString::fromUtf8("New Zealand");
 }
 
 QIcon

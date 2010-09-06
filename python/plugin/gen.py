@@ -39,6 +39,7 @@ def gen_factory_cpp(conf):
         plugins += "  ret << new " + name + "(parent);\n"
     data = data.replace("<IncludeHeaders>", headers)
     data = data.replace("<Plugins>", plugins)
+    data = data.replace("<Descr>", conf['description'] + "Networks")
     write_file(conf, 'factory.cpp', data)
 
 def gen_factory_header(conf):

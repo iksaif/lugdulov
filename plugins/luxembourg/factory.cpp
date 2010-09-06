@@ -30,9 +30,7 @@ StationsPluginFactoryLuxembourg::id() const
 QString
 StationsPluginFactoryLuxembourg::name() const
 {
-  return QString::fromUtf8("Luxembourg - Authors:"
-			   "Patrick Installé <PatrickInstalle@P-Installe.be>,"
-			   "Corentin Chary <corentin.chary@gmail.com>");
+  return QString::fromUtf8("Luxembourg");
 }
 
 QIcon
