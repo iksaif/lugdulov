@@ -148,8 +148,10 @@ MapWidget::setPlugin(StationsPlugin *p)
 
   connect(model, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)),
 	  this, SLOT(dataChanged(const QModelIndex &, const QModelIndex &)));
+  connect(model, SIGNAL(rowsInserted(const QModelIndex &, int, int)),
+	  this, SLOT(refreshStations()));
 
-  QTimer::singleShot(1, plugin, SLOT(fetchAll())); // First fetch cached data
+  plugin->fetchAll(); // First fetch cached data
   QTimer::singleShot(200, plugin, SLOT(fetchOnline())); // Then load online data
 }
 
@@ -233,7 +235,6 @@ MapWidget::refreshStations()
 void
 MapWidget::refreshStatus()
 {
-  return ; /* Not needed right now, only here for future usage */
   foreach (Point *geometry, stations.keys()) {
     if (mc->getViewport().contains(geometry->coordinate()))
       stations[geometry]->plugin()->updateCached(stations[geometry]);

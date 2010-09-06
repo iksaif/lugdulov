@@ -101,6 +101,13 @@ StationsPluginNextBike::handleInfos(const QByteArray & data)
     node = node.nextSiblingElement("place");
   }
 
+  foreach (int id, stations.keys()) {
+    if (d->rect.contains(stations[id]->pos()))
+      continue ;
+    delete stations[id];
+    stations.remove(id);
+  }
+
   emit stationsCreated(stations.values());
   emit stationsUpdated(stations.values());
 }
