@@ -10,12 +10,14 @@ set(austria_SRCS
   factory.cpp
   neusiedler_see.cpp
   bregenzerwald.cpp
+  wien.cpp
 )
 
 set(austria_HDRS
   factory.h
   neusiedler_see.h
   bregenzerwald.h
+  wien.h
 )
 
 qt4_wrap_cpp(austria_MOC_SRCS ${austria_HDRS})

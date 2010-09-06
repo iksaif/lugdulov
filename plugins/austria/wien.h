@@ -16,41 +16,31 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtCore/QtPlugin>
+#ifndef STATIONS_WIEN_H
+#define STATIONS_WIEN_H
 
-#include "factory.h"
-#include "neusiedler_see.h"
-#include "bregenzerwald.h"
-#include "wien.h"
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QtCore/QMap>
 
-QString
-StationsPluginFactoryAustria::id() const
+#include "stationspluginsingle.h"
+
+class Station;
+
+class StationsPluginWien : public StationsPluginSingle
 {
-  return QLatin1String("Austria");
-}
+  Q_OBJECT
+ public:
+  StationsPluginWien(QObject *parent);
+  virtual ~StationsPluginWien();
 
-QString
-StationsPluginFactoryAustria::name() const
-{
-  return QString::fromUtf8("Austria");
-}
+  QString id() const;
+  QString name() const;
+  QString bikeName() const;
+  QIcon bikeIcon() const;
 
-QIcon
-StationsPluginFactoryAustria::icon() const
-{
-  return QIcon(":/res/bike.png");
-}
+ protected:
+  virtual void handleInfos(const QByteArray & data);
+};
 
-QList < StationsPlugin * >
-StationsPluginFactoryAustria::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
-
-  ret << new StationsPluginNeusiedler_See(parent);
-  ret << new StationsPluginBregenzerwald(parent);
-  ret << new StationsPluginWien(parent);
-
-  return ret;
-}
-
-Q_EXPORT_PLUGIN2(stationsaustria, StationsPluginFactoryAustria)
+#endif /* STATIONS_WIEN_H */

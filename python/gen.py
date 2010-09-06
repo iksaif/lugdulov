@@ -9,12 +9,14 @@ def getproviders():
     import lyon
     import citybike
     import nextbike
+    import citybikewien
 
     ret = []
     #ret.append(cyclocity.CycloCity())
     #ret.append(lyon.LyonVelov())
     #ret.append(citybike.CityBike())
-    ret.append(nextbike.NextBike())
+    #ret.append(nextbike.NextBike())
+    ret.append(citybikewien.CityBikeWien())
     return ret
 
 def dolist(args):
