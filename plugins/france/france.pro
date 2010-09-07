@@ -17,7 +17,11 @@ HEADERS += factory.h \
   paris.h \
   plainecommune.h \
   rouen.h \
-  toulouse.h
+  toulouse.h \
+  caen.h \
+  dijon.h \
+  perpignan.h \
+  larochelle.h
 
 SOURCES += factory.cpp \
   aixenprovence.cpp \
@@ -34,7 +38,11 @@ SOURCES += factory.cpp \
   paris.cpp \
   plainecommune.cpp \
   rouen.cpp \
-  toulouse.cpp
+  toulouse.cpp \
+  caen.cpp \
+  dijon.cpp \
+  perpignan.cpp \
+  larochelle.cpp
 
 RESOURCES += france.qrc
 
