@@ -112,6 +112,9 @@ namespace qmapcontrol
 
     void LayerManager::setView(const QPointF& coordinate)
     {
+        if (mapmiddle == coordinate)
+	  return ;
+
         mapmiddle_px = layer()->mapadapter()->coordinateToDisplay(coordinate);
         mapmiddle = coordinate;
 

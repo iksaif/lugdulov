@@ -30,6 +30,7 @@ namespace qmapcontrol
         : size(size), mymousemode(mousemode), scaleVisible(showScale), crosshairsVisible(showCrosshairs)
     {
         layermanager = new LayerManager(this, size);
+
         screen_middle = QPoint(size.width()/2, size.height()/2);
 
         mousepressed = false;

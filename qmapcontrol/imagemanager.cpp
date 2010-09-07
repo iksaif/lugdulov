@@ -50,7 +50,6 @@ namespace qmapcontrol
 
     QPixmap ImageManager::getImage(const QString& host, const QString& url)
     {
-        //qDebug() << "ImageManager::getImage";
         QPixmap pm;
         //pm.fill(Qt::black);
         //is image cached (memory) or currently loading?

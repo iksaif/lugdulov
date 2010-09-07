@@ -45,8 +45,6 @@ MapWidget::MapWidget(QWidget *parent)
   statusTimer->setInterval(60000);
   connect(statusTimer, SIGNAL(timeout()), this, SLOT(refreshStatus()));
   statusTimer->start();
-
-  ImageManager::instance()->abortLoading(); // Don't load south pole images
 }
 
 MapWidget::~MapWidget()
@@ -102,9 +100,9 @@ MapWidget::setupMapControl()
 
   Layer* l = new Layer("Custom Layer", mapadapter, Layer::MapLayer);
 
+  mc->enablePersistentCache();
   mc->addLayer(l);
   mc->showScale(true);
-  mc->enablePersistentCache();
 
   stationsLayer = new GeometryLayer("Stations", mapadapter);
   mc->addLayer(stationsLayer);
@@ -286,7 +284,7 @@ MapWidget::centerView(const QPointF & pt, int zoom)
   if (zoom != -1)
     mc->setZoom(zoom);
 
-  refreshStations();
+  stationsTimer->start();
 }
 
 void
