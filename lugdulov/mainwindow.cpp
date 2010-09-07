@@ -38,6 +38,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
   setupUi(this);
 
+#ifdef HAVE_QT_LOCATION
+  localisation = NULL;
+#endif
 #ifdef Q_WS_MAEMO_5
   menu_File->removeAction(quitAction);
   menu_Help->removeAction(aboutQtAction);
@@ -106,6 +109,7 @@ MainWindow::delayedInit()
   QNetworkSession* session = new QNetworkSession(ap);
 
   session->open();
+
   if (!session->waitForOpened(-1)) {
     QMessageBox::critical(this, tr("Network Error"), session->errorString());
     QApplication::instance()->quit();
@@ -123,6 +127,7 @@ MainWindow::delayedInit()
   connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)),
 	  this, SLOT(positionUpdated(QGeoPositionInfo)));
   connect(localisation, SIGNAL(requestTimeout()), this, SLOT(positionRequestTimeout()));
+
   localisation->setUpdateInterval(5000);
   localisation->startUpdates();
   localisation->requestUpdate(15000);
@@ -268,6 +273,7 @@ MainWindow::map()
     }
   }
 #endif
+
   if (zoom)
     map->centerView(pt, zoom);
   showAndDelete(map);
