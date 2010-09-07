@@ -30,6 +30,7 @@ set(france_SRCS
   perpignan.cpp
 # other
   larochelle.cpp
+  bordeaux.cpp
 )
 
 set(france_TRS
@@ -55,6 +56,7 @@ set(france_HDRS
   dijon.h
   perpignan.h
   larochelle.h
+  bordeaux.h
 )
 
 set_source_files_properties(${france_TRS} PROPERTIES OUTPUT_LOCATION ${france_SOURCE_DIR})

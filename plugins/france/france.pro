@@ -21,7 +21,8 @@ HEADERS += factory.h \
   caen.h \
   dijon.h \
   perpignan.h \
-  larochelle.h
+  larochelle.h \
+  bordeaux.h
 
 SOURCES += factory.cpp \
   aixenprovence.cpp \
@@ -42,7 +43,8 @@ SOURCES += factory.cpp \
   caen.cpp \
   dijon.cpp \
   perpignan.cpp \
-  larochelle.cpp
+  larochelle.cpp \
+  bordeaux.cpp
 
 RESOURCES += france.qrc
 

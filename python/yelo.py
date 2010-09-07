@@ -89,7 +89,7 @@ class Yelo(Provider):
                 if name == 'name':
                     station.name = value
                 if name == 'bikeCount':
-                    station.free = int(value.split(" ")[0])
+                    station.bikes = int(value.split(" ")[0])
                 if name == 'freeLockCount':
                     station.slots = int(value.split(" ")[0])
                 station.zone = "0"

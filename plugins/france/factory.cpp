@@ -37,6 +37,7 @@
 #include "perpignan.h"
 #include "dijon.h"
 #include "larochelle.h"
+#include "bordeaux.h"
 
 QString
 StationsPluginFactoryFrance::id() const
@@ -79,6 +80,7 @@ StationsPluginFactoryFrance::stations(QObject *parent)
   ret << new StationsPluginPerpignan(parent);
   ret << new StationsPluginDijon(parent);
   ret << new StationsPluginLaRochelle(parent);
+  ret << new StationsPluginBordeaux(parent);
 
   return ret;
 }

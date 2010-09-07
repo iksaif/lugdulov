@@ -11,6 +11,7 @@ def getproviders():
     import nextbike
     import citybikewien
     import yelo
+    import vcub
 
     ret = []
     #ret.append(cyclocity.CycloCity())
@@ -18,7 +19,8 @@ def getproviders():
     #ret.append(citybike.CityBike())
     #ret.append(nextbike.NextBike())
     #ret.append(citybikewien.CityBikeWien())
-    ret.append(yelo.Yelo())
+    #ret.append(yelo.Yelo())
+    ret.append(vcub.vCub())
     return ret
 
 def dolist(args):
