@@ -36,6 +36,8 @@
 #include "caen.h"
 #include "perpignan.h"
 #include "dijon.h"
+#include "calais.h"
+#include "nice.h"
 #include "larochelle.h"
 #include "bordeaux.h"
 
@@ -79,6 +81,8 @@ StationsPluginFactoryFrance::stations(QObject *parent)
   ret << new StationsPluginCaen(parent);
   ret << new StationsPluginPerpignan(parent);
   ret << new StationsPluginDijon(parent);
+  ret << new StationsPluginCalais(parent);
+  ret << new StationsPluginNice(parent);
   ret << new StationsPluginLaRochelle(parent);
   ret << new StationsPluginBordeaux(parent);
 

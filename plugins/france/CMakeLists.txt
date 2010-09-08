@@ -28,6 +28,9 @@ set(france_SRCS
   caen.cpp
   dijon.cpp
   perpignan.cpp
+# velin
+  calais.cpp
+  nice.cpp
 # other
   larochelle.cpp
   bordeaux.cpp
@@ -55,6 +58,8 @@ set(france_HDRS
   caen.h
   dijon.h
   perpignan.h
+  calais.h
+  nice.h
   larochelle.h
   bordeaux.h
 )

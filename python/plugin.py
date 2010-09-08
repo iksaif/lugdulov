@@ -150,7 +150,7 @@ static const struct {
             if skip:
                 builtin += "//"
 
-            builtin += '\t{ %s, %s, "%s", "%s", %s, %s },\n' % \
+            builtin += '\t{ %s, %s, "%s", "%s", %.6f, %.6f },\n' % \
                 (station.id, station.zone, station.name.title().strip().replace('"', ''), \
                      station.description.title().strip().replace('"', ''), station.lat, station.lng)
         builtin += "\t{0, 0, NULL, NULL, 0., 0.}\n"

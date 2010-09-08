@@ -8,7 +8,8 @@ plugins = [
     {'name' : 'switzerland', 'Name' : 'Switzerland', 'NAME' : 'SWITZERLAND', 'description' : 'Switzerland'},
     {'name' : 'germany', 'Name' : 'Germany', 'NAME' : 'GERMANY', 'description' : 'Germany'},
     {'name' : 'latvia', 'Name' : 'Latvia', 'NAME' : 'LATVIA', 'description' : 'Latvia'},
-    {'name' : 'new-zealand', 'Name' : 'NewZealand', 'NAME' : 'NEW_ZEALAND', 'description' : 'New-Zealand'}
+    {'name' : 'new-zealand', 'Name' : 'NewZealand', 'NAME' : 'NEW_ZEALAND', 'description' : 'New-Zealand'},
+    {'name' : 'united-kingdom', 'Name' : 'UnitedKingdom', 'NAME' : 'UNITED_KINGDOM', 'description' : 'United-Kingdom'}
 ]
 
 def gen_common(data, conf):

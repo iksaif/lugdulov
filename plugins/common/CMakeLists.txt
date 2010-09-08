@@ -1,5 +1,9 @@
 project(lugdulov_base)
 
+include_directories(
+  ${QJSON_INCLUDE_DIR}
+)
+
 set(lugdulov_base_SRCS
   tools.cpp
   stationsplugin.cpp
@@ -8,6 +12,7 @@ set(lugdulov_base_SRCS
   stationsplugincyclocity.cpp
   stationsplugincitybike.cpp
   stationspluginnextbike.cpp
+  stationspluginvelin.cpp
   station.cpp
 )
 
@@ -18,6 +23,7 @@ set(lugdulov_base_MOC_HDRS
   stationsplugincyclocity.h
   stationsplugincitybike.h
   stationspluginnextbike.h
+  stationspluginvelin.h
 )
 
 qt4_wrap_cpp(lugdulov_base_MOC_SOURCE ${lugdulov_base_MOC_HDRS})
