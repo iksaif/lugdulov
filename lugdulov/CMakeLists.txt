@@ -61,6 +61,11 @@ if (WIN32)
  set(lugdulov_SRCS ${lugdulov_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/icon.o)
 endif ()
 
+link_directories(
+  ${QT_LIBRARY_DIR}
+  ${QJSON_LIBRARY_DIRS}
+)
+
 add_executable(
   lugdulov
   ${GUI_TYPE}
@@ -94,6 +99,14 @@ if (BUILD_STATIC_PLUGINS)
   target_link_libraries(lugdulov stationsjapan)
   target_link_libraries(lugdulov stationsluxembourg)
   target_link_libraries(lugdulov stationsspain)
+  target_link_libraries(lugdulov stationsgermany)
+  target_link_libraries(lugdulov stationsunited-kingdom)
+  target_link_libraries(lugdulov stationscanada)
+  target_link_libraries(lugdulov stationsswitzerland)
+  target_link_libraries(lugdulov stationsaustria)
+  target_link_libraries(lugdulov stationslower-austria)
+  target_link_libraries(lugdulov stationslatvia)
+  target_link_libraries(lugdulov stationsnew-zealand)
 endif ()
 
 target_link_libraries(

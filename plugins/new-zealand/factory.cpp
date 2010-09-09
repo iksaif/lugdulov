@@ -50,4 +50,4 @@ StationsPluginFactoryNewZealand::stations(QObject *parent)
   return ret;
 }
 
-Q_EXPORT_PLUGIN2(stationsnew-zealand, StationsPluginFactoryNewZealand)
+Q_EXPORT_PLUGIN2(stationsnewzealand, StationsPluginFactoryNewZealand)

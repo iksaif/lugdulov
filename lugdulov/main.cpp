@@ -33,6 +33,14 @@ Q_IMPORT_PLUGIN(stationsireland);
 Q_IMPORT_PLUGIN(stationsjapan);
 Q_IMPORT_PLUGIN(stationsluxembourg);
 Q_IMPORT_PLUGIN(stationsspain);
+Q_IMPORT_PLUGIN(stationsgermany);
+Q_IMPORT_PLUGIN(stationsunitedkingdom);
+Q_IMPORT_PLUGIN(stationscanada);
+Q_IMPORT_PLUGIN(stationsswitzerland);
+Q_IMPORT_PLUGIN(stationsaustria);
+Q_IMPORT_PLUGIN(stationsloweraustria);
+Q_IMPORT_PLUGIN(stationslatvia);
+Q_IMPORT_PLUGIN(stationsnewzealand);
 #endif
 
 int main(int argc, char *argv[])
@@ -45,6 +53,14 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(japan);
     Q_INIT_RESOURCE(luxembourg);
     Q_INIT_RESOURCE(spain);
+    Q_INIT_RESOURCE(germany);
+    Q_INIT_RESOURCE(united_kingdom);
+    Q_INIT_RESOURCE(canada);
+    Q_INIT_RESOURCE(switzerland);
+    Q_INIT_RESOURCE(austria);
+    Q_INIT_RESOURCE(lower_austria);
+    Q_INIT_RESOURCE(latvia);
+    Q_INIT_RESOURCE(new_zealand);
 #endif
 
     QTranslator qtTranslator;

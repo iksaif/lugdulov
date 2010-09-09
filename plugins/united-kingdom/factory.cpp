@@ -53,4 +53,4 @@ StationsPluginFactoryUnitedKingdom::stations(QObject *parent)
   return ret;
 }
 
-Q_EXPORT_PLUGIN2(stationsunited-kingdom, StationsPluginFactoryUnitedKingdom)
+Q_EXPORT_PLUGIN2(stationsunitedkingdom, StationsPluginFactoryUnitedKingdom)
