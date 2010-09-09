@@ -94,12 +94,17 @@ StationsModel::stationsCreated(const QList < Station * > &list)
 void
 StationsModel::stationsUpdated(const QList < Station * > &list)
 {
+  QModelIndex topLeft, bottomRight;
+
   foreach (Station *station, list) {
     QModelIndex idx = index(stations.indexOf(station));
 
-    emit dataChanged(idx, idx);
+    if (!topLeft.isValid() || idx.row() < topLeft.row())
+      topLeft = idx;
+    if (!bottomRight.isValid() || idx.row() > bottomRight.row())
+      bottomRight = index(stations.indexOf(station));
   }
-  //emit layoutChanged() ?
+  emit dataChanged(topLeft, bottomRight);
 }
 
 void

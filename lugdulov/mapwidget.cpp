@@ -146,7 +146,7 @@ MapWidget::setPlugin(StationsPlugin *p)
   proxy->setBookmarks(Settings::bookmarks(plugin));
   proxy->setSortRole(StationsSortFilterProxyModel::StationDistanceRole);
 
-  connect(proxy, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)),
+  connect(model, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)),
 	  this, SLOT(dataChanged(const QModelIndex &, const QModelIndex &)));
   connect(model, SIGNAL(rowsInserted(const QModelIndex &, int, int)),
 	  this, SLOT(refreshStations()));
@@ -269,9 +269,10 @@ void
 MapWidget::dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight)
 {
   for (int i = topLeft.row(); i <= bottomRight.row(); ++i) {
-    Station *station = (Station *)proxy->index(i, 0).data(StationsModel::StationRole).value<void *>();
+    Station *station = (Station *)model->index(i, 0).data(StationsModel::StationRole).value<void *>();
 
-    showStation(station);
+    if (geometries.find(station) != geometries.end())
+      showStation(station);
   }
   mc->updateRequestNew();
 }
