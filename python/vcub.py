@@ -63,7 +63,6 @@ class vCub(Provider):
         city.create_rect()
         return [city]
 
-
     def get_stations(self, city):
         stations = []
         url = self.url()
