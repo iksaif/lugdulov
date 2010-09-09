@@ -58,7 +58,7 @@ StationsPluginAvignon::name() const
 QString
 StationsPluginAvignon::bikeName() const
 {
-  return QString::fromUtf8("Velocea");
+  return QString::fromUtf8("VeloPop");
 }
 
 QIcon
@@ -98,7 +98,7 @@ StationsPluginAvignon::handleInfos(const QByteArray & data)
 
     if (station->name().isEmpty())
       station->setName(capt.at(4));
-
+    station->setPos(pos);
     station->setBikes(capt.at(5).toInt());
     station->setFreeSlots(capt.at(6).toInt());
     station->setTotalSlots(station->bikes() + station->freeSlots());
