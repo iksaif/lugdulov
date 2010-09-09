@@ -17,6 +17,8 @@ def getproviders():
     import veloplus
     import velopop
     import velostar
+    import cyclehire
+    import bixi
 
     ret = []
     #ret.append(cyclocity.CycloCity())
@@ -30,7 +32,9 @@ def getproviders():
     #ret.append(velocea.Velocea())
     #ret.append(veloplus.VeloPlus())
     #ret.append(velopop.VeloPop())
-    ret.append(velostar.VeloStar())
+    #ret.append(velostar.VeloStar())
+    ret.append(cyclehire.CycleHire())
+    ret.append(bixi.Bixi())
 
     return ret
 

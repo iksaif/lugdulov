@@ -19,38 +19,35 @@
 #include <QtCore/QtPlugin>
 
 #include "factory.h"
-#include "reading.h"
-#include "cardiff.h"
-#include "london.h"
+#include "montreal.h"
+
 
 QString
-StationsPluginFactoryUnitedKingdom::id() const
+StationsPluginFactoryCanada::id() const
 {
-  return QLatin1String("UnitedKingdom");
+  return QLatin1String("Canada");
 }
 
 QString
-StationsPluginFactoryUnitedKingdom::name() const
+StationsPluginFactoryCanada::name() const
 {
-  return QString::fromUtf8("United-Kingdom Networks");
+  return QString::fromUtf8("CanadaNetworks");
 }
 
 QIcon
-StationsPluginFactoryUnitedKingdom::icon() const
+StationsPluginFactoryCanada::icon() const
 {
   return QIcon(":/res/bike.png");
 }
 
 QList < StationsPlugin * >
-StationsPluginFactoryUnitedKingdom::stations(QObject *parent)
+StationsPluginFactoryCanada::stations(QObject *parent)
 {
   QList < StationsPlugin * > ret;
 
-  ret << new StationsPluginReading(parent);
-  ret << new StationsPluginCardiff(parent);
-  ret << new StationsPluginLondon(parent);
+  ret << new StationsPluginMontreal(parent);
 
   return ret;
 }
 
-Q_EXPORT_PLUGIN2(stationsunited-kingdom, StationsPluginFactoryUnitedKingdom)
+Q_EXPORT_PLUGIN2(stationscanada, StationsPluginFactoryCanada)

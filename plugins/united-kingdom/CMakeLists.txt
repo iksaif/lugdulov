@@ -11,12 +11,14 @@ set(united-kingdom_SRCS
   factory.cpp
   cardiff.cpp
   reading.cpp
+  london.cpp
 )
 
 set(united-kingdom_HDRS
   factory.h
   reading.h
   cardiff.h
+  london.h
 )
 
 qt4_wrap_cpp(united-kingdom_MOC_SRCS ${united-kingdom_HDRS})

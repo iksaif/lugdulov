@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-  veloStar.py
+  cyclehire.py
 
   Copyright (C) 2010 Patrick Installé <PatrickInstalle@P-Installe.be>
 
@@ -19,35 +19,38 @@
   with this program; if not, write to the Free Software Foundation, Inc.,
   59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-  This program parse the data of veloStar - Rennes - France
+  This program parse the data of Velodi - Dijon - France, Bip! Perpingan France, ...
 
 """
 import sys
 import os
-import urllib2
 import re
-import datetime
 import xml.dom.minidom
+import datetime
+import urllib2
 
 from plugin import *
 
-class VeloStar(Provider):
+class CycleHire(Provider):
     config = {
-        'country_uid' : 'fr',
-        'country_Name' : 'France',
-        'city_uid'    : 'rennes',
-        'city_Name'    : 'Rennes',
-        'bike_name'    : 'VeloStar',
-        'server' : 'data.keolis-rennes.com',
-        'lat'  : 48.1117611,
-        'lng'  : -1.6802654,
-        'service_class' : 'VeloStar'
+        'country_uid' : 'uk',
+        'country_Name' : 'United Kingdom',
+        'city_uid'    : 'london',
+        'city_Name'    : 'London',
+        'bike_name'    : 'Cycle Hire',
+        'server' : 'web.barclayscyclehire.tfl.gov.uk',
+        'lat'  : 51.5001524,
+        'lng'  : -0.1262362,
+        'data_model' : 'cycleHire'
         }
+
+    def url(self):
+        return 'http://' + self.config['server'] + "/maps"
 
     def get_countries(self):
         country = Country()
-        country.uid = "fr"
-        country.name = "France"
+        country.uid = "uk"
+        country.name = "United Kingdom"
         return [country]
 
     def get_cities(self, country):
@@ -61,32 +64,28 @@ class VeloStar(Provider):
         city.create_rect()
         return [city]
 
-    def url(self):
-        # key = 5O3IN1BU3MK100U
-        # http://data.keolis-rennes.com/xml/?version=1.0&key=5O3IN1BU3MK100U&cmd=getstation
-        key = '5O3IN1BU3MK100U'
-        url ='http://' + self.config['server'] + '/xml/?version=1.0&key='+ key + '&cmd=getstation'
-        return url
 
     def get_stations(self, city):
         stations = []
         url = self.url()
         fp = urllib2.urlopen(url)
-
         data = fp.read()
-        dom = xml.dom.minidom.parseString(data)
-        for node in  dom.getElementsByTagName('station'):
+
+        # id:"1",name:"River Street , Clerkenwell",lat:"51.52916347",long:"-0.109970527",nbBikes:"6",nbEmptyDocks:"13",installed:"true",locked:"false",temporary:"false"
+        rg = re.compile(r'id:"(\d+)",name:"(.*)",lat:"(.*)",long:"(.*)",nbBikes:"(\d+)",nbEmptyDocks:"(\d+)"')
+        for node in rg.findall(data):
             station = Station()
-            station.uid = node.getElementsByTagName('id')[0].firstChild.toxml()
+            station.uid = node[0]
             station.id = station.uid
-            station.name = node.getElementsByTagName('name')[0].firstChild.toxml().title()
-            station.lat = float(node.getElementsByTagName('latitude')[0].firstChild.toxml())
-            station.lng = float(node.getElementsByTagName('longitude')[0].firstChild.toxml())
-            station.slots = int(node.getElementsByTagName('slotsavailable')[0].firstChild.toxml())
-            station.bikes = int(node.getElementsByTagName('bikesavailable')[0].firstChild.toxml())
+            station.name = node[1]
+            station.lat = float(node[2])
+            station.lng = float(node[3])
+            station.bikes = int(node[4])
+            station.slots = int(node[5])
             station.zone = "0"
             stations.append(station)
         return stations
+
 
     def get_status(self, station, city):
         return station
@@ -104,7 +103,7 @@ class VeloStar(Provider):
 
 
 def test():
-    prov = VeloStar()
+    prov = CycleHire()
 
     countries = prov.get_countries()
     print countries

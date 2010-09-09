@@ -16,41 +16,31 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtCore/QtPlugin>
+#ifndef STATIONS_MONTREAL_H
+#define STATIONS_MONTREAL_H
 
-#include "factory.h"
-#include "reading.h"
-#include "cardiff.h"
-#include "london.h"
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QtCore/QMap>
 
-QString
-StationsPluginFactoryUnitedKingdom::id() const
+#include "stationspluginsingle.h"
+
+class Station;
+
+class StationsPluginMontreal : public StationsPluginSingle
 {
-  return QLatin1String("UnitedKingdom");
-}
+  Q_OBJECT
+ public:
+  StationsPluginMontreal(QObject *parent);
+  virtual ~StationsPluginMontreal();
 
-QString
-StationsPluginFactoryUnitedKingdom::name() const
-{
-  return QString::fromUtf8("United-Kingdom Networks");
-}
+  QString id() const;
+  QString name() const;
+  QString bikeName() const;
+  QIcon bikeIcon() const;
 
-QIcon
-StationsPluginFactoryUnitedKingdom::icon() const
-{
-  return QIcon(":/res/bike.png");
-}
+ protected:
+  virtual void handleInfos(const QByteArray & data);
+};
 
-QList < StationsPlugin * >
-StationsPluginFactoryUnitedKingdom::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
-
-  ret << new StationsPluginReading(parent);
-  ret << new StationsPluginCardiff(parent);
-  ret << new StationsPluginLondon(parent);
-
-  return ret;
-}
-
-Q_EXPORT_PLUGIN2(stationsunited-kingdom, StationsPluginFactoryUnitedKingdom)
+#endif /* STATIONS_MONTREAL_H */
