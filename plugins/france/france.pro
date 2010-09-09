@@ -23,7 +23,8 @@ HEADERS += factory.h \
   perpignan.h \
   larochelle.h \
   bordeaux.h \
-  vannes.h
+  vannes.h \
+  orleans.h
 
 SOURCES += factory.cpp \
   aixenprovence.cpp \
@@ -46,7 +47,8 @@ SOURCES += factory.cpp \
   perpignan.cpp \
   larochelle.cpp \
   bordeaux.cpp \
-  vannes.cpp
+  vannes.cpp \
+  orleans.cpp
 
 RESOURCES += france.qrc
 

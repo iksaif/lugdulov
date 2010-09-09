@@ -14,6 +14,7 @@ def getproviders():
     import vcub
     import velin
     import velocea
+    import veloplus
 
     ret = []
     #ret.append(cyclocity.CycloCity())
@@ -24,7 +25,8 @@ def getproviders():
     #ret.append(yelo.Yelo())
     #ret.append(vcub.vCub())
     #ret.append(velin.VelIn())
-    ret.append(velocea.Velocea())
+    #ret.append(velocea.Velocea())
+    ret.append(veloplus.VeloPlus())
 
     return ret
 

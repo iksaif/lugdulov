@@ -41,6 +41,7 @@
 #include "larochelle.h"
 #include "bordeaux.h"
 #include "vannes.h"
+#include "orleans.h"
 
 QString
 StationsPluginFactoryFrance::id() const
@@ -87,6 +88,7 @@ StationsPluginFactoryFrance::stations(QObject *parent)
   ret << new StationsPluginLaRochelle(parent);
   ret << new StationsPluginBordeaux(parent);
   ret << new StationsPluginVannes(parent);
+  ret << new StationsPluginOrleans(parent);
 
   return ret;
 }

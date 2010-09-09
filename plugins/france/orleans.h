@@ -16,23 +16,32 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtCore/QStringList>
+#ifndef STATIONS_ORLEANS_H
+#define STATIONS_ORLEANS_H
 
-#include "tools.h"
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QtCore/QMap>
 
-QString
-Tools::ucFirst(const QString & str)
+#include "stationspluginsimple.h"
+
+class Station;
+
+class StationsPluginOrleans : public StationsPluginSimple
 {
-  if (str.isEmpty())
-    return str;
+  Q_OBJECT
+ public:
+  StationsPluginOrleans(QObject *parent);
+  ~StationsPluginOrleans();
 
-  QStringList tokens = str.toLower().split(" ");
-  QList<QString>::iterator tokItr = tokens.begin();
+  QString id() const;
+  QString name() const;
+  QString bikeName() const;
+  QIcon bikeIcon() const;
 
-  for (tokItr = tokens.begin(); tokItr != tokens.end(); ++tokItr) {
-    if (tokItr->isEmpty())
-      continue ;
-    (*tokItr)[0] = (*tokItr).at(0).toUpper();
-  }
-  return tokens.join(" ");
-}
+ private:
+  void handleInfos(const QByteArray & data);
+  void handleStatus(const QByteArray & data, int id);
+};
+
+#endif /* STATIONS_ORLEANS_H */

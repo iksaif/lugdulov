@@ -38,6 +38,8 @@ StationsPluginSimple::StationsPluginSimple(QObject *parent)
   count = 0;
   step = 0;
   d = NULL;
+  connect(nm, SIGNAL(sslErrors(QNetworkReply *, const QList<QSslError> &)),
+	  this, SLOT(ignoreSslErros(QNetworkReply *, const QList<QSslError> &)));
 }
 
 StationsPluginSimple::~StationsPluginSimple()
@@ -106,6 +108,13 @@ StationsPluginSimple::update(const QList < Station * > & stations)
 {
   foreach (Station *station, stations)
     update(station);
+}
+
+void
+StationsPluginSimple::ignoreSslErros(QNetworkReply *rep, const QList<QSslError> &errors)
+{
+  Q_UNUSED(errors);
+  rep->ignoreSslErrors();
 }
 
 void

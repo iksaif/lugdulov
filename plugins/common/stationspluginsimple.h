@@ -54,6 +54,7 @@ class StationsPluginSimple : public StationsPlugin
 
  private slots:
   virtual void error(QNetworkReply::NetworkError code);
+  void ignoreSslErros(QNetworkReply *rep, const QList<QSslError> &errors);
   virtual void finished();
 
  signals:
