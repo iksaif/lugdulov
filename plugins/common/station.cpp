@@ -50,6 +50,12 @@ Station::id() const
   return id_;
 }
 
+QVariant
+Station::data() const
+{
+  return data_;
+}
+
 QString
 Station::name() const
 {
@@ -135,6 +141,12 @@ void
 Station::setId(int id)
 {
   id_ = id;
+}
+
+void
+Station::setData(QVariant data)
+{
+  data_ = data;
 }
 
 void

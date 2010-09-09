@@ -22,6 +22,7 @@
 #include <QtCore/QUrl>
 #include <QtCore/QStringList>
 #include <QtCore/QPointF>
+#include <QtCore/QVariant>
 
 class StationsPlugin;
 
@@ -44,6 +45,7 @@ class Station
   int totalSlots() const;
   int ticket() const;
   qreal distanceTo(const QPointF & pt) const;
+  QVariant data() const;
 
   void setId(int id);
   void setName(const QString & name);
@@ -54,6 +56,7 @@ class Station
   void setFreeSlots(int freeSlots);
   void setTotalSlots(int totalSlots);
   void setTicket(int ticket);
+  void setData(QVariant data);
 
  private:
   void setStatus(const QString & xml);
@@ -69,6 +72,7 @@ class Station
   int totalSlots_;
   int ticket_;
   StationsPlugin *plugin_;
+  QVariant data_;
 };
 
 #endif /* STATION_H */
