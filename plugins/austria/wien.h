@@ -40,6 +40,7 @@ class StationsPluginWien : public StationsPluginSingle
   QIcon bikeIcon() const;
 
  protected:
+  virtual QUrl imageUrl(int id);
   virtual void handleInfos(const QByteArray & data);
 };
 

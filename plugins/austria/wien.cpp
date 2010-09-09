@@ -67,6 +67,15 @@ StationsPluginWien::bikeIcon() const
   return QIcon(":/res/bike.png");
 }
 
+QUrl
+StationsPluginWien::imageUrl(int id)
+{
+  if (!stations.contains(id))
+    return QUrl();
+  id = stations[id]->data().toInt();
+  return QString("http://dynamisch.citybikewien.at/include/r4_get_data.php?url=terminal%2Fcont%2Fimg%2Fstation_%1.jpg").arg(id);
+}
+
 void
 StationsPluginWien::handleInfos(const QByteArray & data)
 {
@@ -89,6 +98,8 @@ StationsPluginWien::handleInfos(const QByteArray & data)
     station = stations[id];
 
     station->setId(id);
+    station->setData(node.firstChildElement("internal_id").text().toInt());
+
     if (station->name().isEmpty())
       station->setName(node.firstChildElement("name").text());
     if (station->description().isEmpty())
