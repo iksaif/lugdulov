@@ -30,11 +30,11 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 43858, 0, "Leobersdorf / Rathausplatz", "", 47.92853, 16.21657 },
-	{ 43853, 0, "Kaumberg / Marktplatz", "", 48.02388, 15.89824 },
-	{ 43855, 0, "Weissenbach / Bahnhof", "", 47.9838, 16.04535 },
-	{ 43856, 0, "Berndorf / Bahnhof - Ortszentrum", "", 47.94476, 16.10842 },
-	{ 43857, 0, "Leobersdorf / Bahnhof", "", 47.93739, 16.23092 },
+	{ 43858, 0, "Leobersdorf / Rathausplatz", "", 47.928530, 16.216570 },
+	{ 43853, 0, "Kaumberg / Marktplatz", "", 48.023880, 15.898240 },
+	{ 43855, 0, "Weissenbach / Bahnhof", "", 47.983800, 16.045350 },
+	{ 43856, 0, "Berndorf / Bahnhof - Ortszentrum", "", 47.944760, 16.108420 },
+	{ 43857, 0, "Leobersdorf / Bahnhof", "", 47.937390, 16.230920 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

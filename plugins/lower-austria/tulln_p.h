@@ -30,13 +30,13 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 43847, 0, "Tulln / Die Garten Tulln", "", 48.32892, 16.03773 },
-	{ 43848, 0, "Tulln / Donaulände - Nibelungenplatz", "", 48.33297, 16.04987 },
-	{ 43849, 0, "Tulln / Stadtbahnhof", "", 48.32872, 16.05382 },
-	{ 43850, 0, "Tulln Bh / Marc Aurel Park", "", 48.3324, 16.05644 },
-	{ 43851, 0, "Tulln / Hauptbahnhof", "", 48.3267, 16.06382 },
-	{ 44615, 0, "Tulln / Hauptplatz - Rosenarcade", "", 48.33084, 16.05046 },
-	{ 44612, 0, "Tulln / Campus Fachhochschule", "", 48.32048, 16.06404 },
+	{ 43847, 0, "Tulln / Die Garten Tulln", "", 48.328920, 16.037730 },
+	{ 43848, 0, "Tulln / Donaulände - Nibelungenplatz", "", 48.332970, 16.049870 },
+	{ 43849, 0, "Tulln / Stadtbahnhof", "", 48.328720, 16.053820 },
+	{ 43850, 0, "Tulln Bh / Marc Aurel Park", "", 48.332400, 16.056440 },
+	{ 43851, 0, "Tulln / Hauptbahnhof", "", 48.326700, 16.063820 },
+	{ 44615, 0, "Tulln / Hauptplatz - Rosenarcade", "", 48.330840, 16.050460 },
+	{ 44612, 0, "Tulln / Campus Fachhochschule", "", 48.320480, 16.064040 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

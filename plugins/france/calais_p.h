@@ -57,7 +57,7 @@ struct StationsPluginSimplePrivateCalais : StationsPluginSimplePrivate {
     rect = QRectF(QPointF(50.758029, 1.652413), QPointF(51.158029, 2.052413));
     center = QPointF(50.958029, 1.852413);
     statusUrl = "";
-    infosUrl = "http://www.vel-in.fr/oybike/stands.nsf/getSite?openagent&site=calais&format=json&key=D2652BE27FAFB0267752831BFEC4334C";
+    infosUrl = "http://www.vel-in.fr/oybike/stands.nsf/getSite?openagent&site=calais&format=json&key=D";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {

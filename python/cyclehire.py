@@ -45,7 +45,7 @@ class CycleHire(Provider):
         }
 
     def url(self):
-        return 'http://' + self.config['server'] + "/maps"
+        return 'https://' + self.config['server'] + "/maps"
 
     def get_countries(self):
         country = Country()

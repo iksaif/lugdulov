@@ -30,16 +30,17 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 44621, 0, "Bad Vöslau / Bahnhof", "", 47.96922, 16.22321 },
-	{ 44622, 0, "Bad Vöslau / Schlossplatz", "", 47.96556, 16.21441 },
-	{ 44624, 0, "Guntramsdorf / Hst. Lokalbahn", "", 48.04915, 16.31221 },
-	{ 44626, 0, "Gumpoldskirchen / Bahnhof", "", 48.04081, 16.28449 },
-	{ 44629, 0, "Guntramsdorf / Hst. Neu Guntramsdorf", "", 48.06403, 16.31386 },
-	{ 46197, 0, "Baden / Bahnhof", "", 48.00484, 16.24275 },
-	{ 46209, 0, "Baden / Haltestelle Josefplatz", "", 48.00618, 16.23398 },
-	{ 46216, 0, "Baden / Tourismusinfo Römertherme", "", 48.00804, 16.23094 },
-	{ 46219, 0, "Baden / Strandbad", "", 48.00641, 16.21916 },
-	{ 46248, 0, "Pfaffstätten / Bahnhof", "", 48.0177, 16.25923 },
+	{ 44621, 0, "Bad Vöslau / Bahnhof", "", 47.969220, 16.223210 },
+	{ 44622, 0, "Bad Vöslau / Schlossplatz", "", 47.965560, 16.214410 },
+	{ 44624, 0, "Guntramsdorf / Hst. Lokalbahn", "", 48.049150, 16.312210 },
+	{ 44626, 0, "Gumpoldskirchen / Bahnhof", "", 48.040810, 16.284490 },
+	{ 44629, 0, "Guntramsdorf / Hst. Neu Guntramsdorf", "", 48.064030, 16.313860 },
+	{ 46197, 0, "Baden / Bahnhof", "", 48.004840, 16.242750 },
+	{ 46209, 0, "Baden / Haltestelle Josefplatz", "", 48.006180, 16.233980 },
+	{ 46216, 0, "Baden / Tourismusinfo Römertherme", "", 48.008040, 16.230940 },
+	{ 46219, 0, "Baden / Strandbad", "", 48.006410, 16.219160 },
+	{ 46248, 0, "Pfaffstätten / Bahnhof", "", 48.017700, 16.259230 },
+	{ 63758, 0, "Bahnhof Mödling", "", 48.015619, 16.290441 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

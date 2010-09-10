@@ -30,12 +30,12 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 119, 0, "S-Bahn Kaiserlei / Berliner Str.", "", 50.105304168, 8.74001026154 },
-	{ 123, 0, "Frankfurter Str. / Kaiserstr.", "", 50.1049050541, 8.75844240189 },
-	{ 137, 0, "Hauptbahnhof / Kaiserstr.", "", 50.0995235726, 8.76065254211 },
-	{ 241, 0, "S-Bahn Ost / Untere Grenzstr.", "", 50.1026341702, 8.78434181213 },
-	{ 8372, 0, "S- Bahn Marktplatz / Rathaus", "", 50.1060955047, 8.76174151897 },
-	{ 42784, 0, "S-Bahn Marktplatz / Berliner Str.", "", 50.1057445657, 8.76329183578 },
+	{ 119, 0, "S-Bahn Kaiserlei / Berliner Str.", "", 50.105304, 8.740010 },
+	{ 123, 0, "Frankfurter Str. / Kaiserstr.", "", 50.104905, 8.758442 },
+	{ 137, 0, "Hauptbahnhof / Kaiserstr.", "", 50.099524, 8.760653 },
+	{ 241, 0, "S-Bahn Ost / Untere Grenzstr.", "", 50.102634, 8.784342 },
+	{ 8372, 0, "S- Bahn Marktplatz / Rathaus", "", 50.106096, 8.761742 },
+	{ 42784, 0, "S-Bahn Marktplatz / Berliner Str.", "", 50.105745, 8.763292 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

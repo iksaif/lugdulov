@@ -30,14 +30,14 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 50341, 0, "Bergbaumuseum", "", 51.4891356916, 7.21573603237 },
-	{ 50342, 0, "Bf. Dahlhausen", "", 51.4267485718, 7.1421571657 },
-	{ 50343, 0, "Eisenbahnmuseum", "", 51.4327900832, 7.12625941611 },
-	{ 50344, 0, "Bo-Hauptbahnhof", "", 51.4795259235, 7.22187179585 },
-	{ 50345, 0, "Rathaus / Gustav-Heinemann-Platz", "", 51.4830644689, 7.21524336001 },
-	{ 50346, 0, "Rathaus / Willy-Brandt-Platz", "", 51.4818633045, 7.21492349382 },
-	{ 50347, 0, "Schauspielhaus", "", 51.4728205674, 7.21666934921 },
-	{ 50348, 0, "Bermuda 3Eck / Viktoriastr.", "", 51.4769357395, 7.21509476819 },
+	{ 50341, 0, "Bergbaumuseum", "", 51.489136, 7.215736 },
+	{ 50342, 0, "Bf. Dahlhausen", "", 51.426749, 7.142157 },
+	{ 50343, 0, "Eisenbahnmuseum", "", 51.432790, 7.126259 },
+	{ 50344, 0, "Bo-Hauptbahnhof", "", 51.479526, 7.221872 },
+	{ 50345, 0, "Rathaus / Gustav-Heinemann-Platz", "", 51.483064, 7.215243 },
+	{ 50346, 0, "Rathaus / Willy-Brandt-Platz", "", 51.481863, 7.214923 },
+	{ 50347, 0, "Schauspielhaus", "", 51.472821, 7.216669 },
+	{ 50348, 0, "Bermuda 3Eck / Viktoriastr.", "", 51.476936, 7.215095 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

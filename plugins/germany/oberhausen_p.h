@@ -30,14 +30,14 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 50486, 0, "Hauptbahnhof Oberhausen", "", 51.4731309035, 6.85148494664 },
-	{ 50487, 0, "Neue Mitte/Centro.", "", 51.4896740336, 6.87408146395 },
-	{ 50488, 0, "Bf. Sterkrade", "", 51.5125689977, 6.84445623286 },
-	{ 50489, 0, "Westausgang Hbf/Lvr-Industriemuseum", "", 51.4748074352, 6.84960187612 },
-	{ 50490, 0, "Schloss Oberhausen", "", 51.4926729231, 6.86116540274 },
-	{ 50491, 0, "Rathaus Oberhausen", "", 51.4733664218, 6.85985159142 },
-	{ 50492, 0, "Innenstadt Sterkrade", "", 51.5153917414, 6.84937773713 },
-	{ 50493, 0, "Innenstadt Alt-Oberhausen", "", 51.4686467247, 6.85504242213 },
+	{ 50486, 0, "Hauptbahnhof Oberhausen", "", 51.473131, 6.851485 },
+	{ 50487, 0, "Neue Mitte/Centro.", "", 51.489674, 6.874081 },
+	{ 50488, 0, "Bf. Sterkrade", "", 51.512569, 6.844456 },
+	{ 50489, 0, "Westausgang Hbf/Lvr-Industriemuseum", "", 51.474807, 6.849602 },
+	{ 50490, 0, "Schloss Oberhausen", "", 51.492673, 6.861165 },
+	{ 50491, 0, "Rathaus Oberhausen", "", 51.473366, 6.859852 },
+	{ 50492, 0, "Innenstadt Sterkrade", "", 51.515392, 6.849378 },
+	{ 50493, 0, "Innenstadt Alt-Oberhausen", "", 51.468647, 6.855042 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

@@ -30,9 +30,9 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 41614, 0, "6702 Dzintari, Turaidas Iela", "", 56.9770789512, 23.8118577003 },
-	{ 41613, 0, "6701 Majori", "", 56.9716935282, 23.7974756956 },
-	{ 41615, 0, "6703 Bulduri, Vienības Prosp 1A", "", 56.985371915, 23.8545799255 },
+	{ 41614, 0, "6702 Dzintari, Turaidas Iela", "", 56.977079, 23.811858 },
+	{ 41613, 0, "6701 Majori", "", 56.971694, 23.797476 },
+	{ 41615, 0, "6703 Bulduri, Vienības Prosp 1A", "", 56.985372, 23.854580 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

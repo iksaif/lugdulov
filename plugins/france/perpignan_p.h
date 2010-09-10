@@ -30,20 +30,20 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 1, 0, "Palais Des Rois", "Rue Des Archers, Sur La Gauche De L'Entrée Principale", 42.6940361044, 2.89406597614 },
-	{ 2, 0, "Gare Sncf Boulevard Du Conflent", "Face À L'Hôtel Paris Barcelone.", 42.6960922237, 2.87994682789 },
-	{ 3, 0, "Place De Catalogne", "Angle Rue Gal Legrand / Côté Fnac, Sur La Droite De L'Entrée", 42.6982921763, 2.88837701082 },
-	{ 4, 0, "Place Gabriel Péri", "4 Place Gabriel Péri, Rue Du 4 Septembre, À Côté Du Palmarium", 42.698613489, 2.89150714874 },
-	{ 5, 0, "Place De La République", "Devant Le Théâtre", 42.6983335725, 2.89573431015 },
-	{ 6, 0, "Victoire", "Sur Le Pont Général De Larminat / Devant Le Castillet / A Côté Du Cinéma Du Castillet", 42.7012470079, 2.89371728897 },
-	{ 7, 0, "Palais Des Congrès", "Place Du 8 Mai 45 / Devant L'Entrée De L'Office De Tourisme", 42.70260709, 2.89858818054 },
-	{ 8, 0, "Universite", "Avenue Paul Alduy", 42.683239868, 2.90196239948 },
-	{ 9, 0, "Kennedy", "Angle Avenue Kennedy Et Avenue P.Cambres ( Du Côté De La Rue De St André)", 42.6909567264, 2.89872229099 },
-	{ 10, 0, "Conservatoire De Musique", "Face Au 54 Avenue Foch / A Gauche De L'Entrée Du Parking St Martin", 42.6953510035, 2.88993269205 },
-	{ 11, 0, "Parc Des Expositions", "Avenue Du Palais Des Expositions / Angle Rd Point Du Palais Des Expositions.", 42.7079603987, 2.90254712105 },
-	{ 12, 0, "Annexe Mairie De Quartier Nord", "39 Av Maréchal Joffre / Devant L'Entrée De La Mairie Annexe", 42.7073080136, 2.8911665082 },
-	{ 13, 0, "Stade Gilbert Brutus", "Angle Av De L'Aérodrome / Devant La Mairie Annexe / Devant L'Entrée Du Stade", 42.7217259006, 2.8856921196 },
-	{ 14, 0, "Hôpital", "Hôpital", 42.723400807, 2.88687229156 },
+	{ 1, 0, "Palais Des Rois", "Rue Des Archers, Sur La Gauche De L'Entrée Principale", 42.694036, 2.894066 },
+	{ 2, 0, "Gare Sncf Boulevard Du Conflent", "Face À L'Hôtel Paris Barcelone.", 42.696092, 2.879947 },
+	{ 3, 0, "Place De Catalogne", "Angle Rue Gal Legrand / Côté Fnac, Sur La Droite De L'Entrée", 42.698292, 2.888377 },
+	{ 4, 0, "Place Gabriel Péri", "4 Place Gabriel Péri, Rue Du 4 Septembre, À Côté Du Palmarium", 42.698613, 2.891507 },
+	{ 5, 0, "Place De La République", "Devant Le Théâtre", 42.698334, 2.895734 },
+	{ 6, 0, "Victoire", "Sur Le Pont Général De Larminat / Devant Le Castillet / A Côté Du Cinéma Du Castillet", 42.701247, 2.893717 },
+	{ 7, 0, "Palais Des Congrès", "Place Du 8 Mai 45 / Devant L'Entrée De L'Office De Tourisme", 42.702607, 2.898588 },
+	{ 8, 0, "Universite", "Avenue Paul Alduy", 42.683240, 2.901962 },
+	{ 9, 0, "Kennedy", "Angle Avenue Kennedy Et Avenue P.Cambres ( Du Côté De La Rue De St André)", 42.690957, 2.898722 },
+	{ 10, 0, "Conservatoire De Musique", "Face Au 54 Avenue Foch / A Gauche De L'Entrée Du Parking St Martin", 42.695351, 2.889933 },
+	{ 11, 0, "Parc Des Expositions", "Avenue Du Palais Des Expositions / Angle Rd Point Du Palais Des Expositions.", 42.707960, 2.902547 },
+	{ 12, 0, "Annexe Mairie De Quartier Nord", "39 Av Maréchal Joffre / Devant L'Entrée De La Mairie Annexe", 42.707308, 2.891167 },
+	{ 13, 0, "Stade Gilbert Brutus", "Angle Av De L'Aérodrome / Devant La Mairie Annexe / Devant L'Entrée Du Stade", 42.721726, 2.885692 },
+	{ 14, 0, "Hôpital", "Hôpital", 42.723401, 2.886872 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

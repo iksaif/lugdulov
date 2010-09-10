@@ -30,15 +30,15 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 52231, 0, "Andreas-Gayk-Straße/ Ecke Fabrikstraße", "", 54.3195270691, 10.1345872879 },
-	{ 52239, 0, "Ostseehalle Exerzierplatz", "", 54.3217547671, 10.1273989677 },
-	{ 52236, 0, "Schloßgarten", "", 54.3258093686, 10.1430416107 },
-	{ 52229, 0, "Jugendherberge Johannesstraße", "", 54.3138571585, 10.1427304745 },
-	{ 52232, 0, "Kunsthalle Düsternbrooker Weg", "", 54.3282838556, 10.1463729143 },
-	{ 52826, 0, "Norwegenkai", "", 54.3151284192, 10.1369556785 },
-	{ 60142, 0, "Holtenauer Str. / Ecke  Waitzstraße", "", 54.3354186794, 10.1336216927 },
+	{ 52231, 0, "Andreas-Gayk-Straße/ Ecke Fabrikstraße", "", 54.319527, 10.134587 },
+	{ 52239, 0, "Ostseehalle Exerzierplatz", "", 54.321755, 10.127399 },
+	{ 52236, 0, "Schloßgarten", "", 54.325809, 10.143042 },
+	{ 52229, 0, "Jugendherberge Johannesstraße", "", 54.313857, 10.142730 },
+	{ 52232, 0, "Kunsthalle Düsternbrooker Weg", "", 54.328284, 10.146373 },
+	{ 52826, 0, "Norwegenkai", "", 54.315128, 10.136956 },
+	{ 60142, 0, "Holtenauer Str. / Ecke  Waitzstraße", "", 54.335419, 10.133622 },
 	{ 61082, 0, "Atlantic Hotel Raiffeisenstraße", "", 54.316002, 10.132522 },
-	{ 61800, 0, "Holtenauer Str./Ecke Düppelstraße", "", 54.3375767119, 10.1336324215 },
+	{ 61800, 0, "Holtenauer Str./Ecke Düppelstraße", "", 54.337577, 10.133632 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

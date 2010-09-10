@@ -30,14 +30,14 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 27497, 0, "Nr.1 / Eberhardsbrücke / Tourismusinformation", "", 48.5185942174, 9.05807733536 },
-	{ 27498, 0, "Nr.2 / Europaplatz / Hauptbahnhof", "", 48.5170200957, 9.05694007874 },
-	{ 27506, 0, "Nr. 4 / Schnarrenbergstraße / Parkhaus König", "", 48.5235045942, 9.05180096626 },
-	{ 27507, 0, "Nr.6/ Silcherstraße / Universität / Alter Botanischer Garten", "", 48.5243359712, 9.05851185322 },
-	{ 27508, 0, "Nr.5 / Nauklerstraße / Universität", "", 48.5252170739, 9.05962228775 },
-	{ 28183, 0, "Nr.3 / Österbergstraße / Lustnauertor", "", 48.5214509634, 9.05776619911 },
-	{ 28185, 0, "Nr. 8/ Haagtorplatz", "", 48.5206301984, 9.04974102974 },
-	{ 28192, 0, "Rappenberghalde / Campingplatz", "", 48.5109764, 9.0354792 },
+	{ 27497, 0, "Nr.1 / Eberhardsbrücke / Tourismusinformation", "", 48.518594, 9.058077 },
+	{ 27498, 0, "Nr.2 / Europaplatz / Hauptbahnhof", "", 48.517020, 9.056940 },
+	{ 27506, 0, "Nr. 4 / Schnarrenbergstraße / Parkhaus König", "", 48.523505, 9.051801 },
+	{ 27507, 0, "Nr.6/ Silcherstraße / Universität / Alter Botanischer Garten", "", 48.524336, 9.058512 },
+	{ 27508, 0, "Nr.5 / Nauklerstraße / Universität", "", 48.525217, 9.059622 },
+	{ 28183, 0, "Nr.3 / Österbergstraße / Lustnauertor", "", 48.521451, 9.057766 },
+	{ 28185, 0, "Nr. 8/ Haagtorplatz", "", 48.520630, 9.049741 },
+	{ 28192, 0, "Rappenberghalde / Campingplatz", "", 48.510976, 9.035479 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

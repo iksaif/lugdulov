@@ -30,15 +30,15 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 48289, 0, "St. Pölten / Hbf Ostportal", "", 48.20839, 15.63134 },
-	{ 48290, 0, "St. Pölten / Seenerlebnis Viehofen", "", 48.22093, 15.64257 },
-	{ 48291, 0, "St. Pölten / Rathausplatz", "", 48.2054382231, 15.6227463484 },
-	{ 48292, 0, "St. Pölten / Wirtschaftszentrum Nö", "", 48.19853, 15.63306 },
-	{ 48294, 0, "St. Pölten / Landesmuseum/Festspielhaus", "", 48.20037, 15.63143 },
-	{ 48295, 0, "St. Pölten / Landhaus - Haus 1A", "", 48.20131, 15.6318 },
-	{ 48296, 0, "St. Pölten / Tor Zum Landhaus", "", 48.20388, 15.63327 },
-	{ 48297, 0, "St. Pölten / Klostergasse", "", 48.20678, 15.62516 },
-	{ 48298, 0, "St. Pölten / Gästehaus Aquilin", "", 48.17263, 15.62465 },
+	{ 48289, 0, "St. Pölten / Hbf Ostportal", "", 48.208390, 15.631340 },
+	{ 48290, 0, "St. Pölten / Seenerlebnis Viehofen", "", 48.220930, 15.642570 },
+	{ 48291, 0, "St. Pölten / Rathausplatz", "", 48.205438, 15.622746 },
+	{ 48292, 0, "St. Pölten / Wirtschaftszentrum Nö", "", 48.198530, 15.633060 },
+	{ 48294, 0, "St. Pölten / Landesmuseum/Festspielhaus", "", 48.200370, 15.631430 },
+	{ 48295, 0, "St. Pölten / Landhaus - Haus 1A", "", 48.201310, 15.631800 },
+	{ 48296, 0, "St. Pölten / Tor Zum Landhaus", "", 48.203880, 15.633270 },
+	{ 48297, 0, "St. Pölten / Klostergasse", "", 48.206780, 15.625160 },
+	{ 48298, 0, "St. Pölten / Gästehaus Aquilin", "", 48.172630, 15.624650 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

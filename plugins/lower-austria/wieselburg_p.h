@@ -30,12 +30,12 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 48304, 0, "Wieselburg / Freizeitzentrum", "", 48.1340744716, 15.1462841034 },
+	{ 48304, 0, "Wieselburg / Freizeitzentrum", "", 48.134074, 15.146284 },
 	{ 48303, 0, "Wieselburg / Bahnhof", "", 48.131608, 15.141508 },
-	{ 48306, 0, "Petzenkirchen / Haubiversum", "", 48.14444, 15.15028 },
-	{ 48309, 0, "Pöchlarn / Oskar Kokoschka Geburtshaus", "", 48.21167, 15.20667 },
-	{ 48305, 0, "Wieselburg / Fachhochschule", "", 48.13917, 15.13917 },
-	{ 48307, 0, "Pöchlarn / Bahnhof", "", 48.20841, 15.216959 },
+	{ 48306, 0, "Petzenkirchen / Haubiversum", "", 48.144440, 15.150280 },
+	{ 48309, 0, "Pöchlarn / Oskar Kokoschka Geburtshaus", "", 48.211670, 15.206670 },
+	{ 48305, 0, "Wieselburg / Fachhochschule", "", 48.139170, 15.139170 },
+	{ 48307, 0, "Pöchlarn / Bahnhof", "", 48.208410, 15.216959 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

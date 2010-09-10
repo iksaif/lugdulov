@@ -159,7 +159,7 @@ struct StationsPluginSimplePrivateNice : StationsPluginSimplePrivate {
     rect = QRectF(QPointF(43.503427, 7.066266), QPointF(43.903427, 7.466266));
     center = QPointF(43.703427, 7.266266);
     statusUrl = "";
-    infosUrl = "http://www.velobleu.org/oybike/stands.nsf/getSite?openagent&site=nice&format=json&key=D2652BE27FAFB0267752831BFEC4334C";
+    infosUrl = "http://www.velobleu.org/oybike/stands.nsf/getSite?openagent&site=nice&format=json&key=D";
   }
 
   QList < Station * > fetchAll(StationsPlugin *plugin) {

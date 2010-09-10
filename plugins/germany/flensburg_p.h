@@ -30,15 +30,15 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 48471, 0, "Fischereihafen Ostseite", "", 54.7908010789, 9.43787813187 },
-	{ 45757, 0, "Zob / Touristinformation", "", 54.7867429542, 9.43727731705 },
-	{ 45760, 0, "Willy-Brandt-Platz", "", 54.7895144005, 9.43375825882 },
-	{ 45765, 0, "Twedter Plack", "", 54.8155091102, 9.47238743305 },
-	{ 47493, 0, "Hauptbahnhof", "", 54.7749683762, 9.43737387657 },
-	{ 48470, 0, "Nordertorplatz/Phänomenta", "", 54.7957123497, 9.43088293076 },
-	{ 48465, 0, "Campus Unigelände", "", 54.7761874485, 9.45538759232 },
-	{ 48468, 0, "Exe/Friesische Str. Bushaltestelle", "", 54.7779695794, 9.42433834076 },
-	{ 48469, 0, "Dr.-Todsen-Str./ Ecke Angelburger Str.", "", 54.7825049959, 9.43685889244 },
+	{ 48471, 0, "Fischereihafen Ostseite", "", 54.790801, 9.437878 },
+	{ 45757, 0, "Zob / Touristinformation", "", 54.786743, 9.437277 },
+	{ 45760, 0, "Willy-Brandt-Platz", "", 54.789514, 9.433758 },
+	{ 45765, 0, "Twedter Plack", "", 54.815509, 9.472387 },
+	{ 47493, 0, "Hauptbahnhof", "", 54.774968, 9.437374 },
+	{ 48470, 0, "Nordertorplatz/Phänomenta", "", 54.795712, 9.430883 },
+	{ 48465, 0, "Campus Unigelände", "", 54.776187, 9.455388 },
+	{ 48468, 0, "Exe/Friesische Str. Bushaltestelle", "", 54.777970, 9.424338 },
+	{ 48469, 0, "Dr.-Todsen-Str./ Ecke Angelburger Str.", "", 54.782505, 9.436859 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

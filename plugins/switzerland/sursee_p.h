@@ -30,7 +30,7 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 20263, 0, "Bahnhof Sbb/P+R Anlage", "", 47.168856029, 8.09988498688 },
+	{ 20263, 0, "Bahnhof Sbb/P+R Anlage", "", 47.168856, 8.099885 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

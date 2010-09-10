@@ -30,18 +30,18 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 8242, 0, "Travemuende Vorderreihe Volksbank", "", 53.9562370404, 10.8663368225 },
-	{ 14952, 0, "Travemünde Vorderreihe", "", 53.9576511014, 10.8704996109 },
-	{ 19189, 0, "Travemünde Kaiserallee Dlrg Station", "", 53.9673714727, 10.8804559708 },
-	{ 19191, 0, "Travemünde Kaiserallee Liegewiese", "", 53.9701735485, 10.8816576004 },
-	{ 19192, 0, "Travemünde Promenade Vorderreihe", "", 53.959115614, 10.8745336533 },
-	{ 19194, 0, "Jugendherberge Am Gertrudenkirchhof 4", "", 53.8781368189, 10.6939458847 },
-	{ 19195, 0, "An Der Untertrave Fußgängerbrücke Zur Muk", "", 53.8695596481, 10.6798267365 },
-	{ 19198, 0, "Touristen Information Am Holstentor", "", 53.8658397972, 10.6776380539 },
-	{ 25847, 0, "Casino Travemünde", "", 53.9647711799, 10.8791255951 },
-	{ 29569, 0, "Lindenplatz", "", 53.8666672, 10.6743674 },
-	{ 45695, 0, "Holstentorplatz Vor Dem Kiosk", "", 53.8659030627, 10.6792098284 },
-	{ 55458, 0, "Travemünde Hafen", "", 53.9555552438, 10.8652639389 },
+	{ 8242, 0, "Travemuende Vorderreihe Volksbank", "", 53.956237, 10.866337 },
+	{ 14952, 0, "Travemünde Vorderreihe", "", 53.957651, 10.870500 },
+	{ 19189, 0, "Travemünde Kaiserallee Dlrg Station", "", 53.967371, 10.880456 },
+	{ 19191, 0, "Travemünde Kaiserallee Liegewiese", "", 53.970174, 10.881658 },
+	{ 19192, 0, "Travemünde Promenade Vorderreihe", "", 53.959116, 10.874534 },
+	{ 19194, 0, "Jugendherberge Am Gertrudenkirchhof 4", "", 53.878137, 10.693946 },
+	{ 19195, 0, "An Der Untertrave Fußgängerbrücke Zur Muk", "", 53.869560, 10.679827 },
+	{ 19198, 0, "Touristen Information Am Holstentor", "", 53.865840, 10.677638 },
+	{ 25847, 0, "Casino Travemünde", "", 53.964771, 10.879126 },
+	{ 29569, 0, "Lindenplatz", "", 53.866667, 10.674367 },
+	{ 45695, 0, "Holstentorplatz Vor Dem Kiosk", "", 53.865903, 10.679210 },
+	{ 55458, 0, "Travemünde Hafen", "", 53.955555, 10.865264 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

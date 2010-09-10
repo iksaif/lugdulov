@@ -30,20 +30,20 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 7, 0, "007_Facultad De Derecho", "Aprox. Facultad De Ciencias", 43.4701661089, -3.80649947753 },
-	{ 6, 0, "006_Faculdad De Ciencias", "Aprox. Glorieta De Los Delfines", 43.4711061117, -3.8005864589 },
-	{ 11, 0, "011_Puerto Chico", "Aprox.Paseo Pereda Y San Martín", 43.4626775408, -3.79656941603 },
-	{ 12, 0, "012_Calle Alta", "Aprox. Mercado De México", 43.4579662522, -3.82480124235 },
-	{ 13, 0, "013_Calle De San Fernando", "Aprox. Paseo Del Alameda", 43.4607255432, -3.81797824492 },
-	{ 4, 0, "004_Cormorán", "Aprox. C/ De Manuel García Lago", 43.478471811, -3.78865314567 },
-	{ 1, 0, "001_Jardines De Pereda", "Aprox. Correos Y Castelar", 43.461432786, -3.80331477168 },
-	{ 10, 0, "010_Plaza De San Martin", "Aprox. Avda De La Reina Victoria Y Castelar", 43.4635521249, -3.78800547923 },
-	{ 5, 0, "005_Glorieta De Los Delfines", "Aprox. Avda De Los Castros", 43.4719661075, -3.7928544962 },
-	{ 2, 0, "002_Plaza De Las Brisas", "Aprox. Jardines De Piquio", 43.4744126705, -3.78578134528 },
-	{ 8, 0, "008_Plaza De Italia", "Aprox. C/ De Joaquín Costa", 43.4718048258, -3.78134613486 },
-	{ 3, 0, "003_Parque Las Llamas", "Aprox. Palacio De Deportes", 43.4757322604, -3.79806387098 },
-//	{ 9, 0, "009_Avenida De La Magdalena", "Aprox. Avda De La Reina Victoria", 89.9989063612, -136.261831457 },
-	{ 14, 0, "014_Atilano Rodriguez", "Aprox. Paseo De Pereda Y San Fernando", 43.4583838909, -3.81046839133 },
+	{ 7, 0, "007_Facultad De Derecho", "Aprox. Facultad De Ciencias", 43.470166, -3.806499 },
+	{ 6, 0, "006_Faculdad De Ciencias", "Aprox. Glorieta De Los Delfines", 43.471106, -3.800586 },
+	{ 11, 0, "011_Puerto Chico", "Aprox.Paseo Pereda Y San Martín", 43.462678, -3.796569 },
+	{ 12, 0, "012_Calle Alta", "Aprox. Mercado De México", 43.457966, -3.824801 },
+	{ 13, 0, "013_Calle De San Fernando", "Aprox. Paseo Del Alameda", 43.460726, -3.817978 },
+	{ 4, 0, "004_Cormorán", "Aprox. C/ De Manuel García Lago", 43.478472, -3.788653 },
+	{ 1, 0, "001_Jardines De Pereda", "Aprox. Correos Y Castelar", 43.461433, -3.803315 },
+	{ 10, 0, "010_Plaza De San Martin", "Aprox. Avda De La Reina Victoria Y Castelar", 43.463552, -3.788005 },
+	{ 5, 0, "005_Glorieta De Los Delfines", "Aprox. Avda De Los Castros", 43.471966, -3.792854 },
+	{ 2, 0, "002_Plaza De Las Brisas", "Aprox. Jardines De Piquio", 43.474413, -3.785781 },
+	{ 8, 0, "008_Plaza De Italia", "Aprox. C/ De Joaquín Costa", 43.471805, -3.781346 },
+	{ 3, 0, "003_Parque Las Llamas", "Aprox. Palacio De Deportes", 43.475732, -3.798064 },
+//	{ 9, 0, "009_Avenida De La Magdalena", "Aprox. Avda De La Reina Victoria", 89.998906, -136.261831 },
+	{ 14, 0, "014_Atilano Rodriguez", "Aprox. Paseo De Pereda Y San Fernando", 43.458384, -3.810468 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

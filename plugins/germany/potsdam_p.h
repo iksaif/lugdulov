@@ -30,16 +30,16 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 57741, 0, "Volkspark Süd", "", 52.4158618752, 13.0412113667 },
-	{ 57730, 0, "Bahnhof Golm", "", 52.4090099907, 12.9724341631 },
-	{ 57747, 0, "Jägertor/ Lindenstraße", "", 52.4021177667, 13.0524230003 },
-	{ 57748, 0, "Brandenburger Str./ Lindenstr.", "", 52.3998201194, 13.0518651009 },
-	{ 57749, 0, "Dortusstr./ Charlottenstraße", "", 52.3992047747, 13.0529487133 },
-	{ 57751, 0, "Stadthaus Potsdam", "", 52.4057472819, 13.0581253767 },
-	{ 57755, 0, "Schiffbauergasse", "", 52.4038065593, 13.0751466751 },
-	{ 57758, 0, "Rathaus Babelsberg", "", 52.3922455459, 13.0917227268 },
-	{ 57759, 0, "Kopernikusstraße", "", 52.3891682086, 13.0999517441 },
-	{ 57763, 0, "Bahnhof Griebnitzsee", "", 52.3939805457, 13.1290054321 },
+	{ 57741, 0, "Volkspark Süd", "", 52.415862, 13.041211 },
+	{ 57730, 0, "Bahnhof Golm", "", 52.409010, 12.972434 },
+	{ 57747, 0, "Jägertor/ Lindenstraße", "", 52.402118, 13.052423 },
+	{ 57748, 0, "Brandenburger Str./ Lindenstr.", "", 52.399820, 13.051865 },
+	{ 57749, 0, "Dortusstr./ Charlottenstraße", "", 52.399205, 13.052949 },
+	{ 57751, 0, "Stadthaus Potsdam", "", 52.405747, 13.058125 },
+	{ 57755, 0, "Schiffbauergasse", "", 52.403807, 13.075147 },
+	{ 57758, 0, "Rathaus Babelsberg", "", 52.392246, 13.091723 },
+	{ 57759, 0, "Kopernikusstraße", "", 52.389168, 13.099952 },
+	{ 57763, 0, "Bahnhof Griebnitzsee", "", 52.393981, 13.129005 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

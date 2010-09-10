@@ -21,18 +21,18 @@ def getproviders():
     import bixi
 
     ret = []
-    #ret.append(cyclocity.CycloCity())
-    #ret.append(lyon.LyonVelov())
-    #ret.append(citybike.CityBike())
-    #ret.append(nextbike.NextBike())
-    #ret.append(citybikewien.CityBikeWien())
-    #ret.append(yelo.Yelo())
-    #ret.append(vcub.vCub())
-    #ret.append(velin.VelIn())
-    #ret.append(velocea.Velocea())
-    #ret.append(veloplus.VeloPlus())
-    #ret.append(velopop.VeloPop())
-    #ret.append(velostar.VeloStar())
+    ret.append(cyclocity.CycloCity())
+    ret.append(lyon.LyonVelov())
+    ret.append(citybike.CityBike())
+    ret.append(nextbike.NextBike())
+    ret.append(citybikewien.CityBikeWien())
+    ret.append(yelo.Yelo())
+    ret.append(vcub.vCub())
+    ret.append(velin.VelIn())
+    ret.append(velocea.Velocea())
+    ret.append(veloplus.VeloPlus())
+    ret.append(velopop.VeloPop())
+    ret.append(velostar.VeloStar())
     ret.append(cyclehire.CycleHire())
     ret.append(bixi.Bixi())
 
@@ -52,6 +52,12 @@ def dolist(args):
         print i + ":"
         print ", ".join(ret[i])
         print
+
+    print "<dl>"
+    for i in ret.keys():
+        print "<dt>%s</dt>" % i
+        print "<dd>" + ", ".join(ret[i]) + "</dd>"
+    print "</dl>"
 
 def docountries(args):
     ret = {}

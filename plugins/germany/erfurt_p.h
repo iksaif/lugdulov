@@ -30,15 +30,15 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 18466, 0, "Hauptbahnhof", "", 50.9727344228, 11.0373330116 },
-	{ 18468, 0, "Domplatz / Eingang Parkhaus", "", 50.9772133302, 11.0229684412 },
-	{ 18471, 0, "Benediktplatz / Tourismusinformation", "", 50.9783971623, 11.029522419 },
-	{ 35140, 0, "Domplatz / Ecke Marktstraße", "", 50.9776186399, 11.0248956084 },
-	{ 42470, 0, "Anger 1 / Krämpferstraße / Krämpfertor", "", 50.9785744812, 11.0370326042 },
-	{ 42471, 0, "Wenigemarkt / Südlicher Gehweg", "", 50.9783532547, 11.032075882 },
-	{ 42472, 0, "Schlösserstraße / Barfüsserstraße", "", 50.9764398545, 11.030729413 },
-	{ 42473, 0, "Hirschlachufer / Mühlgasse", "", 50.9748911754, 11.0341693461 },
-	{ 42474, 0, "Lange Brücke / Regierungsstraße", "", 50.9739335693, 11.0273337364 },
+	{ 18466, 0, "Hauptbahnhof", "", 50.972734, 11.037333 },
+	{ 18468, 0, "Domplatz / Eingang Parkhaus", "", 50.977213, 11.022968 },
+	{ 18471, 0, "Benediktplatz / Tourismusinformation", "", 50.978397, 11.029522 },
+	{ 35140, 0, "Domplatz / Ecke Marktstraße", "", 50.977619, 11.024896 },
+	{ 42470, 0, "Anger 1 / Krämpferstraße / Krämpfertor", "", 50.978574, 11.037033 },
+	{ 42471, 0, "Wenigemarkt / Südlicher Gehweg", "", 50.978353, 11.032076 },
+	{ 42472, 0, "Schlösserstraße / Barfüsserstraße", "", 50.976440, 11.030729 },
+	{ 42473, 0, "Hirschlachufer / Mühlgasse", "", 50.974891, 11.034169 },
+	{ 42474, 0, "Lange Brücke / Regierungsstraße", "", 50.973934, 11.027334 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

@@ -30,19 +30,19 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 13650, 0, "Au Gemeindeamt", "", 47.3219876, 9.9804615 },
-	{ 13661, 0, "Bezau Hauptschule, Platz 138", "", 47.3835399, 9.9020513 },
+	{ 13650, 0, "Au Gemeindeamt", "", 47.321988, 9.980462 },
+	{ 13661, 0, "Bezau Hauptschule, Platz 138", "", 47.383540, 9.902051 },
 	{ 13648, 0, "Schoppernau Gemeindeamt", "", 47.312406, 10.015903 },
-	{ 13649, 0, "Schoppernau Talstation Diedamskopf", "", 47.3163738302, 10.0091350079 },
-	{ 13652, 0, "Rehmen Kirche", "", 47.3225851284, 9.99851346016 },
-	{ 13654, 0, "Schnepfau Gemeindesaal", "", 47.3519952329, 9.94528770447 },
-	{ 13658, 0, "Bizau Kirche", "", 47.3690666603, 9.92848098278 },
-	{ 13659, 0, "Mellau Gemeindeamt", "", 47.3505144, 9.881764 },
-	{ 13660, 0, "Bezau Bahnhof", "", 47.381236399, 9.89786624908 },
-	{ 13662, 0, "Egg Cafe Ampuls", "", 47.4307729, 9.8972451 },
-	{ 48856, 0, "Andelsbuch Gemeindeamt", "", 47.4122910076, 9.89490590332 },
-	{ 48857, 0, "Andelsbuch Bergbahn", "", 47.4201897271, 9.90657806396 },
-	{ 48858, 0, "Bersbuch Wälderbahn", "", 47.3960252071, 9.86640930176 },
+	{ 13649, 0, "Schoppernau Talstation Diedamskopf", "", 47.316374, 10.009135 },
+	{ 13652, 0, "Rehmen Kirche", "", 47.322585, 9.998513 },
+	{ 13654, 0, "Schnepfau Gemeindesaal", "", 47.351995, 9.945288 },
+	{ 13658, 0, "Bizau Kirche", "", 47.369067, 9.928481 },
+	{ 13659, 0, "Mellau Gemeindeamt", "", 47.350514, 9.881764 },
+	{ 13660, 0, "Bezau Bahnhof", "", 47.381236, 9.897866 },
+	{ 13662, 0, "Egg Cafe Ampuls", "", 47.430773, 9.897245 },
+	{ 48856, 0, "Andelsbuch Gemeindeamt", "", 47.412291, 9.894906 },
+	{ 48857, 0, "Andelsbuch Bergbahn", "", 47.420190, 9.906578 },
+	{ 48858, 0, "Bersbuch Wälderbahn", "", 47.396025, 9.866409 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 

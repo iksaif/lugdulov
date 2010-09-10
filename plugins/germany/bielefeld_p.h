@@ -30,14 +30,14 @@ static const struct {
         double x;
         double y;
 } stations[] = {
-	{ 42241, 0, "Hauptbahnhof", "", 52.028755968, 8.53312075138 },
-	{ 42243, 0, "Turmstraße 10 / Puddingtown-Bikes", "", 52.0301322735, 8.5244679451 },
-	{ 42244, 0, "Jahnplatz S-Bahn-Hst", "", 52.0229829448, 8.53271842003 },
-	{ 42245, 0, "Alex Am Theater", "", 52.0205467629, 8.53427410126 },
-	{ 42433, 0, "Niederwall 10 / Galerie Samuelis Baumgarte E.K.", "", 52.0216262257, 8.5341668129 },
-	{ 42452, 0, "Stresemannstraße Hst", "", 52.0248314496, 8.53425264359 },
-	{ 47357, 0, "Niedernstraße (Neue Westfälische)", "", 52.0221048783, 8.53180646896 },
-	{ 61803, 0, "Bunnemannplatz (Mercur Hotel)", "", 52.0192262837, 8.5297036171 },
+	{ 42241, 0, "Hauptbahnhof", "", 52.028756, 8.533121 },
+	{ 42243, 0, "Turmstraße 10 / Puddingtown-Bikes", "", 52.030132, 8.524468 },
+	{ 42244, 0, "Jahnplatz S-Bahn-Hst", "", 52.022983, 8.532718 },
+	{ 42245, 0, "Alex Am Theater", "", 52.020547, 8.534274 },
+	{ 42433, 0, "Niederwall 10 / Galerie Samuelis Baumgarte E.K.", "", 52.021626, 8.534167 },
+	{ 42452, 0, "Stresemannstraße Hst", "", 52.024831, 8.534253 },
+	{ 47357, 0, "Niedernstraße (Neue Westfälische)", "", 52.022105, 8.531806 },
+	{ 61803, 0, "Bunnemannplatz (Mercur Hotel)", "", 52.019226, 8.529704 },
 	{0, 0, NULL, NULL, 0., 0.}
 };
 
