@@ -31,9 +31,11 @@ set(france_SRCS
 # velin
   calais.cpp
   nice.cpp
+# dupral
+  bordeaux.cpp
+  pau.cpp
 # other
   larochelle.cpp
-  bordeaux.cpp
   vannes.cpp
   orleans.cpp
   avignon.cpp
@@ -66,6 +68,7 @@ set(france_HDRS
   nice.h
   larochelle.h
   bordeaux.h
+  pau.h
   vannes.h
   orleans.h
   avignon.h

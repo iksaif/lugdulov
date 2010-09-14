@@ -31,41 +31,75 @@ import xml.dom.minidom
 import datetime
 from plugin import *
 
-class vCub(Provider):
-    config = {
-        'country_uid' : 'fr',
-        'country_Name' : 'France',
-        'city_uid'    : 'bordeaux',
-        'city_Name'    : 'Bordeaux',
-        'bike_name'    : 'Vcub',
-        'server' : 'www.vcub.fr',
-        'lat'  : 44.8373682,
-        'lng'  : -0.5761440
-        }
+class Dupral(Provider):
+    config = [
+        {
+            'country_uid' : 'fr',
+            'country_name' : 'France',
+            'city_uid'    : 'bordeaux',
+            'city_name'    : 'Bordeaux',
+            'bike_name'    : 'Vcub',
+            'server' : 'www.vcub.fr',
+            'lat'  : 44.8373682,
+            'lng'  : -0.5761440
+            },
+        {
+            'country_uid' : 'fr',
+            'country_name' : 'France',
+            'city_uid'    : 'pau',
+            'city_name'    : 'Pau',
+            'bike_name'    : 'IDEcycle',
+            'server' : 'www.idecycle.com',
+            'lat'  : 43.29461,
+            'lng'  : -0.37078
+            }]
 
-    def url(self):
-        return 'http://' + self.config['server'] + "/stations/plan"
+    def service_by_city(self, city):
+        for service in self.config:
+            if service['city_uid'] == city.uid:
+                return service
+        return None
+
+    def url(self, city):
+        service = self.service_by_city(city)
+        return 'http://' + service['server'] + "/stations/plan"
 
     def get_countries(self):
-        country = Country()
-        country.uid = "france"
-        country.name = "France"
-        return [country]
+        ret = []
+        done = {}
+
+        for service in self.config:
+            if service['country_uid'] in done:
+                continue
+            done[service['country_uid']] = True
+
+            country = Country()
+            country.uid = service['country_uid']
+            country.name = service['country_name']
+            ret.append(country)
+        return ret
 
     def get_cities(self, country):
-        city = City()
-        city.uid = self.config['city_uid']
-        city.id = city.uid
-        city.name = self.config['city_Name']
-        city.bikeName = self.config['bike_name']
-        city.lat = self.config['lat']
-        city.lng = self.config['lng']
-        city.create_rect()
-        return [city]
+        ret = []
+        for service in self.config:
+            if country.uid != service['country_uid']:
+                continue
+
+            city = City()
+            city.uid = service['city_uid']
+            city.id = city.uid
+            city.name = service['city_name']
+            city.bikeName = service['bike_name']
+            city.bikeIcon = ""
+            city.lat = service['lat']
+            city.lng = service['lng']
+            city.create_rect()
+            ret.append(city)
+        return ret
 
     def get_stations(self, city):
         stations = []
-        url = self.url()
+        url = self.url(city)
         fp = urllib2.urlopen(url)
 
         data = fp.read()
@@ -127,17 +161,27 @@ class vCub(Provider):
     def get_zones(self, city):
         return []
 
+    def dump_class(self, city):
+        data = open('dupral/class.tpl.cpp').read()
+        data = self._dump_class(data, city)
+        print data.encode('utf8')
+
+    def dump_header(self, city):
+        data = open('dupral/header.tpl.h').read()
+        data = self._dump_header(data, city)
+        print data.encode('utf8')
+
     def dump_priv(self, city):
-        data = open('citybike/priv.tpl.h').read()
+        data = open('dupral/priv.tpl.h').read()
         #city.rect = self.get_city_bike_zone(service, city)
         data = self._dump_priv(data, city)
         data = data.replace('<statusUrl>', '')
-        data = data.replace('<infosUrl>', self.url())
+        data = data.replace('<infosUrl>', self.url(city))
         print data.encode('utf8')
 
 
 def test():
-    prov = vCub()
+    prov = Dupral()
 
     countries = prov.get_countries()
     print countries

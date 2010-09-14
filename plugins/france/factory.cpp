@@ -40,6 +40,7 @@
 #include "nice.h"
 #include "larochelle.h"
 #include "bordeaux.h"
+#include "pau.h"
 #include "vannes.h"
 #include "orleans.h"
 #include "avignon.h"
@@ -89,6 +90,7 @@ StationsPluginFactoryFrance::stations(QObject *parent)
   ret << new StationsPluginNice(parent);
   ret << new StationsPluginLaRochelle(parent);
   ret << new StationsPluginBordeaux(parent);
+  ret << new StationsPluginPau(parent);
   ret << new StationsPluginVannes(parent);
   ret << new StationsPluginOrleans(parent);
   ret << new StationsPluginAvignon(parent);

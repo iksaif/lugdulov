@@ -19,41 +19,40 @@
 #include <QtCore/QDebug>
 
 #include "station.h"
-#include "bordeaux.h"
-#include "bordeaux_p.h"
+#include "<city>.h"
+#include "<city>_p.h"
 
-StationsPluginBordeaux::StationsPluginBordeaux(QObject *parent)
+StationsPlugin<City>::StationsPlugin<City>(QObject *parent)
   : StationsPluginDupral(parent)
 {
-  d = new StationsPluginSimplePrivateBordeaux();
+  d = new StationsPluginSimplePrivate<City>();
 }
 
-StationsPluginBordeaux::~StationsPluginBordeaux()
+StationsPlugin<City>::~StationsPlugin<City>()
 {
   delete d;
 }
 
 QString
-StationsPluginBordeaux::id() const
+StationsPlugin<City>::id() const
 {
-  return QLatin1String("bordeaux");
+  return QLatin1String("<city>");
 }
 
 QString
-StationsPluginBordeaux::name() const
+StationsPlugin<City>::name() const
 {
-  return QString::fromUtf8("Bordeaux");
+  return QString::fromUtf8("<CityName>");
 }
 
 QString
-StationsPluginBordeaux::bikeName() const
+StationsPlugin<City>::bikeName() const
 {
-  return QString::fromUtf8("Vcub");
+  return QString::fromUtf8("<BikeName>");
 }
 
 QIcon
-StationsPluginBordeaux::bikeIcon() const
+StationsPlugin<City>::bikeIcon() const
 {
   return QIcon(":/res/bike.png");
 }
-

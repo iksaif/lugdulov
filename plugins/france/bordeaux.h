@@ -19,28 +19,20 @@
 #ifndef STATIONS_BORDEAUX_H
 #define STATIONS_BORDEAUX_H
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-#include <QtCore/QMap>
+#include "stationsplugindupral.h"
 
-#include "stationspluginsingle.h"
-
-class Station;
-
-class StationsPluginBordeaux : public StationsPluginSingle
+class StationsPluginBordeaux : public StationsPluginDupral
 {
   Q_OBJECT
  public:
   StationsPluginBordeaux(QObject *parent);
-  virtual ~StationsPluginBordeaux();
+  ~StationsPluginBordeaux();
 
   QString id() const;
   QString name() const;
   QString bikeName() const;
   QIcon bikeIcon() const;
-
- protected:
-  virtual void handleInfos(const QByteArray & data);
 };
 
 #endif /* STATIONS_BORDEAUX_H */
+

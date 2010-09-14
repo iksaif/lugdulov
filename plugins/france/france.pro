@@ -23,6 +23,7 @@ HEADERS += factory.h \
   perpignan.h \
   larochelle.h \
   bordeaux.h \
+  pau.h \
   vannes.h \
   orleans.h \
   avignon.h \
@@ -49,6 +50,7 @@ SOURCES += factory.cpp \
   perpignan.cpp \
   larochelle.cpp \
   bordeaux.cpp \
+  pau.cpp \
   vannes.cpp \
   orleans.cpp \
   avignon.cpp \

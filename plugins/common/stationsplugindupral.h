@@ -16,44 +16,26 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtCore/QDebug>
+#ifndef STATIONS_DUPRAL_H
+#define STATIONS_DUPRAL_H
 
-#include "station.h"
-#include "bordeaux.h"
-#include "bordeaux_p.h"
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QtCore/QMap>
 
-StationsPluginBordeaux::StationsPluginBordeaux(QObject *parent)
-  : StationsPluginDupral(parent)
+#include "stationspluginsingle.h"
+
+class Station;
+
+class StationsPluginDupral : public StationsPluginSingle
 {
-  d = new StationsPluginSimplePrivateBordeaux();
-}
+  Q_OBJECT
+ public:
+  StationsPluginDupral(QObject *parent);
+  virtual ~StationsPluginDupral();
 
-StationsPluginBordeaux::~StationsPluginBordeaux()
-{
-  delete d;
-}
+ protected:
+  virtual void handleInfos(const QByteArray & data);
+};
 
-QString
-StationsPluginBordeaux::id() const
-{
-  return QLatin1String("bordeaux");
-}
-
-QString
-StationsPluginBordeaux::name() const
-{
-  return QString::fromUtf8("Bordeaux");
-}
-
-QString
-StationsPluginBordeaux::bikeName() const
-{
-  return QString::fromUtf8("Vcub");
-}
-
-QIcon
-StationsPluginBordeaux::bikeIcon() const
-{
-  return QIcon(":/res/bike.png");
-}
-
+#endif /* STATIONS_DUPRAL_H */

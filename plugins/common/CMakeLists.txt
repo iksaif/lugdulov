@@ -13,6 +13,7 @@ set(lugdulov_base_SRCS
   stationsplugincitybike.cpp
   stationspluginnextbike.cpp
   stationspluginvelin.cpp
+  stationsplugindupral.cpp
   station.cpp
 )
 
@@ -24,6 +25,7 @@ set(lugdulov_base_MOC_HDRS
   stationsplugincitybike.h
   stationspluginnextbike.h
   stationspluginvelin.h
+  stationsplugindupral.h
 )
 
 qt4_wrap_cpp(lugdulov_base_MOC_SOURCE ${lugdulov_base_MOC_HDRS})

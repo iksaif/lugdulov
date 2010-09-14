@@ -19,40 +19,40 @@
 #include <QtCore/QDebug>
 
 #include "station.h"
-#include "bordeaux.h"
-#include "bordeaux_p.h"
+#include "pau.h"
+#include "pau_p.h"
 
-StationsPluginBordeaux::StationsPluginBordeaux(QObject *parent)
+StationsPluginPau::StationsPluginPau(QObject *parent)
   : StationsPluginDupral(parent)
 {
-  d = new StationsPluginSimplePrivateBordeaux();
+  d = new StationsPluginSimplePrivatePau();
 }
 
-StationsPluginBordeaux::~StationsPluginBordeaux()
+StationsPluginPau::~StationsPluginPau()
 {
   delete d;
 }
 
 QString
-StationsPluginBordeaux::id() const
+StationsPluginPau::id() const
 {
-  return QLatin1String("bordeaux");
+  return QLatin1String("pau");
 }
 
 QString
-StationsPluginBordeaux::name() const
+StationsPluginPau::name() const
 {
-  return QString::fromUtf8("Bordeaux");
+  return QString::fromUtf8("Pau");
 }
 
 QString
-StationsPluginBordeaux::bikeName() const
+StationsPluginPau::bikeName() const
 {
-  return QString::fromUtf8("Vcub");
+  return QString::fromUtf8("IDEcycle");
 }
 
 QIcon
-StationsPluginBordeaux::bikeIcon() const
+StationsPluginPau::bikeIcon() const
 {
   return QIcon(":/res/bike.png");
 }

@@ -11,7 +11,7 @@ def getproviders():
     import nextbike
     import citybikewien
     import yelo
-    import vcub
+    import dupral
     import velin
     import velocea
     import veloplus
@@ -27,7 +27,7 @@ def getproviders():
     ret.append(nextbike.NextBike())
     ret.append(citybikewien.CityBikeWien())
     ret.append(yelo.Yelo())
-    ret.append(vcub.vCub())
+    ret.append(dupral.Dupral())
     ret.append(velin.VelIn())
     ret.append(velocea.Velocea())
     ret.append(veloplus.VeloPlus())
@@ -35,7 +35,7 @@ def getproviders():
     ret.append(velostar.VeloStar())
     ret.append(cyclehire.CycleHire())
     ret.append(bixi.Bixi())
-
+    ret = [dupral.Dupral()]
     return ret
 
 def dolist(args):
