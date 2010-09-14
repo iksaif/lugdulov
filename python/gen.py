@@ -35,7 +35,7 @@ def getproviders():
     ret.append(velostar.VeloStar())
     ret.append(cyclehire.CycleHire())
     ret.append(bixi.Bixi())
-    ret = [dupral.Dupral()]
+
     return ret
 
 def dolist(args):
