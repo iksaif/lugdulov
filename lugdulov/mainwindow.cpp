@@ -29,6 +29,7 @@
 #include "mainwindow.h"
 #include "stationslistdialog.h"
 #include "bookmarklistdialog.h"
+#include "pluginsdialog.h"
 #include "mapdialog.h"
 #include "settings.h"
 
@@ -54,7 +55,7 @@ MainWindow::MainWindow(QWidget *parent)
   plugin = NULL;
 
   createActions();
-  createCombo();
+  createButton();
 
   QTimer::singleShot(0, this, SLOT(delayedInit()));
 }
@@ -65,7 +66,7 @@ MainWindow::~MainWindow()
 }
 
 void
-MainWindow::createCombo()
+MainWindow::createButton()
 {
   Settings conf;
   QString selected = conf.value("StationsPlugin").toString();
@@ -73,16 +74,12 @@ MainWindow::createCombo()
 
   manager = new StationsPluginManager(this);
 
-  foreach(StationsPlugin *plugin, manager->stations()) {
-    stationsComboBox->addItem(plugin->bikeIcon(), plugin->name(),
-			      qVariantFromValue((void *) plugin));
-
+  foreach(StationsPlugin *plugin, manager->stations().values()) {
     if (plugin->id() == selected)
       selectedPlugin = plugin;
   }
-
   setStationsPlugin(selectedPlugin);
-  connect(stationsComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(comboIndexChanged(int)));
+  connect(pushButton, SIGNAL(clicked(bool)), this, SLOT(buttonClicked()));
 }
 
 void
@@ -151,42 +148,37 @@ MainWindow::positionUpdated(QGeoPositionInfo info)
     statusMsg(tr("Got GPS Fix."));
   position = info;
 
-  foreach (StationsPlugin *plugin, manager->stations()) {
-    if (plugin->rect().contains(QPointF(coord.latitude(), coord.longitude()))) {
-      setStationsPlugin(plugin);
-      break;
-    }
-  }
+  QPointF pt(coord.latitude(), coord.longitude());
+
+  if (plugin->rect().contains(pt))
+    return ;
+
+  foreach (StationsPlugin *plugin, manager->stations().values())
+    if (plugin->rect().contains(pt))
+      return setStationsPlugin(plugin);
 }
 #endif
 
 void
-MainWindow::comboIndexChanged(int index)
+MainWindow::buttonClicked()
 {
-  QVariant data = stationsComboBox->itemData(index);
-  StationsPlugin *plugin = (StationsPlugin *)data.value<void *>();
+  PluginsDialog dlg(manager, this);
 
-  if (plugin) {
-    Settings conf;
-
-    setStationsPlugin(plugin);
-    conf.setValue("StationsPlugin", plugin->id());
-  }
+  dlg.exec();
+  setStationsPlugin(dlg.plugin(), true);
 }
 
 void
-MainWindow::setStationsPlugin(StationsPlugin *sta)
+MainWindow::setStationsPlugin(StationsPlugin *sta, bool save)
 {
-  if (!sta || plugin == sta)
-    return ;
-
+  if (save) {
+    Settings conf;
+    conf.setValue("StationsPlugin", plugin ? plugin->id() : "auto");
+  }
   plugin = sta;
-
-  for (int i = 0; i < stationsComboBox->count(); ++i) {
-    QVariant data = stationsComboBox->itemData(i);
-
-    if (plugin == (StationsPlugin *)data.value<void *>())
-      stationsComboBox->setCurrentIndex(i);
+  if (plugin) {
+    pushButton->setText(plugin->name());
+    pushButton->setIcon(plugin->bikeIcon());
   }
 }
 
@@ -309,5 +301,6 @@ MainWindow::chooseStationsPlugin()
   QMessageBox::warning(this, tr("Please set Location."),
 		       tr("We can't guess your current location, "
 			  "please choose one in the list."));
-  stationsComboBox->showPopup();
+
+  buttonClicked();
 }

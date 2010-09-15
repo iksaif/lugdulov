@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="japan">
+    <file>jp.png</file>
   </qresource>
 </RCC>
 

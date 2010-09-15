@@ -38,7 +38,7 @@ StationsPluginFactoryUnitedKingdom::name() const
 QIcon
 StationsPluginFactoryUnitedKingdom::icon() const
 {
-  return QIcon(":/res/bike.png");
+  return QIcon(":/united-kingdom/uk.png");
 }
 
 QList < StationsPlugin * >

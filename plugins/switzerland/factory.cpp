@@ -52,7 +52,7 @@ StationsPluginFactorySwitzerland::name() const
 QIcon
 StationsPluginFactorySwitzerland::icon() const
 {
-  return QIcon(":/res/bike.png");
+  return QIcon(":/switzerland/ch.png");
 }
 
 QList < StationsPlugin * >

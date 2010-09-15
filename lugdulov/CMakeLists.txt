@@ -22,13 +22,15 @@ set(lugdulov_SRCS
   stationssortfilterproxymodel.cpp
   stationslistview.cpp
   mapdialog.cpp
-  mapwidget.cpp)
+  mapwidget.cpp
+  pluginsdialog.cpp)
 
 set(lugdulov_UIS
   mainwindow.ui
   stationdialog.ui
   stationslistdialog.ui
-  mapdialog.ui)
+  mapdialog.ui
+  pluginsdialog.ui)
 
 set(lugdulov_MOC_HDRS
   mainwindow.h
@@ -42,7 +44,8 @@ set(lugdulov_MOC_HDRS
   stationssortfilterproxymodel.h
   stationslistview.h
   mapdialog.h
-  mapwidget.h)
+  mapwidget.h
+  pluginsdialog.h)
 
 set(lugdulov_RCS res/lugdulov.qrc i18n/i18n.qrc)
 set(lugdulov_TRS i18n/lugdulov_fr.ts)

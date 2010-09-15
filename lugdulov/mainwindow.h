@@ -43,7 +43,7 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
 
  private:
   void createActions();
-  void createCombo();
+  void createButton();
 
  private slots:
   void delayedInit();
@@ -54,8 +54,8 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
   void map();
   void bookmarks();
 
-  void comboIndexChanged(int index);
-  void setStationsPlugin(StationsPlugin *plugin);
+  void buttonClicked();
+  void setStationsPlugin(StationsPlugin *plugin, bool save = false);
 
 #ifdef Q_WS_MAEMO_5
   void statusMsg(const QString & msg, int timeout = QMaemo5InformationBox::DefaultTimeout);

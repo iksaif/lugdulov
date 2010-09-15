@@ -37,7 +37,7 @@ StationsPluginFactoryNewZealand::name() const
 QIcon
 StationsPluginFactoryNewZealand::icon() const
 {
-  return QIcon(":/res/bike.png");
+  return QIcon(":/new-zealand/nz.png");
 }
 
 QList < StationsPlugin * >

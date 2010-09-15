@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="luxembourg">
+    <file>lu.png</file>
   </qresource>
 </RCC>
 

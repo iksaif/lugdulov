@@ -16,40 +16,35 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtCore/QtPlugin>
+#ifndef PLUGINSDIALOG_H
+# define PLUGINSDIALOG_H
 
-#include "factory.h"
-#include "jurmala.h"
-#include "riga.h"
+#include "ui_pluginsdialog.h"
 
+class StationsPluginManager;
+class StationsPlugin;
 
-QString
-StationsPluginFactoryLatvia::id() const
+class PluginsDialog : public QDialog, private Ui_PluginsDialog
 {
-  return QLatin1String("Latvia");
-}
+  Q_OBJECT
 
-QString
-StationsPluginFactoryLatvia::name() const
-{
-  return QString::fromUtf8("Latvia");
-}
+ public:
+  PluginsDialog(StationsPluginManager *manager, QWidget *parent = 0);
+  ~PluginsDialog();
 
-QIcon
-StationsPluginFactoryLatvia::icon() const
-{
-  return QIcon(":/latvia/la.png");
-}
+  StationsPlugin *plugin();
 
-QList < StationsPlugin * >
-StationsPluginFactoryLatvia::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
+ private slots:
+  void itemClicked(QTreeWidgetItem *item, int column);
+  void itemDoubleClicked(QTreeWidgetItem *item, int column);
+  void filter(const QString &str);
 
-  ret << new StationsPluginJurmala(parent);
-  ret << new StationsPluginRiga(parent);
+ private:
+  void hideItems(QTreeWidgetItem *item, bool hide);
+  void showItems(QTreeWidgetItem *item);
 
-  return ret;
-}
+  enum { Factory = QTreeWidgetItem::UserType, Plugin } Types;
+  StationsPlugin *selected;
+};
 
-Q_EXPORT_PLUGIN2(stationslatvia, StationsPluginFactoryLatvia)
+#endif

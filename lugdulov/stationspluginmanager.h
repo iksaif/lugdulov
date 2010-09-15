@@ -34,7 +34,7 @@ public:
   StationsPluginManager(QObject *parent);
   ~StationsPluginManager();
 
-  QList < StationsPlugin * > stations();
+  QMultiMap < StationsPluginFactory *, StationsPlugin * >  stations();
 
 private:
   void loadPlugins();
@@ -44,7 +44,7 @@ private:
   void loadStationsPlugin();
 
   QMap < QString, StationsPluginFactory * > factories;
-  QList < StationsPlugin * > list;
+  QMultiMap < StationsPluginFactory *, StationsPlugin * > map;
 };
 
 #endif

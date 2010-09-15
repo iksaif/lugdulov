@@ -36,7 +36,7 @@ StationsPluginFactoryJapan::name() const
 QIcon
 StationsPluginFactoryJapan::icon() const
 {
-  return QIcon(":/japan/bike.png");
+  return QIcon(":/japan/jp.png");
 }
 
 QList < StationsPlugin * >

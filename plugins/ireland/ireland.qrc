@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="ireland">
+    <file>ir.png</file>
   </qresource>
 </RCC>
 

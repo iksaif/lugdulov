@@ -36,7 +36,7 @@ StationsPluginFactoryLuxembourg::name() const
 QIcon
 StationsPluginFactoryLuxembourg::icon() const
 {
-  return QIcon(":/luxembourg/bike.png");
+  return QIcon(":/luxembourg/lu.png");
 }
 
 QList < StationsPlugin * >

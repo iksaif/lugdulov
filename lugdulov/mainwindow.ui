@@ -14,7 +14,7 @@
    <string>Lugdulo'v</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../res/lugdulov.qrc">
+   <iconset resource="res/lugdulov.qrc">
     <normaloff>:/res/icon.png</normaloff>:/res/icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -26,22 +26,13 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
-     <widget class="QComboBox" name="stationsComboBox">
-      <item>
-       <property name="text">
-        <string>Auto</string>
-       </property>
-      </item>
-     </widget>
-    </item>
     <item row="4" column="0" rowspan="2" colspan="2">
      <widget class="QCommandLinkButton" name="searchLinkButton">
       <property name="text">
        <string>Search Stations</string>
       </property>
       <property name="icon">
-       <iconset resource="../res/lugdulov.qrc">
+       <iconset resource="res/lugdulov.qrc">
         <normaloff>:/res/slot.png</normaloff>:/res/slot.png</iconset>
       </property>
       <property name="description">
@@ -55,7 +46,7 @@
        <string>Favorites Stations</string>
       </property>
       <property name="icon">
-       <iconset resource="../res/lugdulov.qrc">
+       <iconset resource="res/lugdulov.qrc">
         <normaloff>:/res/favorites.png</normaloff>:/res/favorites.png</iconset>
       </property>
       <property name="description">
@@ -69,7 +60,7 @@
        <string>Maps</string>
       </property>
       <property name="icon">
-       <iconset resource="../res/lugdulov.qrc">
+       <iconset resource="res/lugdulov.qrc">
         <normaloff>:/res/map.png</normaloff>:/res/map.png</iconset>
       </property>
       <property name="description">
@@ -97,10 +88,17 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="../res/lugdulov.qrc">:/res/icon.png</pixmap>
+       <pixmap resource="res/lugdulov.qrc">:/res/icon.png</pixmap>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>Auto</string>
       </property>
      </widget>
     </item>
@@ -149,6 +147,7 @@
   </action>
  </widget>
  <resources>
+  <include location="res/lugdulov.qrc"/>
   <include location="../res/lugdulov.qrc"/>
  </resources>
  <connections>

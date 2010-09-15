@@ -36,7 +36,7 @@ StationsPluginFactoryIreland::name() const
 QIcon
 StationsPluginFactoryIreland::icon() const
 {
-  return QIcon(":/ireland/bike.png");
+  return QIcon(":/ireland/ir.png");
 }
 
 QList < StationsPlugin * >

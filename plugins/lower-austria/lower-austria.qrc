@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="lower-austria">
+    <file>at.png</file>
   </qresource>
 </RCC>
 

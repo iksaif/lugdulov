@@ -38,7 +38,7 @@ StationsPluginFactoryAustria::name() const
 QIcon
 StationsPluginFactoryAustria::icon() const
 {
-  return QIcon(":/res/bike.png");
+  return QIcon(":/austria/at.png");
 }
 
 QList < StationsPlugin * >

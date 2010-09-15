@@ -37,7 +37,7 @@ StationsPluginFactoryCanada::name() const
 QIcon
 StationsPluginFactoryCanada::icon() const
 {
-  return QIcon(":/res/bike.png");
+  return QIcon(":/canada/ca.png");
 }
 
 QList < StationsPlugin * >

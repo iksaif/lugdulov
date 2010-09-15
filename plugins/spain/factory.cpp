@@ -21,6 +21,7 @@
 #include "factory.h"
 #include "seville.h"
 #include "santander.h"
+#include "barcelone.h"
 
 QString
 StationsPluginFactorySpain::id() const
@@ -37,7 +38,7 @@ StationsPluginFactorySpain::name() const
 QIcon
 StationsPluginFactorySpain::icon() const
 {
-  return QIcon(":/spain/bike.png");
+  return QIcon(":/spain/es.png");
 }
 
 QList < StationsPlugin * >
@@ -47,6 +48,7 @@ StationsPluginFactorySpain::stations(QObject *parent)
 
   ret << new StationsPluginSeville(parent);
   ret << new StationsPluginSantander(parent);
+  ret << new StationsPluginBarcelone(parent);
   return ret;
 }
 

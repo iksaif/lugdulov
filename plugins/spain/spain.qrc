@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="spain">
+    <file>es.png</file>
   </qresource>
 </RCC>
 

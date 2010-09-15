@@ -40,19 +40,22 @@ StationsPluginManager::~StationsPluginManager()
 {
 }
 
-QList < StationsPlugin * >
+QMultiMap < StationsPluginFactory *, StationsPlugin * >
 StationsPluginManager::stations()
 {
-  return list;
+  return map;
 }
 
 void
 StationsPluginManager::loadStationsPlugin()
 {
-  list.clear();
+  map.clear();
 
-  foreach (StationsPluginFactory *factory, factories.values())
-    list << factory->stations(parent());
+  foreach (StationsPluginFactory *factory, factories.values()) {
+    foreach (StationsPlugin *plugin, factory->stations(parent())) {
+      map.insert(factory, plugin);
+    }
+  }
 }
 
 void

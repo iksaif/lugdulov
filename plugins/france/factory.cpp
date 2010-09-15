@@ -61,7 +61,7 @@ StationsPluginFactoryFrance::name() const
 QIcon
 StationsPluginFactoryFrance::icon() const
 {
-  return QIcon(":/france/bike.png");
+  return QIcon(":/france/fr.png");
 }
 
 QList < StationsPlugin * >
