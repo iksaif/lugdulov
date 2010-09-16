@@ -28,7 +28,8 @@
 
 #include <QObject>
 #include <QDebug>
-#include <QHttp>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
 #include <QVector>
 #include <QPixmap>
 #include "imagemanager.h"
@@ -47,32 +48,26 @@ namespace qmapcontrol
         ~MapNetwork();
 
         void loadImage(const QString& host, const QString& url);
-
-        /*!
-         * checks if the given url is already loading
-         * @param url the url of the image
-         * @return boolean, if the image is already loading
-         */
-        bool imageIsLoading(QString url);
+        bool imageIsLoading(const QString & host, const QString & url);
 
         /*!
          * Aborts all current loading threads.
          * This is useful when changing the zoom-factor, though newly needed images loads faster
          */
         void abortLoading();
-        void setProxy(QString host, int port);
+        void setProxy(const QString & host, int port);
 
     private:
         ImageManager* parent;
-        QHttp* http;
-        QMap<int, QString> loadingMap;
-        qreal loaded;
+        QNetworkAccessManager *nm;
+        QMap<QNetworkReply *, QString> loadingMap;
         QMutex vectorMutex;
         MapNetwork& operator=(const MapNetwork& rhs);
         MapNetwork(const MapNetwork& old);
 
     private slots:
-        void requestFinished(int id, bool error);
+	void requestFinished();
+	void requestError(QNetworkReply::NetworkError code);
     };
 }
 #endif

@@ -240,8 +240,8 @@ namespace qmapcontrol
             }
         }
 
-
-        // PREFETCHING
+        return ; /* Don't prefetch */
+	// PREFETCHING
         int upper = mapmiddle_tile_y-tiles_above-1;
         int right = mapmiddle_tile_x+tiles_right+1;
         int left = mapmiddle_tile_x-tiles_right-1;

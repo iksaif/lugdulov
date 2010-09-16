@@ -54,7 +54,7 @@ namespace qmapcontrol
         QPixmap pm;
         //pm.fill(Qt::black);
         //is image cached (memory) or currently loading?
-        if (!QPixmapCache::find(url, pm) && !net->imageIsLoading(url))
+        if (!QPixmapCache::find(url, pm) && !net->imageIsLoading(host, url))
             //	if (!images.contains(url) && !net->imageIsLoading(url))
         {
             //image cached (persistent)?
@@ -80,7 +80,7 @@ namespace qmapcontrol
 
         prefetch.append(url);
 
-        if (!QPixmapCache::find(url, &pm) && !net->imageIsLoading(url))
+        if (!QPixmapCache::find(url, &pm) && !net->imageIsLoading(host, url))
             if (!doPersistentCaching || !tileExist(url))
                 net->loadImage(host, url);
     }
@@ -88,7 +88,6 @@ namespace qmapcontrol
     void ImageManager::receivedImage(const QPixmap pixmap, const QString& url)
     {
         //qDebug() << "ImageManager::receivedImage";
-        QPixmapCache::insert(url, pixmap);
         //images[url] = pixmap;
 
         // needed?
@@ -99,6 +98,7 @@ namespace qmapcontrol
 
         if (!prefetch.contains(url))
         {
+	    QPixmapCache::insert(url, pixmap);
             emit(imageReceived());
         }
         else
