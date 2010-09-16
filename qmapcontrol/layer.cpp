@@ -174,6 +174,10 @@ namespace qmapcontrol
     {
         // screen middle rotieren...
 
+	/* Don't download tiles for initial position */
+	if (mapmiddle_px == QPoint(16777216, 16777216))
+	    return ;
+
         int tilesize = mapAdapter->tilesize();
         int cross_x = int(mapmiddle_px.x())%tilesize; // position on middle tile
         int cross_y = int(mapmiddle_px.y())%tilesize;

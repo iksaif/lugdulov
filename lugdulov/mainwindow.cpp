@@ -258,6 +258,7 @@ MainWindow::map()
   QPointF pt = plugin->center();
   int zoom = 15;
 
+  map->show();
 #ifdef HAVE_QT_LOCATION
   if (localisation) {
     connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), map, SLOT(positionUpdated(QGeoPositionInfo)));

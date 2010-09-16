@@ -255,7 +255,7 @@ namespace qmapcontrol
     {
         QCoreApplication::processEvents();
 
-        ImageManager::instance()->abortLoading();
+        // ImageManager::instance()->abortLoading();
         // layer rendern abbrechen?
         zoomImageScroll = QPoint(0,0);
 
@@ -307,7 +307,7 @@ namespace qmapcontrol
     void LayerManager::zoomOut()
     {
         QCoreApplication::processEvents();
-        ImageManager::instance()->abortLoading();
+        // ImageManager::instance()->abortLoading();
         zoomImageScroll = QPoint(0,0);
         zoomImage.fill(Qt::white);
         QPixmap tmpImg = composedOffscreenImage.copy(screenmiddle.x()+scroll.x(),screenmiddle.y()+scroll.y(), size.width(), size.height());
