@@ -17,7 +17,8 @@ INCLUDEPATH += ../qmake/ \
 LIBS += -L../plugins/common/ \
     -llugdulov_base \
     -L../qmapcontrol/ \
-    -lqmapcontrol
+    -lqmapcontrol \
+    -lqjson
 
 HEADERS += mainwindow.h \
     settings.h \
@@ -30,7 +31,9 @@ HEADERS += mainwindow.h \
     stationssortfilterproxymodel.h \
     stationslistview.h \
     mapdialog.h \
-    mapwidget.h
+    mapwidget.h \
+    pluginsdialog.h
+
 
 SOURCES += main.cpp \
     mainwindow.cpp \
@@ -44,7 +47,8 @@ SOURCES += main.cpp \
     stationssortfilterproxymodel.cpp \
     stationslistview.cpp \
     mapdialog.cpp \
-    mapwidget.cpp
+    mapwidget.cpp \
+    pluginsdialog.cpp
 
 TRANSLATIONS = i18n/lugdulov_fr.ts
 
@@ -79,7 +83,8 @@ OTHER_FILES += res/velov.png \
 FORMS += mainwindow.ui \
     stationdialog.ui \
     stationslistdialog.ui \
-    mapdialog.ui
+    mapdialog.ui \
+    pluginsdialog.ui
 
 RESOURCES += res/lugdulov.qrc \
     i18n/i18n.qrc

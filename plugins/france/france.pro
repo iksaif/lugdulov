@@ -27,7 +27,9 @@ HEADERS += factory.h \
   vannes.h \
   orleans.h \
   avignon.h \
-  rennes.h
+  rennes.h \
+  calais.h \
+  nice.h
 
 SOURCES += factory.cpp \
   aixenprovence.cpp \
@@ -36,7 +38,6 @@ SOURCES += factory.cpp \
   cergypontoise.cpp \
   creteil.cpp \
   lyon.cpp \
-  lyon_p.cpp \
   marseille.cpp \
   mulhouse.cpp \
   nancy.cpp \
@@ -54,7 +55,9 @@ SOURCES += factory.cpp \
   vannes.cpp \
   orleans.cpp \
   avignon.cpp \
-  rennes.cpp
+  rennes.cpp \
+  calais.cpp \
+  nice.cpp
 
 RESOURCES += france.qrc
 
