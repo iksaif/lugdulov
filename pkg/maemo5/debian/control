@@ -10,8 +10,14 @@ Package: lugdulov
 Architecture: armel
 Depends: ${shlibs:Depends}, ${misc:Depends}
 XB-Description-fr_FR: Recherche de stations de vélos.
+ Fonctionne en France, Belgique, Irelande, Luxembourg,
+ Espagne, Autriche, Allemagne, Lettonie, Japon, Suisse,
+ Nouvelle-Zelande, Grande-Bretagne, Canada
 XB-Maemo-Display-Name: Lugdulov
-Description: A bike sharing application.
+Description: A bike sharing application. Support cities in
+ France, Belgium, Ireland, Luxembourg, Spain, Austria,
+ Germany, Latvia, Japan, New-Zealand, Switzerland,
+ United-Kingdom, Canada
 XB-Maemo-Icon-26:
  iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAACXBIWXMAAFxG
  AABcRgEUlENBAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/

@@ -6,7 +6,7 @@ include(CMakeDependentOption)
 
 set(VERSION_MAJOR "0")
 set(VERSION_MINOR "2")
-set(VERSION_PATCH "1")
+set(VERSION_PATCH "2")
 
 if(CMAKE_SYSTEM_NAME MATCHES Linux)
   set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /usr/share/apps/cmake/modules/)

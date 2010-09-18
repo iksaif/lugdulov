@@ -1,9 +1,16 @@
+lugdulov (0.2.2-1) unstable; urgency=low
+
+  * Plugins: support for 110 new cities
+  * Maps: some performances fixes
+
+ -- Corentin Chary <corentincj@iksaif.net>  Sat, 18 Sep 2010 16:02:59 +0200
+
 lugdulov (0.2.1-1) unstable; urgency=low
 
   * Plugins: Cergy-Pontoise, Creteil, Aix-en-Provence, Amiens, Besançon, Marseille, Mulhouse, Nancy, Nantes, Plaine Commune, Rouen, Toulouse, Bruxelles, Dublin, Luxembourg, Seville, Santander, Tomaya
   * Maps: some performances fixes
 
- -- Corentin Chary <corentincj@iksaif.net>  Thu, 15 Aug 2010 16:02:59 +0200
+ -- Corentin Chary <corentincj@iksaif.net>  Thu, 20 Aug 2010 16:02:59 +0200
 
 lugdulov (0.2.0-1) unstable; urgency=low
 
