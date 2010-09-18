@@ -176,14 +176,14 @@ MainWindow::buttonClicked()
 void
 MainWindow::setStationsPlugin(StationsPlugin *sta, bool save)
 {
-  if (save) {
-    Settings conf;
-    conf.setValue("StationsPlugin", plugin ? plugin->id() : "auto");
-  }
   plugin = sta;
   if (plugin) {
     pushButton->setText(plugin->name());
     pushButton->setIcon(plugin->bikeIcon());
+  }
+  if (save) {
+    Settings conf;
+    conf.setValue("StationsPlugin", plugin ? plugin->id() : "auto");
   }
 }
 
