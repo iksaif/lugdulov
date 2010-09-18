@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
   setupUi(this);
 
+  plugin = NULL;
 #ifdef HAVE_QT_LOCATION
   localisation = NULL;
 #endif
@@ -155,7 +156,7 @@ MainWindow::positionUpdated(QGeoPositionInfo info)
 
   QPointF pt(coord.latitude(), coord.longitude());
 
-  if (plugin->rect().contains(pt))
+  if (plugin && plugin->rect().contains(pt))
     return ;
 
   foreach (StationsPlugin *plugin, manager->stations().values())
