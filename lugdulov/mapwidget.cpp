@@ -207,6 +207,7 @@ MapWidget::showStation(Station *station)
     stations[geom] = station;
     geometries[station] = geom;
   }
+
   QPainter painter(geometries[station]->pixmap());
   QRectF rect1, rect2;
 
@@ -220,8 +221,10 @@ MapWidget::showStation(Station *station)
     rect2.moveTo(rect1.x() + rect1.width(), rect2.y());
   } else if (station->bikes() > 0) {
     rect2 = QRectF();
-  } else {
+  } else if (station->freeSlots() > 0) {
     rect1 = QRectF();
+  } else {
+    return ;
   }
 
   if (!rect1.isNull()) {
