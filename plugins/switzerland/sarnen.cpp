@@ -42,7 +42,7 @@ StationsPluginSarnen::id() const
 QString
 StationsPluginSarnen::name() const
 {
-  return QString::fromUtf8("Sarnen ");
+  return QString::fromUtf8("Sarnen (LV)");
 }
 
 QString

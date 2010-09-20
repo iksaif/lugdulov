@@ -42,7 +42,7 @@ StationsPluginStans::id() const
 QString
 StationsPluginStans::name() const
 {
-  return QString::fromUtf8("Stans ");
+  return QString::fromUtf8("Stans (LV)");
 }
 
 QString

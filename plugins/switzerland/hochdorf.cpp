@@ -42,7 +42,7 @@ StationsPluginHochdorf::id() const
 QString
 StationsPluginHochdorf::name() const
 {
-  return QString::fromUtf8("Hochdorf ");
+  return QString::fromUtf8("Hochdorf (LV)");
 }
 
 QString

@@ -42,7 +42,7 @@ StationsPluginBern::id() const
 QString
 StationsPluginBern::name() const
 {
-  return QString::fromUtf8("Bern ");
+  return QString::fromUtf8("Bern (LV)");
 }
 
 QString

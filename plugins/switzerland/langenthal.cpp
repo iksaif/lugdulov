@@ -42,7 +42,7 @@ StationsPluginLangenthal::id() const
 QString
 StationsPluginLangenthal::name() const
 {
-  return QString::fromUtf8("Langenthal ");
+  return QString::fromUtf8("Langenthal (LV)");
 }
 
 QString

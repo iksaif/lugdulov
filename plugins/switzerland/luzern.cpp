@@ -42,7 +42,7 @@ StationsPluginLuzern::id() const
 QString
 StationsPluginLuzern::name() const
 {
-  return QString::fromUtf8("Luzern ");
+  return QString::fromUtf8("Luzern (nb)");
 }
 
 QString

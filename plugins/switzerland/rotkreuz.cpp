@@ -42,7 +42,7 @@ StationsPluginRotkreuz::id() const
 QString
 StationsPluginRotkreuz::name() const
 {
-  return QString::fromUtf8("Rotkreuz ");
+  return QString::fromUtf8("Rotkreuz (LV)");
 }
 
 QString

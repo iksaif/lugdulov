@@ -42,7 +42,7 @@ StationsPluginSursee::id() const
 QString
 StationsPluginSursee::name() const
 {
-  return QString::fromUtf8("Sursee ");
+  return QString::fromUtf8("Sursee (LV)");
 }
 
 QString

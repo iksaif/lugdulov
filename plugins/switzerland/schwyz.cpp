@@ -42,7 +42,7 @@ StationsPluginSchwyz::id() const
 QString
 StationsPluginSchwyz::name() const
 {
-  return QString::fromUtf8("Schwyz ");
+  return QString::fromUtf8("Schwyz (LV)");
 }
 
 QString

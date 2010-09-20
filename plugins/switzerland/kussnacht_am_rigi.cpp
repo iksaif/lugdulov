@@ -42,7 +42,7 @@ StationsPluginKussnacht_Am_Rigi::id() const
 QString
 StationsPluginKussnacht_Am_Rigi::name() const
 {
-  return QString::fromUtf8("Küssnacht am Rigi ");
+  return QString::fromUtf8("Küssnacht am Rigi (LV)");
 }
 
 QString

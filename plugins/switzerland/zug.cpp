@@ -42,7 +42,7 @@ StationsPluginZug::id() const
 QString
 StationsPluginZug::name() const
 {
-  return QString::fromUtf8("Zug ");
+  return QString::fromUtf8("Zug (LV)");
 }
 
 QString

@@ -42,7 +42,7 @@ StationsPluginArth_Goldau::id() const
 QString
 StationsPluginArth_Goldau::name() const
 {
-  return QString::fromUtf8("Arth-Goldau ");
+  return QString::fromUtf8("Arth-Goldau (LV)");
 }
 
 QString

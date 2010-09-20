@@ -42,7 +42,7 @@ StationsPluginSchupfheim::id() const
 QString
 StationsPluginSchupfheim::name() const
 {
-  return QString::fromUtf8("Schüpfheim ");
+  return QString::fromUtf8("Schüpfheim (LV)");
 }
 
 QString

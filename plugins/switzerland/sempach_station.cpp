@@ -42,7 +42,7 @@ StationsPluginSempach_Station::id() const
 QString
 StationsPluginSempach_Station::name() const
 {
-  return QString::fromUtf8("Sempach Station ");
+  return QString::fromUtf8("Sempach Station (LV)");
 }
 
 QString

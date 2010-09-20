@@ -46,6 +46,7 @@ StationsPluginNextBike::handleInfos(const QByteArray & data)
 {
   QDomDocument doc;
   QDomNode country, city, node;
+  QString cityName = name();
 
   doc.setContent(data);
 
@@ -57,7 +58,7 @@ StationsPluginNextBike::handleInfos(const QByteArray & data)
     while (!city.isNull()) {
       QDomNamedNodeMap attrs = city.attributes();
 
-      if (attrs.contains("name") && attrs.namedItem("name").nodeValue() == name())
+      if (attrs.contains("name") && attrs.namedItem("name").nodeValue() == cityName)
 	goto found;
 
       city = city.nextSiblingElement("city");

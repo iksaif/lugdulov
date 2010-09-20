@@ -84,6 +84,7 @@ class NextBike(Provider):
             city = City()
             city.id = node.getAttribute('uid')
             city.name = node.getAttribute('name')
+            city.oname = city.name
             if city.name.find("(") != -1:
                 city.name = city.name.split('(')[0]
             city.uid = city.name.lower().strip().replace(' ', '-')
@@ -144,6 +145,7 @@ class NextBike(Provider):
 
     def dump_class(self, city):
         data = open('nextbike/class.tpl.cpp').read()
+        data = data.replace('<CityName>', city.oname);
         data = self._dump_class(data, city)
         print data.encode('utf8')
 

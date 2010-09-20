@@ -42,7 +42,7 @@ StationsPluginBrunnen::id() const
 QString
 StationsPluginBrunnen::name() const
 {
-  return QString::fromUtf8("Brunnen ");
+  return QString::fromUtf8("Brunnen (LV)");
 }
 
 QString
