@@ -15,6 +15,10 @@ set(lugdulov_base_SRCS
   stationspluginvelin.cpp
   stationsplugindupral.cpp
   station.cpp
+  stationspluginmanager.cpp
+  stationsmodel.cpp
+  stationssortfilterproxymodel.cpp
+  settings.cpp
 )
 
 set(lugdulov_base_MOC_HDRS
@@ -26,6 +30,10 @@ set(lugdulov_base_MOC_HDRS
   stationspluginnextbike.h
   stationspluginvelin.h
   stationsplugindupral.h
+  stationspluginmanager.h
+  stationsmodel.h
+  stationssortfilterproxymodel.h
+  settings.h
 )
 
 qt4_wrap_cpp(lugdulov_base_MOC_SOURCE ${lugdulov_base_MOC_HDRS})

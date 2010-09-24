@@ -29,6 +29,7 @@
 #endif
 
 #ifdef HAVE_QT_BEARER
+# include <QtNetwork/QNetworkAccessManager>
 # include <QtBearer/QNetworkConfigurationManager>
 # include <QtBearer/QNetworkConfiguration>
 # include <QtBearer/QNetworkSession>

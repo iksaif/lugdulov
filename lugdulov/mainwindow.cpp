@@ -106,7 +106,7 @@ MainWindow::delayedInit()
 {
 #ifdef HAVE_QT_BEARER
   QNetworkConfigurationManager mgr;
-  QNetworkConfiguration ap = mgr.defaultConfiguration();
+  QtMobility::QNetworkConfiguration ap = mgr.defaultConfiguration();
   QNetworkSession* session = new QNetworkSession(ap);
 
   session->open();

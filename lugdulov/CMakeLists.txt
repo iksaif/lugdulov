@@ -6,20 +6,18 @@ include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}
   ${lugdulov_base_SOURCE_DIR}
   ${qmapcontrol_SOURCE_DIR}
+  ${QTLOCATION_INCLUDE_DIR}
+  ${QTBEARER_INCLUDE_DIR}
   ${QT_INCLUDE_DIR}
 )
 
 set(lugdulov_SRCS
   main.cpp
   mainwindow.cpp
-  settings.cpp
   stationdialog.cpp
-  stationspluginmanager.cpp
   stationslistdialog.cpp
   bookmarklistdialog.cpp
   stationdelegate.cpp
-  stationsmodel.cpp
-  stationssortfilterproxymodel.cpp
   stationslistview.cpp
   mapdialog.cpp
   mapwidget.cpp
@@ -34,14 +32,10 @@ set(lugdulov_UIS
 
 set(lugdulov_MOC_HDRS
   mainwindow.h
-  settings.h
   stationdialog.h
-  stationspluginmanager.h
   stationslistdialog.h
   bookmarklistdialog.h
   stationdelegate.h
-  stationsmodel.h
-  stationssortfilterproxymodel.h
   stationslistview.h
   mapdialog.h
   mapwidget.h

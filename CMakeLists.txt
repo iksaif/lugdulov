@@ -85,6 +85,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 add_subdirectory(plugins)
 add_subdirectory(qmapcontrol)
 add_subdirectory(lugdulov)
+add_subdirectory(utils)
 add_subdirectory(pkg)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake config.h ESCAPE_QUOTES)
