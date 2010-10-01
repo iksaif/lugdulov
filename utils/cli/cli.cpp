@@ -21,12 +21,18 @@
 #include <QtCore/QVariant>
 #include <QtCore/QDebug>
 
+#include <qjson/serializer.h>
+
+#include <iostream>
+
 #include "cli.h"
+#include "stationspluginmanager.h"
+#include "stationsplugin.h"
+#include "station.h"
 
 static const struct QCommandLineConfigEntry conf[] =
   {
-    { QCommandLine::Switch, 'l', "list", "List available plugins", QCommandLine::Optional },
-    { QCommandLine::Switch, 's', "status", "Fetch status (default)", QCommandLine::Optional },
+    { QCommandLine::Switch, 'l', "list", "List available plugins (default)", QCommandLine::Optional },
     { QCommandLine::Switch, 'i', "infos", "Fetch informations", QCommandLine::Optional },
     { QCommandLine::Option, 'f', "fmt", "Output format (xml, json (default))", QCommandLine::Optional },
     { QCommandLine::Param, '\0', "plugin", "Fetch informations for that plugin", QCommandLine::OptionalMultiple },
@@ -36,6 +42,8 @@ static const struct QCommandLineConfigEntry conf[] =
 Cli::Cli(QObject *parent)
   : QObject(parent)
 {
+  manager = new StationsPluginManager(this);
+
   cmdline = new QCommandLine(this);
   cmdline->setConfig(conf);
   cmdline->enableVersion(true); // enable -v // --version
@@ -67,8 +75,6 @@ Cli::switchFound(const QString & name)
 {
   if (name == "list")
     action = List;
-  if (name == "status")
-    action = Status;
   if (name == "infos")
     action = Infos;
 }
@@ -104,17 +110,175 @@ Cli::parseError(const QString & error)
 }
 
 void
+Cli::serialize(const QVariant & out)
+{
+  if (format == Json) {
+    QJson::Serializer serializer;
+    QByteArray json = serializer.serialize(out);
+
+    std::cout << json.data() << std::endl;
+  }
+  if (format == Xml) {
+    std::cout << "not implented yet" << std::endl;
+  }
+}
+
+void
+Cli::stationsCreated(const QList < Station *> & data)
+{
+  StationsPlugin *plugin = (StationsPlugin *)sender();
+
+  if (stations[plugin].isEmpty())
+    stations[plugin] = data;
+  else {
+    foreach (Station *station, data)
+      if (!stations[plugin].contains(station))
+	stations[plugin].append(station);
+  }
+  foreach (Station *station, data)
+    plugin->updateCached(station);
+}
+
+void
+Cli::stationsUpdated(const QList < Station *> & data)
+{
+  StationsPlugin *plugin = (StationsPlugin *)sender();
+
+  foreach (Station *station, data)
+    updated[plugin][station] = true;
+
+  std::cerr << updated[plugin].size() << "/" << stations[plugin].size()
+	    << " total: " << stations.size() - working.size() << "/"
+	    << stations.size() << "                                \r";
+
+  if (updated[plugin].size() == stations[plugin].size())
+    working.remove(plugin);
+  if (working.isEmpty())
+    infosFinished();
+}
+
+void
+Cli::stationsError()
+{
+  StationsPlugin *plugin = (StationsPlugin *)sender();
+
+  working.remove(plugin);
+  if (working.isEmpty())
+    QTimer::singleShot(5, this, SLOT(infosFinished()));
+}
+
+void
+Cli::infosFinished()
+{
+  QVariantMap map;
+  QVariantList cities;
+
+  foreach(StationsPlugin *plugin, stations.keys()) {
+    QVariantMap city;
+    QVariantMap pos;
+    QVariantList infos;
+
+    city["name"] = plugin->name();
+    city["id"] = plugin->id();
+    city["bikeName"] = plugin->bikeName();
+
+    pos["latitude"] = plugin->center().x();
+    pos["longitude"] = plugin->center().y();
+    pos["latitude_min"] = plugin->rect().x();
+    pos["latitude_max"] = plugin->rect().x() + plugin->rect().width();
+    pos["longitude_min"] = plugin->rect().y();
+    pos["longitude_max"] = plugin->rect().y() + plugin->rect().height();
+
+    city["pos"] = pos;
+
+    foreach(Station *station, stations[plugin]) {
+      QVariantMap sta;
+      QVariantMap pos;
+
+      sta["id"] = station->id();
+      sta["name"] = station->name();
+      sta["description"] = station->description();
+      sta["region"] = station->region();
+      sta["freeSlots"] = station->freeSlots();
+      sta["totalSlots"] = station->totalSlots();
+      sta["bikes"] = station->bikes();
+
+      pos["latitude"] = station->pos().x();
+      pos["longitude"] = station->pos().y();
+      sta["pos"] = pos;
+
+      infos.append(sta);
+    }
+
+    city["stations"] = infos;
+
+    cities.append(city);
+  }
+
+  map["cities"] = cities;
+  serialize(map);
+  exit(1);
+}
+
+void
+Cli::list()
+{
+  QVariantMap map;
+  QVariantList cities;
+
+  foreach(StationsPlugin *plugin, manager->stations().values()) {
+    QVariantMap city;
+    QVariantMap pos;
+
+    city["name"] = plugin->name();
+    city["id"] = plugin->id();
+    city["bikeName"] = plugin->bikeName();
+
+    pos["latitude"] = plugin->center().x();
+    pos["longitude"] = plugin->center().y();
+    pos["latitude_min"] = plugin->rect().x();
+    pos["latitude_max"] = plugin->rect().x() + plugin->rect().width();
+    pos["longitude_min"] = plugin->rect().y();
+    pos["longitude_max"] = plugin->rect().y() + plugin->rect().height();
+
+    city["pos"] = pos;
+
+    cities.append(city);
+  }
+
+  map["cities"] = cities;
+  serialize(map);
+}
+
+void
+Cli::infos()
+{
+  foreach(StationsPlugin *plugin, manager->stations().values()) {
+    if (plugins.contains(plugin->id()) || plugins.contains(plugin->name())) {
+      working[plugin] = true;
+
+      connect(plugin, SIGNAL(error(const QString &, const QString &)),
+	      this, SLOT(stationsError()));
+      connect(plugin, SIGNAL(stationsCreated(const QList < Station *> &)),
+	      this, SLOT(stationsCreated(const QList < Station *> &)));
+      connect(plugin, SIGNAL(stationsUpdated(const QList < Station *> &)),
+	      this, SLOT(stationsUpdated(const QList < Station *> &)));
+
+      plugin->fetchAll();
+      plugin->fetchOnline();
+    }
+  }
+}
+
+void
 Cli::run()
 {
-  /*
-   * Créer les plugins
-   * Liste:
-   *  lister les plugins avec id-name
-   * Infos:
-   *  Pour tout les plugins, choper les infos des plugins
-   * Status:
-   *  Lancer un update sur tout les plugins, puis quand tout est finit, afficher le résultat
-   */
-  qDebug() << action << format << plugins;
-  QCoreApplication::instance()->quit();
+  if (action == List) {
+    list();
+    QCoreApplication::instance()->quit();
+  } else if (action == Infos) {
+    infos();
+  } else {
+    QCoreApplication::instance()->quit();
+  }
 }

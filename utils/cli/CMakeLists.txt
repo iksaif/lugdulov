@@ -58,6 +58,7 @@ target_link_libraries(
   lugdulov-query
   lugdulov_base
   ${QT_LIBRARIES}
+  ${QJSON_LIBRARIES}
   ${QCOMMANDLINE_LIBRARIES}
 )
 

@@ -22,9 +22,12 @@
 #include <QtCore/QObject>
 #include <QtCore/QList>
 #include <QtCore/QMap>
+#include <QtCore/QTimer>
+#include <QtCore/QVariant>
 
 #include <QCommandLine>
 
+class StationsPluginManager;
 class StationsPlugin;
 class Station;
 
@@ -42,14 +45,27 @@ class Cli : public QObject
   void optionFound(const QString & name, const QVariant & value);
   void paramFound(const QString & name, const QVariant & value);
 
+  void stationsCreated(const QList < Station *> & stations);
+  void stationsUpdated(const QList < Station *> & stations);
+  void stationsError();
+
+  void infosFinished();
+
  private:
+  void list();
+  void infos();
+  void serialize(const QVariant & out);
+
+  StationsPluginManager *manager;
+
   QCommandLine *cmdline;
-  enum Action { List, Status, Infos } action;
+  enum Action { List, Infos } action;
   enum Format { Xml, Json } format;
   QStringList plugins;
 
   QMap < StationsPlugin *, bool > working;
   QMap < StationsPlugin *, QList < Station * > > stations;
+  QMap < StationsPlugin *, QMap < Station * , bool > >  updated;
 };
 
 #endif
