@@ -14,6 +14,7 @@ endif()
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/)
 
 cmake_dependent_option(BUILD_STATIC_PLUGINS "build static plugins [default: off]" OFF "NOT BUILD_SHARED_LIBS" ON)
+option(BUILD_UTILS "build cli utilities [default: off]" OFF)
 
 include(lugdulov)
 include(QtTranslations) # Local file for maemo_qt4_add_translation()
@@ -85,7 +86,9 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 add_subdirectory(plugins)
 add_subdirectory(qmapcontrol)
 add_subdirectory(lugdulov)
-add_subdirectory(utils)
+if (BUILD_UTILS)
+  add_subdirectory(utils)
+endif ()
 add_subdirectory(pkg)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake config.h ESCAPE_QUOTES)
