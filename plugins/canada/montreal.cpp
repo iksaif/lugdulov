@@ -99,8 +99,8 @@ StationsPluginMontreal::handleInfos(const QByteArray & data)
       station->setName(Tools::ucFirst(node.firstChildElement("name").toElement().text()));
     station->setPos(pos);
 
-    station->setFreeSlots(node.firstChildElement("nbBikes").toElement().text().toInt());
-    station->setBikes(node.firstChildElement("nbEmptyDocks").toElement().text().toInt());
+    station->setFreeSlots(node.firstChildElement("nbEmptyDocks").toElement().text().toInt());
+    station->setBikes(node.firstChildElement("nbBikes").toElement().text().toInt());
     station->setTotalSlots(station->bikes() + station->freeSlots());
   }
 
