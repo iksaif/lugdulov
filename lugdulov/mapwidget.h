@@ -64,9 +64,7 @@ class MapWidget : public QWidget
   void showStation(Station *station);
   void createInnerLayout();
   void setupMapControl();
-#if defined(Q_WS_MAEMO_5)
   void grabZoomKeys(bool grab);
-#endif
 
  private:
   MapControl *mc;

@@ -16,10 +16,12 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
+#include <qglobal.h>
+#include <QtCore/QDebug>
+#include "config.h"
+
 #if defined(Q_WS_MAEMO_5)
 #include <QtGui/QX11Info>
-#include <X11/Xlib.h>
-#include <X11/Xatom.h>
 #endif
 
 #include <QtGui/QDesktopServices>
@@ -53,10 +55,13 @@ MapWidget::MapWidget(QWidget *parent)
   statusTimer->setInterval(60000);
   connect(statusTimer, SIGNAL(timeout()), this, SLOT(refreshStatus()));
   statusTimer->start();
+
+  grabZoomKeys(true);
 }
 
 MapWidget::~MapWidget()
 {
+  grabZoomKeys(true);
 }
 
 void
@@ -311,10 +316,34 @@ MapWidget::resizeEvent(QResizeEvent * event)
   QWidget::resizeEvent(event);
 }
 
+void
+MapWidget::keyPressEvent(QKeyEvent* event)
+{
 #if defined(Q_WS_MAEMO_5)
+  switch (event->key()) {
+  case Qt::Key_F7:
+    mc->zoomIn();
+    event->accept();
+    break;
+
+  case Qt::Key_F8:
+    mc->zoomOut();
+    event->accept();
+    break;
+  }
+#endif
+  QWidget::keyPressEvent(event);
+}
+
+#if defined(Q_WS_MAEMO_5)
+#include <X11/Xlib.h>
+#include <X11/Xatom.h>
+#endif
+
 void
 MapWidget::grabZoomKeys(bool grab)
 {
+#if defined(Q_WS_MAEMO_5)
   if (!winId()) {
     qWarning("Can't grab keys unless we have a window id");
     return;
@@ -329,30 +358,10 @@ MapWidget::grabZoomKeys(bool grab)
     return;
   }
 
-  XChangeProperty (QX11Info::display(),
-		   winId(),
-		   atom,
-		   XA_INTEGER,
-		   32,
-		   PropModeReplace,
-		   reinterpret_cast<unsigned char *>(&val),
+  XChangeProperty (QX11Info::display(), winId(), atom, XA_INTEGER,
+		   32, PropModeReplace, reinterpret_cast<unsigned char *>(&val),
 		   1);
-}
 #endif
-
-void
-MapWidget::keyPressEvent(QKeyEvent* event)
-{
-  switch (event->key()) {
-  case Qt::Key_F7:
-    mc->zoomIn();
-    event->accept();
-    break;
-
-  case Qt::Key_F8:
-    mc->zoomOut();
-    event->accept();
-    break;
-  }
-  QWidget::keyPressEvent(event);
 }
+
+
