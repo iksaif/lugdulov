@@ -66,13 +66,10 @@ PluginsDialog::PluginsDialog(StationsPluginManager *manager, QWidget *parent)
   }
   treeWidget->header()->setResizeMode(0, QHeaderView::Stretch);
 
-#ifdef Q_WS_MAEMO_5
   connect(treeWidget, SIGNAL(itemClicked(QTreeWidgetItem *, int)),
 	  this, SLOT(itemClicked(QTreeWidgetItem *, int)));
-#else
   connect(treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
 	  this, SLOT(itemDoubleClicked(QTreeWidgetItem *, int)));
-#endif
 
   lineEdit->setFocus(Qt::OtherFocusReason);
   connect(lineEdit, SIGNAL(textEdited(const QString &)), this, SLOT(filter(const QString &)));
@@ -128,14 +125,19 @@ PluginsDialog::itemClicked(QTreeWidgetItem *item, int column)
 {
   if (item->type() == Plugin) {
     selected = (StationsPlugin *)item->data(0, Qt::UserRole).value<void *>();
+#ifdef Q_WS_MAEMO_5
     accept();
+#endif
   }
 }
 
 void
 PluginsDialog::itemDoubleClicked(QTreeWidgetItem *item, int column)
 {
-  itemClicked(item, column);
+  if (item->type() == Plugin) {
+    selected = (StationsPlugin *)item->data(0, Qt::UserRole).value<void *>();
+    accept();
+  }
 }
 
 StationsPlugin *
