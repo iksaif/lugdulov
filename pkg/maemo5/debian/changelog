@@ -1,3 +1,9 @@
+lugdulov (0.2.2-2) unstable; urgency=low
+
+  * Add a fix for nextbike cities
+
+ -- Corentin Chary <corentincj@iksaif.net>  Sun, 19 Sep 2010 16:02:59 +0200
+
 lugdulov (0.2.2-1) unstable; urgency=low
 
   * Plugins: support for 110 new cities
