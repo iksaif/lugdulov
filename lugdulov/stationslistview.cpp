@@ -45,7 +45,7 @@ StationsListView::StationsListView(QWidget *parent)
   scrollTimer->setInterval(500);
   connect(scrollTimer, SIGNAL(timeout()), this, SLOT(update()));
 
-#ifdef Q_WS_MAEMO_5
+#if defined(Q_WS_MAEMO_5) || defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
   connect(this, SIGNAL(clicked(const QModelIndex &)), this, SLOT(showDetails(const QModelIndex &)));
 #else
   connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(showDetails(const QModelIndex &)));
