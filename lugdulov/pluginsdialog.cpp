@@ -18,6 +18,7 @@
 
 #include <QtCore/QDebug>
 
+#include "lugdulov.h"
 #include "pluginsdialog.h"
 #include "stationsplugin.h"
 #include "stationspluginmanager.h"
@@ -32,11 +33,10 @@ PluginsDialog::PluginsDialog(StationsPluginManager *manager, QWidget *parent)
 {
   selected = NULL;
 
+  setupDialog(this, false);
   setupUi(this);
 
 #ifdef Q_WS_MAEMO_5
-  setAttribute(Qt::WA_Maemo5StackedWindow);
-  setAttribute(Qt::WA_Maemo5AutoOrientation, true);
   buttonBox->hide();
 #endif
 

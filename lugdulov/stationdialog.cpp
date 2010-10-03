@@ -38,11 +38,7 @@ StationDialog::StationDialog(Station *station, QWidget * parent)
 #endif
   station(station)
 {
-#ifdef Q_WS_MAEMO_5
-  setAttribute(Qt::WA_Maemo5StackedWindow);
-  setAttribute(Qt::WA_Maemo5AutoOrientation, true);
-#endif
-
+  setupDialog(this);
   setupUi(this);
   setupWidgets();
   setupButtons();
@@ -53,8 +49,10 @@ StationDialog::StationDialog(Station *station, QWidget * parent)
     connect(station->plugin(), SIGNAL(stationsUpdated(const QList < Station * > &)),
 	    this, SLOT(setupWidgets()));
   }
-  /* Could be done in StationsPlugin */
+
+#if !defined(Q_WS_S60) && !defined(Q_WS_SIMULATOR)
   fetchImage();
+#endif
 }
 
 StationDialog::~StationDialog()
@@ -97,6 +95,11 @@ StationDialog::setupWidgets()
   descriptionLabel->setText(station->description());
   stationLabel->setText(station->name());
 
+#if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
+  QFont font = descriptionLabel->font();
+  stationLabel->setFont(font);
+#endif
+
 #ifdef Q_WS_MAEMO_5
   orientationChanged();
   connect(QApplication::desktop(), SIGNAL(resized(int)), this, SLOT(orientationChanged()));
@@ -110,7 +113,9 @@ StationDialog::setupWidgets()
     iconLabel->setText("");
     iconLabel->hide();
   }
+#if !defined(Q_WS_S60) && !defined(Q_WS_SIMULATOR)
   resize(sizeHint());
+#endif
 }
 
 void
@@ -177,7 +182,6 @@ StationDialog::requestError(QNetworkReply::NetworkError code)
   if (rep && code != QNetworkReply::ContentNotFoundError)
     QMessageBox::warning(this, tr("Network Error"), rep->errorString());
 }
-#include <QDebug>
 
 void
 StationDialog::requestFinished()
@@ -204,6 +208,7 @@ StationDialog::requestFinished()
   }
 }
 
+#if !defined(Q_WS_S60) && !defined(Q_WS_SIMULATOR)
 void StationDialog::orientationChanged()
 {
   QRect screenGeometry = QApplication::desktop()->screenGeometry();
@@ -213,6 +218,7 @@ void StationDialog::orientationChanged()
   else
     iconLabel->show();
 }
+#endif
 
 void StationDialog::bookmark(bool bookmark)
 {

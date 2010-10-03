@@ -21,6 +21,7 @@
 
 #include <qglobal.h>
 #include <QtGui/QDialog>
+#include <QtGui/QAction>
 
 #include "config.h"
 
@@ -30,12 +31,29 @@ static inline void showAndDelete(QDialog *dialog)
   /* Can't use stacked windows with modal dialogs ...*/
   dialog->setAttribute(Qt::WA_DeleteOnClose, true);
   dialog->show();
-#elif defined(Q_WS_S60)
+#elif defined(Q_WS_S60) or defined(Q_WS_SIMULATOR)
   dialog->setAttribute(Qt::WA_DeleteOnClose, true);
   dialog->showMaximized();
 #else
   dialog->exec();
   delete dialog;
+#endif
+}
+
+static inline void setupDialog(QDialog *dialog, bool back = true)
+{
+#ifdef Q_WS_MAEMO_5
+  dialog->setAttribute(Qt::WA_Maemo5StackedWindow);
+  dialog->setAttribute(Qt::WA_Maemo5AutoOrientation, true);
+#endif
+#if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
+  if (back) {
+      QAction* backAction = new QAction( QObject::tr("Back"), dialog);
+
+      backAction->setSoftKeyRole( QAction::NegativeSoftKey );
+      QObject::connect(backAction, SIGNAL(triggered()), dialog, SLOT(close()));
+      dialog->addAction(backAction);
+  }
 #endif
 }
 

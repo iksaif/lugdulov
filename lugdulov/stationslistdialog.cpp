@@ -25,6 +25,7 @@
 
 #include "config.h"
 
+#include "lugdulov.h"
 #include "settings.h"
 #include "stationsplugin.h"
 #include "station.h"
@@ -43,12 +44,8 @@ StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
 #endif
   plugin(plugin)
 {
+  setupDialog(this);
   setupUi(this);
-
-#ifdef Q_WS_MAEMO_5
-  setAttribute(Qt::WA_Maemo5StackedWindow);
-  setAttribute(Qt::WA_Maemo5AutoOrientation, true);
-#endif
 
   refreshButton->setIcon(QIcon::fromTheme("view-refresh", QPixmap(":/res/view-refresh.png")));
 #ifdef Q_WS_MAEMO_5

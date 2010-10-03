@@ -97,6 +97,7 @@ StationDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
   qreal distance = index.data(StationsSortFilterProxyModel::StationDistanceRole).toDouble();
   QString distanceText;
 
+#if !defined(Q_WS_S60) && !defined(Q_WS_SIMULATOR)
   if (distance >= 0)
     distanceText.sprintf(" (%dm)", (int)distance);
 
@@ -114,6 +115,7 @@ StationDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
   }
 
   painter->drawText(rect, Qt::AlignLeft|Qt::AlignBottom, description);
+#endif
 
   font.setPointSize(option.font.pointSize());
   painter->setFont(font);
@@ -173,10 +175,12 @@ StationDelegate::sizeHint(const QStyleOptionViewItem &option,
 
   /* Wow oO */
   s.setHeight(48 + fm.height() * 2);
-  s.setWidth(qMax((int)(fm.width(station->name()) * 1.2), (48 + fm.width("000")) * 2));
-
-#ifdef Q_WS_MAEMO_5
+#if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
+  s.setWidth((48 + fm.width("000")) * 2);
+#elif defined(Q_WS_MAEMO_5)
   s.setWidth(400); /* Ugly .. but it works .. */
+#else
+  s.setWidth(qMax((int)(fm.width(station->name()) * 1.2), (48 + fm.width("000")) * 2));
 #endif
 
   /*

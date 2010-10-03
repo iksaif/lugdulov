@@ -55,6 +55,13 @@ MainWindow::MainWindow(QWidget *parent)
   searchLinkButton->setDescription(tr("Search stations by name"));
   bookmarkLinkButton->setDescription(tr("Manage your favorites stations."));
 #endif
+#if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
+  iconLabel->hide();
+  titleLabel->hide();
+  searchLinkButton->setDescription(QString());
+  bookmarkLinkButton->setDescription(QString());
+  mapLinkButton->setDescription(QString());
+#endif
 
   plugin = NULL;
 
@@ -127,7 +134,7 @@ MainWindow::delayedInit()
 
   connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)),
 	  this, SLOT(positionUpdated(QGeoPositionInfo)));
-  connect(localisation, SIGNAL(requestTimeout()), this, SLOT(positionRequestTimeout()));
+  connect(localisation, SIGNAL(updateTimeout()), this, SLOT(positionRequestTimeout()));
 
   localisation->setUpdateInterval(5000);
   localisation->startUpdates();
@@ -243,7 +250,7 @@ MainWindow::search()
 #ifdef HAVE_QT_LOCATION
   if (localisation) {
     connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), dlg, SLOT(positionUpdated(QGeoPositionInfo)));
-    connect(localisation, SIGNAL(requestTimeout()), dlg, SLOT(positionRequestTimeout()));
+    connect(localisation, SIGNAL(updateTimeout()), dlg, SLOT(positionRequestTimeout()));
 
     if (position.isValid())
       dlg->positionUpdated(position);
@@ -293,7 +300,7 @@ MainWindow::bookmarks()
 #ifdef HAVE_QT_LOCATION
   if (localisation) {
     connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), dlg, SLOT(positionUpdated(QGeoPositionInfo)));
-    connect(localisation, SIGNAL(requestTimeout()), dlg, SLOT(positionRequestTimeout()));
+    connect(localisation, SIGNAL(updateTimeout()), dlg, SLOT(positionRequestTimeout()));
 
     if (position.isValid())
       dlg->positionUpdated(position);

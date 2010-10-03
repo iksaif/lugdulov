@@ -18,6 +18,7 @@
 
 #include "config.h"
 
+#include "lugdulov.h"
 #include "mapdialog.h"
 
 MapDialog::MapDialog(StationsPlugin *plugin, QWidget *parent)
@@ -29,12 +30,11 @@ MapDialog::MapDialog(StationsPlugin *plugin, QWidget *parent)
 #endif
   plugin(plugin)
 {
-#ifdef Q_WS_MAEMO_5
-  setAttribute(Qt::WA_Maemo5StackedWindow);
-  setAttribute(Qt::WA_Maemo5AutoOrientation, true);
-#endif
-
+  setupDialog(this);
   setupUi(this);
+#if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
+  gridLayout->setContentsMargins(0, 0, 0, 0);
+#endif
   mapWidget->setPlugin(plugin);
 }
 
