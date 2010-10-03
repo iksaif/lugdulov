@@ -16,6 +16,8 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
+#include <QtGui/QDesktopServices>
+
 #include "lugdulov.h"
 #include "mapwidget.h"
 #include "stationsmodel.h"
@@ -100,7 +102,12 @@ MapWidget::setupMapControl()
 
   Layer* l = new Layer("Custom Layer", mapadapter, Layer::MapLayer);
 
+#if defined(Q_WS_MAEMO_5) || defined(Q_WS_S60)
   mc->enablePersistentCache();
+#else
+  mc->enablePersistentCache(QDesktopServices::storageLocation(QDesktopServices::CacheLocation));
+#endif
+
   mc->addLayer(l);
   mc->showScale(true);
 
