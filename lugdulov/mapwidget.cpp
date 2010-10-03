@@ -165,7 +165,8 @@ MapWidget::positionUpdated(const QGeoPositionInfo & info)
   if (!follow->isChecked())
     return ;
 
-  centerView(coord);
+  if (plugin && plugin->rect().contains(coord))
+    centerView(coord);
 }
 #endif
 
