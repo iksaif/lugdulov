@@ -58,11 +58,15 @@ class MapWidget : public QWidget
 
  protected:
   virtual void resizeEvent(QResizeEvent * event);
+  virtual void keyPressEvent(QKeyEvent* event);
 
  private:
   void showStation(Station *station);
   void createInnerLayout();
   void setupMapControl();
+#if defined(Q_WS_MAEMO_5)
+  void grabZoomKeys(bool grab);
+#endif
 
  private:
   MapControl *mc;
