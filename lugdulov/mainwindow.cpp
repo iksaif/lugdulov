@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
 #ifdef HAVE_QT_LOCATION
   localisation = NULL;
 #endif
-#ifdef Q_WS_MAEMO_5
+#if defined(Q_WS_MAEMO_5)
   menu_File->removeAction(quitAction);
   menu_Help->removeAction(aboutQtAction);
   setAttribute(Qt::WA_Maemo5StackedWindow);
@@ -54,8 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
 
   searchLinkButton->setDescription(tr("Search stations by name"));
   bookmarkLinkButton->setDescription(tr("Manage your favorites stations."));
-#endif
-#if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
+#elif defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
   iconLabel->hide();
   titleLabel->hide();
   searchLinkButton->setDescription(QString());
@@ -163,7 +162,7 @@ MainWindow::positionUpdated(QGeoPositionInfo info)
 
   QPointF pt(coord.latitude(), coord.longitude());
 
-  if (plugin && plugin->rect().contains(pt))
+  if (plugin) // && plugin->rect().contains(pt))
     return ;
 
   foreach (StationsPlugin *plugin, manager->stations().values())
@@ -273,7 +272,8 @@ MainWindow::map()
 
 #ifdef HAVE_QT_LOCATION
   if (localisation) {
-    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), map, SLOT(positionUpdated(QGeoPositionInfo)));
+    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)),
+	    map, SLOT(positionUpdated(QGeoPositionInfo)));
 
     if (position.isValid()) {
       zoom = 0;
@@ -299,7 +299,8 @@ MainWindow::bookmarks()
 
 #ifdef HAVE_QT_LOCATION
   if (localisation) {
-    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), dlg, SLOT(positionUpdated(QGeoPositionInfo)));
+    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)),
+	    dlg, SLOT(positionUpdated(QGeoPositionInfo)));
     connect(localisation, SIGNAL(updateTimeout()), dlg, SLOT(positionRequestTimeout()));
 
     if (position.isValid())
