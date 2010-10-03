@@ -20,10 +20,12 @@
 #define TOOLS_H
 
 #include <QtCore/QString>
+#include <QtNetwork/QNetworkRequest>
 
 class Tools {
  public:
   static QString ucFirst(const QString & str);
+  static QNetworkRequest & fixUserAgent(QNetworkRequest & request);
 };
 
 #endif

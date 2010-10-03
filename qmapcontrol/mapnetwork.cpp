@@ -26,6 +26,8 @@
 #include "mapnetwork.h"
 #include <QNetworkProxy>
 
+#include "tools.h"
+
 namespace qmapcontrol
 {
     MapNetwork::MapNetwork(ImageManager* parent)
@@ -43,6 +45,7 @@ namespace qmapcontrol
 	QNetworkRequest req(url);
 	QNetworkReply *rep;
 
+	Tools::fixUserAgent(req);
 	rep = nm->get(req);
 
         connect(rep, SIGNAL(finished()), this, SLOT(requestFinished()));

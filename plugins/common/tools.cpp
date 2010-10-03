@@ -36,3 +36,11 @@ Tools::ucFirst(const QString & str)
   }
   return tokens.join(" ");
 }
+
+QNetworkRequest &
+Tools::fixUserAgent(QNetworkRequest & request)
+{
+  //request.setRawHeader("User-Agent", "MyOwnBrowser 1.0");
+  return request;
+}
+

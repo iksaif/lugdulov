@@ -22,6 +22,7 @@
 #include <QtGui/QPushButton>
 
 #include "lugdulov.h"
+#include "tools.h"
 
 #include "stationdialog.h"
 #include "station.h"
@@ -164,7 +165,11 @@ StationDialog::fetchImage()
     return ;
 
   nm = new QNetworkAccessManager(this);
-  QNetworkReply *rep = nm->get(QNetworkRequest(url));
+  QNetworkReply *rep;
+  QNetworkRequest req(url);
+
+  Tools::fixUserAgent(req);
+  rep = nm->get(req);
 
   connect(rep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(requestError(QNetworkReply::NetworkError)));
   connect(rep, SIGNAL(finished()), this, SLOT(requestFinished()));

@@ -47,6 +47,8 @@ set(qmapcontrol_MOC_HDRS
   tilemapadapter.h
   yahoomapadapter.h)
 
+include_directories(${lugdulov_base_SOURCE_DIR})
+
 qt4_wrap_cpp(qmapcontrol_MOC_SOURCE ${qmapcontrol_MOC_HDRS})
 
 add_convenience_library(qmapcontrol ${qmapcontrol_SRCS} ${qmapcontrol_MOC_SOURCE})

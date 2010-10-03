@@ -28,6 +28,7 @@
 #include <QtCore/QDebug>
 
 #include "station.h"
+#include "tools.h"
 #include "stationspluginsimple.h"
 #include "stationspluginsimple_p.h"
 
@@ -168,8 +169,10 @@ void
 StationsPluginSimple::request(const QUrl & url, int id)
 {
   QNetworkReply *rep;
+  QNetworkRequest req(url);
 
-  rep = nm->get(QNetworkRequest(url));
+  Tools::fixUserAgent(req);
+  rep = nm->get(req);
   connect(rep, SIGNAL(error(QNetworkReply::NetworkError)),
 	  this, SLOT(error(QNetworkReply::NetworkError)));
   connect(rep, SIGNAL(finished()), this, SLOT(finished()));
