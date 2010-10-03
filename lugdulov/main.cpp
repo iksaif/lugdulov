@@ -16,6 +16,7 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
+#include <qglobal.h>
 #include <QtGui/QApplication>
 #include <QtCore/QTranslator>
 #include <QtCore/QLibraryInfo>
@@ -27,7 +28,7 @@
 #include "settings.h"
 
 #ifdef BUILD_STATIC_PLUGINS
-Q_IMPORT_PLUGIN(stationsfrance);
+Q_IMPORT_PLUGIN(stationsfrance);/*
 Q_IMPORT_PLUGIN(stationsbelgium);
 Q_IMPORT_PLUGIN(stationsireland);
 Q_IMPORT_PLUGIN(stationsjapan);
@@ -40,7 +41,7 @@ Q_IMPORT_PLUGIN(stationsswitzerland);
 Q_IMPORT_PLUGIN(stationsaustria);
 Q_IMPORT_PLUGIN(stationsloweraustria);
 Q_IMPORT_PLUGIN(stationslatvia);
-Q_IMPORT_PLUGIN(stationsnewzealand);
+Q_IMPORT_PLUGIN(stationsnewzealand);*/
 #endif
 
 int main(int argc, char *argv[])
@@ -48,6 +49,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 #ifdef BUILD_STATIC_PLUGINS
     Q_INIT_RESOURCE(france);
+    /*
     Q_INIT_RESOURCE(belgium);
     Q_INIT_RESOURCE(ireland);
     Q_INIT_RESOURCE(japan);
@@ -61,6 +63,7 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(lower_austria);
     Q_INIT_RESOURCE(latvia);
     Q_INIT_RESOURCE(new_zealand);
+    */
 #endif
 
     QTranslator qtTranslator;
@@ -79,6 +82,11 @@ int main(int argc, char *argv[])
     Settings::settings();
 
     MainWindow w;
+
+#ifdef Q_WS_S60
+    w.showMaximized();
+#else
     w.show();
+#endif
     return app.exec();
 }

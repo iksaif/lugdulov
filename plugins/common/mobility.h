@@ -19,20 +19,35 @@
 #ifndef MOBILITY_H
 # define MOBILITY_H
 
+#include <qglobal.h>
+
 #include "config.h"
 
 #ifdef HAVE_QT_LOCATION
-/* Can't use QtLocation/ prefix because Maemo installation is crappy */
-# include <QtLocation/QGeoCoordinate>
-# include <QtLocation/QGeoPositionInfo>
-# include <QtLocation/QGeoPositionInfoSource>
+/* Can't use QtLocation/ prefix because Symbian installation is crappy */
+# ifdef Q_OS_SYMBIAN
+#  include <QGeoPositionInfoSource>
+#  include <QGeoCoordinate>
+#  include <QGeoPositionInfo>
+# else
+#  include <QtLocation/QGeoPositionInfoSource>
+#  include <QtLocation/QGeoPositionInfo>
+#  include <QtLocation/QGeoPositionInfoSource>
+# endif
 #endif
 
 #ifdef HAVE_QT_BEARER
+# ifdef Q_OS_SYMBIAN
 # include <QtNetwork/QNetworkAccessManager>
-# include <QtBearer/QNetworkConfigurationManager>
-# include <QtBearer/QNetworkConfiguration>
-# include <QtBearer/QNetworkSession>
+#  include <QNetworkConfigurationManager>
+#  include <QNetworkConfiguration>
+#  include <QNetworkSession>
+# else
+# include <QtNetwork/QNetworkAccessManager>
+#  include <QtBearer/QNetworkConfigurationManager>
+#  include <QtBearer/QNetworkConfiguration>
+#  include <QtBearer/QNetworkSession>
+# endif
 #endif
 
 #if defined(HAVE_QT_LOCATION) || defined(HAVE_QT_BEARER)

@@ -18,7 +18,11 @@ SOURCES =   tools.cpp \
   stationspluginnextbike.cpp \
   stationspluginvelin.cpp \
   stationsplugindupral.cpp \
-  station.cpp
+  station.cpp \
+  settings.cpp \
+  stationsmodel.cpp \
+  stationssortfilterproxymodel.cpp \
+  stationspluginmanager.cpp
 
 HEADERS =  stationsplugin.h \
   stationspluginsimple.h \
@@ -27,6 +31,10 @@ HEADERS =  stationsplugin.h \
   stationsplugincitybike.h \
   stationspluginnextbike.h \
   stationspluginvelin.h \
-  stationsplugindupral.h
+  stationsplugindupral.h \
+  settings.h \
+  stationspluginmanager.h \
+  stationsmodel.h \
+  stationssortfilterproxymodel.h
 
 

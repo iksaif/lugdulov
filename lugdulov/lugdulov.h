@@ -19,16 +19,20 @@
 #ifndef LUGDULOV_H
 # define LUGDULOV_H
 
+#include <qglobal.h>
 #include <QtGui/QDialog>
 
 #include "config.h"
 
 static inline void showAndDelete(QDialog *dialog)
 {
-#ifdef Q_WS_MAEMO_5
+#if defined(Q_WS_MAEMO_5)
   /* Can't use stacked windows with modal dialogs ...*/
   dialog->setAttribute(Qt::WA_DeleteOnClose, true);
   dialog->show();
+#elif defined(Q_WS_S60)
+  dialog->setAttribute(Qt::WA_DeleteOnClose, true);
+  dialog->showMaximized();
 #else
   dialog->exec();
   delete dialog;
