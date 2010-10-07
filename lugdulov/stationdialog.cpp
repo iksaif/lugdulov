@@ -168,7 +168,7 @@ StationDialog::fetchImage()
   QNetworkReply *rep;
   QNetworkRequest req(url);
 
-  Tools::fixUserAgent(req);
+  Tools::fixupRequest(&req);
   rep = nm->get(req);
 
   connect(rep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(requestError(QNetworkReply::NetworkError)));

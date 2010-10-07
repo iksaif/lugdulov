@@ -23,6 +23,7 @@
 
 #include "lugdulov.h"
 
+#include "tools.h"
 #include "stationsplugin.h"
 #include "stationspluginmanager.h"
 #include "station.h"
@@ -110,18 +111,18 @@ MainWindow::createActions()
 void
 MainWindow::delayedInit()
 {
-#ifdef HAVE_QT_BEARER
-  QNetworkConfigurationManager mgr;
-  QtMobility::QNetworkConfiguration ap = mgr.defaultConfiguration();
+#if defined(HAVE_QT_BEARER) || QT_VERSION >= 0x040700
+  QNetworkConfigurationManager *mgr = new QNetworkConfigurationManager(this);
+  QNetworkConfiguration ap = mgr->defaultConfiguration();
   QNetworkSession* session = new QNetworkSession(ap);
 
   session->open();
 
-  if (!session->waitForOpened(-1)) {
-    QMessageBox::critical(this, tr("Network Error"), session->errorString());
-    QApplication::instance()->quit();
-    return ;
-  }
+  onlineStateChanged(mgr->isOnline());
+
+  connect(mgr, SIGNAL(onlineStateChanged(bool)), this, SLOT(onlineStateChanged(bool)));
+#else
+  onlineStateChanged(true);
 #endif
 #ifdef HAVE_QT_LOCATION
   localisation = QGeoPositionInfoSource::createDefaultSource(this);
@@ -139,6 +140,12 @@ MainWindow::delayedInit()
   localisation->startUpdates();
   localisation->requestUpdate(15000);
 #endif
+}
+
+void
+MainWindow::onlineStateChanged(bool state)
+{
+  Tools::setOnlineState(state);
 }
 
 #ifdef HAVE_QT_LOCATION

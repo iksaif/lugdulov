@@ -218,6 +218,9 @@ MapWidget::geometryClicked(Geometry *geom, QPoint pt)
 void
 MapWidget::showStation(Station *station)
 {
+  if (!station)
+    return ;
+
   if (geometries.find(station) == geometries.end()) {
     QPixmap *pix = new QPixmap(station->plugin()->bikeIcon().pixmap(QSize(48, 48)));
     Point *geom = new Point(station->pos().y(), station->pos().x(), pix, station->name());
@@ -268,8 +271,9 @@ MapWidget::refreshStations()
   proxy->sort(0);
 
   for (int i = 0; i < proxy->rowCount(); ++i) {
-    Station *station = (Station *)proxy->index(i, 0).data(StationsModel::StationRole).value<void *>();
+    Station *station;
 
+    station = (Station *)proxy->index(i, 0).data(StationsModel::StationRole).value<void *>();
     showStation(station);
   }
 

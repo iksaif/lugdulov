@@ -23,6 +23,10 @@
 
 #include "config.h"
 
+#if QT_VERSION >= 0x040700
+#undef HAVE_QT_BEARER
+#endif
+
 #ifdef HAVE_QT_LOCATION
 /* Can't use QtLocation/ prefix because Symbian installation is crappy */
 # ifdef Q_OS_SYMBIAN
@@ -36,14 +40,16 @@
 # endif
 #endif
 
-#ifdef HAVE_QT_BEARER
+#if QT_VERSION >= 0x040700
+# include <QtNetwork/QNetworkConfigurationManager>
+# include <QtNetwork/QNetworkConfiguration>
+# include <QtNetwork/QNetworkSession>
+#elif defined(HAVE_QT_BEARER)
 # ifdef Q_OS_SYMBIAN
-# include <QtNetwork/QNetworkAccessManager>
 #  include <QNetworkConfigurationManager>
 #  include <QNetworkConfiguration>
 #  include <QNetworkSession>
 # else
-# include <QtNetwork/QNetworkAccessManager>
 #  include <QtBearer/QNetworkConfigurationManager>
 #  include <QtBearer/QNetworkConfiguration>
 #  include <QtBearer/QNetworkSession>

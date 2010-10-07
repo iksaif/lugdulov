@@ -25,6 +25,7 @@
 
 #include "config.h"
 
+#include "tools.h"
 #include "lugdulov.h"
 #include "settings.h"
 #include "stationsplugin.h"
@@ -123,6 +124,6 @@ StationsListDialog::progress(qint64 done, qint64 total)
 void
 StationsListDialog::error(const QString & title, const QString & message)
 {
-  if (isVisible())
+  if (isVisible() && Tools::onlineState())
     QMessageBox::warning(this, title, message);
 }

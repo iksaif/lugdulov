@@ -20,12 +20,18 @@
 #define TOOLS_H
 
 #include <QtCore/QString>
-#include <QtNetwork/QNetworkRequest>
+
+class QNetworkRequest;
+class QNetworkReply;
 
 class Tools {
  public:
   static QString ucFirst(const QString & str);
-  static QNetworkRequest & fixUserAgent(QNetworkRequest & request);
+  static void fixupRequest(QNetworkRequest * request);
+  static void setOnlineState(bool online);
+  static bool onlineState(void);
+ private:
+  static bool online;
 };
 
 #endif

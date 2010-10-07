@@ -17,8 +17,24 @@
  */
 
 #include <QtCore/QStringList>
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QNetworkRequest>
 
 #include "tools.h"
+
+void
+Tools::setOnlineState(bool state)
+{
+  online = state;
+}
+
+bool
+Tools::onlineState(void)
+{
+  return online;
+}
+
+bool Tools::online = false;
 
 QString
 Tools::ucFirst(const QString & str)
@@ -37,10 +53,10 @@ Tools::ucFirst(const QString & str)
   return tokens.join(" ");
 }
 
-QNetworkRequest &
-Tools::fixUserAgent(QNetworkRequest & request)
+void
+Tools::fixupRequest(QNetworkRequest * request)
 {
+  if (!onlineState())
+    request->setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysCache);
   //request.setRawHeader("User-Agent", "MyOwnBrowser 1.0");
-  return request;
 }
-

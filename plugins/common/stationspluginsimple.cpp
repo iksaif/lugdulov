@@ -123,8 +123,6 @@ StationsPluginSimple::error(QNetworkReply::NetworkError code)
 {
   QNetworkReply *rep = dynamic_cast<QNetworkReply *>(sender());
 
-  Q_UNUSED(code);
-
   if (rep) {
     emit error(tr("Network Error"), rep->errorString());
     step++;
@@ -171,8 +169,9 @@ StationsPluginSimple::request(const QUrl & url, int id)
   QNetworkReply *rep;
   QNetworkRequest req(url);
 
-  Tools::fixUserAgent(req);
+  Tools::fixupRequest(&req);
   rep = nm->get(req);
+
   connect(rep, SIGNAL(error(QNetworkReply::NetworkError)),
 	  this, SLOT(error(QNetworkReply::NetworkError)));
   connect(rep, SIGNAL(finished()), this, SLOT(finished()));

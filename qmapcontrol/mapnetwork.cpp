@@ -45,7 +45,7 @@ namespace qmapcontrol
 	QNetworkRequest req(url);
 	QNetworkReply *rep;
 
-	Tools::fixUserAgent(req);
+	Tools::fixupRequest(&req);
 	rep = nm->get(req);
 
         connect(rep, SIGNAL(finished()), this, SLOT(requestFinished()));
