@@ -4,6 +4,8 @@ CONFIG += create_prl staticlib release
 
 QT += network
 
+INCLUDEPATH += ../plugins/common/
+
 # Input
 HEADERS += curve.h \
            geometry.h \

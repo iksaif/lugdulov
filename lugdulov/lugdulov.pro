@@ -5,6 +5,7 @@ QT += gui \
     network
 
 TARGET = lugdulov
+ICON = lugdulov.svg
 
 DESTDIR = ../bin
 
@@ -56,15 +57,12 @@ SOURCES += main.cpp \
 TRANSLATIONS = i18n/lugdulov_fr.ts
 
 symbian: {
-    LIBS += -lstationsfrance
+    LIBS += -lstationsfrance -lstationsbelgium -lstationsireland -lstationsluxembourg
+    LIBS += -lstationsspain -lstationsjapan -lstationsaustria -lstationsgermany -lstationslatvia -lstationslower_austria
+    LIBS += -lstationsnew_zealand -lstationsswitzerland -lstationsunited_kingdom -lstationscanada
 
     TARGET.EPOCALLOWDLLDATA = 1
-    TARGET.CAPABILITY = LocalServices \
-        UserEnvironment \
-        NetworkServices \
-        ReadUserData \
-        WriteUserData \
-        Location
+    TARGET.CAPABILITY = ReadUserData UserEnvironment NetworkServices Location
 
 #ReadDeviceData \
 #        WriteDeviceData

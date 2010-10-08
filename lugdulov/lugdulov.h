@@ -31,7 +31,7 @@ static inline void showAndDelete(QDialog *dialog)
   /* Can't use stacked windows with modal dialogs ...*/
   dialog->setAttribute(Qt::WA_DeleteOnClose, true);
   dialog->show();
-#elif defined(Q_WS_S60) or defined(Q_WS_SIMULATOR)
+#elif defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
   dialog->setAttribute(Qt::WA_DeleteOnClose, true);
   dialog->showMaximized();
 #else

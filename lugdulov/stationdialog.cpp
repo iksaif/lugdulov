@@ -39,8 +39,8 @@ StationDialog::StationDialog(Station *station, QWidget * parent)
 #endif
   station(station)
 {
-  setupDialog(this);
   setupUi(this);
+  setupDialog(this);
   setupWidgets();
   setupButtons();
 

@@ -1,8 +1,7 @@
 TEMPLATE = subdirs
-SUBDIRS = sub_common sub_france
-# sub_belgium sub_ireland sub_luxembourg \
-#        sub_spain sub_japan sub_austria sub_germany sub_latvia sub_lower_austria \
-#        sub_new_zealand sub_switzerland sub_united_kingdom sub_canada
+SUBDIRS = sub_common sub_france sub_belgium sub_ireland sub_luxembourg \
+        sub_spain sub_japan sub_austria sub_germany sub_latvia sub_lower_austria \
+        sub_new_zealand sub_switzerland sub_united_kingdom sub_canada
 
 sub_france.subdir     = france
 sub_belgium.subdir     = belgium

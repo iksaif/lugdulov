@@ -30,8 +30,8 @@ MapDialog::MapDialog(StationsPlugin *plugin, QWidget *parent)
 #endif
   plugin(plugin)
 {
-  setupDialog(this);
   setupUi(this);
+  setupDialog(this);
 #if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
   gridLayout->setContentsMargins(0, 0, 0, 0);
 #endif

@@ -45,8 +45,8 @@ StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
 #endif
   plugin(plugin)
 {
-  setupDialog(this);
   setupUi(this);
+  setupDialog(this);
 
   refreshButton->setIcon(QIcon::fromTheme("view-refresh", QPixmap(":/res/view-refresh.png")));
 #ifdef Q_WS_MAEMO_5

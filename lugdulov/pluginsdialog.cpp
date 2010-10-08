@@ -33,8 +33,8 @@ PluginsDialog::PluginsDialog(StationsPluginManager *manager, QWidget *parent)
 {
   selected = NULL;
 
-  setupDialog(this, false);
   setupUi(this);
+  setupDialog(this, false);
 
 #ifdef Q_WS_MAEMO_5
   buttonBox->hide();
