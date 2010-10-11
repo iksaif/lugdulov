@@ -209,6 +209,7 @@ StationDialog::requestFinished()
     orientationChanged();
 #else
     iconLabel->show();
+    resize(sizeHint());
 #endif
   }
 }
