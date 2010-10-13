@@ -20,6 +20,8 @@
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
 
+#include "config.h"
+
 #include "tools.h"
 
 void
@@ -58,5 +60,10 @@ Tools::fixupRequest(QNetworkRequest * request)
 {
   if (!onlineState())
     request->setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysCache);
-  //request.setRawHeader("User-Agent", "MyOwnBrowser 1.0");
+#if defined(Q_WS_MAEMO_5)
+  request.setRawHeader("User-Agent", "Mozilla/5.0 (X11; U; Linux armv7l; fr-FR; rv:1.9.2b6pre) Gecko/20100318 Firefox/3.5 Maemo Browser 1.7.4.8 RX-51 N900");
+#elif defined(Q_WS_S60)
+  request.setRawHeader("User-Agent", "Mozilla/5.0 (SymbianOS/9.4; Series60/5.0 NokiaN97-1/12.0.024; Profile/MIDP-2.1 Configuration/CLDC-1.1; en-us)"
+		       "AppleWebKit/525 (KHTML, like Gecko) BrowserNG/7.1.12344");
+#endif
 }
