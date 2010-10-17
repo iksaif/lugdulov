@@ -9,7 +9,7 @@ CONFIG += staticlib
 
 TARGET = lugdulov_base
 
-SOURCES =   tools.cpp \
+SOURCES =   tools.cpp onlinestatemanager.cpp \
   stationsplugin.cpp \
   stationspluginsimple.cpp \
   stationspluginsingle.cpp \
@@ -24,7 +24,8 @@ SOURCES =   tools.cpp \
   stationssortfilterproxymodel.cpp \
   stationspluginmanager.cpp
 
-HEADERS =  stationsplugin.h \
+HEADERS =  tools.h onlinestatemanager.h \
+  stationsplugin.h \
   stationspluginsimple.h \
   stationspluginsingle.h \
   stationsplugincyclocity.h \

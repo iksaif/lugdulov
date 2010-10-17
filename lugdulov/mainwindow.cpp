@@ -56,6 +56,7 @@ MainWindow::MainWindow(QWidget *parent)
   searchLinkButton->setDescription(tr("Search stations by name"));
   bookmarkLinkButton->setDescription(tr("Manage your favorites stations."));
 #elif defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
+  pushButton->setIconSize(QSize(24,24));
   iconLabel->hide();
   titleLabel->hide();
   searchLinkButton->setDescription(QString());
@@ -112,17 +113,12 @@ void
 MainWindow::delayedInit()
 {
 #if defined(HAVE_QT_BEARER) || QT_VERSION >= 0x040700
-  QNetworkConfigurationManager *mgr = new QNetworkConfigurationManager(this);
-  QNetworkConfiguration ap = mgr->defaultConfiguration();
-  QNetworkSession* session = new QNetworkSession(ap);
+  QNetworkConfigurationManager manager;
+  const bool selectIap = (manager.capabilities()& QNetworkConfigurationManager::CanStartAndStopInterfaces);
+  QNetworkConfiguration ap = manager.defaultConfiguration();
+  QNetworkSession* session = new QNetworkSession(ap, this);
 
   session->open();
-
-  onlineStateChanged(mgr->isOnline());
-
-  connect(mgr, SIGNAL(onlineStateChanged(bool)), this, SLOT(onlineStateChanged(bool)));
-#else
-  onlineStateChanged(true);
 #endif
 #ifdef HAVE_QT_LOCATION
   localisation = QGeoPositionInfoSource::createDefaultSource(this);
@@ -140,12 +136,6 @@ MainWindow::delayedInit()
   localisation->startUpdates();
   localisation->requestUpdate(15000);
 #endif
-}
-
-void
-MainWindow::onlineStateChanged(bool state)
-{
-  Tools::setOnlineState(state);
 }
 
 #ifdef HAVE_QT_LOCATION
@@ -194,6 +184,8 @@ MainWindow::setStationsPlugin(StationsPlugin *sta, bool save)
   if (plugin) {
     pushButton->setText(plugin->name());
     pushButton->setIcon(plugin->bikeIcon());
+  } else {
+    pushButton->setText(tr("Auto"));
   }
   if (save) {
     Settings conf;
@@ -279,10 +271,13 @@ MainWindow::map()
 
 #ifdef HAVE_QT_LOCATION
   if (localisation) {
+    QGeoCoordinate coord = position.coordinate();
+    QPointF pt(coord.latitude(), coord.longitude());
+
     connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)),
 	    map, SLOT(positionUpdated(QGeoPositionInfo)));
 
-    if (position.isValid()) {
+    if (coord.isValid() && plugin->rect().contains(pt)) {
       zoom = 0;
       map->positionUpdated(position);
     }

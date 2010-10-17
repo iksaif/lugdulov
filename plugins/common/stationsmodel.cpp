@@ -86,6 +86,9 @@ StationsModel::stationsCreated(const QList < Station * > &list)
     if (!stations.contains(station))
 	copy.append(station);
 
+  if (copy.size() == 0)
+      return ;
+
   beginInsertRows(QModelIndex(), stations.size(), stations.size() + copy.size() - 1);
   stations.append(copy);
   endInsertRows();

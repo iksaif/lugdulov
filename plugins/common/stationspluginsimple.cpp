@@ -119,12 +119,13 @@ StationsPluginSimple::ignoreSslErros(QNetworkReply *rep, const QList<QSslError> 
 }
 
 void
-StationsPluginSimple::error(QNetworkReply::NetworkError code)
+StationsPluginSimple::networkError(QNetworkReply::NetworkError code)
 {
   QNetworkReply *rep = dynamic_cast<QNetworkReply *>(sender());
 
   if (rep) {
-    emit error(tr("Network Error"), rep->errorString());
+    if (Tools::isOnline())
+        emit error(tr("Network Error"), rep->errorString());
     step++;
     replies.remove(rep);
     rep->deleteLater();
@@ -173,7 +174,7 @@ StationsPluginSimple::request(const QUrl & url, int id)
   rep = nm->get(req);
 
   connect(rep, SIGNAL(error(QNetworkReply::NetworkError)),
-	  this, SLOT(error(QNetworkReply::NetworkError)));
+          this, SLOT(networkError(QNetworkReply::NetworkError)));
   connect(rep, SIGNAL(finished()), this, SLOT(finished()));
 
   if (count == 0) {

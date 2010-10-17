@@ -1,6 +1,6 @@
 TEMPLATE = lib
 
-CONFIG += create_prl staticlib release
+CONFIG += staticlib
 
 QT += network
 

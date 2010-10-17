@@ -68,8 +68,6 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
   void positionRequestTimeout();
 #endif
 
-  void onlineStateChanged(bool state);
-
  private:
   void chooseStationsPlugin();
 

@@ -10,8 +10,12 @@ VERSION = 0.2.2
 LUGDULOV_CONFIG = bearer location
 LUGDULOV_INSTALL_PLUGINS = $${LIBDIR}/lugdulov
 
-CONFIG += create_prl release qt thread mobility
-MOBILITY += bearer location
+CONFIG += qt thread mobility
+MOBILITY += location
+
+contains($$list($$[QT_VERSION]), 4.6*) {
+    MOBILITY += bearer
+}
 
 QT += gui xml network
 

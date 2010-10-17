@@ -22,16 +22,12 @@
 #include <QtCore/QString>
 
 class QNetworkRequest;
-class QNetworkReply;
 
 class Tools {
  public:
   static QString ucFirst(const QString & str);
   static void fixupRequest(QNetworkRequest * request);
-  static void setOnlineState(bool online);
-  static bool onlineState(void);
- private:
-  static bool online;
+  static bool isOnline();
 };
 
 #endif

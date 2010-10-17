@@ -124,6 +124,6 @@ StationsListDialog::progress(qint64 done, qint64 total)
 void
 StationsListDialog::error(const QString & title, const QString & message)
 {
-  if (isVisible() && Tools::onlineState())
+  if (isVisible())
     QMessageBox::warning(this, title, message);
 }

@@ -53,19 +53,9 @@ class StationsPluginSimple : public StationsPlugin
   virtual void update(const QList < Station * > & station);
 
  private slots:
-  virtual void error(QNetworkReply::NetworkError code);
+  virtual void networkError(QNetworkReply::NetworkError code);
   void ignoreSslErros(QNetworkReply *rep, const QList<QSslError> &errors);
   virtual void finished();
-
- signals:
-  void started();
-  void progress(qint64 done, qint64 total);
-  void done();
-
-  void stationsCreated(QList < Station * > stations);
-  void stationsUpdated(QList < Station * > stations);
-
-  void error(const QString & title, const QString & message);
 
  protected:
   virtual QUrl infosUrl();
