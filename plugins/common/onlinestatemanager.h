@@ -21,7 +21,7 @@
 
 #include <QtCore/QObject>
 
-class QNetworkConfigurationManager;
+#include "mobility.h"
 
 class OnlineStateManager : public QObject {
     Q_OBJECT
