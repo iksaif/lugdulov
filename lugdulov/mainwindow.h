@@ -32,6 +32,7 @@
 class StationsPluginManager;
 class StationsPlugin;
 class Station;
+class QProgressBar;
 
 class MainWindow : public QMainWindow, private Ui_MainWindow
 {
@@ -57,6 +58,8 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
   void buttonClicked();
   void setStationsPlugin(StationsPlugin *plugin, bool save = false);
 
+  void progress(qint64 done, qint64 total);
+
 #ifdef Q_WS_MAEMO_5
   void statusMsg(const QString & msg, int timeout = QMaemo5InformationBox::DefaultTimeout);
 #else
@@ -74,6 +77,7 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
  private:
   StationsPluginManager *manager;
   StationsPlugin *plugin;
+  QProgressBar *progressBar;
 #ifdef HAVE_QT_LOCATION
   QGeoPositionInfoSource *localisation;
   QGeoPositionInfo position;

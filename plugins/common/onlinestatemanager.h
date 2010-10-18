@@ -20,8 +20,11 @@
 # define ONLINE_STATE_MANAGER_H
 
 #include <QtCore/QObject>
+#include <QtCore/QByteArray>
 
 #include "mobility.h"
+
+class QNetworkAccessManager;
 
 class OnlineStateManager : public QObject {
     Q_OBJECT
@@ -29,12 +32,15 @@ public:
     static OnlineStateManager *instance();
 
     bool isOnline() const;
+    void doOnlineTest(const QUrl & url);
 
 private slots:
     void setOnlineState(bool onlineState);
+    void onlineTestFinished();
 
 signals:
     void onlineStateChanged(bool onlineState);
+    void onlineTestFinished(const QUrl & url, const QByteArray & data, bool ok);
 
 private:
     OnlineStateManager(QObject * parent = NULL);
@@ -42,6 +48,7 @@ private:
 
     bool online;
     QNetworkConfigurationManager *manager;
+    QNetworkAccessManager *am;
     static OnlineStateManager *_instance;
 };
 

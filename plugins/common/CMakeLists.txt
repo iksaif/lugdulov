@@ -19,6 +19,7 @@ set(lugdulov_base_SRCS
   stationsmodel.cpp
   stationssortfilterproxymodel.cpp
   settings.cpp
+  onlinestatemanager.cpp
 )
 
 set(lugdulov_base_MOC_HDRS
@@ -34,6 +35,7 @@ set(lugdulov_base_MOC_HDRS
   stationsmodel.h
   stationssortfilterproxymodel.h
   settings.h
+  onlinestatemanager.h
 )
 
 qt4_wrap_cpp(lugdulov_base_MOC_SOURCE ${lugdulov_base_MOC_HDRS})

@@ -39,7 +39,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
   setupUi(this);
 
-  plugin = NULL;
 #ifdef HAVE_QT_LOCATION
   localisation = NULL;
 #endif
@@ -62,6 +61,12 @@ MainWindow::MainWindow(QWidget *parent)
   searchLinkButton->setDescription(QString());
   bookmarkLinkButton->setDescription(QString());
   mapLinkButton->setDescription(QString());
+#endif
+
+#if !defined(Q_WS_MAEMO_5)
+  progressBar = new QProgressBar(this);
+  progressBar->hide();
+  statusBar()->addPermanentWidget(progressBar, 0);
 #endif
 
   plugin = NULL;
@@ -180,10 +185,16 @@ MainWindow::buttonClicked()
 void
 MainWindow::setStationsPlugin(StationsPlugin *sta, bool save)
 {
+  if (plugin)
+    disconnect(plugin, 0, this, 0);
+
   plugin = sta;
+
   if (plugin) {
     pushButton->setText(plugin->name());
     pushButton->setIcon(plugin->bikeIcon());
+
+    connect(plugin, SIGNAL(progress(qint64, qint64)), this, SLOT(progress(qint64, qint64)));
   } else {
     pushButton->setText(tr("Auto"));
   }
@@ -321,3 +332,16 @@ MainWindow::chooseStationsPlugin()
 
   buttonClicked();
 }
+
+void
+MainWindow::progress(qint64 done, qint64 total)
+{
+  if (done >= total)
+    progressBar->hide();
+  else if (!progressBar->isVisible())
+    progressBar->show();
+
+  progressBar->setRange(0, total);
+  progressBar->setValue(done);
+}
+
