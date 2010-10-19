@@ -33,6 +33,7 @@
 #include "pluginsdialog.h"
 #include "mapdialog.h"
 #include "settings.h"
+#include "aboutdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
@@ -207,25 +208,9 @@ MainWindow::setStationsPlugin(StationsPlugin *sta, bool save)
 void
 MainWindow::about()
 {
-  QMessageBox::about(this, tr("About Lugdulo'v " LUGDULOV_VERSION),
-		     tr("Version: " LUGDULOV_VERSION "\n"
-			"Home: http://xf.iksaif.net/dev/lugdulov.html\n\n"
-			"Copyright (C) 2010 Corentin Chary <corentin.chary@gmail.com>\n"
-			"Copyright (C) 2010 Patrick Installé <PatrickInstalle@P-Installe.be>\n"
-			"\n"
-			"This program is free software; you can redistribute it and/or modify\n"
-			"it under the terms of the GNU General Public License as published by\n"
-			"the Free Software Foundation; either version 2 of the License, or\n"
-			"(at your option) any later version.\n"
-			"\n"
-			"This program is distributed in the hope that it will be useful, but\n"
-			"WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY\n"
-			"or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License\n"
-			"for more details.\n"
-			"\n"
-			"You should have received a copy of the GNU General Public License along\n"
-			"with this program; if not, write to the Free Software Foundation, Inc.,\n"
-			"59 Temple Place, Suite 330, Boston, MA 02111-1307 USA\n"));
+  AboutDialog dialog(this);
+
+  dialog.exec();
 }
 
 void
