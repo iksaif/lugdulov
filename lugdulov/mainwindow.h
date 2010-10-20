@@ -48,6 +48,8 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
 
  private slots:
   void delayedInit();
+  void updatePlugin();
+
   void about();
   void aboutQt();
 

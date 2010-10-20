@@ -76,7 +76,6 @@ StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
 	  this, SLOT(error(const QString &, const QString &)));
 
   QTimer::singleShot(1, plugin, SLOT(fetchAll())); // First fetch cached data
-  QTimer::singleShot(200, plugin, SLOT(fetchOnline())); // Then load online data
 }
 
 StationsListDialog::~StationsListDialog()

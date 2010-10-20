@@ -168,7 +168,6 @@ MapWidget::setPlugin(StationsPlugin *p)
 	  this, SLOT(refreshStations()));
 
   plugin->fetchAll(); // First fetch cached data
-  QTimer::singleShot(200, plugin, SLOT(fetchOnline())); // Then load online data
 }
 
 #ifdef HAVE_QT_LOCATION

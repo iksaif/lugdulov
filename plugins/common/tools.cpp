@@ -23,7 +23,9 @@
 #include "config.h"
 
 #include "tools.h"
+#if defined(HAVE_QT_BEARER)
 #include "onlinestatemanager.h"
+#endif
 
 QString
 Tools::ucFirst(const QString & str)
@@ -67,5 +69,9 @@ Tools::fixupRequest(QNetworkRequest * request)
 bool
 Tools::isOnline()
 {
+#if defined(HAVE_QT_BEARER)
     return OnlineStateManager::instance()->isOnline();
+#else
+    return true;
+#endif
 }

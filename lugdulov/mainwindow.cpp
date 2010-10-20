@@ -124,6 +124,8 @@ MainWindow::delayedInit()
   QNetworkConfiguration ap = manager.defaultConfiguration();
   QNetworkSession* session = new QNetworkSession(ap, this);
 
+  (void) selectIap;
+
   session->open();
 #endif
 #ifdef HAVE_QT_LOCATION
@@ -196,6 +198,8 @@ MainWindow::setStationsPlugin(StationsPlugin *sta, bool save)
     pushButton->setIcon(plugin->bikeIcon());
 
     connect(plugin, SIGNAL(progress(qint64, qint64)), this, SLOT(progress(qint64, qint64)));
+
+    QTimer::singleShot(1, this, SLOT(updatePlugin()));
   } else {
     pushButton->setText(tr("Auto"));
   }
@@ -330,3 +334,32 @@ MainWindow::progress(qint64 done, qint64 total)
   progressBar->setValue(done);
 }
 
+void
+MainWindow::updatePlugin(void)
+{
+  if (!plugin)
+    return ;
+
+  plugin->fetchAll();
+
+#if defined(HAVE_QT_BEARER)
+  QNetworkConfigurationManager mgr;
+  QList<QNetworkConfiguration> configs;
+
+  configs = mgr.allConfigurations(QNetworkConfiguration::Active);
+
+  foreach (QNetworkConfiguration config, configs) {
+    QNetworkConfiguration::BearerType type = config.bearerType();
+
+    /* Don't fetch stations from network on slow links */
+    if (type != QNetworkConfiguration::BearerEthernet &&
+	type != QNetworkConfiguration::BearerWLAN &&
+	type != QNetworkConfiguration::BearerWiMAX)
+      return ;
+    else
+      break ;
+  }
+#endif
+
+  plugin->fetchOnline();
+}
