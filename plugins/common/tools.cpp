@@ -49,9 +49,9 @@ Tools::fixupRequest(QNetworkRequest * request)
 {
   if (!isOnline())
 #if defined(Q_WS_MAEMO_5)
-    /* isOnline doesn't always work on symbian :/ */
     request->setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysCache);
 #elif defined(Q_OS_SYMBIAN)
+    /* isOnline doesn't always work on symbian :/ */
     request->setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
 #else
     /* FIXME, may work correctly on win32 and osx, need to test */

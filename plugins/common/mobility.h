@@ -23,8 +23,8 @@
 
 #include "config.h"
 
-#if QT_VERSION >= 0x040700
-#undef HAVE_QT_BEARER
+#if QT_VERSION >= 0x040700 && !defined(HAVE_QT_BEARER)
+#define HAVE_QT_BEARER
 #endif
 
 #ifdef HAVE_QT_LOCATION
