@@ -346,7 +346,7 @@ MainWindow::updatePlugin(void)
 
   plugin->fetchAll();
 
-#if defined(HAVE_QT_BEARER)
+#if QT_VERSION >= 0x040700
   QNetworkConfigurationManager mgr;
   QList<QNetworkConfiguration> configs;
 
