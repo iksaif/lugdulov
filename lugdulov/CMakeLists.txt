@@ -6,10 +6,18 @@ include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}
   ${lugdulov_base_SOURCE_DIR}
   ${qmapcontrol_SOURCE_DIR}
-  ${QTLOCATION_INCLUDE_DIR}
-  ${QTBEARER_INCLUDE_DIR}
   ${QT_INCLUDE_DIR}
 )
+
+if (QTLOCATION_FOUND)
+  include_directories(${QTLOCATION_INCLUDE_DIR})
+  link_directories(${QTLOCATION_LIBRARY_DIRS})
+endif ()
+
+if (QTBEARER_FOUND)
+  include_directories(${QTBEARER_INCLUDE_DIR})
+  link_directories(${QTBEARER_LIBRARY_DIRS})
+endif ()
 
 set(lugdulov_SRCS
   main.cpp
@@ -77,14 +85,10 @@ add_executable(
 )
 
 if (QTLOCATION_FOUND)
-  include_directories(${QTLOCATION_INCLUDE_DIR})
-  link_directories(${QTLOCATION_LIBRARY_DIRS})
   target_link_libraries(lugdulov ${QTLOCATION_LIBRARIES})
 endif ()
 
 if (QTBEARER_FOUND)
-  include_directories(${QTBEARER_INCLUDE_DIR})
-  link_directories(${QTBEARER_LIBRARY_DIRS})
   target_link_libraries(lugdulov ${QTBEARER_LIBRARIES})
 endif ()
 

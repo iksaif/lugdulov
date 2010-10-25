@@ -56,7 +56,7 @@
 # endif
 #endif
 
-#if defined(HAVE_QT_LOCATION) || defined(HAVE_QT_BEARER)
+#if defined(HAVE_QT_LOCATION) || (QT_VERSION < 0x040700 && defined(HAVE_QT_BEARER))
 using namespace QtMobility;
 #endif
 
