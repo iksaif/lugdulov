@@ -221,7 +221,7 @@ MapWidget::showStation(Station *station)
     return ;
 
   if (geometries.find(station) == geometries.end()) {
-    QPixmap *pix = new QPixmap(station->plugin()->bikeIcon().pixmap(QSize(48, 48)));
+    QPixmap *pix = new QPixmap(48, 48);
     Point *geom = new Point(station->pos().y(), station->pos().x(), pix, station->name());
 
     stationsLayer->addGeometry(geom);
@@ -229,33 +229,82 @@ MapWidget::showStation(Station *station)
     geometries[station] = geom;
   }
 
-  QPainter painter(geometries[station]->pixmap());
-  QRectF rect1, rect2;
+  QPixmap *pix = geometries[station]->pixmap();
 
-  rect1 = rect2 = QRectF(10, 0, 30, 3);
+  *pix = QPixmap(48, 48);
+  pix->fill(QColor(255, 255, 255, 0));
+
+  QPainter painter(pix);
+  QColor color, color2;
+  int angleBikes = -1, angleSlots = -1;
+  QPen pen;
+  QBrush brush;
+  QRect rect(3, 3, 45, 45);
 
   painter.setRenderHints(QPainter::Antialiasing|QPainter::SmoothPixmapTransform);
-  painter.setPen(Qt::NoPen);
-  if (station->bikes() > 0 && station->totalSlots() > 0) {
-    rect1.setWidth(rect1.width() * (double)station->bikes() / (double)station->totalSlots());
-    rect2.setWidth(rect2.width() * (double)station->freeSlots() / (double)station->totalSlots());
-    rect2.moveTo(rect1.x() + rect1.width(), rect2.y());
-  } else if (station->bikes() > 0) {
-    rect2 = QRectF();
-  } else if (station->freeSlots() > 0) {
-    rect1 = QRectF();
+
+  if (station->bikes() >= 0 && station->totalSlots() > 0) {
+    double ratio;
+
+    if (station->bikes())
+      ratio = (double) station->bikes() / (double) station->totalSlots();
+    else
+      ratio = 0;
+
+    if (ratio == 0)
+      color = Qt::darkRed;
+    else if (ratio < 0.3)
+      color = QColor(238, 113, 17);
+    else if (ratio < 0.6)
+      color = Qt::yellow;
+    else
+      color = Qt::darkGreen;
+    angleBikes = 16 * 360 * ratio;
+    angleSlots = 16 * 360 * (1 - ratio);
+  } else if (station->bikes() >= 0) {
+    int bikes = station->bikes();
+
+    if (bikes == 0)
+      color = Qt::darkRed;
+    else if (bikes < 3)
+      color = QColor(238, 113, 17);
+    else if (bikes < 5)
+      color = Qt::yellow;
+    else
+      color = Qt::darkGreen;
+  } else if (station->freeSlots() >= 0) {
+    if (station->freeSlots() == 0)
+      color = Qt::darkGreen;
+    else
+      goto end;
   } else {
-    return ;
+    goto end;
   }
 
-  if (!rect1.isNull()) {
-    painter.setBrush(Qt::darkGreen);
-    painter.drawRect(rect1);
+  pen.setWidth(2);
+  pen.setColor(color);
+  color.setAlpha(100);
+
+  painter.setBrush(color);
+  painter.setPen(pen);
+
+  color2 = Qt::gray;
+  color2.setAlpha(100);
+
+  if (angleBikes > 0 && angleSlots > 0) {
+    painter.drawPie(rect, 90 * 16, -angleBikes);
+    painter.setBrush(color2);
+    painter.drawPie(rect, 90 * 16, angleSlots);
+  } else if (angleBikes > 0) {
+    painter.drawPie(rect, 90 * 16, -angleBikes);
+  } else if (angleSlots > 0) {
+    painter.setBrush(color2);
+    painter.drawPie(rect, 90 * 16, angleSlots);
+  } else {
+    painter.drawEllipse(rect);
   }
-  if (!rect2.isNull()) {
-    painter.setBrush(Qt::darkRed);
-    painter.drawRect(rect2);
-  }
+ end:
+  painter.drawPixmap(0, 0, station->plugin()->bikeIcon().pixmap(QSize(48, 48)));
 }
 
 void
