@@ -49,22 +49,23 @@ MainWindow::MainWindow(QWidget *parent)
   setAttribute(Qt::WA_Maemo5StackedWindow);
   setAttribute(Qt::WA_Maemo5AutoOrientation, true);
 
-  mapLinkButton->setMaximumHeight(70);
-  searchLinkButton->setMaximumHeight(70);
-  bookmarkLinkButton->setMaximumHeight(70);
-
   searchLinkButton->setDescription(tr("Search stations by name"));
   bookmarkLinkButton->setDescription(tr("Manage your favorites stations."));
 #elif defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
   pushButton->setIconSize(QSize(24,24));
-  iconLabel->hide();
-  titleLabel->hide();
   searchLinkButton->setDescription(QString());
   bookmarkLinkButton->setDescription(QString());
   mapLinkButton->setDescription(QString());
 #endif
 
-#if !defined(Q_WS_MAEMO_5)
+#if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR) || defined(Q_WS_MAEMO_5)
+  iconLabel->hide();
+  titleLabel->hide();
+#endif
+
+#if defined(Q_WS_MAEMO_5)
+  progressBar = NULL;
+#else
   progressBar = new QProgressBar(this);
   progressBar->hide();
   statusBar()->addPermanentWidget(progressBar, 0);
@@ -325,6 +326,9 @@ MainWindow::chooseStationsPlugin()
 void
 MainWindow::progress(qint64 done, qint64 total)
 {
+  if (!progressBar)
+    return ;
+
   if (done >= total)
     progressBar->hide();
   else if (!progressBar->isVisible())
