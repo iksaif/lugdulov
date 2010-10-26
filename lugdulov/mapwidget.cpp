@@ -252,7 +252,7 @@ MapWidget::showStation(Station *station)
       ratio = 0;
 
     if (ratio == 0)
-      color = Qt::darkRed;
+      color = Qt::red;
     else if (ratio < 0.3)
       color = QColor(238, 113, 17);
     else if (ratio < 0.6)
@@ -265,7 +265,7 @@ MapWidget::showStation(Station *station)
     int bikes = station->bikes();
 
     if (bikes == 0)
-      color = Qt::darkRed;
+      color = Qt::red;
     else if (bikes < 3)
       color = QColor(238, 113, 17);
     else if (bikes < 5)
