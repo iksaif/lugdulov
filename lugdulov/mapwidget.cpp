@@ -358,7 +358,7 @@ MapWidget::centerView(const QPointF & pt, int zoom)
   if (zoom != -1)
     mc->setZoom(zoom);
 
-  stationsTimer->start();
+  QTimer::singleShot(0, this, SLOT(refreshStations()));
 }
 
 void
