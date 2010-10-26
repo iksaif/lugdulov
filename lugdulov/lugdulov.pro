@@ -41,7 +41,8 @@ HEADERS += mainwindow.h \
     stationslistview.h \
     mapdialog.h \
     mapwidget.h \
-    pluginsdialog.h
+    pluginsdialog.h \
+    aboutdialog.h
 
 SOURCES += main.cpp \
     mainwindow.cpp \
@@ -52,7 +53,8 @@ SOURCES += main.cpp \
     stationslistview.cpp \
     mapdialog.cpp \
     mapwidget.cpp \
-    pluginsdialog.cpp
+    pluginsdialog.cpp \
+    aboutdialog.cpp
 
 TRANSLATIONS = i18n/lugdulov_fr.ts
 
@@ -102,7 +104,8 @@ FORMS += mainwindow.ui \
     stationdialog.ui \
     stationslistdialog.ui \
     mapdialog.ui \
-    pluginsdialog.ui
+    pluginsdialog.ui \
+    aboutdialog.ui
 
 RESOURCES += res/lugdulov.qrc \
     i18n/i18n.qrc

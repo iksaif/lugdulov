@@ -4,17 +4,16 @@
 <context>
     <name>StationsPluginLyon</name>
     <message>
-        <location filename="lyon.cpp" line="176"/>
         <source>Network Error</source>
-        <translation>Erreur réseau</translation>
+        <translation type="obsolete">Erreur réseau</translation>
     </message>
     <message>
-        <location filename="lyon.cpp" line="396"/>
+        <location filename="lyon.cpp" line="169"/>
         <source>Velo&apos;V map</source>
         <translation>Carte des Velo&apos;V</translation>
     </message>
     <message>
-        <location filename="lyon.cpp" line="397"/>
+        <location filename="lyon.cpp" line="170"/>
         <source>Show this station in the official Velo&apos;V map</source>
         <translation>Montrer cette station sur la carte officielle des Velo&apos;V</translation>
     </message>
