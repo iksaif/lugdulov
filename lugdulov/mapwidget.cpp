@@ -239,7 +239,7 @@ MapWidget::showStation(Station *station)
   int angleBikes = -1, angleSlots = -1;
   QPen pen;
   QBrush brush;
-  QRect rect(3, 3, 45, 45);
+  QRect rect(3, 3, 44, 44);
 
   painter.setRenderHints(QPainter::Antialiasing|QPainter::SmoothPixmapTransform);
 

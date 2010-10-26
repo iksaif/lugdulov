@@ -1,7 +1,7 @@
 [Desktop Entry]
-Version=0.1.0
+Version=0.3.0
 Encoding=UTF-8
-Name=Lugdulov
+Name=Lugdulo'V
 Exec=/opt/lugdulov/bin/lugdulov
 Type=Application
 Icon=lugdulov
