@@ -18,11 +18,15 @@
 
 #include "config.h"
 
+#if defined(Q_WS_MAEMO_5)
+#include <QtGui/QAbstractKineticScroller>
+#endif
+
 #include "lugdulov.h"
 #include "aboutdialog.h"
 
 #include "ui_aboutdialog.h"
-
+#include <QDebug>
 AboutDialog::AboutDialog(QWidget *parent)
   :
 #ifdef Q_WS_MAEMO_5
@@ -35,6 +39,18 @@ AboutDialog::AboutDialog(QWidget *parent)
   ui->setupUi(this);
   setupDialog(this);
   ui->versionLabel->setText(ui->versionLabel->text() + QString(" %1").arg(LUGDULOV_VERSION));
+
+#if defined(Q_WS_MAEMO_5)
+  ui->buttonBox->hide();
+
+  QAbstractKineticScroller *scroller;
+
+  if ((scroller = ui->licenceBrowser->property("kineticScroller").value<QAbstractKineticScroller *>()) != NULL)
+    scroller->setEnabled(true);
+
+  if ((scroller = ui->authorsBrowser->property("kineticScroller").value<QAbstractKineticScroller *>()) != NULL)
+    scroller->setEnabled(true);
+#endif
 }
 
 AboutDialog::~AboutDialog()
