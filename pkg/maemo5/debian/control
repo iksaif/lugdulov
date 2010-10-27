@@ -3,7 +3,7 @@ Section: user/navigation
 Priority: extra
 Maintainer: Corentin Chary <corentincj@iksaif.net>
 XSBC-Bugtracker: http://dev.iksaif.net/projects/lugdulov
-Build-Depends: debhelper (>= 5), libqjson-dev, libqtm-dev, libqt4-dev, cmake
+Build-Depends: debhelper (>= 5), libqjson-dev, libqtm-dev, libqt4-dev, cmake, libx11-dev
 Standards-Version: 3.7.2
 
 Package: lugdulov
