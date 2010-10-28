@@ -108,7 +108,7 @@ StationsPluginManager::loadPlugins(QDir pluginsDir)
       qDebug() << "lugdulov: loading plugin" << pluginsDir.absoluteFilePath(fileName);
       loadPlugin(plugin);
     } else {
-      qDebug() << "lugdulov: failed to load plugin " << loader.fileName() << ":"
+      qWarning() << "lugdulov: failed to load plugin " << loader.fileName() << ":"
 	       << loader.errorString ();
     }
   }
