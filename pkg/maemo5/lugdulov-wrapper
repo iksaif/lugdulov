@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ -n "/opt/lugdulov/lib" ]; then
+   if [ "${LD_LIBRARY_PATH+set}" = "set" ]; then
+       export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/opt/lugdulov/lib"
+   else
+       export LD_LIBRARY_PATH="/opt/lugdulov/lib"
+   fi
+fi
+exec /opt/lugdulov/bin/lugdulov "$@"

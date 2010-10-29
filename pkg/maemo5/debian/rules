@@ -52,6 +52,8 @@ install: build
 
 	cd $(CURDIR)/build && $(MAKE) DESTDIR=$(CURDIR)/debian/tmp install
 
+	chmod +x debian/tmp/opt/lugdulov/bin/lugdulov-wrapper
+
 
 # Build architecture-independent files here.
 binary-indep: build install
