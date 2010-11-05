@@ -110,10 +110,10 @@ class CityBike(Provider):
             city.id = city.uid
             city.name = service['city_name']
             city.bikeName = service['bike_name']
-            city.bikeIcon = ""
             city.lat = service['lat']
             city.lng = service['lng']
             city.create_rect()
+            city.type = "CityBike"
             #city.rect = self.get_city_bike_zone(service, city)
             ret.append(city)
         return ret
@@ -139,7 +139,7 @@ class CityBike(Provider):
             return self.cache[service['server']]
 
         url = 'http://' + service['server'] + "/localizaciones/localizaciones.php"
-        fp = urllib2.urlopen(url)
+        fp = urlopen(url)
         data_html = fp.read()
 
         match = re.search(r'(<kml .*kml>)', data_html, re.MULTILINE|re.DOTALL)
@@ -219,7 +219,7 @@ class CityBike(Provider):
             coord = placemarker.childNodes[2].childNodes[0].childNodes[0].toxml()
             station.lng = float(re.sub('[^0-9.-]','' , coord.split(',')[0]))
             station.lat = float(re.sub('[^0-9.-]','' , coord.split(',')[1]))
-            station.zone = "0"
+            station.zone = ""
 
             stations.append(station)
         return stations
@@ -227,24 +227,20 @@ class CityBike(Provider):
     def get_status(self, station, city):
         return station
 
-    def dump_priv(self, city):
-        data = open('citybike/priv.tpl.h').read()
+    def dump_city(self, city):
         service = self.service_by_city(city)
-        #city.rect = self.get_city_bike_zone(service, city)
-        data = self._dump_priv(data, city)
-        data = data.replace('<statusUrl>', '')
-        data = data.replace('<infosUrl>', 'http://' +  service['server'] + '/localizaciones/localizaciones.php')
+        city.rect = self.get_city_bike_zone(service, city)
+        city.status = ''
+        city.infos = 'http://' +  service['server'] + '/localizaciones/localizaciones.php'
+        data = self._dump_city(city)
+        print data
+
+    def dump_stations(self, city):
+        service = self.service_by_city(city)
+        city.rect = self.get_city_bike_zone(service, city)
+        data = self._dump_stations(city)
         print data.encode('utf8')
 
-    def dump_class(self, city):
-        data = open('citybike/class.tpl.cpp').read()
-        data = self._dump_class(data, city)
-        print data.encode('utf8')
-
-    def dump_header(self, city):
-        data = open('citybike/header.tpl.h').read()
-        data = self._dump_header(data, city)
-        print data.encode('utf8')
 
 def test():
     prov = CityBike()

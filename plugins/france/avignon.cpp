@@ -16,55 +16,18 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtNetwork/QNetworkReply>
-#include <QtGui/QDesktopServices>
-#include <QtCore/QMap>
-#include <QtCore/QVariant>
-#include <QtCore/QFile>
-#include <QtCore/QtPlugin>
-#include <QtCore/QStringList>
 #include <QtXml/QDomNode>
 
-#include <QtCore/QDebug>
-
-#include "tools.h"
 #include "station.h"
 #include "avignon.h"
-#include "avignon_p.h"
 
 StationsPluginAvignon::StationsPluginAvignon(QObject *parent)
   : StationsPluginSingle(parent)
 {
-  d = new StationsPluginSimplePrivateAvignon();
 }
 
 StationsPluginAvignon::~StationsPluginAvignon()
 {
-  delete d;
-}
-
-QString
-StationsPluginAvignon::id() const
-{
-  return QLatin1String("avignon");
-}
-
-QString
-StationsPluginAvignon::name() const
-{
-  return QString::fromUtf8("Avignon");
-}
-
-QString
-StationsPluginAvignon::bikeName() const
-{
-  return QString::fromUtf8("VeloPop");
-}
-
-QIcon
-StationsPluginAvignon::bikeIcon() const
-{
-  return QIcon(":/res/bike.png");
 }
 
 void
@@ -89,7 +52,7 @@ StationsPluginAvignon::handleInfos(const QByteArray & data)
     pos = QPointF(capt.at(2).toDouble(),
 		  capt.at(3).toDouble());
 
-    if (!d->rect.contains(pos))
+    if (!rect().contains(pos))
       continue ;
 
     if (stations.find(id) == stations.end())

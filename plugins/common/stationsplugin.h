@@ -16,8 +16,8 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_H
-#define STATIONS_H
+#ifndef STATIONS_PLUGIN_H
+#define STATIONS_PLUGIN_H
 
 #include <QtCore/QTime>
 #include <QtCore/QUrl>
@@ -63,11 +63,6 @@ public:
    * Returns the center of the city
    */
   virtual QPointF center() const = 0;
-
-  /**
-   * List of all regions
-   */
-  virtual QStringList regions() = 0;
 
   /**
    * Return an image url for a given station id
@@ -160,36 +155,4 @@ public:
   QMap < Station * , QTime > updated;
 };
 
-/**
- * Each *.so / *.dll plugin provides a StationsPluginFactory
- * This factory holds all StationsPlugins embedded in that *.so / *.dll
- */
-class StationsPluginFactory {
- public:
-  virtual ~StationsPluginFactory() {}
-
-  /**
-   * Return an unique identifier
-   */
-  virtual QString id() const = 0;
-
-  /**
-   * Return the name of this plugin factory
-   */
-  virtual QString name() const = 0;
-
-  /**
-   * Returns an icon for this plugin factory
-   */
-  virtual QIcon icon() const = 0;
-
-  /**
-   * Returns all the plugins in this factory
-   */
-  virtual QList < StationsPlugin * > stations(QObject * parent) = 0;
-};
-
-Q_DECLARE_INTERFACE(StationsPluginFactory,
-		    "net.iksaif.lugdulov.StationsPluginFactoryInterface/1.0")
-
-#endif /* STATIONS_H */
+#endif /* STATIONS_PLUGIN_H */

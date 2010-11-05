@@ -19,10 +19,6 @@
 #ifndef STATIONS_WIEN_H
 #define STATIONS_WIEN_H
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-#include <QtCore/QMap>
-
 #include "stationspluginsingle.h"
 
 class Station;
@@ -31,13 +27,8 @@ class StationsPluginWien : public StationsPluginSingle
 {
   Q_OBJECT
  public:
-  StationsPluginWien(QObject *parent);
+  StationsPluginWien(QObject *parent = NULL);
   virtual ~StationsPluginWien();
-
-  QString id() const;
-  QString name() const;
-  QString bikeName() const;
-  QIcon bikeIcon() const;
 
  protected:
   virtual QUrl imageUrl(int id);

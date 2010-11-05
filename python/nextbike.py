@@ -29,7 +29,6 @@
 # un seul fichier xml contient (presque) toutes les informations sur les stations, dans les villes dans les pays.
 #
 #
-import urllib2
 import sys
 import os
 import datetime
@@ -47,7 +46,7 @@ class NextBike(Provider):
         if self.dom:
             return self.dom
         url = 'http://nextbike.net/maps/nextbike-official.xml'
-        fp = urllib2.urlopen(url)
+        fp = urlopen(url)
         data = fp.read()
         self.dom = xml.dom.minidom.parseString(data)
         return self.dom
@@ -92,6 +91,7 @@ class NextBike(Provider):
             city.bikeName = 'nextbike'
             city.lat = float(node.getAttribute('lat'))
             city.lng = float(node.getAttribute('lng'))
+            city.type = "NextBike"
             city.create_rect(1)
             ret.append(city)
         return ret
@@ -124,7 +124,7 @@ class NextBike(Provider):
             station.lat = float(node.getAttribute('lat'))
             station.lng = float(node.getAttribute('lng'))
             station.bikes = station.slots = -1
-            station.zone = 0
+            station.zone = ""
             if node.hasAttribute('bikes'):
                 station.bikes = int(node.getAttribute('bikes').replace('+', ''))
             if node.hasAttribute('bike_racks'):
@@ -135,24 +135,18 @@ class NextBike(Provider):
     def get_status(self, station, city):
         return station
 
-    def dump_priv(self, city):
-        data = open('nextbike/priv.tpl.h').read()
+    def dump_city(self, city):
         #city.rect = self.get_city_bike_zone(service, city)
-        data = self._dump_priv(data, city)
-        data = data.replace('<statusUrl>', '')
-        data = data.replace('<infosUrl>', 'http://nextbike.net/maps/nextbike-official.xml')
+        city.status = ''
+        city.infos = 'http://nextbike.net/maps/nextbike-official.xml'
+        data = self._dump_city(city)
+        print data
+
+    def dump_stations(self, city):
+        #city.rect = self.get_city_bike_zone(service, city)
+        data = self._dump_stations(city)
         print data.encode('utf8')
 
-    def dump_class(self, city):
-        data = open('nextbike/class.tpl.cpp').read()
-        data = data.replace('<CityName>', city.oname);
-        data = self._dump_class(data, city)
-        print data.encode('utf8')
-
-    def dump_header(self, city):
-        data = open('nextbike/header.tpl.h').read()
-        data = self._dump_header(data, city)
-        print data.encode('utf8')
 
 def test():
     prov = NextBike()

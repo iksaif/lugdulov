@@ -1,11 +1,11 @@
 <RCC>
   <qresource prefix="france">
+    <file>france.xml</file>
+    <file>cities.xml</file>
     <file>velov.png</file>
     <file>velov-icon.png</file>
     <file>velib.png</file>
-    <file>generic.png</file>
     <file>fr.png</file>
     <file>lugdulov_france_fr.qm</file>
   </qresource>
 </RCC>
-

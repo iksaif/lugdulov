@@ -16,21 +16,20 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_UNITED_KINGDOM_H
-#define STATIONS_UNITED_KINGDOM_H
+#ifndef STATIONS_UNITEDKINGDOM_H
+#define STATIONS_UNITEDKINGDOM_H
 
-#include "stationsplugin.h"
+#include "stationspluginfactorysimple.h"
 
-class Station;
-class StationsPluginFactoryUnitedKingdom : public QObject, public StationsPluginFactory
+class StationsPluginFactoryUnitedKingdom : public QObject, public StationsPluginFactorySimple
 {
   Q_OBJECT
   Q_INTERFACES(StationsPluginFactory)
  public:
-  QString id() const;
-  QString name() const;
-  QIcon icon() const;
-  QList < StationsPlugin * > stations(QObject * parent);
+  StationsPluginFactoryUnitedKingdom();
+
+ protected:
+  StationsPluginSimple *pluginForType(const QString & type);
 };
 
-#endif /* STATIONS_UNITED_KINGDOM_H */
+#endif /* STATIONS_UNITEDKINGDOM_H */

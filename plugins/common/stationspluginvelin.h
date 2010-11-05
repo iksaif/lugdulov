@@ -31,11 +31,22 @@ class StationsPluginVelIn : public StationsPluginSingle
 {
   Q_OBJECT
  public:
-  StationsPluginVelIn(QObject *parent);
+  StationsPluginVelIn(QObject *parent = NULL);
   virtual ~StationsPluginVelIn();
 
  protected:
+  virtual QUrl infosUrl(void);
+
   virtual void handleInfos(const QByteArray & data);
+  virtual void handleStatus(const QByteArray & data, int id);
+
+ private:
+  enum { HomePage = 1, FormPage = 2, MapPage = 3 } Page;
+
+  void forgeUrl();
+
+  QUrl forgedUrl;
+  QUrl baseUrl;
 };
 
 #endif /* STATIONS_VELIN_H */

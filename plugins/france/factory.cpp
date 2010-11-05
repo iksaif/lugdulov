@@ -18,85 +18,37 @@
 
 #include <QtCore/QtPlugin>
 
+#include "config.h"
+#include "stationsplugin.h"
 #include "factory.h"
-#include "aixenprovence.h"
-#include "amiens.h"
-#include "besancon.h"
-#include "cergypontoise.h"
-#include "creteil.h"
-#include "lyon.h"
-#include "marseille.h"
-#include "mulhouse.h"
-#include "nancy.h"
-#include "nantes.h"
-#include "paris.h"
-#include "plainecommune.h"
-#include "rouen.h"
-#include "toulouse.h"
-#include "caen.h"
-#include "perpignan.h"
-#include "dijon.h"
-#include "calais.h"
-#include "nice.h"
 #include "larochelle.h"
-#include "bordeaux.h"
-#include "pau.h"
-#include "vannes.h"
 #include "orleans.h"
-#include "avignon.h"
 #include "rennes.h"
+#include "avignon.h"
+#include "lyon.h"
 
-QString
-StationsPluginFactoryFrance::id() const
+StationsPluginFactoryFrance::StationsPluginFactoryFrance()
 {
-  return QLatin1String("France");
+  loadInfos(":/france/france.xml");
+  loadCities(":/france/cities.xml");
+  loadCities(PLUGINS_EXTEND_DIR "/france/cities.xml");
 }
 
-QString
-StationsPluginFactoryFrance::name() const
+StationsPluginSimple *
+StationsPluginFactoryFrance::pluginForType(const QString & type)
 {
-  return QString::fromUtf8("Réseaux Français");
-}
-
-QIcon
-StationsPluginFactoryFrance::icon() const
-{
-  return QIcon(":/france/fr.png");
-}
-
-QList < StationsPlugin * >
-StationsPluginFactoryFrance::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
-
-  ret << new StationsPluginLyon(parent);
-  ret << new StationsPluginAixenprovence(parent);
-  ret << new StationsPluginAmiens(parent);
-  ret << new StationsPluginBesancon(parent);
-  ret << new StationsPluginCergypontoise(parent);
-  ret << new StationsPluginCreteil(parent);
-  ret << new StationsPluginMarseille(parent);
-  ret << new StationsPluginMulhouse(parent);
-  ret << new StationsPluginNancy(parent);
-  ret << new StationsPluginNantes(parent);
-  ret << new StationsPluginParis(parent);
-  ret << new StationsPluginPlainecommune(parent);
-  ret << new StationsPluginRouen(parent);
-  ret << new StationsPluginToulouse(parent);
-  ret << new StationsPluginCaen(parent);
-  ret << new StationsPluginPerpignan(parent);
-  ret << new StationsPluginDijon(parent);
-  ret << new StationsPluginCalais(parent);
-  ret << new StationsPluginNice(parent);
-  ret << new StationsPluginLaRochelle(parent);
-  ret << new StationsPluginBordeaux(parent);
-  ret << new StationsPluginPau(parent);
-  ret << new StationsPluginVannes(parent);
-  ret << new StationsPluginOrleans(parent);
-  ret << new StationsPluginAvignon(parent);
-  ret << new StationsPluginRennes(parent);
-
-  return ret;
+  if (type == "Lyon")
+    return new StationsPluginLyon();
+  else if (type == "LaRochelle" || type == "Yelo")
+    return new StationsPluginLaRochelle();
+  else if (type == "Orleans" || type == "VeloPlus")
+    return new StationsPluginOrleans();
+  else if (type == "Rennes" || type == "VeloStar")
+    return new StationsPluginRennes();
+  else if (type == "Avignon" || type == "VeloPop")
+    return new StationsPluginAvignon();
+  else
+    return StationsPluginFactorySimple::pluginForType(type);
 }
 
 Q_EXPORT_PLUGIN2(stationsfrance, StationsPluginFactoryFrance)

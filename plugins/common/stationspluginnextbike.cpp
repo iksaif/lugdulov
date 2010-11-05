@@ -25,8 +25,6 @@
 #include <QtCore/QStringList>
 #include <QtXml/QDomNode>
 
-#include <QtCore/QDebug>
-
 #include "tools.h"
 #include "station.h"
 #include "stationspluginnextbike.h"

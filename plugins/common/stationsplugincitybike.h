@@ -31,7 +31,7 @@ class StationsPluginCityBike : public StationsPluginSingle
 {
   Q_OBJECT
  public:
-  StationsPluginCityBike(QObject *parent);
+  StationsPluginCityBike(QObject *parent = NULL);
   virtual ~StationsPluginCityBike();
 
  protected:

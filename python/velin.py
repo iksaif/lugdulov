@@ -24,7 +24,6 @@
 
 import sys
 import os
-import urllib2
 import re
 import xml.dom.minidom
 import datetime
@@ -80,7 +79,18 @@ class VelIn(Provider):
             'lat'  : 51.4550410,
             'lng'  : -0.9690884,
             'service_class' : 'VelIn'
-         }]
+         },
+        {
+            'country_uid' : 'fr',
+            'country_name' : 'France',
+            'city_uid'    : 'vannes',
+            'city_name'    : 'Vannes',
+            'bike_name'    : 'Velocea',
+            'server' : 'www.velocea.fr',
+            'lat'  : 47.6549032,
+            'lng'  : -2.7595206,
+            'service_class' : 'Velocea'
+        }]
 
     def service_by_city(self, city):
         for service in self.config:
@@ -89,31 +99,26 @@ class VelIn(Provider):
         return None
 
     def url(self, city):
-        try:
-            return self.forge_url(city)
-        except Exception, err:
-            url = "http://www.vel-in.fr/oybike/stands.nsf/"
-            url += "getSite?openagent&site=%s&format=json&key=D" % city.uid
-            return url
+        return self.forge_url(city)
 
     def forge_url(self, city):
         mapdb = 'oybike/stands.nsf'
         service = self.service_by_city(city)
 
         # for the key follow the path
-        fp = urllib2.urlopen('http://' + service['server']  + "/")
+        fp = urlopen('http://' + service['server']  + "/")
         html = fp.read()
         rg = re.compile('window\.location = \'(.*?)\';')
         location = rg.search(html).group(1)
 
-        fp = urllib2.urlopen('http://' + service['server']  + location)
+        fp = urlopen('http://' + service['server']  + location)
         html = fp.read()
         rg = re.compile('(customFrmMap\?OpenForm\&ParentUNID=.*?\?open\&lang=fr)')
         request = rg.search(html).group(1)
         rg = re.compile('var webdbname = \'(.*?)\';')
         webdbname = rg.search(html).group(1)
         url_map = 'http://' + service['server'] + '/' + webdbname + '/' + request
-        fp = urllib2.urlopen(url_map)
+        fp = urlopen(url_map)
         html = fp.read()
         rg = re.compile('var mapdbkey = \'(.*?)\';')
         mapdbkey = rg.search(html).group(1)
@@ -154,6 +159,7 @@ class VelIn(Provider):
             city.lat = service['lat']
             city.lng = service['lng']
             city.create_rect()
+            city.type = "VelIn"
             #city.rect = self.get_city_bike_zone(service, city)
             ret.append(city)
         return ret
@@ -164,7 +170,7 @@ class VelIn(Provider):
     def get_stations(self, city):
         stations = []
 
-        fp = urllib2.urlopen(self.url(city))
+        fp = urlopen(self.url(city))
         data = fp.read()
         data = json.loads(data)
         for marker in data['site']['stands']:
@@ -181,7 +187,7 @@ class VelIn(Provider):
             station.lng = float(marker['lng'])
             station.slots = marker['ap']
             station.bikes = marker['ab']
-            station.zone = "0"
+            station.zone = ""
             stations.append(station)
         return stations
 
@@ -191,22 +197,15 @@ class VelIn(Provider):
     def get_zones(self, city):
         return []
 
-    def dump_priv(self, city):
-        data = open('velin/priv.tpl.h').read()
+    def dump_city(self, city):
         #city.rect = self.get_city_bike_zone(service, city)
-        data = self._dump_priv(data, city)
-        data = data.replace('<statusUrl>', '')
-        data = data.replace('<infosUrl>', self.url(city))
-        print data.encode('utf8')
+        city.infos = 'http://' + self.service_by_city(city)['server'] + "/"
+        data = self._dump_city(city)
+        print data
 
-    def dump_class(self, city):
-        data = open('velin/class.tpl.cpp').read()
-        data = self._dump_class(data, city)
-        print data.encode('utf8')
-
-    def dump_header(self, city):
-        data = open('velin/header.tpl.h').read()
-        data = self._dump_header(data, city)
+    def dump_stations(self, city):
+        #city.rect = self.get_city_bike_zone(service, city)
+        data = self._dump_stations(city)
         print data.encode('utf8')
 
 def test():

@@ -8,15 +8,11 @@ include_directories(
 
 set(austria_SRCS
   factory.cpp
-  neusiedler_see.cpp
-  bregenzerwald.cpp
   wien.cpp
 )
 
 set(austria_HDRS
   factory.h
-  neusiedler_see.h
-  bregenzerwald.h
   wien.h
 )
 

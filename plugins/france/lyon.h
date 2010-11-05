@@ -19,10 +19,6 @@
 #ifndef STATIONS_LYON_H
 #define STATIONS_LYON_H
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-#include <QtCore/QMap>
-
 #include "stationspluginsimple.h"
 
 class Station;
@@ -31,13 +27,9 @@ class StationsPluginLyon : public StationsPluginSimple
 {
   Q_OBJECT
  public:
-  StationsPluginLyon(QObject *parent);
+  StationsPluginLyon(QObject *parent = NULL);
   ~StationsPluginLyon();
 
-  QString id() const;
-  QString name() const;
-  QString bikeName() const;
-  QIcon bikeIcon() const;
   QUrl imageUrl(int id);
 
   enum StationsLyonActions {
@@ -56,6 +48,7 @@ class StationsPluginLyon : public StationsPluginSimple
 
   QUrl stationsJsonUrl(const QString &region);
   QUrl statusUrl(int id);
+  QStringList regions();
 
   static const QString baseUrl;
 };

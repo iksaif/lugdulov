@@ -1,6 +1,8 @@
 <RCC>
   <qresource prefix="lower-austria">
     <file>at.png</file>
+    <file>cities.xml</file>
+    <file>lower-austria.xml</file>
   </qresource>
 </RCC>
 

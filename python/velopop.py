@@ -24,7 +24,6 @@
 """
 import sys
 import os
-import urllib2
 import re
 import datetime
 from plugin import *
@@ -47,7 +46,7 @@ class VeloPop(Provider):
 
     def get_countries(self):
         country = Country()
-        country.uid = "france"
+        country.uid = "fr"
         country.name = "France"
         return [country]
 
@@ -60,17 +59,19 @@ class VeloPop(Provider):
         city.lat = self.config['lat']
         city.lng = self.config['lng']
         city.create_rect()
+        city.type = "VeloPop"
         return [city]
 
 
     def get_stations(self, city):
         stations = []
         url = self.url()
-        fp = urllib2.urlopen(url)
+        fp = urlopen(url)
         data = fp.read()
 
         # map.addOverlay(newmark_03(3, 43.943233,4.805682, "<div align=\"left\">01 Jaures<br>Vélos disponibles: 1<br>Emplacements libres: 31<br>CB: Oui<br></div>"));
-        rg = re.compile(r'map\.addOverlay\(newmark_\d+\((\d+), ([0-9\.]+),([0-9\.]+), "<div align=\\"left\\">(.*)<br>.*disponibles: (\d+)<br>Emplacements libres: (\d+)<br>')
+        rg = re.compile(r'map\.addOverlay\(newmark_\d+\((\d+), ([0-9\.]+),([0-9\.]+), "<div .*>(.*)<br>.*disponibles: (\d+)<br>Emplacements libres: (\d+)<br>')
+
         #print data
         for node in rg.findall(data):
             station = Station()
@@ -81,7 +82,7 @@ class VeloPop(Provider):
             station.lng = float(node[2])
             station.bikes = node[4]
             station.slots = node[5]
-            station.zone = "0"
+            station.zone = ""
             stations.append(station)
         return stations
 
@@ -91,12 +92,15 @@ class VeloPop(Provider):
     def get_zones(self, city):
         return []
 
-    def dump_priv(self, city):
-        data = open('citybike/priv.tpl.h').read()
+    def dump_city(self, city):
         #city.rect = self.get_city_bike_zone(service, city)
-        data = self._dump_priv(data, city)
-        data = data.replace('<statusUrl>', '')
-        data = data.replace('<infosUrl>', self.url())
+        city.infos = self.url()
+        data = self._dump_city(city)
+        print data
+
+    def dump_stations(self, city):
+        #city.rect = self.get_city_bike_zone(service, city)
+        data = self._dump_stations(city)
         print data.encode('utf8')
 
 

@@ -19,18 +19,14 @@
 #ifndef STATIONS_IRELAND_H
 #define STATIONS_IRELAND_H
 
-#include "stationsplugin.h"
+#include "stationspluginfactorysimple.h"
 
-class Station;
-class StationsPluginFactoryIreland : public QObject, public StationsPluginFactory
+class StationsPluginFactoryIreland : public QObject, public StationsPluginFactorySimple
 {
   Q_OBJECT
   Q_INTERFACES(StationsPluginFactory)
  public:
-  QString id() const;
-  QString name() const;
-  QIcon icon() const;
-  QList < StationsPlugin * > stations(QObject * parent);
+  StationsPluginFactoryIreland();
 };
 
 #endif /* STATIONS_IRELAND_H */

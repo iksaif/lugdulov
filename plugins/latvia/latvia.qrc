@@ -1,6 +1,8 @@
 <RCC>
   <qresource prefix="latvia">
     <file>la.png</file>
+    <file>cities.xml</file>
+    <file>latvia.xml</file>
   </qresource>
 </RCC>
 

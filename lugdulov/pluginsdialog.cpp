@@ -21,6 +21,7 @@
 #include "lugdulov.h"
 #include "pluginsdialog.h"
 #include "stationsplugin.h"
+#include "stationspluginfactory.h"
 #include "stationspluginmanager.h"
 
 PluginsDialog::PluginsDialog(StationsPluginManager *manager, QWidget *parent)
@@ -38,6 +39,8 @@ PluginsDialog::PluginsDialog(StationsPluginManager *manager, QWidget *parent)
 
 #ifdef Q_WS_MAEMO_5
   buttonBox->hide();
+#elif !defined(Q_OS_SYMBIAN) && !defined(Q_WS_SIMULATOR)
+  treeWidget->setIconSize(QSize(24, 24));
 #endif
 
   QMap < StationsPluginFactory *, StationsPlugin * > ret = manager->stations();
@@ -58,6 +61,7 @@ PluginsDialog::PluginsDialog(StationsPluginManager *manager, QWidget *parent)
     foreach (StationsPlugin *plugin, ret.values(factory)) {
       QTreeWidgetItem *item = new QTreeWidgetItem(parent, Plugin);
 
+      plugin->setParent(this);
       item->setText(0, plugin->name());
       item->setText(1, plugin->bikeName());
       item->setIcon(1, plugin->bikeIcon());

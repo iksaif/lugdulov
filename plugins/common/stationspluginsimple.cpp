@@ -23,6 +23,7 @@
 #include <QtCore/QFile>
 #include <QtCore/QtPlugin>
 #include <QtCore/QStringList>
+#include <QtCore/QDir>
 #include <QtXml/QDomNode>
 
 #include <QtCore/QDebug>
@@ -35,22 +36,35 @@
 StationsPluginSimple::StationsPluginSimple(QObject *parent)
   : StationsPlugin(parent)
 {
-  nm = new QNetworkAccessManager(this);
   count = 0;
   step = 0;
   d = NULL;
-  connect(nm, SIGNAL(sslErrors(QNetworkReply *, const QList<QSslError> &)),
-	  this, SLOT(ignoreSslErros(QNetworkReply *, const QList<QSslError> &)));
+  nm = false;
+  cacheLoaded = false;
 }
 
 StationsPluginSimple::~StationsPluginSimple()
 {
+  if (!stations.isEmpty())
+    saveDiskCache();
   qDeleteAll(stations);
+}
+
+void
+StationsPluginSimple::initNetwork(void)
+{
+  if (nm)
+    return ;
+
+  nm = new QNetworkAccessManager(this);
+  connect(nm, SIGNAL(sslErrors(QNetworkReply *, const QList<QSslError> &)),
+	  this, SLOT(ignoreSslErros(QNetworkReply *, const QList<QSslError> &)));
 }
 
 QRectF
 StationsPluginSimple::rect() const
 {
+  Q_ASSERT(d);
   return d->rect;
 }
 
@@ -58,7 +72,36 @@ StationsPluginSimple::rect() const
 QPointF
 StationsPluginSimple::center() const
 {
+  Q_ASSERT(d);
   return d->center;
+}
+
+QString
+StationsPluginSimple::id() const
+{
+  Q_ASSERT(d);
+  return d->id;
+}
+
+QString
+StationsPluginSimple::name() const
+{
+  Q_ASSERT(d);
+  return d->name;
+}
+
+QString
+StationsPluginSimple::bikeName() const
+{
+  Q_ASSERT(d);
+  return d->bikeName;
+}
+
+QIcon
+StationsPluginSimple::bikeIcon() const
+{
+  Q_ASSERT(d);
+  return d->bikeIcon;
 }
 
 void
@@ -74,13 +117,9 @@ StationsPluginSimple::fetchFromFile(const QString &filename)
 void
 StationsPluginSimple::fetchAll()
 {
-  QList < Station * > list = d->fetchAll(this);
-
-  foreach (Station *station, list) {
-    if (stations.find(station->id()) == stations.end())
-      stations.insert(station->id(), station);
-    else
-      delete station;
+  if (!cacheLoaded) {
+    loadDiskCache(diskCache());
+    cacheLoaded = true;
   }
 
   emit stationsCreated(stations.values());
@@ -121,7 +160,7 @@ StationsPluginSimple::ignoreSslErros(QNetworkReply *rep, const QList<QSslError> 
 void
 StationsPluginSimple::networkError(QNetworkReply::NetworkError code)
 {
-  QNetworkReply *rep = dynamic_cast<QNetworkReply *>(sender());
+  QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
 
   if (rep) {
     if (Tools::isOnline())
@@ -135,17 +174,14 @@ StationsPluginSimple::networkError(QNetworkReply::NetworkError code)
 void
 StationsPluginSimple::finished()
 {
-  QNetworkReply *rep = dynamic_cast<QNetworkReply *>(sender());
-  int id = replies[rep];
+  QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
+  int id;
 
-  if (rep)
-    rep->deleteLater();
-
-  if (!rep) {
-    step++;
-    replies.remove(rep);
+  if (!replies.contains(rep) || !rep)
     return ;
-  }
+
+  rep->deleteLater();
+  id = replies[rep];
 
   if (id >= 0)
     handleStatus(rep->readAll(), id);
@@ -167,8 +203,13 @@ StationsPluginSimple::finished()
 void
 StationsPluginSimple::request(const QUrl & url, int id)
 {
+  if (url.isEmpty())
+    return ;
+
   QNetworkReply *rep;
   QNetworkRequest req(url);
+
+  initNetwork();
 
   Tools::fixupRequest(&req);
   rep = nm->get(req);
@@ -181,6 +222,7 @@ StationsPluginSimple::request(const QUrl & url, int id)
     emit started();
     step = 0;
   }
+
   replies[rep] = id;
   count++;
 }
@@ -203,12 +245,6 @@ StationsPluginSimple::imageUrl(int id)
   return QUrl();
 }
 
-QStringList
-StationsPluginSimple::regions()
-{
-  return d->regions();
-}
-
 QList < QAction * >
 StationsPluginSimple::actions()
 {
@@ -222,3 +258,148 @@ StationsPluginSimple::actionTriggered(QAction *action, Station *station, QWidget
 {
 }
 
+Station *
+StationsPluginSimple::getOrCreateStation(int id)
+{
+  Station *station;
+
+  if (stations.contains(id))
+    station = stations[id];
+  else {
+    station = new Station(this);
+    station->setId(id);
+  }
+
+  return station;
+}
+
+void
+StationsPluginSimple::storeOrDropStation(Station *station)
+{
+  if (!station || station->id() < 0)
+    goto drop;
+
+  if (!station->pos().isNull() && !rect().contains(station->pos()))
+    goto drop;
+
+  stations[station->id()] = station;
+
+ drop:
+  delete station;
+}
+
+QString
+StationsPluginSimple::diskCache()
+{
+  QString cache = QDesktopServices::storageLocation(QDesktopServices::CacheLocation);
+  QDir dir;
+
+  dir.mkpath(cache);
+  return cache + "/" + id() + ".xml";
+}
+
+void
+StationsPluginSimple::saveDiskCache()
+{
+  QFile file(diskCache());
+
+  file.open(QIODevice::WriteOnly);
+
+  file.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+  file.write("<stations>\n");
+
+  foreach (Station *station, stations) {
+    QString data =
+      "  <station id=\"%1\">\n"
+      "   <name>%2</name>\n"
+      "   <description>%3</description>\n"
+      "   <latitude>%4</latitude>\n"
+      "   <longitude>%5</longitude>\n"
+      "  </station>\n";
+
+    file.write(data.arg(station->id())
+	       .arg(station->name())
+	       .arg(station->description())
+	       .arg(station->pos().x())
+	       .arg(station->pos().y())
+	       .toUtf8());
+  }
+  file.write("</stations>\n");
+}
+
+void
+StationsPluginSimple::loadOverride(const QString & file)
+{
+  loadDiskCache(file);
+}
+
+void
+StationsPluginSimple::loadDiskCache(const QString & path)
+{
+  QFile file(path);
+  QDomDocument doc;
+  QDomNode node;
+
+  if (!file.exists())
+    return ;
+
+  file.open(QIODevice::ReadOnly);
+  doc.setContent(&file);
+
+  loadStations(doc.firstChildElement("stations"));
+}
+
+void
+StationsPluginSimple::loadStations(QDomNode node)
+{
+  QRectF area = rect();
+
+  if (node.isNull())
+    return ;
+
+  node = node.firstChildElement("station");
+
+  while (!node.isNull()) {
+    bool ok;
+    int id;
+    QString name, description;
+    double latitude, longitude;
+
+    id = node.toElement().attribute("id").toInt(&ok);
+    name = node.firstChildElement("name").text();
+    description = node.firstChildElement("description").text();
+    latitude = node.firstChildElement("latitude").text().toDouble();
+    longitude = node.firstChildElement("longitude").text().toDouble();
+
+    node = node.nextSiblingElement("station");
+
+    if (!ok || id < 0)
+      continue ;
+
+    if (latitude && longitude) {
+      if (!area.contains(latitude, longitude))
+	continue ;
+    } else if (latitude && !area.contains(latitude, area.center().y())) {
+      continue ;
+    } else if (longitude && !area.contains(area.center().x(), longitude)) {
+      continue ;
+    }
+
+    Station *station = getOrCreateStation(id);
+
+    if (station->name().isEmpty())
+      station->setName(name);
+
+    if (station->description().isEmpty())
+      station->setDescription(description);
+
+    if (station->pos().isNull())
+      station->setPos(QPointF(latitude, longitude));
+    else if (station->pos().x() == 0)
+      station->setPos(QPointF(latitude, station->pos().y()));
+    else if (station->pos().y() == 0)
+      station->setPos(QPointF(station->pos().x(), longitude));
+
+    stations[id] = station;
+  }
+}

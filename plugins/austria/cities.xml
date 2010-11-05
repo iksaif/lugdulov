@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cities>
+  <city id="neusiedler_see">
+    <type>NextBike</type>
+    <latitude min="46.839000" max="48.839000">47.839000</latitude>
+    <longitude min="15.761000" max="17.761000">16.761000</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Neusiedler See</name>
+    <bikeName>nextbike</bikeName>
+  </city>
+  <city id="bregenzerwald">
+    <type>NextBike</type>
+    <latitude min="46.375100" max="48.375100">47.375100</latitude>
+    <longitude min="8.933010" max="10.933010">9.933010</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Bregenzerwald</name>
+    <bikeName>nextbike</bikeName>
+  </city>
+  <city id="wien">
+    <type>CityBikeWien</type>
+    <latitude min="48.009206" max="48.409206">48.209206</latitude>
+    <longitude min="16.172778" max="16.572778">16.372778</longitude>
+    <infos>http://dynamisch.citybikewien.at/citybike_xml.php</infos>
+    <name>Wien</name>
+    <bikeName>CityBike</bikeName>
+  </city>
+</cities>

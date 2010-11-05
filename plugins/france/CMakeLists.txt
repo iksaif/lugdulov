@@ -9,70 +9,24 @@ include_directories(
 
 set(france_SRCS
   factory.cpp
-  lyon.cpp
-# cyclocity
-  aixenprovence.cpp
-  amiens.cpp
-  besancon.cpp
-  cergypontoise.cpp
-  creteil.cpp
-  marseille.cpp
-  mulhouse.cpp
-  nancy.cpp
-  nantes.cpp
-  paris.cpp
-  plainecommune.cpp
-  rouen.cpp
-  toulouse.cpp
-# citybike
-  caen.cpp
-  dijon.cpp
-  perpignan.cpp
-# velin
-  calais.cpp
-  nice.cpp
-# dupral
-  bordeaux.cpp
-  pau.cpp
-# other
   larochelle.cpp
-  vannes.cpp
+  lyon.cpp
   orleans.cpp
-  avignon.cpp
   rennes.cpp
+  avignon.cpp
 )
 
 set(france_TRS
-  lugdulov_france_fr.ts)
+  lugdulov_france_fr.ts
+)
 
 set(france_HDRS
   factory.h
-  lyon.h
-  aixenprovence.h
-  amiens.h
-  besancon.h
-  cergypontoise.h
-  creteil.h
-  marseille.h
-  mulhouse.h
-  nancy.h
-  nantes.h
-  paris.h
-  plainecommune.h
-  rouen.h
-  toulouse.h
-  caen.h
-  dijon.h
-  perpignan.h
-  calais.h
-  nice.h
   larochelle.h
-  bordeaux.h
-  pau.h
-  vannes.h
+  lyon.h
   orleans.h
-  avignon.h
   rennes.h
+  avignon.h
 )
 
 set_source_files_properties(${france_TRS} PROPERTIES OUTPUT_LOCATION ${france_SOURCE_DIR})

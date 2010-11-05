@@ -16,21 +16,17 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_PLUGIN_LUXEMBOURG_H
-#define STATIONS_PLUGIN_LUXEMBOURG_H
+#ifndef STATIONS_LUXEMBOURG_H
+#define STATIONS_LUXEMBOURG_H
 
-#include "stationsplugin.h"
+#include "stationspluginfactorysimple.h"
 
-class Station;
-class StationsPluginFactoryLuxembourg : public QObject, public StationsPluginFactory
+class StationsPluginFactoryLuxembourg : public QObject, public StationsPluginFactorySimple
 {
   Q_OBJECT
   Q_INTERFACES(StationsPluginFactory)
  public:
-  QString id() const;
-  QString name() const;
-  QIcon icon() const;
-  QList < StationsPlugin * > stations(QObject * parent);
+  StationsPluginFactoryLuxembourg();
 };
 
-#endif /* STATIONS_PLUGIN_LUXEMBOURG_H */
+#endif /* STATIONS_LUXEMBOURG_H */

@@ -18,39 +18,24 @@
 
 #include <QtCore/QtPlugin>
 
+#include "config.h"
 #include "factory.h"
-#include "reading.h"
-#include "cardiff.h"
 #include "london.h"
 
-QString
-StationsPluginFactoryUnitedKingdom::id() const
+StationsPluginFactoryUnitedKingdom::StationsPluginFactoryUnitedKingdom()
 {
-  return QLatin1String("UnitedKingdom");
+  loadInfos(":/united-kingdom/united-kingdom.xml");
+  loadCities(":/united-kingdom/cities.xml");
+  loadCities(PLUGINS_EXTEND_DIR "/united-kingdom/cities.xml");
 }
 
-QString
-StationsPluginFactoryUnitedKingdom::name() const
+StationsPluginSimple *
+StationsPluginFactoryUnitedKingdom::pluginForType(const QString & type)
 {
-  return QString::fromUtf8("United-Kingdom Networks");
-}
-
-QIcon
-StationsPluginFactoryUnitedKingdom::icon() const
-{
-  return QIcon(":/united-kingdom/uk.png");
-}
-
-QList < StationsPlugin * >
-StationsPluginFactoryUnitedKingdom::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
-
-  ret << new StationsPluginReading(parent);
-  ret << new StationsPluginCardiff(parent);
-  ret << new StationsPluginLondon(parent);
-
-  return ret;
+  if (type == "London" || type == "CycleHire")
+    return new StationsPluginLondon();
+  else
+    return StationsPluginFactorySimple::pluginForType(type);
 }
 
 Q_EXPORT_PLUGIN2(stationsunitedkingdom, StationsPluginFactoryUnitedKingdom)

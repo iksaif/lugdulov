@@ -19,25 +19,14 @@
 #ifndef STATIONS_LONDON_H
 #define STATIONS_LONDON_H
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-#include <QtCore/QMap>
-
 #include "stationspluginsingle.h"
-
-class Station;
 
 class StationsPluginLondon : public StationsPluginSingle
 {
   Q_OBJECT
  public:
-  StationsPluginLondon(QObject *parent);
+  StationsPluginLondon(QObject *parent = NULL);
   virtual ~StationsPluginLondon();
-
-  QString id() const;
-  QString name() const;
-  QString bikeName() const;
-  QIcon bikeIcon() const;
 
  protected:
   virtual void handleInfos(const QByteArray & data);

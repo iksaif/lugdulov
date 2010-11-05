@@ -16,55 +16,19 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtNetwork/QNetworkReply>
-#include <QtGui/QDesktopServices>
-#include <QtCore/QMap>
-#include <QtCore/QVariant>
-#include <QtCore/QFile>
-#include <QtCore/QtPlugin>
 #include <QtCore/QStringList>
 #include <QtXml/QDomNode>
 
-#include <QtCore/QDebug>
-
-#include "tools.h"
 #include "station.h"
 #include "larochelle.h"
-#include "larochelle_p.h"
 
 StationsPluginLaRochelle::StationsPluginLaRochelle(QObject *parent)
   : StationsPluginSingle(parent)
 {
-  d = new StationsPluginSimplePrivateLarochelle();
 }
 
 StationsPluginLaRochelle::~StationsPluginLaRochelle()
 {
-  delete d;
-}
-
-QString
-StationsPluginLaRochelle::id() const
-{
-  return QLatin1String("larochelle");
-}
-
-QString
-StationsPluginLaRochelle::name() const
-{
-  return QString::fromUtf8("LaRochelle");
-}
-
-QString
-StationsPluginLaRochelle::bikeName() const
-{
-  return QString::fromUtf8("CityBike");
-}
-
-QIcon
-StationsPluginLaRochelle::bikeIcon() const
-{
-  return QIcon(":/res/bike.png");
 }
 
 void
@@ -115,7 +79,7 @@ StationsPluginLaRochelle::handleInfos(const QByteArray & data)
   }
 
   foreach (int id, stations.keys()) {
-    if (d->rect.contains(stations[id]->pos()))
+    if (rect().contains(stations[id]->pos()))
       continue ;
     delete stations[id];
     stations.remove(id);

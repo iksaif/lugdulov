@@ -18,34 +18,14 @@
 
 #include <QtCore/QtPlugin>
 
+#include "config.h"
 #include "factory.h"
-#include "luxembourg.h"
 
-QString
-StationsPluginFactoryLuxembourg::id() const
+StationsPluginFactoryLuxembourg::StationsPluginFactoryLuxembourg()
 {
-  return QLatin1String("Luxembourg");
-}
-
-QString
-StationsPluginFactoryLuxembourg::name() const
-{
-  return QString::fromUtf8("Luxembourg");
-}
-
-QIcon
-StationsPluginFactoryLuxembourg::icon() const
-{
-  return QIcon(":/luxembourg/lu.png");
-}
-
-QList < StationsPlugin * >
-StationsPluginFactoryLuxembourg::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
-
-  ret << new StationsPluginLuxembourg(parent);
-  return ret;
+  loadInfos(":/luxembourg/luxembourg.xml");
+  loadCities(":/luxembourg/cities.xml");
+  loadCities(PLUGINS_EXTEND_DIR "/luxembourg/cities.xml");
 }
 
 Q_EXPORT_PLUGIN2(stationsluxembourg, StationsPluginFactoryLuxembourg)

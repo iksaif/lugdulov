@@ -19,18 +19,17 @@
 #ifndef STATIONS_AUSTRIA_H
 #define STATIONS_AUSTRIA_H
 
-#include "stationsplugin.h"
+#include "stationspluginfactorysimple.h"
 
-class Station;
-class StationsPluginFactoryAustria : public QObject, public StationsPluginFactory
+class StationsPluginFactoryAustria : public QObject, public StationsPluginFactorySimple
 {
   Q_OBJECT
   Q_INTERFACES(StationsPluginFactory)
  public:
-  QString id() const;
-  QString name() const;
-  QIcon icon() const;
-  QList < StationsPlugin * > stations(QObject * parent);
+  StationsPluginFactoryAustria();
+
+ protected:
+  StationsPluginSimple *pluginForType(const QString & type);
 };
 
 #endif /* STATIONS_AUSTRIA_H */

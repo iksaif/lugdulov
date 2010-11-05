@@ -19,10 +19,6 @@
 #ifndef STATIONS_AVIGNON_H
 #define STATIONS_AVIGNON_H
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-#include <QtCore/QMap>
-
 #include "stationspluginsingle.h"
 
 class Station;
@@ -31,13 +27,8 @@ class StationsPluginAvignon : public StationsPluginSingle
 {
   Q_OBJECT
  public:
-  StationsPluginAvignon(QObject *parent);
+  StationsPluginAvignon(QObject *parent = NULL);
   virtual ~StationsPluginAvignon();
-
-  QString id() const;
-  QString name() const;
-  QString bikeName() const;
-  QIcon bikeIcon() const;
 
  protected:
   virtual void handleInfos(const QByteArray & data);

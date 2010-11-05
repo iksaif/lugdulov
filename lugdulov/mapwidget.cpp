@@ -316,6 +316,7 @@ MapWidget::refreshStations()
   stationsTimer->stop();
 
   proxy->setPosition(QPointF(coord.x(), coord.y()));
+  proxy->setSortRole(StationsSortFilterProxyModel::StationDistanceRole);
   proxy->sort(0);
 
   for (int i = 0; i < proxy->rowCount(); ++i) {

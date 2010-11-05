@@ -19,18 +19,14 @@
 #ifndef STATIONS_BELGIUM_H
 #define STATIONS_BELGIUM_H
 
-#include "stationsplugin.h"
+#include "stationspluginfactorysimple.h"
 
-class Station;
-class StationsPluginFactoryBelgium : public QObject, public StationsPluginFactory
+class StationsPluginFactoryBelgium : public QObject, public StationsPluginFactorySimple
 {
   Q_OBJECT
   Q_INTERFACES(StationsPluginFactory)
  public:
-  QString id() const;
-  QString name() const;
-  QIcon icon() const;
-  QList < StationsPlugin * > stations(QObject * parent);
+  StationsPluginFactoryBelgium();
 };
 
 #endif /* STATIONS_BELGIUM_H */

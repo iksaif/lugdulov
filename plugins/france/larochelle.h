@@ -19,10 +19,6 @@
 #ifndef STATIONS_LAROCHELLE_H
 #define STATIONS_LAROCHELLE_H
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-#include <QtCore/QMap>
-
 #include "stationspluginsingle.h"
 
 class Station;
@@ -31,13 +27,8 @@ class StationsPluginLaRochelle : public StationsPluginSingle
 {
   Q_OBJECT
  public:
-  StationsPluginLaRochelle(QObject *parent);
+  StationsPluginLaRochelle(QObject *parent = NULL);
   virtual ~StationsPluginLaRochelle();
-
-  QString id() const;
-  QString name() const;
-  QString bikeName() const;
-  QIcon bikeIcon() const;
 
  protected:
   virtual void handleInfos(const QByteArray & data);

@@ -16,20 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtNetwork/QNetworkReply>
-#include <QtGui/QDesktopServices>
-#include <QtCore/QMap>
-#include <QtCore/QVariant>
-#include <QtCore/QFile>
-#include <QtCore/QtPlugin>
 #include <QtCore/QStringList>
-#include <QtXml/QDomNode>
-
-#include <QtCore/QDebug>
 
 #include <qjson/parser.h>
 
-#include "tools.h"
 #include "station.h"
 #include "stationspluginvelin.h"
 #include "stationspluginsimple_p.h"
@@ -41,6 +31,29 @@ StationsPluginVelIn::StationsPluginVelIn(QObject *parent)
 
 StationsPluginVelIn::~StationsPluginVelIn()
 {
+}
+
+QUrl
+StationsPluginVelIn::infosUrl(void)
+{
+  if (forgedUrl.isEmpty())
+    forgeUrl();
+
+  return forgedUrl;
+}
+
+void
+StationsPluginVelIn::forgeUrl(void)
+{
+  if (!baseUrl.isEmpty())
+    return ;
+
+  QUrl server(d->infosUrl);
+
+  baseUrl.setScheme("http");
+  baseUrl.setHost(server.encodedHost());
+
+  request(baseUrl, StationsPluginVelIn::HomePage);
 }
 
 void
@@ -88,4 +101,72 @@ StationsPluginVelIn::handleInfos(const QByteArray & data)
 
   emit stationsCreated(stations.values());
   emit stationsUpdated(stations.values());
+}
+
+void
+StationsPluginVelIn::handleStatus(const QByteArray & data, int type)
+{
+  QStringList captured;
+
+  if (type == StationsPluginVelIn::HomePage) {
+    QRegExp re("window\\.location = '(.*)';");
+
+    re.setMinimal(true);
+    re.indexIn(data);
+    captured = re.capturedTexts();
+
+    if (captured.size() == 2) {
+      QUrl url = baseUrl;
+
+      url = QUrl(url.toString() + captured.at(1));
+      request(url, StationsPluginVelIn::FormPage);
+    }
+  } else if (type == StationsPluginVelIn::FormPage) {
+    QString webdbname, path;
+    QRegExp rereq("href=\"(customFrmMap\\?OpenForm\\&ParentUNID=.*\\?open\\&lang=fr)\"");
+    QRegExp redb("var webdbname = '(.*)';");
+
+    rereq.setMinimal(true);
+    redb.setMinimal(true);
+
+    rereq.indexIn(data);
+    redb.indexIn(data);
+
+    captured = rereq.capturedTexts();
+    if (captured.size() == 2)
+      path = captured.at(1);
+
+    captured = redb.capturedTexts();
+    if (captured.size() == 2)
+      webdbname = captured.at(1);
+
+    if (!path.isEmpty() && !webdbname.isEmpty()) {
+      QUrl url = baseUrl;
+
+      url = QUrl(url.toString() + "/" + webdbname + "/" + path);
+      request(url, StationsPluginVelIn::MapPage);
+    }
+  } else if (type == StationsPluginVelIn::MapPage) {
+    QString key, db;
+    QRegExp rekey("var mapdbkey ?= ?'(.*)';");
+    QRegExp redb("var mapdb ?= ?'(.*)';");
+
+    rekey.setMinimal(true);
+    redb.setMinimal(true);
+    rekey.indexIn(data);
+    redb.indexIn(data);
+
+    captured = rekey.capturedTexts();
+    if (captured.size() == 2)
+      key = captured.at(1);
+
+    captured = redb.capturedTexts();
+    if (captured.size() == 2)
+      db = captured.at(1);
+
+    if (!db.isEmpty() && !key.isEmpty()) {
+      forgedUrl = QUrl(baseUrl.toString() + "/" + db + "/getSite?openagent&site=" + id() + "&format=json&key=" + key);
+      request(forgedUrl);
+    }
+  }
 }

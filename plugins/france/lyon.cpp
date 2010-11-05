@@ -17,10 +17,6 @@
  */
 
 #include <QtGui/QDesktopServices>
-#include <QtCore/QMap>
-#include <QtCore/QVariant>
-#include <QtCore/QFile>
-#include <QtCore/QtPlugin>
 #include <QtXml/QDomNode>
 
 #include <QtCore/QDebug>
@@ -29,48 +25,40 @@
 
 #include "station.h"
 #include "lyon.h"
-#include "lyon_p.h"
 
 StationsPluginLyon::StationsPluginLyon(QObject *parent)
   : StationsPluginSimple(parent)
 {
-  d = new StationsPluginSimplePrivateLyon();
 }
 
 StationsPluginLyon::~StationsPluginLyon()
 {
-  delete d;
 }
 
-QString
-StationsPluginLyon::id() const
-{
-  return QLatin1String("lyon");
-}
+QStringList StationsPluginLyon::regions() {
+  QStringList ret;
 
-QString
-StationsPluginLyon::name() const
-{
-  return QLatin1String("Lyon");
-}
+  ret << "69381";
+  ret << "69382";
+  ret << "69383";
+  ret << "69384";
+  ret << "69385";
+  ret << "69386";
+  ret << "69387";
+  ret << "69388";
+  ret << "69389";
+  ret << "69266";
+  ret << "69034";
+  ret << "69256";
 
-QString
-StationsPluginLyon::bikeName() const
-{
-  return QLatin1String("Velo'V");
-}
-
-QIcon
-StationsPluginLyon::bikeIcon() const
-{
-  return QIcon(":/france/velov.png");
+  return ret;
 }
 
 void
 StationsPluginLyon::fetchOnline()
 {
-  foreach (QString region, regions())
-    fetchFromUrl(stationsJsonUrl(region.replace("Lyon ", "")));
+  //foreach (QString region, regions())
+  //  fetchFromUrl(stationsJsonUrl(region));
 }
 
 void
@@ -105,9 +93,12 @@ StationsPluginLyon::handleInfos(const QByteArray & data)
 
     station = stations[id];
     station->setId(sta["numStation"].toInt());
-    station->setName(sta["nomStation"].toString());
-    station->setDescription(sta["infoStation"].toString());
-    station->setPos(QPointF(sta["x"].toReal(), sta["y"].toReal()));
+    if (station->name().isEmpty())
+      station->setName(sta["nomStation"].toString());
+    if (station->description().isEmpty())
+      station->setDescription(sta["infoStation"].toString());
+    if (station->pos().isNull())
+      station->setPos(QPointF(sta["x"].toReal(), sta["y"].toReal()));
   }
 
   if (created.size())
@@ -120,7 +111,7 @@ StationsPluginLyon::handleStatus(const QByteArray & data, int id)
   Station *station;
   QList < Station * > updated;
 
-  if (!stations[id])
+  if (!stations[id] || data.isEmpty())
     return ;
 
   station = stations[id];

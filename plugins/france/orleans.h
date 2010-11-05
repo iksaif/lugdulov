@@ -19,10 +19,6 @@
 #ifndef STATIONS_ORLEANS_H
 #define STATIONS_ORLEANS_H
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-#include <QtCore/QMap>
-
 #include "stationspluginsimple.h"
 
 class Station;
@@ -31,13 +27,8 @@ class StationsPluginOrleans : public StationsPluginSimple
 {
   Q_OBJECT
  public:
-  StationsPluginOrleans(QObject *parent);
+  StationsPluginOrleans(QObject *parent = NULL);
   ~StationsPluginOrleans();
-
-  QString id() const;
-  QString name() const;
-  QString bikeName() const;
-  QIcon bikeIcon() const;
 
  private:
   void handleInfos(const QByteArray & data);

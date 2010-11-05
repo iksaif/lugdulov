@@ -19,18 +19,14 @@
 #ifndef STATIONS_LATVIA_H
 #define STATIONS_LATVIA_H
 
-#include "stationsplugin.h"
+#include "stationspluginfactorysimple.h"
 
-class Station;
-class StationsPluginFactoryLatvia : public QObject, public StationsPluginFactory
+class StationsPluginFactoryLatvia : public QObject, public StationsPluginFactorySimple
 {
   Q_OBJECT
   Q_INTERFACES(StationsPluginFactory)
  public:
-  QString id() const;
-  QString name() const;
-  QIcon icon() const;
-  QList < StationsPlugin * > stations(QObject * parent);
+  StationsPluginFactoryLatvia();
 };
 
 #endif /* STATIONS_LATVIA_H */

@@ -16,55 +16,18 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtNetwork/QNetworkReply>
-#include <QtGui/QDesktopServices>
-#include <QtCore/QMap>
-#include <QtCore/QVariant>
-#include <QtCore/QFile>
-#include <QtCore/QtPlugin>
-#include <QtCore/QStringList>
 #include <QtXml/QDomNode>
 
-#include <QtCore/QDebug>
-
-#include "tools.h"
 #include "station.h"
 #include "wien.h"
-#include "wien_p.h"
 
 StationsPluginWien::StationsPluginWien(QObject *parent)
   : StationsPluginSingle(parent)
 {
-  d = new StationsPluginSimplePrivateWien();
 }
 
 StationsPluginWien::~StationsPluginWien()
 {
-  delete d;
-}
-
-QString
-StationsPluginWien::id() const
-{
-  return QLatin1String("wien");
-}
-
-QString
-StationsPluginWien::name() const
-{
-  return QString::fromUtf8("Wien");
-}
-
-QString
-StationsPluginWien::bikeName() const
-{
-  return QString::fromUtf8("CityBike");
-}
-
-QIcon
-StationsPluginWien::bikeIcon() const
-{
-  return QIcon(":/res/bike.png");
 }
 
 QUrl
@@ -73,7 +36,8 @@ StationsPluginWien::imageUrl(int id)
   if (!stations.contains(id))
     return QUrl();
   id = stations[id]->data().toInt();
-  return QString("http://dynamisch.citybikewien.at/include/r4_get_data.php?url=terminal%2Fcont%2Fimg%2Fstation_%1.jpg").arg(id);
+  return QString("http://dynamisch.citybikewien.at/include/"
+		 "r4_get_data.php?url=terminal%2Fcont%2Fimg%2Fstation_%1.jpg").arg(id);
 }
 
 void
@@ -117,7 +81,7 @@ StationsPluginWien::handleInfos(const QByteArray & data)
 
 
   foreach (int id, stations.keys()) {
-    if (d->rect.contains(stations[id]->pos()))
+    if (rect().contains(stations[id]->pos()))
       continue ;
     delete stations[id];
     stations.remove(id);

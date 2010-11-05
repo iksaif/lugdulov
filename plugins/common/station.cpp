@@ -112,8 +112,8 @@ Station::distanceTo(const QPointF & a) const
     return -1;
 
   const QPointF & b = pos_;
-  QGeoCoordinate ga(a.y(), a.x());
-  QGeoCoordinate gb(b.y(), b.x());
+  QGeoCoordinate ga(a.x(), a.y());
+  QGeoCoordinate gb(b.x(), b.y());
 
   return ga.distanceTo(gb);
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cities>
+  <city id="cardiff">
+    <type>VelIn</type>
+    <latitude min="51.281307" max="51.681307">51.481307</latitude>
+    <longitude min="-3.380498" max="-2.980498">-3.180498</longitude>
+    <infos>http://oybike.com/</infos>
+    <name>Cardiff</name>
+    <bikeName>OYBike</bikeName>
+  </city>
+  <city id="reading">
+    <type>VelIn</type>
+    <latitude min="51.255041" max="51.655041">51.455041</latitude>
+    <longitude min="-1.169088" max="-0.769088">-0.969088</longitude>
+    <infos>http://oybike.com/</infos>
+    <name>Reading</name>
+    <bikeName>OYBike</bikeName>
+  </city>
+  <city id="london">
+    <type>CycleHire</type>
+    <latitude min="51.300152" max="51.700152">51.500152</latitude>
+    <longitude min="-0.326236" max="0.073764">-0.126236</longitude>
+    <infos>https://web.barclayscyclehire.tfl.gov.uk/maps</infos>
+    <name>London</name>
+    <bikeName>Cycle Hire</bikeName>
+  </city>
+</cities>

@@ -16,55 +16,19 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtNetwork/QNetworkReply>
-#include <QtGui/QDesktopServices>
-#include <QtCore/QMap>
-#include <QtCore/QVariant>
-#include <QtCore/QFile>
-#include <QtCore/QtPlugin>
-#include <QtCore/QStringList>
 #include <QtXml/QDomNode>
-
-#include <QtCore/QDebug>
 
 #include "tools.h"
 #include "station.h"
 #include "rennes.h"
-#include "rennes_p.h"
 
 StationsPluginRennes::StationsPluginRennes(QObject *parent)
   : StationsPluginSingle(parent)
 {
-  d = new StationsPluginSimplePrivateRennes();
 }
 
 StationsPluginRennes::~StationsPluginRennes()
 {
-  delete d;
-}
-
-QString
-StationsPluginRennes::id() const
-{
-  return QLatin1String("rennes");
-}
-
-QString
-StationsPluginRennes::name() const
-{
-  return QString::fromUtf8("Rennes");
-}
-
-QString
-StationsPluginRennes::bikeName() const
-{
-  return QString::fromUtf8("VeloStar");
-}
-
-QIcon
-StationsPluginRennes::bikeIcon() const
-{
-  return QIcon(":/res/bike.png");
 }
 
 void
@@ -87,7 +51,7 @@ StationsPluginRennes::handleInfos(const QByteArray & data)
       continue ;
     pos = QPointF(node.firstChildElement("latitude").toElement().text().toDouble(),
 		  node.firstChildElement("longitude").toElement().text().toDouble());
-    if (!d->rect.contains(pos))
+    if (!rect().contains(pos))
       continue ;
 
     if (stations.find(id) == stations.end())

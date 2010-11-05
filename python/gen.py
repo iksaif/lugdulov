@@ -13,7 +13,6 @@ def getproviders():
     import yelo
     import dupral
     import velin
-    import velocea
     import veloplus
     import velopop
     import velostar
@@ -29,7 +28,6 @@ def getproviders():
     ret.append(yelo.Yelo())
     ret.append(dupral.Dupral())
     ret.append(velin.VelIn())
-    ret.append(velocea.Velocea())
     ret.append(veloplus.VeloPlus())
     ret.append(velopop.VeloPop())
     ret.append(velostar.VeloStar())
@@ -95,26 +93,27 @@ def find(city, country):
     return None, None, None
 
 
-def dopriv(args):
-    p, country, city = find(args[0], args[1])
-    p.dump_priv(city)
+def doxmlcities(args):
+    country = args[0]
 
-def doplugin(args):
-    p, country, city = find(args[0], args[1])
-    p.dump_class(city)
+    for p in getproviders():
+        for c in p.get_countries():
+            if c.name != country and c.uid != country:
+                continue
+            for j in p.get_cities(c):
+                p.dump_city(j)
 
-def doheader(args):
+def doxmlstations(args):
     p, country, city = find(args[0], args[1])
-    p.dump_header(city)
+    p.dump_stations(city)
 
 def usage():
     print "gen.py list"
     print "gen.py providers"
     print "gen.py countries"
     print "gen.py cities <country>"
-    print "gen.py gen-priv <city> <country>"
-    print "gen.py gen-plugin <city> <country>"
-    print "gen.py gen-header <city> <country>"
+    print "gen.py xml-cities <country>"
+    print "gen.py xml-stations <city> <country>"
     sys.exit(1)
 
 def main():
@@ -125,9 +124,8 @@ def main():
     cmds.append(('list', 0, dolist))
     cmds.append(('countries', 0, docountries))
     cmds.append(('cities', 1, docities))
-    cmds.append(('gen-priv', 2, dopriv))
-    cmds.append(('gen-plugin', 2, doplugin))
-    cmds.append(('gen-header', 2, doheader))
+    cmds.append(('xml-cities', 1, doxmlcities))
+    cmds.append(('xml-stations', 2, doxmlstations))
 
     for cmd in cmds:
         if sys.argv[1] == cmd[0]:

@@ -18,34 +18,14 @@
 
 #include <QtCore/QtPlugin>
 
+#include "config.h"
 #include "factory.h"
-#include "bruxelles.h"
 
-QString
-StationsPluginFactoryBelgium::id() const
+StationsPluginFactoryBelgium::StationsPluginFactoryBelgium()
 {
-  return QLatin1String("Belgium");
-}
-
-QString
-StationsPluginFactoryBelgium::name() const
-{
-  return QString::fromUtf8("Réseaux Belges");
-}
-
-QIcon
-StationsPluginFactoryBelgium::icon() const
-{
-  return QIcon(":/belgium/be.png");
-}
-
-QList < StationsPlugin * >
-StationsPluginFactoryBelgium::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
-
-  ret << new StationsPluginBruxelles(parent);
-  return ret;
+  loadInfos(":/belgium/belgium.xml");
+  loadCities(":/belgium/cities.xml");
+  loadCities(PLUGINS_EXTEND_DIR "/belgium/cities.xml");
 }
 
 Q_EXPORT_PLUGIN2(stationsbelgium, StationsPluginFactoryBelgium)

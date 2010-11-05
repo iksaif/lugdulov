@@ -16,21 +16,17 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_NEW_ZEALAND_H
-#define STATIONS_NEW_ZEALAND_H
+#ifndef STATIONS_NEWZEALAND_H
+#define STATIONS_NEWZEALAND_H
 
-#include "stationsplugin.h"
+#include "stationspluginfactorysimple.h"
 
-class Station;
-class StationsPluginFactoryNewZealand : public QObject, public StationsPluginFactory
+class StationsPluginFactoryNewZealand : public QObject, public StationsPluginFactorySimple
 {
   Q_OBJECT
   Q_INTERFACES(StationsPluginFactory)
  public:
-  QString id() const;
-  QString name() const;
-  QIcon icon() const;
-  QList < StationsPlugin * > stations(QObject * parent);
+  StationsPluginFactoryNewZealand();
 };
 
-#endif /* STATIONS_NEW_ZEALAND_H */
+#endif /* STATIONS_NEWZEALAND_H */

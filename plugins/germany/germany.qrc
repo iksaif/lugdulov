@@ -1,6 +1,8 @@
 <RCC>
   <qresource prefix="germany">
     <file>de.png</file>
+    <file>cities.xml</file>
+    <file>germany.xml</file>
  </qresource>
 </RCC>
 

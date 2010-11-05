@@ -1,6 +1,8 @@
 <RCC>
   <qresource prefix="japan">
     <file>jp.png</file>
+    <file>japan.xml</file>
+    <file>cities.xml</file>
   </qresource>
 </RCC>
 

@@ -6,6 +6,7 @@ include_directories(
 
 set(lugdulov_base_SRCS
   tools.cpp
+  stationspluginfactorysimple.cpp
   stationsplugin.cpp
   stationspluginsimple.cpp
   stationspluginsingle.cpp

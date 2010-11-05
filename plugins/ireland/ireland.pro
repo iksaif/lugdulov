@@ -3,11 +3,9 @@ include(../pluginbase.pri)
 
 INCLUDEPATH += $$QJSON_INCLUDE_PATH
 
-HEADERS += factory.h \
-        dublin.h
+HEADERS += factory.h
 
-SOURCES += factory.cpp \
-        dublin.cpp
+SOURCES += factory.cpp
 
 RESOURCES += ireland.qrc
 

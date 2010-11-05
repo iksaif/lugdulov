@@ -18,36 +18,14 @@
 
 #include <QtCore/QtPlugin>
 
+#include "config.h"
 #include "factory.h"
-#include "auckland.h"
 
-
-QString
-StationsPluginFactoryNewZealand::id() const
+StationsPluginFactoryNewZealand::StationsPluginFactoryNewZealand()
 {
-  return QLatin1String("NewZealand");
+  loadInfos(":/new-zealand/new-zealand.xml");
+  loadCities(":/new-zealand/cities.xml");
+  loadCities(PLUGINS_EXTEND_DIR "/new-zealand/cities.xml");
 }
 
-QString
-StationsPluginFactoryNewZealand::name() const
-{
-  return QString::fromUtf8("New Zealand");
-}
-
-QIcon
-StationsPluginFactoryNewZealand::icon() const
-{
-  return QIcon(":/new-zealand/nz.png");
-}
-
-QList < StationsPlugin * >
-StationsPluginFactoryNewZealand::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
-
-  ret << new StationsPluginAuckland(parent);
-
-  return ret;
-}
-
-Q_EXPORT_PLUGIN2(stationsnewzealand, StationsPluginFactoryNewZealand)
+Q_EXPORT_PLUGIN2(stationsbelgium, StationsPluginFactoryNewZealand)

@@ -18,36 +18,24 @@
 
 #include <QtCore/QtPlugin>
 
+#include "config.h"
 #include "factory.h"
 #include "montreal.h"
 
-
-QString
-StationsPluginFactoryCanada::id() const
+StationsPluginFactoryCanada::StationsPluginFactoryCanada()
 {
-  return QLatin1String("Canada");
+  loadInfos(":/canada/canada.xml");
+  loadCities(":/canada/cities.xml");
+  loadCities(PLUGINS_EXTEND_DIR "/canada/cities.xml");
 }
 
-QString
-StationsPluginFactoryCanada::name() const
+StationsPluginSimple *
+StationsPluginFactoryCanada::pluginForType(const QString & type)
 {
-  return QString::fromUtf8("CanadaNetworks");
-}
-
-QIcon
-StationsPluginFactoryCanada::icon() const
-{
-  return QIcon(":/canada/ca.png");
-}
-
-QList < StationsPlugin * >
-StationsPluginFactoryCanada::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
-
-  ret << new StationsPluginMontreal(parent);
-
-  return ret;
+  if (type == "Montreal" || type == "Bixi")
+    return new StationsPluginMontreal();
+  else
+    return StationsPluginFactorySimple::pluginForType(type);
 }
 
 Q_EXPORT_PLUGIN2(stationscanada, StationsPluginFactoryCanada)

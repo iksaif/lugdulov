@@ -22,15 +22,18 @@
 #include <QtCore/QStringList>
 #include <QtCore/QPointF>
 #include <QtCore/QRectF>
+#include <QtGui/QIcon>
 
 struct StationsPluginSimplePrivate {
   QRectF rect;
   QPointF center;
   QString statusUrl;
   QString infosUrl;
-
-  virtual QList < Station * > fetchAll(StationsPlugin *parent) = 0;
-  virtual QStringList regions() = 0;
+  QString id;
+  QString name;
+  QString bikeName;
+  QIcon bikeIcon;
+  QString type;
 };
 
 #endif /* STATIONS_SIMPLE_PRIVATE_H */

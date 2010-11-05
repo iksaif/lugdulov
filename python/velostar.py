@@ -59,6 +59,7 @@ class VeloStar(Provider):
         city.lat = self.config['lat']
         city.lng = self.config['lng']
         city.create_rect()
+        city.type = "VeloStar"
         return [city]
 
     def url(self):
@@ -71,7 +72,7 @@ class VeloStar(Provider):
     def get_stations(self, city):
         stations = []
         url = self.url()
-        fp = urllib2.urlopen(url)
+        fp = urlopen(url)
 
         data = fp.read()
         dom = xml.dom.minidom.parseString(data)
@@ -84,7 +85,7 @@ class VeloStar(Provider):
             station.lng = float(node.getElementsByTagName('longitude')[0].firstChild.toxml())
             station.slots = int(node.getElementsByTagName('slotsavailable')[0].firstChild.toxml())
             station.bikes = int(node.getElementsByTagName('bikesavailable')[0].firstChild.toxml())
-            station.zone = "0"
+            station.zone = ""
             stations.append(station)
         return stations
 
@@ -94,14 +95,16 @@ class VeloStar(Provider):
     def get_zones(self, city):
         return []
 
-    def dump_priv(self, city):
-        data = open('citybike/priv.tpl.h').read()
+    def dump_city(self, city):
         #city.rect = self.get_city_bike_zone(service, city)
-        data = self._dump_priv(data, city)
-        data = data.replace('<statusUrl>', '')
-        data = data.replace('<infosUrl>', self.url())
-        print data.encode('utf8')
+        city.infos = self.url()
+        data = self._dump_city(city)
+        print data
 
+    def dump_stations(self, city):
+        #city.rect = self.get_city_bike_zone(service, city)
+        data = self._dump_stations(city)
+        print data.encode('utf8')
 
 def test():
     prov = VeloStar()

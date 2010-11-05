@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<country id="switzerland">
+  <name>Switzerland</name>
+  <description>Switzerland</description>
+  <icon>:/switzerland/ch.png</icon>
+<country>

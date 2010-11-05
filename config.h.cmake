@@ -4,4 +4,5 @@
 #cmakedefine HAVE_QT_BEARER
 #cmakedefine BUILD_STATIC_PLUGINS
 #cmakedefine PLUGINS_INSTALL_DIR  "@PLUGINS_INSTALL_DIR@"
+#cmakedefine PLUGINS_EXTEND_DIR  "@PLUGINS_EXTEND_DIR@"
 #cmakedefine Q_WS_MAEMO_5

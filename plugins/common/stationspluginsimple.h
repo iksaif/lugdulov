@@ -21,28 +21,37 @@
 
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
+#include <QtXml/QDomDocument>
 #include <QtCore/QMap>
 
 #include "stationsplugin.h"
 
 class Station;
 class StationsPluginSimplePrivate;
+class StationsPluginFactorySimple;
 
 class StationsPluginSimple : public StationsPlugin
 {
   Q_OBJECT
  public:
+  friend class StationsPluginFactorySimple;
+
   StationsPluginSimple(QObject *parent);
   virtual ~StationsPluginSimple();
 
   virtual QRectF rect() const;
   virtual QPointF center() const;
+  virtual QString id() const;
+  virtual QString name() const;
+  virtual QString bikeName() const;
+  virtual QIcon bikeIcon() const;
 
   virtual QUrl imageUrl(int id);
-  virtual QStringList regions();
 
   virtual QList < QAction * > actions();
   virtual void actionTriggered(QAction *action, Station *station, QWidget *parent = 0);
+
+  void loadOverride(const QString & file);
 
  public slots:
   virtual void fetchOnline();
@@ -64,17 +73,29 @@ class StationsPluginSimple : public StationsPlugin
   virtual void handleInfos(const QByteArray & data) = 0;
   virtual void handleStatus(const QByteArray & data, int id) = 0;
 
+  void request(const QUrl & url, int id = -1);
+
+  Station *getOrCreateStation(int id);
+  void storeOrDropStation(Station *station);
+
   StationsPluginSimplePrivate *d;
 
   QMap < int , Station * > stations;
 
  private:
-  virtual void request(const QUrl & url, int id = -1);
+  void initNetwork(void);
+
+  void saveDiskCache();
+  void loadDiskCache(const QString & file);
+  void loadStations(QDomNode node);
+
+  QString diskCache();
 
   QNetworkAccessManager *nm;
   QMap < QNetworkReply *, int > replies;
   int step;
   int count;
+  bool cacheLoaded;
 };
 
 #endif /* STATIONS_SIMPLE_H */

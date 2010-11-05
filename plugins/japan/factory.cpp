@@ -18,34 +18,14 @@
 
 #include <QtCore/QtPlugin>
 
+#include "config.h"
 #include "factory.h"
-#include "toyama.h"
 
-QString
-StationsPluginFactoryJapan::id() const
+StationsPluginFactoryBelgium::StationsPluginFactoryBelgium()
 {
-  return QLatin1String("Japan");
+  loadInfos(":/belgium/belgium.xml");
+  loadCities(":/belgium/cities.xml");
+  loadCities(PLUGINS_EXTEND_DIR "/belgium/cities.xml");
 }
 
-QString
-StationsPluginFactoryJapan::name() const
-{
-  return QString::fromUtf8("Japan");
-}
-
-QIcon
-StationsPluginFactoryJapan::icon() const
-{
-  return QIcon(":/japan/jp.png");
-}
-
-QList < StationsPlugin * >
-StationsPluginFactoryJapan::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
-
-  ret << new StationsPluginToyama(parent);
-  return ret;
-}
-
-Q_EXPORT_PLUGIN2(stationsjapan, StationsPluginFactoryJapan)
+Q_EXPORT_PLUGIN2(stationsbelgium, StationsPluginFactoryBelgium)

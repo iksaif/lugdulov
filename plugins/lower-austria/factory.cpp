@@ -18,54 +18,14 @@
 
 #include <QtCore/QtPlugin>
 
+#include "config.h"
 #include "factory.h"
-#include "modling.h"
-#include "baden.h"
-#include "romerland.h"
-#include "wachau.h"
-#include "triestingtal.h"
-#include "st_polten.h"
-#include "wiener_neustadt.h"
-#include "tulln.h"
-#include "wieselburg.h"
-#include "obb_bahnhofe.h"
 
-
-QString
-StationsPluginFactoryLowerAustria::id() const
+StationsPluginFactoryLowerAustria::StationsPluginFactoryLowerAustria()
 {
-  return QLatin1String("LowerAustria");
+  loadInfos(":/lower-austria/lower-austria.xml");
+  loadCities(":/lower-austria/cities.xml");
+  loadCities(PLUGINS_EXTEND_DIR "/lower-austria/cities.xml");
 }
 
-QString
-StationsPluginFactoryLowerAustria::name() const
-{
-  return QString::fromUtf8("Lower Austria");
-}
-
-QIcon
-StationsPluginFactoryLowerAustria::icon() const
-{
-  return QIcon(":/lower-austria/at.png");
-}
-
-QList < StationsPlugin * >
-StationsPluginFactoryLowerAustria::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
-
-  ret << new StationsPluginModling(parent);
-  ret << new StationsPluginBaden(parent);
-  ret << new StationsPluginRomerland(parent);
-  ret << new StationsPluginWachau(parent);
-  ret << new StationsPluginTriestingtal(parent);
-  ret << new StationsPluginSt_Polten(parent);
-  ret << new StationsPluginWiener_Neustadt(parent);
-  ret << new StationsPluginTulln(parent);
-  ret << new StationsPluginWieselburg(parent);
-  ret << new StationsPluginObb_Bahnhofe(parent);
-
-  return ret;
-}
-
-Q_EXPORT_PLUGIN2(stationsloweraustria, StationsPluginFactoryLowerAustria)
+Q_EXPORT_PLUGIN2(stationslower-austria, StationsPluginFactoryLowerAustria)

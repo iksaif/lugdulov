@@ -19,10 +19,6 @@
 #ifndef STATIONS_RENNES_H
 #define STATIONS_RENNES_H
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-#include <QtCore/QMap>
-
 #include "stationspluginsingle.h"
 
 class Station;
@@ -31,13 +27,8 @@ class StationsPluginRennes : public StationsPluginSingle
 {
   Q_OBJECT
  public:
-  StationsPluginRennes(QObject *parent);
+  StationsPluginRennes(QObject *parent = NULL);
   virtual ~StationsPluginRennes();
-
-  QString id() const;
-  QString name() const;
-  QString bikeName() const;
-  QIcon bikeIcon() const;
 
  protected:
   virtual void handleInfos(const QByteArray & data);

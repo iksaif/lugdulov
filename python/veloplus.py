@@ -51,7 +51,7 @@ class VeloPlus(Provider):
 
     def get_countries(self):
         country = Country()
-        country.uid = "france"
+        country.uid = "fr"
         country.name = "France"
         return [country]
 
@@ -64,13 +64,14 @@ class VeloPlus(Provider):
         city.lat = self.config['lat']
         city.lng = self.config['lng']
         city.create_rect()
+        city.type = "VeloPlus"
         return [city]
 
 
     def get_stations(self, city):
         stations = []
         url = self.url()
-        fp = urllib2.urlopen(url)
+        fp = urlopen(url)
         data = fp.read()
 
         dom = xml.dom.minidom.parseString(data)
@@ -86,13 +87,13 @@ class VeloPlus(Provider):
             station.lat = float(node.getAttribute('lat'))
             station.lng = float(node.getAttribute('lng'))
             station.name = node.getAttribute('name')
-            station.zone = "0"
+            station.zone = ""
             stations.append(station)
         return stations
 
     def get_status(self, station, city):
         url = self.url_status(station.id)
-        fp = urllib2.urlopen(url)
+        fp = urlopen(url)
         data = fp.read()
 
         dom = xml.dom.minidom.parseString(data)
@@ -112,14 +113,17 @@ class VeloPlus(Provider):
     def get_zones(self, city):
         return []
 
-    def dump_priv(self, city):
-        data = open('citybike/priv.tpl.h').read()
+    def dump_city(self, city):
         #city.rect = self.get_city_bike_zone(service, city)
-        data = self._dump_priv(data, city)
-        data = data.replace('<statusUrl>', self.url_status("%1"))
-        data = data.replace('<infosUrl>', self.url())
-        print data.encode('utf8')
+        city.infos = self.url()
+        city.status = self.url_status("%1")
+        data = self._dump_city(city)
+        print data
 
+    def dump_stations(self, city):
+        #city.rect = self.get_city_bike_zone(service, city)
+        data = self._dump_stations(city)
+        print data.encode('utf8')
 
 def test():
     prov = VeloPlus()

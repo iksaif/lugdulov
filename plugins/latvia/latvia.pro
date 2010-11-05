@@ -1,13 +1,9 @@
 TARGET  = stationslatvia
 include(../pluginbase.pri)
 
-HEADERS += factory.h \
-        jurmala.h \
-	riga.h
+HEADERS += factory.h
 
-SOURCES += factory.cpp \
-        jurmala.cpp \
-	riga.cpp
+SOURCES += factory.cpp
 
 RESOURCES += latvia.qrc
 

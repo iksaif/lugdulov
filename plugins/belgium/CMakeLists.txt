@@ -7,12 +7,10 @@ include_directories(
 )
 
 set(belgium_SRCS
-  factory.cpp
-  bruxelles.cpp)
+  factory.cpp)
 
 set(belgium_HDRS
-  factory.h
-  bruxelles.h)
+  factory.h)
 
 qt4_wrap_cpp(belgium_MOC_SRCS ${belgium_HDRS})
 qt4_add_resources(belgium_RC_SRCS belgium.qrc)

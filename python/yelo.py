@@ -49,7 +49,7 @@ class Yelo(Provider):
 
     def get_countries(self):
         country = Country()
-        country.uid = "france"
+        country.uid = "fr"
         country.name = "France"
         return [country]
 
@@ -62,12 +62,13 @@ class Yelo(Provider):
         city.lat = self.config['lat']
         city.lng = self.config['lng']
         city.create_rect()
+        city.type = "Yelo"
         return [city]
 
     def get_stations(self, city):
         stations = []
         url = self.url()
-        fp = urllib2.urlopen(url)
+        fp = urlopen(url)
 
         data = fp.read()
         data = data.decode('iso8859-15')
@@ -92,7 +93,7 @@ class Yelo(Provider):
                     station.bikes = int(value.split(" ")[0])
                 if name == 'freeLockCount':
                     station.slots = int(value.split(" ")[0])
-                station.zone = "0"
+                station.zone = ""
             stations.append(station)
         return stations
 
@@ -102,12 +103,15 @@ class Yelo(Provider):
     def get_zones(self, city):
         return []
 
-    def dump_priv(self, city):
-        data = open('citybike/priv.tpl.h').read()
+    def dump_city(self, city):
         #city.rect = self.get_city_bike_zone(service, city)
-        data = self._dump_priv(data, city)
-        data = data.replace('<statusUrl>', '')
-        data = data.replace('<infosUrl>', self.url())
+        city.infos = self.url()
+        data = self._dump_city(city)
+        print data
+
+    def dump_stations(self, city):
+        #city.rect = self.get_city_bike_zone(service, city)
+        data = self._dump_stations(city)
         print data.encode('utf8')
 
 def test():

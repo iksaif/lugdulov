@@ -19,25 +19,16 @@
 #ifndef STATIONS_MONTREAL_H
 #define STATIONS_MONTREAL_H
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
 #include <QtCore/QMap>
 
 #include "stationspluginsingle.h"
-
-class Station;
 
 class StationsPluginMontreal : public StationsPluginSingle
 {
   Q_OBJECT
  public:
-  StationsPluginMontreal(QObject *parent);
+  StationsPluginMontreal(QObject *parent = NULL);
   virtual ~StationsPluginMontreal();
-
-  QString id() const;
-  QString name() const;
-  QString bikeName() const;
-  QIcon bikeIcon() const;
 
  protected:
   virtual void handleInfos(const QByteArray & data);

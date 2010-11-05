@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<country id="france">
+  <name>France</name>
+  <description>Réseaux Français</description>
+  <icon>:/france/fr.png</icon>
+<country>

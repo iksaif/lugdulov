@@ -1,6 +1,8 @@
 <RCC>
   <qresource prefix="united-kingdom">
-  <file>uk.png</file>
+    <file>uk.png</file>
+    <file>cities.xml</file>
+    <file>united-kingdom.xml</file>
   </qresource>
 </RCC>
 

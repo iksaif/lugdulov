@@ -18,34 +18,14 @@
 
 #include <QtCore/QtPlugin>
 
+#include "config.h"
 #include "factory.h"
-#include "dublin.h"
 
-QString
-StationsPluginFactoryIreland::id() const
+StationsPluginFactoryIreland::StationsPluginFactoryIreland()
 {
-  return QLatin1String("Ireland");
-}
-
-QString
-StationsPluginFactoryIreland::name() const
-{
-  return QString::fromUtf8("Irish Networks");
-}
-
-QIcon
-StationsPluginFactoryIreland::icon() const
-{
-  return QIcon(":/ireland/ir.png");
-}
-
-QList < StationsPlugin * >
-StationsPluginFactoryIreland::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
-
-  ret << new StationsPluginDublin(parent);
-  return ret;
+  loadInfos(":/ireland/ireland.xml");
+  loadCities(":/ireland/cities.xml");
+  loadCities(PLUGINS_EXTEND_DIR "/ireland/cities.xml");
 }
 
 Q_EXPORT_PLUGIN2(stationsireland, StationsPluginFactoryIreland)

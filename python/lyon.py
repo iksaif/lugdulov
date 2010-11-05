@@ -25,7 +25,6 @@
 
 import sys
 import os
-import urllib2
 import xml.dom.minidom
 import json
 import datetime
@@ -59,8 +58,10 @@ class LyonVelov(Provider):
         city.uid = "lyon"
         city.id = city.uid
         city.name = "Lyon"
+        city.type = "Lyon"
         city.bikeName = "Velo'V"
-        city.bikeIcon = ""
+        city.bikeIcon = ":/france/velov.png"
+        city.status = "http://www.velov.grandlyon.com/velovmap/zhp/inc/DispoStationsParId.php?id=%1"
         city.lat = self.center[0]
         city.lng = self.center[1]
         city.create_rect()
@@ -102,7 +103,7 @@ class LyonVelov(Provider):
 
         for i in self.regions:
             url = self.stations_json_url(i)
-            fp = urllib2.urlopen(url)
+            fp = urlopen(url)
             data = fp.read()
             data = json.loads(data)
 
@@ -124,7 +125,7 @@ class LyonVelov(Provider):
         import xml.dom.minidom
 
         url = self.station_status_url(station.id)
-        fp = urllib2.urlopen(url)
+        fp = urlopen(url)
         data = fp.read()
 
         dom = xml.dom.minidom.parseString(data)
@@ -138,12 +139,14 @@ class LyonVelov(Provider):
         station.slots = status['free']
         return station
 
-    def dump_priv(self, city):
-        data = open('cyclocity/priv.tpl.h').read()
+    def dump_city(self, city):
         city.rect = self.get_city_bike_zone(city)
-        data = self._dump_priv(data, city)
-        data = data.replace('<statusUrl>', '')
-        data = data.replace('<infosUrl>', '')
+        data = self._dump_city(city)
+        print data.encode('utf8')
+
+    def dump_stations(self, city):
+        city.rect = self.get_city_bike_zone(city)
+        data = self._dump_stations(city)
         print data.encode('utf8')
 
 def test():

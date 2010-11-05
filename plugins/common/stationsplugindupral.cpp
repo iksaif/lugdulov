@@ -16,18 +16,9 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtNetwork/QNetworkReply>
-#include <QtGui/QDesktopServices>
-#include <QtCore/QMap>
-#include <QtCore/QVariant>
-#include <QtCore/QFile>
-#include <QtCore/QtPlugin>
 #include <QtCore/QStringList>
 #include <QtXml/QDomNode>
 
-#include <QtCore/QDebug>
-
-#include "tools.h"
 #include "station.h"
 #include "stationsplugindupral.h"
 #include "stationspluginsimple_p.h"
@@ -67,7 +58,7 @@ StationsPluginDupral::handleInfos(const QByteArray & data)
 
     node = node.mid(2); /* skip '" ' */
 
-    foreach (QString data, node.split(", ")) {
+    foreach (QString data, node.split("\", \"")) {
       QStringList t = data.split(": ");
       QString key = t.at(0);
       QString value = t.at(1);

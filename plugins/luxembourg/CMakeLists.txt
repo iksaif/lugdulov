@@ -8,11 +8,11 @@ include_directories(
 
 set(luxembourg_SRCS
   factory.cpp
-  luxembourg.cpp)
+)
 
 set(luxembourg_HDRS
   factory.h
-  luxembourg.h)
+)
 
 qt4_wrap_cpp(luxembourg_MOC_SRCS ${luxembourg_HDRS})
 qt4_add_resources(luxembourg_RC_SRCS luxembourg.qrc)

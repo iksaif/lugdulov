@@ -16,56 +16,21 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtNetwork/QNetworkReply>
-#include <QtGui/QDesktopServices>
-#include <QtCore/QMap>
-#include <QtCore/QVariant>
-#include <QtCore/QFile>
-#include <QtCore/QtPlugin>
 #include <QtXml/QDomNode>
-
-#include <QtCore/QDebug>
 
 #include <qjson/parser.h>
 
 #include "station.h"
 #include "tools.h"
 #include "orleans.h"
-#include "orleans_p.h"
 
 StationsPluginOrleans::StationsPluginOrleans(QObject *parent)
   : StationsPluginSimple(parent)
 {
-  d = new StationsPluginSimplePrivateOrleans();
 }
 
 StationsPluginOrleans::~StationsPluginOrleans()
 {
-  delete d;
-}
-
-QString
-StationsPluginOrleans::id() const
-{
-  return QLatin1String("orleans");
-}
-
-QString
-StationsPluginOrleans::name() const
-{
-  return QLatin1String("Orleans");
-}
-
-QString
-StationsPluginOrleans::bikeName() const
-{
-  return QLatin1String("VeloPlus");
-}
-
-QIcon
-StationsPluginOrleans::bikeIcon() const
-{
-  return QIcon(":/res/bike.png");
 }
 
 void
@@ -98,7 +63,7 @@ StationsPluginOrleans::handleInfos(const QByteArray & data)
   }
 
   foreach (int id, stations.keys()) {
-    if (d->rect.contains(stations[id]->pos()))
+    if (rect().contains(stations[id]->pos()))
       continue ;
     delete stations[id];
     stations.remove(id);

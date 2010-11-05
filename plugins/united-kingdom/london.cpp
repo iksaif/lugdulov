@@ -16,55 +16,18 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtNetwork/QNetworkReply>
-#include <QtGui/QDesktopServices>
-#include <QtCore/QMap>
-#include <QtCore/QVariant>
-#include <QtCore/QFile>
-#include <QtCore/QtPlugin>
-#include <QtCore/QStringList>
 #include <QtXml/QDomNode>
 
-#include <QtCore/QDebug>
-
-#include "tools.h"
 #include "station.h"
 #include "london.h"
-#include "london_p.h"
 
 StationsPluginLondon::StationsPluginLondon(QObject *parent)
   : StationsPluginSingle(parent)
 {
-  d = new StationsPluginSimplePrivateLondon();
 }
 
 StationsPluginLondon::~StationsPluginLondon()
 {
-  delete d;
-}
-
-QString
-StationsPluginLondon::id() const
-{
-  return QLatin1String("london");
-}
-
-QString
-StationsPluginLondon::name() const
-{
-  return QString::fromUtf8("London");
-}
-
-QString
-StationsPluginLondon::bikeName() const
-{
-  return QString::fromUtf8("CycleHire");
-}
-
-QIcon
-StationsPluginLondon::bikeIcon() const
-{
-  return QIcon(":/res/bike.png");
 }
 
 void
@@ -88,7 +51,7 @@ StationsPluginLondon::handleInfos(const QByteArray & data)
     pos = QPointF(capt.at(3).toDouble(),
 		  capt.at(4).toDouble());
 
-    if (!d->rect.contains(pos))
+    if (!rect().contains(pos))
       continue ;
 
     if (stations.find(id) == stations.end())

@@ -35,16 +35,15 @@ public:
   ~StationsPluginManager();
 
   QMultiMap < StationsPluginFactory *, StationsPlugin * >  stations();
+  StationsPlugin *station(const QPointF & pt);
+  StationsPlugin *station(const QString & id);
 
 private:
   void loadPlugins();
   void loadPlugins(QDir pluginDir);
   void loadPlugin(QObject *plugin);
 
-  void loadStationsPlugin();
-
   QMap < QString, StationsPluginFactory * > factories;
-  QMultiMap < StationsPluginFactory *, StationsPlugin * > map;
 };
 
 #endif

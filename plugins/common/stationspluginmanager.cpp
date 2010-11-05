@@ -26,6 +26,8 @@
 
 #include "config.h"
 #include "stationspluginmanager.h"
+#include "stationspluginfactory.h"
+#include "stationspluginfactorysimple.h"
 #include "stationsplugin.h"
 #include "station.h"
 
@@ -33,7 +35,6 @@ StationsPluginManager::StationsPluginManager(QObject *parent)
   : QObject(parent)
 {
   loadPlugins();
-  loadStationsPlugin();
 }
 
 StationsPluginManager::~StationsPluginManager()
@@ -43,19 +44,37 @@ StationsPluginManager::~StationsPluginManager()
 QMultiMap < StationsPluginFactory *, StationsPlugin * >
 StationsPluginManager::stations()
 {
+  QMultiMap < StationsPluginFactory *, StationsPlugin * > map;
+
+  foreach (StationsPluginFactory *factory, factories.values())
+    foreach (StationsPlugin *plugin, factory->plugins())
+      map.insert(factory, plugin);
+
   return map;
 }
 
-void
-StationsPluginManager::loadStationsPlugin()
+StationsPlugin *
+StationsPluginManager::station(const QPointF & pt)
 {
-  map.clear();
+  StationsPlugin *plugin = NULL;
 
-  foreach (StationsPluginFactory *factory, factories.values()) {
-    foreach (StationsPlugin *plugin, factory->stations(parent())) {
-      map.insert(factory, plugin);
-    }
-  }
+  foreach (StationsPluginFactory *factory, factories.values())
+    if ((plugin = factory->plugin(pt)) != NULL)
+      break ;
+
+  return plugin;
+}
+
+StationsPlugin *
+StationsPluginManager::station(const QString & id)
+{
+  StationsPlugin *plugin = NULL;
+
+  foreach (StationsPluginFactory *factory, factories.values())
+    if ((plugin = factory->plugin(id)) != NULL)
+      break ;
+
+  return plugin;
 }
 
 void

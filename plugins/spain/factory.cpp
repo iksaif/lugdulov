@@ -18,38 +18,14 @@
 
 #include <QtCore/QtPlugin>
 
+#include "config.h"
 #include "factory.h"
-#include "seville.h"
-#include "santander.h"
-#include "barcelone.h"
 
-QString
-StationsPluginFactorySpain::id() const
+StationsPluginFactorySpain::StationsPluginFactorySpain()
 {
-  return QLatin1String("Spain");
-}
-
-QString
-StationsPluginFactorySpain::name() const
-{
-  return QString::fromUtf8("Spain");
-}
-
-QIcon
-StationsPluginFactorySpain::icon() const
-{
-  return QIcon(":/spain/es.png");
-}
-
-QList < StationsPlugin * >
-StationsPluginFactorySpain::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
-
-  ret << new StationsPluginSeville(parent);
-  ret << new StationsPluginSantander(parent);
-  ret << new StationsPluginBarcelone(parent);
-  return ret;
+  loadInfos(":/spain/spain.xml");
+  loadCities(":/spain/cities.xml");
+  loadCities(PLUGINS_EXTEND_DIR "/spain/cities.xml");
 }
 
 Q_EXPORT_PLUGIN2(stationsspain, StationsPluginFactorySpain)

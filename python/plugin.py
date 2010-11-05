@@ -24,9 +24,22 @@
 
 """
 
+cache = True
+
+def urlopen(url):
+    import urllib2
+    from cache import CacheHandler
+
+    if cache:
+        opener = urllib2.build_opener(CacheHandler("cache"))
+        return opener.open(url)
+    else:
+        urllib2.urlopen(url)
+
 class Country():
     uid = ""
     name = ""
+    description = ""
 
     def __str__(self):
         return self.name.encode('utf8') + " (" + self.uid + ")"
@@ -40,6 +53,9 @@ class City():
     lat = 0.
     lng = 0.
     rect = (0., 0., 0., 0.)
+    type = ""
+    infos = ""
+    status = ""
 
     def create_center(self):
         self.lat = (self.rect[0] + self.rect[2]) / 2
@@ -123,19 +139,53 @@ class Provider():
     def get_status(self, station, city):
         pass
 
-    def _dump_priv(self, data, city):
-        builtin = """
-static const struct {
-        int number;
-        int arrondissementNumber;
-        const char *name;
-        const char *address;
-        double x;
-        double y;
-} stations[] = {\n"""
+    def get_city_bike_zone(self, service, city):
+        lat_min  = city.rect[0]
+        lat_max  = city.rect[1]
+        lng_min = city.rect[2]
+        lng_max = city.rect[3]
+        lat_center = city.lat
+        lng_center = city.lng
+        stations = self.get_stations(city)
+        for station in stations:
+            lat_place = float(station.lat)
+            lng_place = float(station.lng)
+            if lat_place > city.rect[0] \
+                and lat_place < city.rect[2] \
+                and lng_place > city.rect[1] \
+                and lng_place < city.rect[3]:
+                if lat_min > lat_place : lat_min = lat_place
+                if lat_max < lat_place : lat_max = lat_place
+                if lng_min > lng_place : lng_min = lng_place
+                if lng_max < lng_place : lng_max = lng_place
+        return lat_min, lng_min, lat_max, lng_max
 
+    def _dump_city(self, city):
+
+        uid = city.uid.replace(".", "").replace("-", "_")
+
+        ret = '<city id="%s">\n' % uid
+        ret += '  <type>%s</type>\n' % city.type
+        ret += '  <latitude min="%f" max="%f">%f</latitude>\n' % (city.rect[0], city.rect[2], city.lat)
+        ret += '  <longitude min="%f" max="%f">%f</longitude>\n' % (city.rect[1], city.rect[3], city.lng)
+        if city.status:
+            ret += '  <status>%s</status>\n' % city.status.replace('&', '&amp;')
+        if city.infos:
+            ret += '  <infos>%s</infos>\n' % city.infos.replace('&', '&amp;')
+        ret += '  <name>%s</name>\n' % city.name.title()
+        if city.bikeName:
+            ret += '  <bikeName>%s</bikeName>\n' % city.bikeName
+        if city.bikeIcon:
+            ret += '  <bikeIcon>%s</bikeIcon>\n' % city.bikeIcon
+        ret += '</city>'
+
+        return ret.encode('utf8')
+
+    def _dump_stations(self, city):
         zones = self.get_zones(city)
         stations = self.get_stations(city)
+        ret = ""
+
         for station in stations:
             skip = False
 
@@ -148,44 +198,22 @@ static const struct {
                     break
 
             if skip:
-                builtin += "//"
+                ret += "<!--\n"
 
-            builtin += '\t{ %s, %s, "%s", "%s", %.6f, %.6f },\n' % \
-                (station.id, station.zone, station.name.title().strip().replace('"', ''), \
-                     station.description.title().strip().replace('"', ''), station.lat, station.lng)
-        builtin += "\t{0, 0, NULL, NULL, 0., 0.}\n"
-        builtin += "};\n"
+            ret += '<station id="%s">\n' % station.id;
+            ret += '  <name>%s</name>\n' % station.name.title().strip()
+            if station.description:
+                ret += '  <description>%s</description>\n' % station.description.title().strip()
+            if station.zone:
+                ret += '  <region>%s</region>\n' % station.zone
+            ret += '  <latitude>%.6f</latitude>\n' % station.lat
+            ret += '  <longitude>%.6f</longitude>\n' % station.lng
+            ret += "</station>";
 
-        rect = "QRectF(QPointF(%.6f, %.6f), QPointF(%.6f, %.6f))" % city.rect
-        center = "QPointF(%.6f, %.6f)" % (city.lat, city.lng)
+            if skip:
+                ret += '\n--/>'
 
-        regions = ""
-        for zone in zones:
-            regions += '    ret << "%d";\n' % int(zone.uid)
-
-        uid = city.uid.replace(".", "").replace("-", "_")
-        data = data.replace('<stations>', builtin)
-        data = data.replace('<rect>', rect)
-        data = data.replace('<center>', center);
-        data = data.replace('<CITY>', uid.upper());
-        data = data.replace('<City>', uid.title());
-        data = data.replace('<regions>', regions)
-        return data
-
-    def _dump_gen(self, data, city):
-        uid = city.uid.replace(".", "").replace("-", "_")
-        data = data.replace('<BikeName>', city.bikeName);
-        data = data.replace('<CityName>', city.name);
-        data = data.replace('<City>', uid.title());
-        data = data.replace('<city>', uid.lower());
-        data = data.replace('<CITY>', uid.upper());
-        return data
-
-    def _dump_class(self, tpl, city):
-        return self._dump_gen(tpl, city)
-
-    def _dump_header(self, tpl, city):
-        return self._dump_gen(tpl, city)
+        return ret
 
     def __init__(self):
         pass

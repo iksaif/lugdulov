@@ -8,30 +8,10 @@ include_directories(
 
 set(lower-austria_SRCS
   factory.cpp
-  wiener_neustadt.cpp
-  romerland.cpp
-  triestingtal.cpp
-  obb_bahnhofe.cpp
-  wachau.cpp
-  wieselburg.cpp
-  st_polten.cpp
-  baden.cpp
-  modling.cpp
-  tulln.cpp
 )
 
 set(lower-austria_HDRS
   factory.h
-  modling.h
-  baden.h
-  romerland.h
-  wachau.h
-  triestingtal.h
-  st_polten.h
-  wiener_neustadt.h
-  tulln.h
-  wieselburg.h
-  obb_bahnhofe.h
 )
 
 qt4_wrap_cpp(lower-austria_MOC_SRCS ${lower-austria_HDRS})

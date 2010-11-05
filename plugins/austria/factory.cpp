@@ -18,39 +18,24 @@
 
 #include <QtCore/QtPlugin>
 
+#include "config.h"
 #include "factory.h"
-#include "neusiedler_see.h"
-#include "bregenzerwald.h"
 #include "wien.h"
 
-QString
-StationsPluginFactoryAustria::id() const
+StationsPluginFactoryAustria::StationsPluginFactoryAustria()
 {
-  return QLatin1String("Austria");
+  loadInfos(":/austria/austria.xml");
+  loadCities(":/austria/cities.xml");
+  loadCities(PLUGINS_EXTEND_DIR "/austria/cities.xml");
 }
 
-QString
-StationsPluginFactoryAustria::name() const
+StationsPluginSimple *
+StationsPluginFactoryAustria::pluginForType(const QString & type)
 {
-  return QString::fromUtf8("Austria");
-}
-
-QIcon
-StationsPluginFactoryAustria::icon() const
-{
-  return QIcon(":/austria/at.png");
-}
-
-QList < StationsPlugin * >
-StationsPluginFactoryAustria::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
-
-  ret << new StationsPluginNeusiedler_See(parent);
-  ret << new StationsPluginBregenzerwald(parent);
-  ret << new StationsPluginWien(parent);
-
-  return ret;
+  if (type == "Wien" || type == "CityBikeWien")
+    return new StationsPluginWien();
+  else
+    return StationsPluginFactorySimple::pluginForType(type);
 }
 
 Q_EXPORT_PLUGIN2(stationsaustria, StationsPluginFactoryAustria)

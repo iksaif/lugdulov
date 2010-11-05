@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cities>
+  <city id="dublin">
+    <type>CycloCity</type>
+    <latitude min="53.144104" max="53.359246">53.344104</latitude>
+    <longitude min="-6.278214" max="-6.067494">-6.267494</longitude>
+    <status>http://www.dublinbikes.ie/service/stationdetails/%1</status>
+    <infos>http://www.dublinbikes.ie/service/carto</infos>
+    <name>Dublin</name>
+    <bikeName>Dubline Bikes</bikeName>
+  </city>
+</cities>

@@ -1,11 +1,9 @@
 TARGET  = stationsnew-zealand
 include(../pluginbase.pri)
 
-HEADERS += factory.h \
-        auckland.h
+HEADERS += factory.h
 
-SOURCES += factory.cpp \
-        auckland.cpp
+SOURCES += factory.cpp
 
 RESOURCES += new-zealand.qrc
 

@@ -3,11 +3,9 @@ include(../pluginbase.pri)
 
 INCLUDEPATH += $$QJSON_INCLUDE_PATH
 
-HEADERS += factory.h \
-        toyama.h
+HEADERS += factory.h
 
-SOURCES += factory.cpp \
-        toyama.cpp
+SOURCES += factory.cpp
 
 RESOURCES += japan.qrc
 

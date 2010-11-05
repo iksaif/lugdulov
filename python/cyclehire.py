@@ -34,7 +34,7 @@ from plugin import *
 class CycleHire(Provider):
     config = {
         'country_uid' : 'uk',
-        'country_Name' : 'United Kingdom',
+        'country_Name' : 'United-Kingdom',
         'city_uid'    : 'london',
         'city_Name'    : 'London',
         'bike_name'    : 'Cycle Hire',
@@ -62,13 +62,14 @@ class CycleHire(Provider):
         city.lat = self.config['lat']
         city.lng = self.config['lng']
         city.create_rect()
+        city.type = "CycleHire"
         return [city]
 
 
     def get_stations(self, city):
         stations = []
         url = self.url()
-        fp = urllib2.urlopen(url)
+        fp = urlopen(url)
         data = fp.read()
 
         # id:"1",name:"River Street , Clerkenwell",lat:"51.52916347",long:"-0.109970527",nbBikes:"6",nbEmptyDocks:"13",installed:"true",locked:"false",temporary:"false"
@@ -82,7 +83,7 @@ class CycleHire(Provider):
             station.lng = float(node[3])
             station.bikes = int(node[4])
             station.slots = int(node[5])
-            station.zone = "0"
+            station.zone = ""
             stations.append(station)
         return stations
 
@@ -93,14 +94,16 @@ class CycleHire(Provider):
     def get_zones(self, city):
         return []
 
-    def dump_priv(self, city):
-        data = open('citybike/priv.tpl.h').read()
+    def dump_city(self, city):
         #city.rect = self.get_city_bike_zone(service, city)
-        data = self._dump_priv(data, city)
-        data = data.replace('<statusUrl>', '')
-        data = data.replace('<infosUrl>', self.url())
-        print data.encode('utf8')
+        city.infos = self.url()
+        data = self._dump_city(city)
+        print data
 
+    def dump_stations(self, city):
+        #city.rect = self.get_city_bike_zone(service, city)
+        data = self._dump_stations(city)
+        print data.encode('utf8')
 
 def test():
     prov = CycleHire()

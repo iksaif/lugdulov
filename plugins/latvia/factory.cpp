@@ -18,38 +18,14 @@
 
 #include <QtCore/QtPlugin>
 
+#include "config.h"
 #include "factory.h"
-#include "jurmala.h"
-#include "riga.h"
 
-
-QString
-StationsPluginFactoryLatvia::id() const
+StationsPluginFactoryLatvia::StationsPluginFactoryLatvia()
 {
-  return QLatin1String("Latvia");
-}
-
-QString
-StationsPluginFactoryLatvia::name() const
-{
-  return QString::fromUtf8("Latvia");
-}
-
-QIcon
-StationsPluginFactoryLatvia::icon() const
-{
-  return QIcon(":/latvia/la.png");
-}
-
-QList < StationsPlugin * >
-StationsPluginFactoryLatvia::stations(QObject *parent)
-{
-  QList < StationsPlugin * > ret;
-
-  ret << new StationsPluginJurmala(parent);
-  ret << new StationsPluginRiga(parent);
-
-  return ret;
+  loadInfos(":/latvia/latvia.xml");
+  loadCities(":/latvia/cities.xml");
+  loadCities(PLUGINS_EXTEND_DIR "/latvia/cities.xml");
 }
 
 Q_EXPORT_PLUGIN2(stationslatvia, StationsPluginFactoryLatvia)

@@ -8,12 +8,10 @@ include_directories(
 
 set(new-zealand_SRCS
   factory.cpp
-  auckland.cpp
 )
 
 set(new-zealand_HDRS
   factory.h
-  auckland.h
 )
 
 qt4_wrap_cpp(new-zealand_MOC_SRCS ${new-zealand_HDRS})

@@ -182,7 +182,7 @@ StationDialog::fetchImage()
 void
 StationDialog::requestError(QNetworkReply::NetworkError code)
 {
-  QNetworkReply *rep = dynamic_cast<QNetworkReply *>(sender());
+  QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
 
   if (rep && code != QNetworkReply::ContentNotFoundError)
     QMessageBox::warning(this, tr("Network Error"), rep->errorString());
@@ -191,7 +191,7 @@ StationDialog::requestError(QNetworkReply::NetworkError code)
 void
 StationDialog::requestFinished()
 {
-  QNetworkReply *rep = dynamic_cast<QNetworkReply *>(sender());
+  QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
 
   if (!rep)
     return ;

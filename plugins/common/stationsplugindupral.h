@@ -31,7 +31,7 @@ class StationsPluginDupral : public StationsPluginSingle
 {
   Q_OBJECT
  public:
-  StationsPluginDupral(QObject *parent);
+  StationsPluginDupral(QObject *parent = NULL);
   virtual ~StationsPluginDupral();
 
  protected:

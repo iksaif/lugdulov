@@ -16,55 +16,19 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtNetwork/QNetworkReply>
-#include <QtGui/QDesktopServices>
-#include <QtCore/QMap>
-#include <QtCore/QVariant>
-#include <QtCore/QFile>
-#include <QtCore/QtPlugin>
-#include <QtCore/QStringList>
 #include <QtXml/QDomNode>
 
-#include <QtCore/QDebug>
-
-#include "tools.h"
 #include "station.h"
+#include "tools.h"
 #include "montreal.h"
-#include "montreal_p.h"
 
 StationsPluginMontreal::StationsPluginMontreal(QObject *parent)
   : StationsPluginSingle(parent)
 {
-  d = new StationsPluginSimplePrivateMontreal();
 }
 
 StationsPluginMontreal::~StationsPluginMontreal()
 {
-  delete d;
-}
-
-QString
-StationsPluginMontreal::id() const
-{
-  return QLatin1String("montreal");
-}
-
-QString
-StationsPluginMontreal::name() const
-{
-  return QString::fromUtf8("Montreal");
-}
-
-QString
-StationsPluginMontreal::bikeName() const
-{
-  return QString::fromUtf8("Bixi");
-}
-
-QIcon
-StationsPluginMontreal::bikeIcon() const
-{
-  return QIcon(":/res/bike.png");
 }
 
 void
@@ -87,7 +51,7 @@ StationsPluginMontreal::handleInfos(const QByteArray & data)
       continue ;
     pos = QPointF(node.firstChildElement("lat").toElement().text().toDouble(),
 		  node.firstChildElement("long").toElement().text().toDouble());
-    if (!d->rect.contains(pos))
+    if (!rect().contains(pos))
       continue ;
 
     if (stations.find(id) == stations.end())

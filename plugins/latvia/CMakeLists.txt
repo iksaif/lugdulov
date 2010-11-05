@@ -8,14 +8,10 @@ include_directories(
 
 set(latvia_SRCS
   factory.cpp
-  jurmala.cpp
-  riga.cpp
 )
 
 set(latvia_HDRS
   factory.h
-  jurmala.h
-  riga.h
 )
 
 qt4_wrap_cpp(latvia_MOC_SRCS ${latvia_HDRS})

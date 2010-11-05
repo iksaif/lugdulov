@@ -56,6 +56,8 @@ MainWindow::MainWindow(QWidget *parent)
   searchLinkButton->setDescription(QString());
   bookmarkLinkButton->setDescription(QString());
   mapLinkButton->setDescription(QString());
+#else
+  pushButton->setIconSize(QSize(24,24));
 #endif
 
 #if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR) || defined(Q_WS_MAEMO_5)
@@ -93,10 +95,8 @@ MainWindow::createButton()
 
   manager = new StationsPluginManager(this);
 
-  foreach(StationsPlugin *plugin, manager->stations().values()) {
-    if (plugin->id() == selected)
-      selectedPlugin = plugin;
-  }
+  selectedPlugin = manager->station(selected);
+
   setStationsPlugin(selectedPlugin);
   connect(pushButton, SIGNAL(clicked(bool)), this, SLOT(buttonClicked()));
 }
@@ -171,9 +171,10 @@ MainWindow::positionUpdated(QGeoPositionInfo info)
   if (plugin) // && plugin->rect().contains(pt))
     return ;
 
-  foreach (StationsPlugin *plugin, manager->stations().values())
-    if (plugin->rect().contains(pt))
-      return setStationsPlugin(plugin);
+  StationsPlugin *p = manager->station(pt);
+
+  if (p)
+    setStationsPlugin(p);
 }
 #endif
 
@@ -190,9 +191,12 @@ void
 MainWindow::setStationsPlugin(StationsPlugin *sta, bool save)
 {
   if (plugin)
-    disconnect(plugin, 0, this, 0);
+    plugin->deleteLater();
 
   plugin = sta;
+
+  if (plugin)
+    plugin->setParent(this);
 
   if (plugin) {
     pushButton->setText(plugin->name());

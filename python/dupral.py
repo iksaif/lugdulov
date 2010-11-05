@@ -94,13 +94,14 @@ class Dupral(Provider):
             city.lat = service['lat']
             city.lng = service['lng']
             city.create_rect()
+            city.type = "Dupral"
             ret.append(city)
         return ret
 
     def get_stations(self, city):
         stations = []
         url = self.url(city)
-        fp = urllib2.urlopen(url)
+        fp = urlopen(url)
 
         data = fp.read()
         rg = re.compile(r'jQuery.extend\(.*?} } }\);')
@@ -124,10 +125,10 @@ class Dupral(Provider):
             </div></div>", "markername": "vcub"
             """
             station = Station()
-            for data in node.split(', '):
+            for data in node.split('", "'):
                 name, value = data.split(': ')
                 name = name.strip().replace('"', '')
-                value = value.strip()[1:-1]
+                value = value.strip().strip('"')
                 if name == "latitude":
                     station.lat = float(value)
                 if name == "longitude":
@@ -151,7 +152,7 @@ class Dupral(Provider):
                     if (len(strongs) >= 2):
                         station.bikes = int(strongs[0].childNodes[0].toxml())
                         station.slots = int(strongs[1].childNodes[0].toxml())
-                    station.zone = "0"
+                    station.zone = ""
             stations.append(station)
         return stations
 
@@ -161,24 +162,16 @@ class Dupral(Provider):
     def get_zones(self, city):
         return []
 
-    def dump_class(self, city):
-        data = open('dupral/class.tpl.cpp').read()
-        data = self._dump_class(data, city)
-        print data.encode('utf8')
-
-    def dump_header(self, city):
-        data = open('dupral/header.tpl.h').read()
-        data = self._dump_header(data, city)
-        print data.encode('utf8')
-
-    def dump_priv(self, city):
-        data = open('dupral/priv.tpl.h').read()
+    def dump_city(self, city):
         #city.rect = self.get_city_bike_zone(service, city)
-        data = self._dump_priv(data, city)
-        data = data.replace('<statusUrl>', '')
-        data = data.replace('<infosUrl>', self.url(city))
-        print data.encode('utf8')
+        city.infos = self.url(city)
+        data = self._dump_city(city)
+        print data
 
+    def dump_stations(self, city):
+        #city.rect = self.get_city_bike_zone(service, city)
+        data = self._dump_stations(city)
+        print data.encode('utf8')
 
 def test():
     prov = Dupral()

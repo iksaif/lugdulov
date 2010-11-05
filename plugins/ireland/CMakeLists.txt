@@ -8,11 +8,11 @@ include_directories(
 
 set(ireland_SRCS
   factory.cpp
-  dublin.cpp)
+)
 
 set(ireland_HDRS
   factory.h
-  dublin.h)
+)
 
 qt4_wrap_cpp(ireland_MOC_SRCS ${ireland_HDRS})
 qt4_add_resources(ireland_RC_SRCS ireland.qrc)

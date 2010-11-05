@@ -8,11 +8,11 @@ include_directories(
 
 set(japan_SRCS
   factory.cpp
-  toyama.cpp)
+)
 
 set(japan_HDRS
   factory.h
-  toyama.h)
+)
 
 qt4_wrap_cpp(japan_MOC_SRCS ${japan_HDRS})
 qt4_add_resources(japan_RC_SRCS japan.qrc)
