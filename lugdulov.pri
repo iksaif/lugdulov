@@ -44,6 +44,7 @@ symbian: {
     }
     DEFINES += LUGDULOV_VERSION=\\\"$${VERSION}\\\"
     DEFINES += PLUGINS_INSTALL_DIR=\\\"$${LUGDULOV_INSTALL_PLUGINS}\\\"
+    DEFINES += PLUGINS_EXTEND_DIR=\\\"$${PREFIX}/share/lugdulov/plugins\\\"
 }
 
 contains(LUGDULOV_CONFIG, bearer) {

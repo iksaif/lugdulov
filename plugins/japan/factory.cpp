@@ -21,11 +21,11 @@
 #include "config.h"
 #include "factory.h"
 
-StationsPluginFactoryBelgium::StationsPluginFactoryBelgium()
+StationsPluginFactoryJapan::StationsPluginFactoryJapan()
 {
-  loadInfos(":/belgium/belgium.xml");
-  loadCities(":/belgium/cities.xml");
-  loadCities(PLUGINS_EXTEND_DIR "/belgium/cities.xml");
+  loadInfos(":/japan/japan.xml");
+  loadCities(":/japan/cities.xml");
+  loadCities(PLUGINS_EXTEND_DIR "/japan/cities.xml");
 }
 
-Q_EXPORT_PLUGIN2(stationsbelgium, StationsPluginFactoryBelgium)
+Q_EXPORT_PLUGIN2(stationsjapan, StationsPluginFactoryJapan)

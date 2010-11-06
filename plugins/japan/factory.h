@@ -16,17 +16,17 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_BELGIUM_H
-#define STATIONS_BELGIUM_H
+#ifndef STATIONS_JAPAN_H
+#define STATIONS_JAPAN_H
 
 #include "stationspluginfactorysimple.h"
 
-class StationsPluginFactoryBelgium : public QObject, public StationsPluginFactorySimple
+class StationsPluginFactoryJapan : public QObject, public StationsPluginFactorySimple
 {
   Q_OBJECT
   Q_INTERFACES(StationsPluginFactory)
  public:
-  StationsPluginFactoryBelgium();
+  StationsPluginFactoryJapan();
 };
 
-#endif /* STATIONS_BELGIUM_H */
+#endif /* STATIONS_JAPAN_H */

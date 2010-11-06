@@ -56,7 +56,7 @@ SOURCES += main.cpp \
     pluginsdialog.cpp \
     aboutdialog.cpp
 
-TRANSLATIONS = i18n/lugdulov_fr.ts
+TRANSLATIONS = i18n/lugdulov_fr.ts i18n/lugdulov_cs.ts
 
 symbian: {
     LIBS += -lstationsfrance -lstationsbelgium -lstationsireland -lstationsluxembourg

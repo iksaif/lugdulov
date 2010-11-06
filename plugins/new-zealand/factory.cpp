@@ -28,4 +28,4 @@ StationsPluginFactoryNewZealand::StationsPluginFactoryNewZealand()
   loadCities(PLUGINS_EXTEND_DIR "/new-zealand/cities.xml");
 }
 
-Q_EXPORT_PLUGIN2(stationsbelgium, StationsPluginFactoryNewZealand)
+Q_EXPORT_PLUGIN2(stationsnewzealand, StationsPluginFactoryNewZealand)

@@ -22,7 +22,8 @@ SOURCES =   tools.cpp onlinestatemanager.cpp \
   settings.cpp \
   stationsmodel.cpp \
   stationssortfilterproxymodel.cpp \
-  stationspluginmanager.cpp
+  stationspluginmanager.cpp \
+  stationspluginfactorysimple.cpp
 
 HEADERS =  tools.h onlinestatemanager.h \
   stationsplugin.h \
@@ -36,6 +37,7 @@ HEADERS =  tools.h onlinestatemanager.h \
   settings.h \
   stationspluginmanager.h \
   stationsmodel.h \
-  stationssortfilterproxymodel.h
+  stationssortfilterproxymodel.h \
+  stationspluginfactorysimple.h
 
 

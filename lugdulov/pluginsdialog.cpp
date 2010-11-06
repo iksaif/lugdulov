@@ -50,10 +50,10 @@ PluginsDialog::PluginsDialog(StationsPluginManager *manager, QWidget *parent)
     QFont font = parent->font(0);
 
     font.setBold(true);
-    parent->setText(0, factory->id());
+    parent->setText(0, factory->name());
     parent->setIcon(0, factory->icon());
     parent->setFont(0, font);
-    parent->setText(1, factory->name());
+    parent->setText(1, factory->description());
     parent->setFont(1, font);
     parent->setFlags(Qt::ItemIsEnabled);
     parent->setExpanded(true);
