@@ -53,7 +53,10 @@ set(lugdulov_MOC_HDRS
   aboutdialog.h)
 
 set(lugdulov_RCS res/lugdulov.qrc i18n/i18n.qrc)
-set(lugdulov_TRS i18n/lugdulov_fr.ts)
+set(lugdulov_TRS
+  i18n/lugdulov_fr.ts
+  i18n/lugdulov_cs.ts
+)
 set_source_files_properties(${lugdulov_TRS} PROPERTIES OUTPUT_LOCATION ${lugdulov_core_SOURCE_DIR}/i18n)
 
 _qt4_add_translation(QM_FILES ${lugdulov_TRS})
