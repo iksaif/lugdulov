@@ -159,11 +159,12 @@ MainWindow::positionUpdated(QGeoPositionInfo info)
 {
   QGeoCoordinate coord = info.coordinate();
 
-  if (!coord.isValid())
+  if (!coord.isValid() || (coord.latitude() == 0 && coord.longitude() == 0))
     return ;
 
   if (!position.coordinate().isValid())
     statusMsg(tr("Got GPS Fix."));
+
   position = info;
 
   QPointF pt(coord.latitude(), coord.longitude());
