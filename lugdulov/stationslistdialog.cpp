@@ -25,6 +25,8 @@
 
 #include "config.h"
 
+#include "ui_stationslistdialog.h"
+
 #include "tools.h"
 #include "lugdulov.h"
 #include "settings.h"
@@ -36,6 +38,12 @@
 #include "stationssortfilterproxymodel.h"
 #include "stationslistview.h"
 
+#if defined(Q_WS_MAEMO_5) || defined(Q_OS_SYMBIAN) || defined(Q_OS_SIMULATOR)
+static const int filterTimeout = 1000;
+#else
+static const int filterTimeout = 200;
+#endif
+
 StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
   :
 #ifdef Q_WS_MAEMO_5
@@ -43,22 +51,25 @@ StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
 #else
   QDialog(parent),
 #endif
-  plugin(plugin)
+  plugin(plugin),
+  ui(new Ui_StationsListDialog())
 {
-  setupUi(this);
+  ui->setupUi(this);
   setupDialog(this);
 
-  refreshButton->setIcon(QIcon::fromTheme("view-refresh", QPixmap(":/res/view-refresh.png")));
+  ui->refreshButton->setIcon(QIcon::fromTheme("view-refresh", QPixmap(":/res/view-refresh.png")));
 #ifdef Q_WS_MAEMO_5
-  refreshButton->setText("");
+  ui->refreshButton->setText("");
 #endif
-  lineEdit->setFocus(Qt::OtherFocusReason);
+  ui->lineEdit->setFocus(Qt::OtherFocusReason);
 
-  connect(lineEdit, SIGNAL(textEdited(const QString &)), this, SLOT(filter(const QString &)));
-  connect(refreshButton, SIGNAL(clicked()), listView, SLOT(forceUpdate()));
+  connect(ui->lineEdit, SIGNAL(textEdited(const QString &)),
+	  this, SLOT(filterEdited(const QString &)));
+  connect(ui->refreshButton, SIGNAL(clicked()), ui->listView, SLOT(forceUpdate()));
+  connect(&filterTimer, SIGNAL(timeout()), this, SLOT(filter()));
 
-  listView->setAlternatingRowColors(true);
-  listView->setItemDelegate(new StationDelegate(listView));
+  ui->listView->setAlternatingRowColors(true);
+  ui->listView->setItemDelegate(new StationDelegate(ui->listView));
 
   model = new StationsModel(plugin, this);
   proxy = new StationsSortFilterProxyModel(this);
@@ -67,8 +78,8 @@ StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
   proxy->setSourceModel(model);
   proxy->setBookmarks(Settings::bookmarks(plugin));
   proxy->setSortRole(StationsSortFilterProxyModel::StationDistanceRole);
-  listView->setStationsPlugin(plugin);
-  listView->setModel(proxy);
+  ui->listView->setStationsPlugin(plugin);
+  ui->listView->setModel(proxy);
 
 
   connect(plugin, SIGNAL(progress(qint64, qint64)), this, SLOT(progress(qint64, qint64)));
@@ -80,6 +91,7 @@ StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
 
 StationsListDialog::~StationsListDialog()
 {
+  delete ui;
 }
 
 #ifdef HAVE_QT_LOCATION
@@ -105,10 +117,16 @@ StationsListDialog::positionUpdated(QGeoPositionInfo info)
 #endif
 
 void
-StationsListDialog::filter(const QString & text)
+StationsListDialog::filterEdited(const QString & text)
+{
+  filterTimer.start(filterTimeout);
+}
+
+void
+StationsListDialog::filter(void)
 {
   proxy->setFilterRole(StationsModel::StationNameRole);
-  proxy->setFilterWildcard(QString("*%1*").arg(text));
+  proxy->setFilterWildcard(QString("*%1*").arg(ui->lineEdit->text()));
   proxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
 }
 

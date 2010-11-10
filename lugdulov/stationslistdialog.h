@@ -19,17 +19,19 @@
 #ifndef STATIONSLISTDIALOG_H
 # define STATIONSLISTDIALOG_H
 
-#include "mobility.h"
+#include <QtCore/QTimer>
+#include <QtGui/QDialog>
 
-#include "ui_stationslistdialog.h"
+#include "mobility.h"
 
 class StationsModel;
 class StationsPlugin;
 class Station;
 class StationsSortFilterProxyModel;
 class StationsView;
+class Ui_StationsListDialog;
 
-class StationsListDialog : public QDialog, private Ui_StationsListDialog
+class StationsListDialog : public QDialog
 {
   Q_OBJECT
 
@@ -47,18 +49,23 @@ class StationsListDialog : public QDialog, private Ui_StationsListDialog
   void setupListWidget();
 
  private slots:
-  void filter(const QString & text);
+  void filterEdited(const QString & text);
+  void filter(void);
   void progress(qint64 done, qint64 total);
   void error(const QString & title, const QString & message);
 
  protected:
+  StationsSortFilterProxyModel *proxy;
+
+ private:
   StationsPlugin *plugin;
   StationsModel *model;
-  StationsSortFilterProxyModel *proxy;
   StationsView *view;
 #ifdef HAVE_QT_LOCATION
   QGeoPositionInfo position;
 #endif
+  QTimer filterTimer;
+  Ui_StationsListDialog *ui;
 };
 
 #endif
