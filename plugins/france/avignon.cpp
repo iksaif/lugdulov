@@ -29,7 +29,7 @@ StationsPluginAvignon::StationsPluginAvignon(QObject *parent)
 StationsPluginAvignon::~StationsPluginAvignon()
 {
 }
-
+#include <QDebug>
 void
 StationsPluginAvignon::handleInfos(const QByteArray & data)
 {
@@ -40,33 +40,35 @@ StationsPluginAvignon::handleInfos(const QByteArray & data)
   re.setMinimal(true);
 
   while ((ofs = re.indexIn(data, ofs)) >= 0) {
+    bool ok;
     int id;
     QPointF pos;
     Station *station;
     QStringList capt = re.capturedTexts();
 
+    ofs++;
+
     if (capt.size() != 7)
       continue ;
 
-    id = capt.at(1).toInt();
+    id = capt.at(1).toInt(&ok);
     pos = QPointF(capt.at(2).toDouble(),
 		  capt.at(3).toDouble());
 
-    if (!rect().contains(pos))
+    if (!ok)
       continue ;
 
-    if (stations.find(id) == stations.end())
-      stations[id] = new Station(this);
-    station = stations[id];
+    station = getOrCreateStation(id);
 
     if (station->name().isEmpty())
       station->setName(capt.at(4));
-    station->setPos(pos);
+    if (station->pos().isNull())
+      station->setPos(pos);
     station->setBikes(capt.at(5).toInt());
     station->setFreeSlots(capt.at(6).toInt());
     station->setTotalSlots(station->bikes() + station->freeSlots());
 
-    ofs++;
+    storeOrDropStation(station);
   }
 
   emit stationsCreated(stations.values());

@@ -47,9 +47,12 @@ StationsPluginDupral::handleInfos(const QByteArray & data)
 
   re = QRegExp("\"markers\": \\[(.*)\\]");
   re.indexIn(nodes);
+
   if (captured.size() < 2)
     return ;
+
   nodes = re.capturedTexts()[1];
+
   foreach (QString node, nodes.split("}, {")) {
     QMap < QString , QString > values;
     double lat, lng;
@@ -71,9 +74,6 @@ StationsPluginDupral::handleInfos(const QByteArray & data)
 
     lng = values["longitude"].toDouble();
     lat = values["latitude"].toDouble();
-
-    if (!d->rect.contains(QPointF(lat, lng)))
-      continue ;
 
     if (values.find("text") != values.end()) {
       QDomDocument doc;
@@ -104,16 +104,14 @@ StationsPluginDupral::handleInfos(const QByteArray & data)
 
 	  id = tmp.replace("#", "").toInt();
 
-	  if (stations.find(id) == stations.end())
-	    stations[id] = new Station(this);
-	  station = stations[id];
+	  station = getOrCreateStation(id);
 
-	  station->setId(id);
-	  station->setPos(QPointF(lat, lng));
+	  if (station->pos().isNull())
+	    station->setPos(QPointF(lat, lng));
 	  if (station->name().isEmpty())
 	    station->setName(name.at(1));
 	}
-	if (c == "gmap-adress") {
+	if (station && c == "gmap-adress") {
 	  if (station->description().isEmpty())
 	    station->setDescription(node.toElement().text());
 	}
@@ -125,6 +123,9 @@ StationsPluginDupral::handleInfos(const QByteArray & data)
 	station->setFreeSlots(list.at(1).toElement().text().toInt());
 	station->setTotalSlots(station->freeSlots() + station->bikes());
       }
+
+      storeOrDropStation(station);
+      station = NULL;
     }
   }
 

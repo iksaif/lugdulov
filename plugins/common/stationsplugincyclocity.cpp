@@ -27,6 +27,7 @@
 
 #include <QtCore/QDebug>
 
+#include "tools.h"
 #include "station.h"
 #include "stationsplugincyclocity.h"
 
@@ -51,27 +52,30 @@ StationsPluginCycloCity::handleInfos(const QByteArray & data)
   while (!node.isNull()) {
     QDomNamedNodeMap attr = node.attributes();
     Station *station;
-    int id = attr.namedItem("number").nodeValue().toUInt();
+    bool ok;
+    int id = attr.namedItem("number").nodeValue().toUInt(&ok);
     QString name = attr.namedItem("name").nodeValue();
     QString address = attr.namedItem("address").nodeValue();
     double lat = attr.namedItem("lat").nodeValue().toDouble();
     double lng = attr.namedItem("lng").nodeValue().toDouble();
 
-    if (stations.find(id) == stations.end()) {
-      station = new Station(this);
-      stations.insert(id, station);
-      station->setId(id);
-    } else
-      station = stations[id];
+    node = node.nextSiblingElement("marker");
+
+    if (id < 0 || !ok)
+      continue ;
+
+    station = getOrCreateStation(id);
 
     if (station->name().isEmpty())
-      station->setName(name);
+      station->setName(Tools::ucFirst(name));
     if (station->description().isEmpty())
-      station->setDescription(address);
-    station->setPos(QPointF(lat, lng));
+      station->setDescription(Tools::ucFirst(address));
+    if (station->pos().isNull())
+      station->setPos(QPointF(lat, lng));
 
-    node = node.nextSiblingElement("marker");
+    storeOrDropStation(station);
   }
+
   emit stationsCreated(stations.values());
 }
 

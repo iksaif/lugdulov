@@ -60,29 +60,25 @@ StationsPluginLaRochelle::handleInfos(const QByteArray & data)
 
     if (values.find("num") == values.end())
       continue ;
+
     id = values["num"].toInt();
 
-    if (stations.find(id) == stations.end())
-      stations[id] = new Station(this);
-    station = stations[id];
+    station = getOrCreateStation(id);
 
-    station->setId(id);
     if (station->name().isEmpty())
       station->setName(values["name"]);
 
     lng = values["lon"].toDouble();
     lat = values["lat"].toDouble();
-    station->setPos(QPointF(lat, lng));
+
+    if (station->pos().isNull())
+      station->setPos(QPointF(lat, lng));
+
     station->setBikes(values["bikeCount"].split(" ").at(0).toInt());
     station->setFreeSlots(values["freeLockCount"].toInt());
     station->setTotalSlots(values["lockCount"].split(" ").at(0).toInt());
-  }
 
-  foreach (int id, stations.keys()) {
-    if (rect().contains(stations[id]->pos()))
-      continue ;
-    delete stations[id];
-    stations.remove(id);
+    storeOrDropStation(station);
   }
 
   emit stationsCreated(stations.values());

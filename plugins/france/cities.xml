@@ -2,8 +2,8 @@
 <cities>
   <city id="cergypontoise">
     <type>CycloCity</type>
-    <latitude min="48.848522" max="49.052297">49.048522</latitude>
-    <longitude min="2.002507" max="2.234237">2.034237</longitude>
+    <latitude min="48.838522" max="49.062297">49.048522</latitude>
+    <longitude min="1.992507" max="2.244237">2.034237</longitude>
     <status>http://www.velo2.cergypontoise.fr/service/stationdetails/%1</status>
     <infos>http://www.velo2.cergypontoise.fr/service/carto</infos>
     <name>Cergy-Pontoise</name>
@@ -11,8 +11,8 @@
   </city>
   <city id="paris">
     <type>CycloCity</type>
-    <latitude min="48.656667" max="48.915363">48.856667</latitude>
-    <longitude min="2.222438" max="2.550987">2.350987</longitude>
+    <latitude min="48.646667" max="48.925363">48.856667</latitude>
+    <longitude min="2.212438" max="2.560987">2.350987</longitude>
     <status>http://www.velib.paris.fr/service/stationdetails/%1</status>
     <infos>http://www.velib.paris.fr/service/carto</infos>
     <name>Paris</name>
@@ -20,8 +20,8 @@
   </city>
   <city id="creteil">
     <type>CycloCity</type>
-    <latitude min="48.589613" max="48.798835">48.789613</latitude>
-    <longitude min="2.446249" max="2.652628">2.452628</longitude>
+    <latitude min="48.579613" max="48.808835">48.789613</latitude>
+    <longitude min="2.436249" max="2.662628">2.452628</longitude>
     <status>http://www.cristolib.fr/service/stationdetails/%1</status>
     <infos>http://www.cristolib.fr/service/carto</infos>
     <name>Créteil</name>
@@ -29,8 +29,8 @@
   </city>
   <city id="aixenprovence">
     <type>CycloCity</type>
-    <latitude min="43.324909" max="43.532768">43.524909</latitude>
-    <longitude min="5.431221" max="5.654144">5.454144</longitude>
+    <latitude min="43.314909" max="43.542768">43.524909</latitude>
+    <longitude min="5.421221" max="5.664144">5.454144</longitude>
     <status>http://www.vhello.fr/service/stationdetails/%1</status>
     <infos>http://www.vhello.fr/service/carto</infos>
     <name>Aix-En-Provence</name>
@@ -38,8 +38,8 @@
   </city>
   <city id="amiens">
     <type>CycloCity</type>
-    <latitude min="49.693918" max="49.901942">49.893918</latitude>
-    <longitude min="2.282666" max="2.494244">2.294244</longitude>
+    <latitude min="49.683918" max="49.911942">49.893918</latitude>
+    <longitude min="2.272666" max="2.504244">2.294244</longitude>
     <status>http://www.velam.amiens.fr/service/stationdetails/%1</status>
     <infos>http://www.velam.amiens.fr/service/carto</infos>
     <name>Amiens</name>
@@ -47,8 +47,8 @@
   </city>
   <city id="besancon">
     <type>CycloCity</type>
-    <latitude min="47.041225" max="47.247319">47.241225</latitude>
-    <longitude min="6.006520" max="6.225566">6.025566</longitude>
+    <latitude min="47.031225" max="47.257319">47.241225</latitude>
+    <longitude min="5.996520" max="6.235566">6.025566</longitude>
     <status>http://www.velocite.besancon.fr/service/stationdetails/%1</status>
     <infos>http://www.velocite.besancon.fr/service/carto</infos>
     <name>Besançon</name>
@@ -56,8 +56,8 @@
   </city>
   <city id="marseille">
     <type>CycloCity</type>
-    <latitude min="43.097612" max="43.311820">43.297612</latitude>
-    <longitude min="5.349696" max="5.581042">5.381042</longitude>
+    <latitude min="43.087612" max="43.321820">43.297612</latitude>
+    <longitude min="5.339696" max="5.591042">5.381042</longitude>
     <status>http://www.levelo-mpm.fr/service/stationdetails/%1</status>
     <infos>http://www.levelo-mpm.fr/service/carto</infos>
     <name>Marseille</name>
@@ -65,8 +65,8 @@
   </city>
   <city id="mulhouse">
     <type>CycloCity</type>
-    <latitude min="47.549492" max="47.760404">47.749492</latitude>
-    <longitude min="7.314266" max="7.539781">7.339781</longitude>
+    <latitude min="47.539492" max="47.770404">47.749492</latitude>
+    <longitude min="7.304266" max="7.549781">7.339781</longitude>
     <status>http://www.velocite.mulhouse.fr/service/stationdetails/%1</status>
     <infos>http://www.velocite.mulhouse.fr/service/carto</infos>
     <name>Mulhouse</name>
@@ -74,8 +74,8 @@
   </city>
   <city id="nancy">
     <type>CycloCity</type>
-    <latitude min="48.490789" max="48.700878">48.690789</latitude>
-    <longitude min="6.167422" max="6.382504">6.182504</longitude>
+    <latitude min="48.480789" max="48.710878">48.690789</latitude>
+    <longitude min="6.157422" max="6.392504">6.182504</longitude>
     <status>http://www.velostanlib.fr/service/stationdetails/%1</status>
     <infos>http://www.velostanlib.fr/service/carto</infos>
     <name>Nancy</name>
@@ -83,8 +83,8 @@
   </city>
   <city id="nantes">
     <type>CycloCity</type>
-    <latitude min="47.016842" max="47.227735">47.216842</latitude>
-    <longitude min="-1.578612" max="-1.356745">-1.556744</longitude>
+    <latitude min="47.006842" max="47.237735">47.216842</latitude>
+    <longitude min="-1.588612" max="-1.346745">-1.556744</longitude>
     <status>http://www.bicloo.nantesmetropole.fr/service/stationdetails/%1</status>
     <infos>http://www.bicloo.nantesmetropole.fr/service/carto</infos>
     <name>Nantes</name>
@@ -92,8 +92,8 @@
   </city>
   <city id="plainecommune">
     <type>CycloCity</type>
-    <latitude min="48.736080" max="48.945284">48.936080</latitude>
-    <longitude min="2.348672" max="2.564884">2.364884</longitude>
+    <latitude min="48.726080" max="48.955284">48.936080</latitude>
+    <longitude min="2.338672" max="2.574884">2.364884</longitude>
     <status>http://www.velcom.fr/service/stationdetails/%1</status>
     <infos>http://www.velcom.fr/service/carto</infos>
     <name>Plaine Commune</name>
@@ -101,8 +101,8 @@
   </city>
   <city id="rouen">
     <type>CycloCity</type>
-    <latitude min="49.242367" max="49.448208">49.442367</latitude>
-    <longitude min="1.063998" max="1.298492">1.098492</longitude>
+    <latitude min="49.232367" max="49.458208">49.442367</latitude>
+    <longitude min="1.053998" max="1.308492">1.098492</longitude>
     <status>http://cyclic.rouen.fr/service/stationdetails/%1</status>
     <infos>http://cyclic.rouen.fr/service/carto</infos>
     <name>Rouen</name>
@@ -110,8 +110,8 @@
   </city>
   <city id="toulouse">
     <type>CycloCity</type>
-    <latitude min="43.404363" max="43.642834">43.604363</latitude>
-    <longitude min="1.402302" max="1.642951">1.442951</longitude>
+    <latitude min="43.394363" max="43.652834">43.604363</latitude>
+    <longitude min="1.392302" max="1.652951">1.442951</longitude>
     <status>http://www.velo.toulouse.fr/service/stationdetails/%1</status>
     <infos>http://www.velo.toulouse.fr/service/carto</infos>
     <name>Toulouse</name>
@@ -128,24 +128,24 @@
   </city>
   <city id="caen">
     <type>CityBike</type>
-    <latitude min="48.984667" max="49.192795">49.184667</latitude>
-    <longitude min="-0.388990" max="-0.160270">-0.360270</longitude>
+    <latitude min="48.974667" max="49.202795">49.184667</latitude>
+    <longitude min="-0.398990" max="-0.150270">-0.360270</longitude>
     <infos>http://www.veol.caen.fr/localizaciones/localizaciones.php</infos>
     <name>Caen</name>
     <bikeName>V'eol</bikeName>
   </city>
   <city id="dijon">
     <type>CityBike</type>
-    <latitude min="47.127213" max="47.337572">47.327213</latitude>
-    <longitude min="5.026277" max="5.243988">5.043988</longitude>
+    <latitude min="47.117213" max="47.347572">47.327213</latitude>
+    <longitude min="5.016277" max="5.253988">5.043988</longitude>
     <infos>http://www.velodi.net/localizaciones/localizaciones.php</infos>
     <name>Dijon</name>
     <bikeName>Velodi</bikeName>
   </city>
   <city id="perpignan">
     <type>CityBike</type>
-    <latitude min="42.501574" max="42.723401">42.701574</latitude>
-    <longitude min="2.879947" max="3.094150">2.894150</longitude>
+    <latitude min="42.491574" max="42.733401">42.701574</latitude>
+    <longitude min="2.869947" max="3.104150">2.894150</longitude>
     <infos>http://www.bip-perpignan.fr/localizaciones/localizaciones.php</infos>
     <name>Perpignan</name>
     <bikeName>Bip!</bikeName>

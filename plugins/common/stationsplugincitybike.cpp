@@ -58,6 +58,7 @@ StationsPluginCityBike::handleInfos(const QByteArray & data)
 
   doc.setContent(captured[0]);
   node = doc.firstChild().firstChild().firstChildElement("Placemark");
+
   while (!node.isNull()) {
     QDomDocument subDoc;
     QDomNodeList list;
@@ -65,9 +66,7 @@ StationsPluginCityBike::handleInfos(const QByteArray & data)
     QString str;
     QStringList strl;
 
-    if (stations.find(id) == stations.end())
-      stations[id] = new Station(this);
-    station = stations[id];
+    station = getOrCreateStation(id);
 
     subDoc.setContent(node.firstChild().firstChild().nodeValue());
 
@@ -83,17 +82,20 @@ StationsPluginCityBike::handleInfos(const QByteArray & data)
 	strl << str;
 	strl << str;
       }
-      strl[0] = strl[0].trimmed();
-      strl[1] = strl[1].trimmed();
-      station->setName(strl[0]);
-      station->setDescription(strl[1]);
+      if (strl.size() >= 2) {
+	if (station->name().isEmpty())
+	  station->setName(strl[0].trimmed());
+	if (station->description().isEmpty())
+	  station->setDescription(strl[1].trimmed());
+      }
     }
 
     str = node.firstChild().nextSibling().nextSibling().firstChild().firstChild().nodeValue();
     strl = str.split(",");
 
     if (strl.size() > 2) {
-      station->setPos(QPointF(strl[1].toDouble(), strl[0].toDouble()));
+      if (station->pos().isNull())
+	station->setPos(QPointF(strl[1].toDouble(), strl[0].toDouble()));
     }
 
     list = subDoc.firstChild().childNodes();
@@ -106,14 +108,10 @@ StationsPluginCityBike::handleInfos(const QByteArray & data)
       }
       node = node.nextSiblingElement("Placemark");
     }
-    ++id;
-  }
 
-  foreach (int id, stations.keys()) {
-    if (d->rect.contains(stations[id]->pos()))
-      continue ;
-    delete stations[id];
-    stations.remove(id);
+    storeOrDropStation(station);
+
+    ++id;
   }
 
   emit stationsCreated(stations.values());

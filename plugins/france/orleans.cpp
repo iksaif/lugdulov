@@ -44,29 +44,25 @@ StationsPluginOrleans::handleInfos(const QByteArray & data)
   list = doc.elementsByTagName("marker");
 
   for (int i = 0; i < list.size(); ++i) {
+    bool ok;
     int id;
     Station *station;
     QDomNamedNodeMap attrs = list.at(i).attributes();
 
-    id = attrs.namedItem("id").nodeValue().toInt();
-    if (id <= 0)
-      continue ;
-    if (stations.find(id) == stations.end())
-      stations[id] = new Station(this);
-    station = stations[id];
+    id = attrs.namedItem("id").nodeValue().toInt(&ok);
 
-    station->setId(id);
+    if (id <= 0 || !ok)
+      continue ;
+
+    station = getOrCreateStation(id);
+
     if (station->name().isEmpty())
       station->setName(Tools::ucFirst(attrs.namedItem("name").nodeValue()));
-    station->setPos(QPointF(attrs.namedItem("lat").nodeValue().toDouble(),
-			    attrs.namedItem("lng").nodeValue().toDouble()));
-  }
+    if (station->pos().isNull())
+      station->setPos(QPointF(attrs.namedItem("lat").nodeValue().toDouble(),
+			      attrs.namedItem("lng").nodeValue().toDouble()));
 
-  foreach (int id, stations.keys()) {
-    if (rect().contains(stations[id]->pos()))
-      continue ;
-    delete stations[id];
-    stations.remove(id);
+    storeOrDropStation(station);
   }
 
   emit stationsCreated(stations.values());

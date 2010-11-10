@@ -279,10 +279,21 @@ StationsPluginSimple::storeOrDropStation(Station *station)
   if (!station || station->id() < 0)
     goto drop;
 
+  if (stations.contains(station->id()))
+    goto store;
+
   if (!station->pos().isNull() && !rect().contains(station->pos()))
     goto drop;
 
+  if (station->name().isEmpty())
+    goto drop;
+
+ store:
+  if (station->name().isEmpty())
+    station->setName(QString(tr("Station %1").arg(station->id())));
+
   stations[station->id()] = station;
+  return ;
 
  drop:
   delete station;

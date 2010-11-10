@@ -53,15 +53,16 @@ StationsPluginWien::handleInfos(const QByteArray & data)
     Station *station;
     QDomNamedNodeMap attrs = node.attributes();
     int id;
+    bool ok;
     qreal lat, lng;
 
-    id = node.firstChildElement("id").text().toInt();
+    id = node.firstChildElement("id").text().toInt(&ok);
 
-    if (stations.find(id) == stations.end())
-      stations[id] = new Station(this);
-    station = stations[id];
+    if (!ok)
+      continue ;
 
-    station->setId(id);
+    station = getOrCreateStation(id);
+
     station->setData(node.firstChildElement("internal_id").text().toInt());
 
     if (station->name().isEmpty())
@@ -71,20 +72,17 @@ StationsPluginWien::handleInfos(const QByteArray & data)
 
     lng = node.firstChildElement("longitude").text().toDouble();
     lat = node.firstChildElement("latitude").text().toDouble();
-    station->setPos(QPointF(lat, lng));
+
+    if (station->pos().isNull())
+      station->setPos(QPointF(lat, lng));
 
     station->setBikes(node.firstChildElement("free_bikes").text().toInt());
     station->setFreeSlots(node.firstChildElement("free_boxes").text().toInt());
     station->setTotalSlots(node.firstChildElement("boxes").text().toInt());
+
+    storeOrDropStation(station);
+
     node = node.nextSiblingElement("station");
-  }
-
-
-  foreach (int id, stations.keys()) {
-    if (rect().contains(stations[id]->pos()))
-      continue ;
-    delete stations[id];
-    stations.remove(id);
   }
 
   emit stationsCreated(stations.values());

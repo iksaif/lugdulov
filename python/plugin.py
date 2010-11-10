@@ -34,7 +34,7 @@ def urlopen(url):
         opener = urllib2.build_opener(CacheHandler("cache"))
         return opener.open(url)
     else:
-        urllib2.urlopen(url)
+        return urllib2.urlopen(url)
 
 class Country():
     uid = ""
@@ -139,7 +139,7 @@ class Provider():
     def get_status(self, station, city):
         pass
 
-    def get_city_bike_zone(self, service, city):
+    def get_city_bike_zone(self, service, city, offset = 0.01):
         lat_min  = city.rect[0]
         lat_max  = city.rect[1]
         lng_min = city.rect[2]
@@ -158,7 +158,7 @@ class Provider():
                 if lat_max < lat_place : lat_max = lat_place
                 if lng_min > lng_place : lng_min = lng_place
                 if lng_max < lng_place : lng_max = lng_place
-        return lat_min, lng_min, lat_max, lng_max
+        return lat_min - offset, lng_min - offset, lat_max + offset, lng_max + offset
 
     def _dump_city(self, city):
 

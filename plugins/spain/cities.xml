@@ -2,8 +2,8 @@
 <cities>
   <city id="santander">
     <type>CycloCity</type>
-    <latitude min="43.260960" max="43.478472">43.460960</latitude>
-    <longitude min="-3.824801" max="-3.607934">-3.807934</longitude>
+    <latitude min="43.250960" max="43.488472">43.460960</latitude>
+    <longitude min="-3.834801" max="-3.597934">-3.807934</longitude>
     <status>http://www.tusbic.es/service/stationdetails/%1</status>
     <infos>http://www.tusbic.es/service/carto</infos>
     <name>Santander</name>
@@ -11,8 +11,8 @@
   </city>
   <city id="seville">
     <type>CycloCity</type>
-    <latitude min="37.182640" max="37.424758">37.382640</latitude>
-    <longitude min="-6.012005" max="-5.796295">-5.996295</longitude>
+    <latitude min="37.172640" max="37.434758">37.382640</latitude>
+    <longitude min="-6.022005" max="-5.786295">-5.996295</longitude>
     <status>http://www.sevici.es/service/stationdetails/%1</status>
     <infos>http://www.sevici.es/service/carto</infos>
     <name>Séville</name>
@@ -20,8 +20,8 @@
   </city>
   <city id="barcelone">
     <type>CityBike</type>
-    <latitude min="41.187917" max="41.450881">41.387917</latitude>
-    <longitude min="2.111631" max="2.369919">2.169919</longitude>
+    <latitude min="41.177917" max="41.460881">41.387917</latitude>
+    <longitude min="2.101631" max="2.379919">2.169919</longitude>
     <infos>http://www.bicing.cat/localizaciones/localizaciones.php</infos>
     <name>Barcelone</name>
     <bikeName>Bicing</bikeName>

@@ -16,11 +16,6 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <QtNetwork/QNetworkReply>
-#include <QtGui/QDesktopServices>
-#include <QtCore/QMap>
-#include <QtCore/QVariant>
-#include <QtCore/QFile>
 #include <QtCore/QtPlugin>
 #include <QtCore/QStringList>
 #include <QtXml/QDomNode>
@@ -44,7 +39,7 @@ StationsPluginNextBike::handleInfos(const QByteArray & data)
 {
   QDomDocument doc;
   QDomNode country, city, node;
-  QString cityName = name();
+  QString cityId = id();
 
   doc.setContent(data);
 
@@ -54,9 +49,8 @@ StationsPluginNextBike::handleInfos(const QByteArray & data)
     city = country.firstChildElement("city");
 
     while (!city.isNull()) {
-      QDomNamedNodeMap attrs = city.attributes();
 
-      if (attrs.contains("name") && attrs.namedItem("name").nodeValue() == cityName)
+      if (city.toElement().attribute("uid") == cityId)
 	goto found;
 
       city = city.nextSiblingElement("city");
@@ -70,24 +64,26 @@ StationsPluginNextBike::handleInfos(const QByteArray & data)
   node = city.firstChildElement("place");
   while (!node.isNull()) {
     Station *station;
+    bool ok;
     QDomNamedNodeMap attrs = node.attributes();
     int id;
     qreal lat, lng;
 
-    id = attrs.namedItem("uid").nodeValue().toInt();
+    id = attrs.namedItem("uid").nodeValue().toInt(&ok);
 
-    if (stations.find(id) == stations.end())
-      stations[id] = new Station(this);
-    station = stations[id];
+    if (!ok)
+      continue ;
 
-    station->setId(id);
-    if (station->name().isEmpty()) {
+    station = getOrCreateStation(id);
+
+    if (station->name().isEmpty())
       station->setName(attrs.namedItem("name").nodeValue());
-    }
 
     lat = attrs.namedItem("lat").nodeValue().toDouble();
     lng = attrs.namedItem("lng").nodeValue().toDouble();
-    station->setPos(QPointF(lat, lng));
+
+    if (station->pos().isNull())
+      station->setPos(QPointF(lat, lng));
 
     station->setBikes(attrs.namedItem("bikes").nodeValue().replace("+", "").toInt());
     if (attrs.contains("bike_racks")) {
@@ -98,13 +94,8 @@ StationsPluginNextBike::handleInfos(const QByteArray & data)
       station->setTotalSlots(-1);
     }
     node = node.nextSiblingElement("place");
-  }
 
-  foreach (int id, stations.keys()) {
-    if (d->rect.contains(stations[id]->pos()))
-      continue ;
-    delete stations[id];
-    stations.remove(id);
+    storeOrDropStation(station);
   }
 
   emit stationsCreated(stations.values());

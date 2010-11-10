@@ -74,29 +74,27 @@ StationsPluginVelIn::handleInfos(const QByteArray & data)
     QVariantMap sta = var.toMap();
     int id;
     Station *station;
+    bool ok;
 
     if (sta.count() == 0)
       continue;
 
-    id = sta["id"].toInt();
-    if (!stations[id])
-      stations[id] = new Station(this);
+    id = sta["id"].toInt(&ok);
 
-    station = stations[id];
-    station->setId(id);
+    if (!ok)
+      continue ;
+
+    station = getOrCreateStation(id);
+
     if (station->name().isEmpty())
       station->setName(sta["name"].toString());
-    station->setPos(QPointF(sta["lat"].toReal(), sta["lng"].toReal()));
+    if (station->pos().isNull())
+      station->setPos(QPointF(sta["lat"].toReal(), sta["lng"].toReal()));
     station->setBikes(sta["ab"].toInt());
     station->setFreeSlots(sta["ap"].toInt());
     station->setTotalSlots(sta["tc"].toInt());
-  }
 
-  foreach (int id, stations.keys()) {
-    if (d->rect.contains(stations[id]->pos()))
-      continue ;
-    delete stations[id];
-    stations.remove(id);
+    storeOrDropStation(station);
   }
 
   emit stationsCreated(stations.values());

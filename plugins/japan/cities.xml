@@ -2,8 +2,8 @@
 <cities>
   <city id="toyama">
     <type>CycloCity</type>
-    <latitude min="36.495952" max="137.013677">36.695952</latitude>
-    <longitude min="36.895952" max="137.413677">137.213677</longitude>
+    <latitude min="36.485952" max="137.023677">36.695952</latitude>
+    <longitude min="36.885952" max="137.423677">137.213677</longitude>
     <status>http://www.cyclocity.jp/service/stationdetails/%1</status>
     <infos>http://www.cyclocity.jp/service/carto</infos>
     <name>Toyama</name>

@@ -66,7 +66,6 @@ StationsPluginLyon::handleInfos(const QByteArray & data)
 {
   QJson::Parser parser;
   bool ok;
-  QList < Station * > created;
   QVariant result = parser.parse(data, &ok);
 
   if (!ok)
@@ -85,14 +84,13 @@ StationsPluginLyon::handleInfos(const QByteArray & data)
     if (sta.count() == 0)
       continue;
 
-    id = sta["numStation"].toInt();
-    if (!stations[id]) {
-      stations[id] = new Station(this);
-      created << stations[id];
-    }
+    id = sta["numStation"].toInt(&ok);
 
-    station = stations[id];
-    station->setId(sta["numStation"].toInt());
+    if (!ok)
+      continue ;
+
+    station = getOrCreateStation(id);
+
     if (station->name().isEmpty())
       station->setName(sta["nomStation"].toString());
     if (station->description().isEmpty())
@@ -101,8 +99,7 @@ StationsPluginLyon::handleInfos(const QByteArray & data)
       station->setPos(QPointF(sta["x"].toReal(), sta["y"].toReal()));
   }
 
-  if (created.size())
-    emit stationsCreated(created);
+  emit stationsCreated(stations.values());
 }
 
 void
@@ -110,14 +107,13 @@ StationsPluginLyon::handleStatus(const QByteArray & data, int id)
 {
   Station *station;
   QList < Station * > updated;
+  QDomDocument doc;
+  QDomNode node;
 
   if (!stations[id] || data.isEmpty())
     return ;
 
   station = stations[id];
-
-  QDomDocument doc;
-  QDomNode node;
 
   doc.setContent(data);
   node = doc.firstChildElement("station");

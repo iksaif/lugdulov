@@ -41,31 +41,32 @@ StationsPluginMontreal::handleInfos(const QByteArray & data)
 
   list = doc.elementsByTagName("station");
   for (int i = 0; i < list.size(); ++i) {
+    bool ok;
     int id;
     Station *station;
     QPointF pos;
     QDomNode node = list.at(i);
 
-    id = node.firstChildElement("id").toElement().text().toInt();
-    if (id <= 0)
+    id = node.firstChildElement("id").toElement().text().toInt(&ok);
+
+    if (id <= 0 || !ok)
       continue ;
+
     pos = QPointF(node.firstChildElement("lat").toElement().text().toDouble(),
 		  node.firstChildElement("long").toElement().text().toDouble());
-    if (!rect().contains(pos))
-      continue ;
 
-    if (stations.find(id) == stations.end())
-      stations[id] = new Station(this);
-    station = stations[id];
+    station = getOrCreateStation(id);
 
-    station->setId(id);
     if (station->name().isEmpty())
       station->setName(Tools::ucFirst(node.firstChildElement("name").toElement().text()));
-    station->setPos(pos);
+    if (station->pos().isNull())
+      station->setPos(pos);
 
     station->setFreeSlots(node.firstChildElement("nbEmptyDocks").toElement().text().toInt());
     station->setBikes(node.firstChildElement("nbBikes").toElement().text().toInt());
     station->setTotalSlots(station->bikes() + station->freeSlots());
+
+    storeOrDropStation(station);
   }
 
   emit stationsCreated(stations.values());

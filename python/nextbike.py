@@ -81,12 +81,12 @@ class NextBike(Provider):
         nodes = cnode.getElementsByTagName("city")
         for node in nodes:
             city = City()
-            city.id = node.getAttribute('uid')
+            city.uid = node.getAttribute('uid')
             city.name = node.getAttribute('name')
-            city.oname = city.name
-            if city.name.find("(") != -1:
-                city.name = city.name.split('(')[0]
-            city.uid = city.name.lower().strip().replace(' ', '-')
+            #city.oname = city.name
+            #if city.name.find("(") != -1:
+            #    city.name = city.name.split('(')[0]
+            #city.uid = city.name.lower().strip().replace(' ', '-')
             city.uid = normalize("NFD", city.uid).encode("ascii", "ignore")
             city.bikeName = 'nextbike'
             city.lat = float(node.getAttribute('lat'))
