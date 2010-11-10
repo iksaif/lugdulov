@@ -57,8 +57,8 @@ QStringList StationsPluginLyon::regions() {
 void
 StationsPluginLyon::fetchOnline()
 {
-  //foreach (QString region, regions())
-  //  fetchFromUrl(stationsJsonUrl(region));
+  foreach (QString region, regions())
+    fetchFromUrl(stationsJsonUrl(region));
 }
 
 void
@@ -97,6 +97,8 @@ StationsPluginLyon::handleInfos(const QByteArray & data)
       station->setDescription(sta["infoStation"].toString());
     if (station->pos().isNull())
       station->setPos(QPointF(sta["x"].toReal(), sta["y"].toReal()));
+
+    storeOrDropStation(station);
   }
 
   emit stationsCreated(stations.values());

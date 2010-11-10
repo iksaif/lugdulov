@@ -118,11 +118,18 @@ void
 StationsPluginSimple::fetchAll()
 {
   if (!cacheLoaded) {
-    loadDiskCache(diskCache());
-    cacheLoaded = true;
-  }
+    QFile file(diskCache());
+  
+    if (file.exists()) {
+      loadDiskCache(file.fileName());
+      emit stationsCreated(stations.values());
+    } else
+      fetchOnline();
 
-  emit stationsCreated(stations.values());
+    cacheLoaded = true;
+  } else {
+    emit stationsCreated(stations.values());
+  }
 }
 
 void
