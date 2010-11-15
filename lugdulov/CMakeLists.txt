@@ -30,7 +30,8 @@ set(lugdulov_SRCS
   mapdialog.cpp
   mapwidget.cpp
   pluginsdialog.cpp
-  aboutdialog.cpp)
+  aboutdialog.cpp
+  settingsdialog.cpp)
 
 set(lugdulov_UIS
   mainwindow.ui
@@ -38,7 +39,8 @@ set(lugdulov_UIS
   stationslistdialog.ui
   mapdialog.ui
   pluginsdialog.ui
-  aboutdialog.ui)
+  aboutdialog.ui
+  settingsdialog.ui)
 
 set(lugdulov_MOC_HDRS
   mainwindow.h
@@ -50,7 +52,8 @@ set(lugdulov_MOC_HDRS
   mapdialog.h
   mapwidget.h
   pluginsdialog.h
-  aboutdialog.h)
+  aboutdialog.h
+  settingsdialog.h)
 
 set(lugdulov_RCS res/lugdulov.qrc i18n/i18n.qrc)
 set(lugdulov_TRS

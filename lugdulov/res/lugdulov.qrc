@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="res">
+    <file>configure.png</file>
     <file>paypal.png</file>
     <file>flattr.png</file>
     <file>map.png</file>

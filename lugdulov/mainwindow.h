@@ -56,6 +56,7 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
   void search();
   void map();
   void bookmarks();
+  void settings();
 
   void buttonClicked();
   void setStationsPlugin(StationsPlugin *plugin, bool save = false);

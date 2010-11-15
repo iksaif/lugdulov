@@ -26,21 +26,7 @@
       </property>
      </widget>
     </item>
-    <item row="5" column="0" rowspan="2" colspan="2">
-     <widget class="QCommandLinkButton" name="searchLinkButton">
-      <property name="text">
-       <string>Search Stations</string>
-      </property>
-      <property name="icon">
-       <iconset resource="res/lugdulov.qrc">
-        <normaloff>:/res/slot.png</normaloff>:/res/slot.png</iconset>
-      </property>
-      <property name="description">
-       <string>Search stations by name, check their status and bookmark them.</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="0" colspan="2">
+    <item row="7" column="0" colspan="3">
      <widget class="QCommandLinkButton" name="bookmarkLinkButton">
       <property name="text">
        <string>Favorites Stations</string>
@@ -54,7 +40,7 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="0" colspan="2">
+    <item row="4" column="0" colspan="3">
      <widget class="QCommandLinkButton" name="mapLinkButton">
       <property name="text">
        <string>Maps</string>
@@ -82,7 +68,7 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
+    <item row="1" column="1" colspan="2">
      <widget class="QLabel" name="iconLabel">
       <property name="text">
        <string/>
@@ -128,6 +114,31 @@
       </property>
      </spacer>
     </item>
+    <item row="2" column="2">
+     <widget class="QToolButton" name="settingsButton">
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="res/lugdulov.qrc">
+        <normaloff>:/res/configure.png</normaloff>:/res/configure.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0" rowspan="2" colspan="3">
+     <widget class="QCommandLinkButton" name="searchLinkButton">
+      <property name="text">
+       <string>Search Stations</string>
+      </property>
+      <property name="icon">
+       <iconset resource="res/lugdulov.qrc">
+        <normaloff>:/res/slot.png</normaloff>:/res/slot.png</iconset>
+      </property>
+      <property name="description">
+       <string>Search stations by name, check their status and bookmark them.</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -137,7 +148,7 @@
      <x>0</x>
      <y>0</y>
      <width>320</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -145,6 +156,12 @@
      <string>&amp;File</string>
     </property>
     <addaction name="quitAction"/>
+   </widget>
+   <widget class="QMenu" name="menu_Edit">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+    <addaction name="settingsAction"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
@@ -154,6 +171,7 @@
     <addaction name="aboutAction"/>
    </widget>
    <addaction name="menu_File"/>
+   <addaction name="menu_Edit"/>
    <addaction name="menu_Help"/>
   </widget>
   <action name="aboutQtAction">
@@ -169,6 +187,15 @@
   <action name="quitAction">
    <property name="text">
     <string>&amp;Quit</string>
+   </property>
+  </action>
+  <action name="settingsAction">
+   <property name="icon">
+    <iconset resource="res/lugdulov.qrc">
+     <normaloff>:/res/configure.png</normaloff>:/res/configure.png</iconset>
+   </property>
+   <property name="text">
+    <string>Settings...</string>
    </property>
   </action>
  </widget>

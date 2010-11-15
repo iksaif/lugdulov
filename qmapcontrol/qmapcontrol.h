@@ -8,6 +8,7 @@
 #include "linestring.h"
 #include "gps_position.h"
 #include "osmmapadapter.h"
+#include "ocmmapadapter.h"
 #include "maplayer.h"
 #include "geometrylayer.h"
 #include "yahoomapadapter.h"

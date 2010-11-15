@@ -23,6 +23,7 @@ HEADERS += curve.h \
            imagepoint.h \
            gps_position.h \
            osmmapadapter.h \
+           ocmmapadapter.h \
            maplayer.h \
            geometrylayer.h \
            yahoomapadapter.h \
@@ -47,6 +48,7 @@ SOURCES += curve.cpp \
            imagepoint.cpp \
            gps_position.cpp \
            osmmapadapter.cpp \
+           ocmmapadapter.cpp \
            maplayer.cpp \
            geometrylayer.cpp \
            yahoomapadapter.cpp \

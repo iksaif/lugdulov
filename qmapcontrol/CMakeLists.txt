@@ -21,6 +21,7 @@ set(qmapcontrol_SRCS
   mapnetwork.cpp
   openaerialmapadapter.cpp
   osmmapadapter.cpp
+  ocmmapadapter.cpp
   point.cpp
   tilemapadapter.cpp
   wmsmapadapter.cpp
@@ -43,6 +44,7 @@ set(qmapcontrol_MOC_HDRS
   mapnetwork.h
   openaerialmapadapter.h
   osmmapadapter.h
+  ocmmapadapter.h
   point.h
   tilemapadapter.h
   yahoomapadapter.h)

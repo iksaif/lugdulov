@@ -34,6 +34,7 @@
 #include "mapdialog.h"
 #include "settings.h"
 #include "aboutdialog.h"
+#include "settingsdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
@@ -107,6 +108,8 @@ MainWindow::createActions()
   quitAction->setIcon(QIcon::fromTheme("dialog-close"));
   aboutAction->setIcon(QIcon::fromTheme("dialog-information"));
   aboutQtAction->setIcon(QPixmap(":/trolltech/qmessagebox/images/qtlogo-64.png"));
+  settingsAction->setIcon(QIcon::fromTheme("configure", QPixmap(":/res/configure.png")));
+  settingsButton->setIcon(QIcon::fromTheme("configure", QPixmap(":/res/configure.png")));
 
   connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
   connect(aboutQtAction, SIGNAL(triggered()), this, SLOT(aboutQt()));
@@ -114,6 +117,9 @@ MainWindow::createActions()
   connect(searchLinkButton, SIGNAL(clicked(bool)), this, SLOT(search()));
   connect(mapLinkButton, SIGNAL(clicked(bool)), this, SLOT(map()));
   connect(bookmarkLinkButton, SIGNAL(clicked(bool)), this, SLOT(bookmarks()));
+
+  connect(settingsAction, SIGNAL(triggered(bool)), this, SLOT(settings()));
+  connect(settingsButton, SIGNAL(clicked(bool)), this, SLOT(settings()));
 }
 
 void
@@ -130,6 +136,8 @@ MainWindow::delayedInit()
   session->open();
 #endif
 #ifdef HAVE_QT_LOCATION
+  Settings conf;
+
   localisation = QGeoPositionInfoSource::createDefaultSource(this);
 
   if (!localisation)
@@ -141,7 +149,10 @@ MainWindow::delayedInit()
 	  this, SLOT(positionUpdated(QGeoPositionInfo)));
   connect(localisation, SIGNAL(updateTimeout()), this, SLOT(positionRequestTimeout()));
 
-  localisation->setUpdateInterval(5000);
+  if (conf.value("GpsPowerSave").toBool())
+    localisation->setUpdateInterval(200000);
+  else
+    localisation->setUpdateInterval(10000);
   localisation->startUpdates();
   localisation->requestUpdate(15000);
 #endif
@@ -371,4 +382,13 @@ MainWindow::updatePlugin(void)
 #endif
 
   plugin->fetchOnline();
+}
+
+void
+MainWindow::settings()
+{
+  SettingsDialog dialog(this);
+
+  if (dialog.exec())
+    dialog.saveSettings();
 }

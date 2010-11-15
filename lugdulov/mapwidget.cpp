@@ -107,9 +107,17 @@ MapWidget::createInnerLayout()
 void
 MapWidget::setupMapControl()
 {
+  Settings conf;
+  QString provider = conf.value("MapProvider").toString();
+
   mc = new MapControl(size());
-  //mapadapter = new GoogleMapAdapter();
-  mapadapter = new OSMMapAdapter();
+
+  if (provider == "google")
+    mapadapter = new GoogleMapAdapter();
+  else if (provider == "openstreetmap")
+    mapadapter = new OSMMapAdapter();
+  else
+    mapadapter = new OCMMapAdapter();
 
   Layer* l = new Layer("Custom Layer", mapadapter, Layer::MapLayer);
 
