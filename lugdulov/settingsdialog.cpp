@@ -18,6 +18,8 @@
 
 #include "config.h"
 
+#include "mobility.h"
+
 #include "lugdulov.h"
 #include "ui_settingsdialog.h"
 #include "settingsdialog.h"
@@ -32,15 +34,24 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 #endif
   ui(new Ui_SettingsDialog())
 {
+  QStringList providers = QGeoServiceProvider::availableServiceProviders();
+
   ui->setupUi(this);
   setupDialog(this);
 
+#if !defined(QMAPCONTROL)
+  if (providers.contains("google"))
+      ui->comboBox->addItem(tr("Google Maps"), "google");
+  if (providers.contains("openstreetmap")) {
+      ui->comboBox->addItem(tr("Open Street Map"), "openstreetmap");
+      ui->comboBox->addItem(tr("Open Cycle Map"), "opencyclemap");
+  }
+  if (providers.contains("nokia"))
+      ui->comboBox->addItem(tr("Ovi Maps (Nokia)"), "nokia");
+#else
   ui->comboBox->addItem(tr("Google Maps"), "google");
   ui->comboBox->addItem(tr("Open Street Map"), "openstreetmap");
   ui->comboBox->addItem(tr("Open Cycle Map"), "opencyclemap");
-
-#if !defined(QMAPCONTROL)
-  ui->comboBox->addItem(tr("Ovi Maps (Nokia)"), "nokia");
 #endif
 
   Settings conf;
