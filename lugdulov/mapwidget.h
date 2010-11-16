@@ -16,74 +16,10 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef MAPWIDGET_H
-#define MAPWIDGET_H
+#include "config.h"
 
-#include <QtGui/QWidget>
-#include <QtCore/QTimer>
-#include <QtCore/QMap>
-
-#include "mobility.h"
-
-#include "qmapcontrol.h"
-
-class StationsModel;
-class StationsSortFilterProxyModel;
-class StationsPlugin;
-class Station;
-
-using namespace qmapcontrol;
-
-class MapWidget : public QWidget
-{
-  Q_OBJECT
- public:
-  MapWidget(QWidget * parent = 0);
-  ~MapWidget();
-
-  void setPlugin(StationsPlugin *p);
-
- public slots:
-  void centerView(const QPointF & position, int zoom = -1);
-#ifdef HAVE_QT_LOCATION
-  void positionUpdated(const QGeoPositionInfo & info);
-#endif
-
- private slots:
-  void viewChanged(const QPointF & coordinate, int zoom);
-  void refreshStations();
-  void refreshStatus();
-  void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight);
-  void geometryClicked(Geometry *geom, QPoint pt);
-
- protected:
-  virtual void resizeEvent(QResizeEvent * event);
-  virtual void keyPressEvent(QKeyEvent* event);
-
- private:
-  void showStation(Station *station);
-  void createInnerLayout();
-  void setupMapControl();
-  void grabZoomKeys(bool grab);
-
- private:
-  MapControl *mc;
-  TileMapAdapter *mapadapter;
-  GeometryLayer *stationsLayer;
-  GeometryLayer *positionLayer;
-  Point *positionMarker;
-
-  QMap < Point *, Station * > stations;
-  QMap < Station *, Point * > geometries;
-
-  QPushButton* follow;
-  StationsModel *model;
-  StationsSortFilterProxyModel *proxy;
-  QPointF coord;
-  StationsPlugin *plugin;
-
-  QTimer *stationsTimer;
-  QTimer *statusTimer;
-};
-
+#if defined(QMAPCONTROL)
+# include "mapwidget_qmapcontrol.h"
+#else
+# include "mapwidget_qtm.h"
 #endif

@@ -30,6 +30,7 @@
 #include "tools.h"
 #include "station.h"
 #include "stationsplugincyclocity.h"
+#include "tools.h"
 
 StationsPluginCycloCity::StationsPluginCycloCity(QObject *parent)
   : StationsPluginSimple(parent)
@@ -54,8 +55,8 @@ StationsPluginCycloCity::handleInfos(const QByteArray & data)
     Station *station;
     bool ok;
     int id = attr.namedItem("number").nodeValue().toUInt(&ok);
-    QString name = attr.namedItem("name").nodeValue();
-    QString address = attr.namedItem("address").nodeValue();
+    QString name = Tools::ucFirst(attr.namedItem("name").nodeValue());
+    QString address = Tools::ucFirst(attr.namedItem("address").nodeValue());
     double lat = attr.namedItem("lat").nodeValue().toDouble();
     double lng = attr.namedItem("lng").nodeValue().toDouble();
 

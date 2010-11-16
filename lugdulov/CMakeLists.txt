@@ -27,20 +27,19 @@ set(lugdulov_SRCS
   bookmarklistdialog.cpp
   stationdelegate.cpp
   stationslistview.cpp
-  mapdialog.cpp
-  mapwidget.cpp
   pluginsdialog.cpp
   aboutdialog.cpp
-  settingsdialog.cpp)
+  settingsdialog.cpp
+  mapdialog.cpp)
 
 set(lugdulov_UIS
   mainwindow.ui
   stationdialog.ui
   stationslistdialog.ui
-  mapdialog.ui
   pluginsdialog.ui
   aboutdialog.ui
-  settingsdialog.ui)
+  settingsdialog.ui
+  mapdialog.ui)
 
 set(lugdulov_MOC_HDRS
   mainwindow.h
@@ -49,11 +48,18 @@ set(lugdulov_MOC_HDRS
   bookmarklistdialog.h
   stationdelegate.h
   stationslistview.h
-  mapdialog.h
-  mapwidget.h
   pluginsdialog.h
   aboutdialog.h
-  settingsdialog.h)
+  settingsdialog.h
+  mapdialog.h)
+
+if (QMAPCONTROL)
+  set(lugdulov_SRCS ${lugdulov_SRCS} mapwidget_qmapcontrol.cpp)
+  set(lugdulov_MOC_HDRS ${lugdulov_MOC_HDRS} mapwidget_qmapcontrol.h)
+else()
+  set(lugdulov_SRCS ${lugdulov_SRCS} mapwidget_qtm.cpp mapgraphicswidget_qtm.cpp)
+  set(lugdulov_MOC_HDRS ${lugdulov_MOC_HDRS} mapwidget_qtm.h mapgraphicswidget_qtm.h)
+endif()
 
 set(lugdulov_RCS res/lugdulov.qrc i18n/i18n.qrc)
 set(lugdulov_TRS
@@ -123,9 +129,12 @@ endif ()
 target_link_libraries(
   lugdulov
   lugdulov_base
-  qmapcontrol
   ${QT_LIBRARIES}
 )
+
+if (QMAPCONTROL)
+  target_link_libraries(lugdulov qmapcontrol)
+endif()
 
 install(TARGETS lugdulov
   LIBRARY DESTINATION lib

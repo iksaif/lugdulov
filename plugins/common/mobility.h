@@ -33,10 +33,16 @@
 #  include <QGeoPositionInfoSource>
 #  include <QGeoCoordinate>
 #  include <QGeoPositionInfo>
+#  include <QGraphicsGeoMap>
+#  include <QGeoMapPixmapObject>
+#  include <QGeoServiceProvider>
 # else
 #  include <QtLocation/QGeoPositionInfoSource>
 #  include <QtLocation/QGeoPositionInfo>
 #  include <QtLocation/QGeoPositionInfoSource>
+#  include <QtLocation/QGraphicsGeoMap>
+#  include <QtLocation/QGeoMapPixmapObject>
+#  include <QtLocation/QGeoServiceProvider>
 # endif
 #endif
 

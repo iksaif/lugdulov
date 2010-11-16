@@ -27,7 +27,7 @@
 #include <QtGui/QDesktopServices>
 
 #include "lugdulov.h"
-#include "mapwidget.h"
+#include "mapwidget_qmapcontrol.h"
 #include "stationsmodel.h"
 #include "stationssortfilterproxymodel.h"
 #include "settings.h"
@@ -61,7 +61,7 @@ MapWidget::MapWidget(QWidget *parent)
 
 MapWidget::~MapWidget()
 {
-  grabZoomKeys(true);
+  grabZoomKeys(false);
 }
 
 void
@@ -107,17 +107,9 @@ MapWidget::createInnerLayout()
 void
 MapWidget::setupMapControl()
 {
-  Settings conf;
-  QString provider = conf.value("MapProvider").toString();
-
   mc = new MapControl(size());
-
-  if (provider == "google")
-    mapadapter = new GoogleMapAdapter();
-  else if (provider == "openstreetmap")
-    mapadapter = new OSMMapAdapter();
-  else
-    mapadapter = new OCMMapAdapter();
+  //mapadapter = new GoogleMapAdapter();
+  mapadapter = new OSMMapAdapter();
 
   Layer* l = new Layer("Custom Layer", mapadapter, Layer::MapLayer);
 
@@ -324,7 +316,6 @@ MapWidget::refreshStations()
   stationsTimer->stop();
 
   proxy->setPosition(QPointF(coord.x(), coord.y()));
-  proxy->setSortRole(StationsSortFilterProxyModel::StationDistanceRole);
   proxy->sort(0);
 
   for (int i = 0; i < proxy->rowCount(); ++i) {
