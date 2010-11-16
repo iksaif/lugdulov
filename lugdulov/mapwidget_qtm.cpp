@@ -20,6 +20,7 @@
 #include <QtGui/QGraphicsView>
 #include <QtGui/QMessageBox>
 #include <QtGui/QPushButton>
+#include <QtGui/QDesktopServices>
 
 #include "config.h"
 
@@ -48,13 +49,16 @@ MapWidget::MapWidget(QWidget *parent)
   stationsTimer(0),
   statusTimer(0)
 {
+  Settings conf;
+  QString provider = conf.value("MapProvider").toString();
+
   QGraphicsScene* scene = new QGraphicsScene(this);
   setScene(scene);
 
   setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-  setProvider("openstreetmap"); // FIXME settings
+  setProvider(provider);
 
   mapWidget = new MapGraphicsWidget(mapManager);
   mapWidget->setZoomLevel(mapWidget->maximumZoomLevel());
@@ -159,16 +163,36 @@ MapWidget::setPlugin(StationsPlugin *p)
 void
 MapWidget::setProvider(QString providerId)
 {
+  QStringList providers = QGeoServiceProvider::availableServiceProviders();
   QMap<QString, QVariant> parameters;
 
-  parameters["mapping.servers"] = QStringList("http://tile.opencyclemap.org/cycle/");
+  if (providerId != "google" && providerId != "nokia" && providerId != "openstreetmap")
+    providerId = "opencyclemap";
+
+  if (providerId == "opencyclemap") {
+    providerId = "openstreetmap";
+    parameters["mapping.servers"] = QStringList("http://tile.opencyclemap.org/cycle/");
+  }
+
+  if (!providers.contains(providerId)) {
+    parameters.clear();
+
+    if (providers.contains("nokia"))
+      providerId = "nokia";
+    else if (!providers.isEmpty())
+      providerId = providers.at(0);
+    else
+      providerId = QString();
+  }
+
+  parameters["mapping.cache.directory"] = QDesktopServices::storageLocation(QDesktopServices::CacheLocation);
 
   if (serviceProvider)
     delete serviceProvider;
 
   serviceProvider = new QGeoServiceProvider(providerId, parameters);
   if (serviceProvider->error() != QGeoServiceProvider::NoError) {
-    QMessageBox::information(this, tr("Error"), tr("Unable to find the %1 geoservices plugin.").arg(providerId));
+    QMessageBox::information(this, tr("Error"), tr("Unable to find the '%1' geoservices plugin.").arg(providerId));
     qApp->quit();
     return;
   }
