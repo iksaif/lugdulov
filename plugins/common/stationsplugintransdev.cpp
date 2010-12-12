@@ -19,19 +19,19 @@
 #include <QtXml/QDomNode>
 
 #include "station.h"
-#include "avignon.h"
+#include "stationsplugintransdev.h"
 
-StationsPluginAvignon::StationsPluginAvignon(QObject *parent)
+StationsPluginTransdev::StationsPluginTransdev(QObject *parent)
   : StationsPluginSingle(parent)
 {
 }
 
-StationsPluginAvignon::~StationsPluginAvignon()
+StationsPluginTransdev::~StationsPluginTransdev()
 {
 }
 #include <QDebug>
 void
-StationsPluginAvignon::handleInfos(const QByteArray & data)
+StationsPluginTransdev::handleInfos(const QByteArray & data)
 {
   QRegExp re("map\\.addOverlay\\(newmark_0[1|3]\\((\\d+), ([0-9\\.]+),([0-9\\.]+), "
 	     "\"<div .*>(.*)<br>.*disponibles: (\\d+)<br>Emplacements libres: (\\d+)<br>");

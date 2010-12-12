@@ -24,7 +24,6 @@
 #include "larochelle.h"
 #include "orleans.h"
 #include "rennes.h"
-#include "avignon.h"
 #include "lyon.h"
 
 StationsPluginFactoryFrance::StationsPluginFactoryFrance()
@@ -45,8 +44,6 @@ StationsPluginFactoryFrance::pluginForType(const QString & type)
     return new StationsPluginOrleans();
   else if (type == "Rennes" || type == "VeloStar")
     return new StationsPluginRennes();
-  else if (type == "Avignon" || type == "VeloPop")
-    return new StationsPluginAvignon();
   else
     return StationsPluginFactorySimple::pluginForType(type);
 }

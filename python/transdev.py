@@ -121,9 +121,9 @@ class Transdev(Provider):
             city.bikeIcon = ""
             city.lat = service['lat']
             city.lng = service['lng']
-            city.create_rect()
-            city.type = "Transdev"
+            city.create_rect(offset = 0.05)
             city.rect = self.get_city_bike_zone(service, city)
+            city.type = "Transdev"
             ret.append(city)
         return ret
 

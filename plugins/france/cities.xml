@@ -208,12 +208,44 @@
     <bikeName>Velo+</bikeName>
   </city>
   <city id="avignon">
-    <type>VeloPop</type>
-    <latitude min="43.748613" max="44.148613">43.948613</latitude>
-    <longitude min="4.605967" max="5.005967">4.805967</longitude>
+    <type>Transdev</type>
+    <latitude min="43.888613" max="43.960911">43.948613</latitude>
+    <longitude min="4.789444" max="4.865967">4.805967</longitude>
     <infos>http://www.velopop.fr/stations.html</infos>
     <name>Avignon</name>
     <bikeName>Velopop</bikeName>
+  </city>
+  <city id="saint_etienne">
+    <type>Transdev</type>
+    <latitude min="45.367530" max="45.463601">45.427530</latitude>
+    <longitude min="4.368789" max="4.451760">4.391760</longitude>
+    <infos>http://www.velivert.fr/sag_vls_stations_ste.html</infos>
+    <name>Saint-Etienne</name>
+    <bikeName>VéliVert</bikeName>
+  </city>
+  <city id="saint_chamond">
+    <type>Transdev</type>
+    <latitude min="45.412690" max="45.488171">45.472690</latitude>
+    <longitude min="4.498348" max="4.570750">4.510750</longitude>
+    <infos>http://www.velivert.fr/sag_vls_stations_stc.html</infos>
+    <name>Saint-Chamond</name>
+    <bikeName>VéliVert</bikeName>
+  </city>
+  <city id="firminy">
+    <type>Transdev</type>
+    <latitude min="45.325090" max="45.401532">45.385090</latitude>
+    <longitude min="4.275899" max="4.347880">4.287880</longitude>
+    <infos>http://www.velivert.fr/sag_vls_stations_fir.html</infos>
+    <name>Firminy</name>
+    <bikeName>VéliVert</bikeName>
+  </city>
+  <city id="rive_de_gier">
+    <type>Transdev</type>
+    <latitude min="45.463660" max="45.542500">45.523660</latitude>
+    <longitude min="4.595833" max="4.670410">4.610410</longitude>
+    <infos>http://www.velivert.fr/sag_vls_stations_rdg.html</infos>
+    <name>Rive De Gier</name>
+    <bikeName>VéliVert</bikeName>
   </city>
   <city id="rennes">
     <type>VeloStar</type>

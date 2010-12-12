@@ -13,7 +13,6 @@ set(france_SRCS
   lyon.cpp
   orleans.cpp
   rennes.cpp
-  avignon.cpp
 )
 
 set(france_TRS
@@ -26,7 +25,6 @@ set(france_HDRS
   lyon.h
   orleans.h
   rennes.h
-  avignon.h
 )
 
 set_source_files_properties(${france_TRS} PROPERTIES OUTPUT_LOCATION ${france_SOURCE_DIR})

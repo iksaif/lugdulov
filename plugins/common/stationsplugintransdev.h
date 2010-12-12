@@ -16,22 +16,22 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_AVIGNON_H
-#define STATIONS_AVIGNON_H
+#ifndef STATIONS_TRANSDEV_H
+#define STATIONS_TRANSDEV_H
 
 #include "stationspluginsingle.h"
 
 class Station;
 
-class StationsPluginAvignon : public StationsPluginSingle
+class StationsPluginTransdev : public StationsPluginSingle
 {
   Q_OBJECT
  public:
-  StationsPluginAvignon(QObject *parent = NULL);
-  virtual ~StationsPluginAvignon();
+  StationsPluginTransdev(QObject *parent = NULL);
+  virtual ~StationsPluginTransdev();
 
  protected:
   virtual void handleInfos(const QByteArray & data);
 };
 
-#endif /* STATIONS_AVIGNON_H */
+#endif /* STATIONS_TRANSDEV_H */

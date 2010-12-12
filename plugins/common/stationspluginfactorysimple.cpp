@@ -29,6 +29,7 @@
 #include "stationsplugindupral.h"
 #include "stationspluginvelin.h"
 #include "stationspluginbixi.h"
+#include "stationsplugintransdev.h"
 
 StationsPluginFactorySimple::StationsPluginFactorySimple()
 {
@@ -186,6 +187,8 @@ StationsPluginFactorySimple::pluginForType(const QString & type)
     plugin = new StationsPluginVelIn();
   else if (type == "Bixi")
     plugin = new StationsPluginBixi();
+  else if (type == "Transdev")
+    plugin = new StationsPluginTransdev();
   else {
     qCritical() << "Unknown plugin type" << type;
     Q_ASSERT(plugin);

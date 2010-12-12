@@ -2,10 +2,10 @@
 <cities>
   <city id="washington">
     <type>Bixi</type>
-    <latitude min="38.83722" max="38.96204">38.90752</latitude>
-    <longitude min="-77.10753" max="-76.92555">-77.02708</longitude>
+    <latitude min="38.707520" max="39.107520">38.907520</latitude>
+    <longitude min="-77.227080" max="-76.827080">-77.027080</longitude>
     <infos>http://www.capitalbikeshare.com/stations/bikeStations.xml</infos>
-    <name>Washington, DC</name>
-    <bikeName>Capital Bike</bikeName>
+    <name>Washington, Dc</name>
+    <bikeName>Bixi</bikeName>
   </city>
 </cities>

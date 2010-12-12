@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for ctry in ch:Switzerland; do
+for ctry in fr:France; do
     ctry_lower=$(echo $ctry | cut -f2 -d':' | tr "[:upper:]" "[:lower:]")
     ctry_uid=$(echo $ctry | cut -f1 -d':')
     out=../plugins/$ctry_lower/cities.xml
