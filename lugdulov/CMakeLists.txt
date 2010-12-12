@@ -96,12 +96,12 @@ add_executable(
   ${QM_FILES}
 )
 
-if (QTLOCATION_FOUND)
-  target_link_libraries(lugdulov ${QTLOCATION_LIBRARIES})
+if (QT_MOBILITY_LOCATION_FOUND)
+  target_link_libraries(lugdulov ${QT_MOBILITY_LOCATION_LIBRARY})
 endif ()
 
-if (QTBEARER_FOUND)
-  target_link_libraries(lugdulov ${QTBEARER_LIBRARIES})
+if (QT_LOCATION_BEARER_FOUND)
+  target_link_libraries(lugdulov ${QT_LOCATION_BEARER_LIBRARY})
 endif ()
 
 if (Q_WS_MAEMO_5)

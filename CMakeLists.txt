@@ -15,9 +15,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/mod
 
 cmake_dependent_option(BUILD_STATIC_PLUGINS "build static plugins [default: off]" OFF "NOT BUILD_SHARED_LIBS" ON)
 option(BUILD_UTILS "build cli utilities [default: off]" OFF)
-option(QMAPCONTROL "use qmapcontrol [default: on]" ON)
-
-set(USE_QMAPCONTROL ${QMAPCONTROL})
 
 include(lugdulov)
 include(QtTranslations) # Local file for maemo_qt4_add_translation()
@@ -27,13 +24,29 @@ set(PLUGINS_EXTEND_DIR "${CMAKE_INSTALL_PREFIX}share/lugdulov/plugins")
 
 find_package(Qt4 REQUIRED)
 find_package(QJSON REQUIRED)
-find_package(QtLocation)
-find_package(QtBearer)
+find_package(QtMobility)
 
 CHECK_SYMBOL_EXISTS(Q_WS_MAEMO_5 "QtCore/qglobal.h" Q_WS_MAEMO_5)
 
-set(HAVE_QT_LOCATION ${QTLOCATION_FOUND})
-set(HAVE_QT_BEARER ${QTBEARER_FOUND})
+if (QT_MOBILITY_FOUND)
+  message(STATUS "Found QtMobility ${QT_MOBILITY_VERSION}")
+endif()
+
+if (QT_MOBILITY_LOCATION_FOUND)
+  message(STATUS "Found QtLocation")
+endif()
+
+set(HAVE_QT_LOCATION ${QT_MOBILITY_LOCATION_FOUND})
+set(HAVE_QT_BEARER ${QT_MOBILITY_BEARER_FOUND})
+
+if (QT_MOBILITY_LOCATION_FOUND AND QT_MOBILITY_VERSION VERSION_GREATER 1.1.0)
+  option(QMAPCONTROL "use qmapcontrol [default: on]" ON)
+else()
+  message(STATUS "QGraphicsGeoMap not available, falling back to QMapControl")
+  set(QMAPCONTROL 1)
+endif()
+
+set(USE_QMAPCONTROL ${QMAPCONTROL})
 
 if (QT_VERSION_MAJOR EQUAL "4" AND QT_VERSION_MINOR EQUAL "7")
   set(HAVE_QT_BEARER TRUE)

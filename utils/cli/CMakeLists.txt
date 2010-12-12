@@ -31,10 +31,10 @@ add_executable(
   ${MOC_SOURCE}
 )
 
-if (QTLOCATION_FOUND)
-  include_directories(${QTLOCATION_INCLUDE_DIR})
-  link_directories(${QTLOCATION_LIBRARY_DIRS})
-  target_link_libraries(lugdulov-query ${QTLOCATION_LIBRARIES})
+if (QT_MOBILITY_LOCATION_FOUND)
+  include_directories(${QT_MOBILITY_LOCATION_INCLUDE_DIR})
+  link_directories(${QT_MOBILITY_LOCATION_LIBRARY_DIR})
+  target_link_libraries(lugdulov-query ${QT_MOBILITY_LOCATION_LIBRARY})
 endif ()
 
 if (BUILD_STATIC_PLUGINS)
