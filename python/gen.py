@@ -38,13 +38,20 @@ def getproviders():
 
 def dolist(args):
     ret = {}
-
+    cities = []
+    bikes = []
     for p in getproviders():
         for c in p.get_countries():
             if c.name not in ret:
                 ret[c.name] = []
             for j in p.get_cities(c):
-                ret[c.name].append(j.name.encode('utf8'))
+                cname = j.name.encode('utf8')
+                bname = j.bikeName.encode('utf8')
+                ret[c.name].append(cname + " (" + bname + ")")
+                if cname not in cities:
+                    cities.append(cname)
+                if bname not in bikes:
+                    bikes.append(bname)
 
     for i in ret.keys():
         print i + ":"
@@ -56,6 +63,9 @@ def dolist(args):
         print "<dt>%s</dt>" % i
         print "<dd>" + ", ".join(ret[i]) + "</dd>"
     print "</dl>"
+
+    print ", ".join(cities)
+    print ", ".join(bikes)
 
 def docountries(args):
     ret = {}
