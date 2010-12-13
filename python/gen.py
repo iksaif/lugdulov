@@ -14,7 +14,7 @@ def getproviders():
     import dupral
     import velin
     import veloplus
-    import velopop
+    import transdev
     import velostar
     import cyclehire
     import bixi
@@ -29,7 +29,7 @@ def getproviders():
     ret.append(dupral.Dupral())
     ret.append(velin.VelIn())
     ret.append(veloplus.VeloPlus())
-    ret.append(velopop.VeloPop())
+    ret.append(transdev.Transdev())
     ret.append(velostar.VeloStar())
     ret.append(cyclehire.CycleHire())
     ret.append(bixi.Bixi())

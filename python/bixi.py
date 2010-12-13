@@ -51,42 +51,79 @@ from plugin import *
 '''
 
 class Bixi(Provider):
-    config = {
+    config = [
+        {
         'country_uid' : 'ca',
-        'country_Name' : 'Canada',
+        'country_name' : 'Canada',
         'city_uid'    : 'montreal',
-        'city_Name'    : 'Montreal',
+        'city_name'    : 'Montreal',
         'bike_name'    : 'Bixi',
-        'server' : 'profil.bixi.ca',
+        'server' : 'https://profil.bixi.ca/data/bikeStations.xml',
         'lat'  : 45.5088670,
         'lng'  : -73.5542420,
         'data_model' : 'bixi'
+        },
+        {
+        'country_uid' : 'usa',
+        'country_name' : 'USA',
+        'city_uid'    : 'washington',
+        'city_name'    : 'Washington, DC',
+        'bike_name'    : 'Bixi',
+        'server' : 'http://www.capitalbikeshare.com/stations/bikeStations.xml',
+        'lat'  : 38.90752,
+        'lng'  : -77.02708,
+        'data_model' : 'bixi'
         }
+        ]
 
-    def url(self):
-        return 'https://' + self.config['server'] + '/data/bikeStations.xml'
+    def service_by_city(self, city):
+        for service in self.config:
+            if service['city_uid'] == city.uid:
+                return service
+        return None
+
+    def url(self, city):
+        service = self.service_by_city(city)
+        return service['server']
 
     def get_countries(self):
-        country = Country()
-        country.uid = "ca"
-        country.name = "Canada"
-        return [country]
+        ret = []
+        done = {}
+
+        for service in self.config:
+            if service['country_uid'] in done:
+                continue
+            done[service['country_uid']] = True
+
+            country = Country()
+            country.uid = service['country_uid']
+            country.name = service['country_name']
+            ret.append(country)
+        return ret
 
     def get_cities(self, country):
-        city = City()
-        city.uid = self.config['city_uid']
-        city.id = city.uid
-        city.name = self.config['city_Name']
-        city.bikeName = self.config['bike_name']
-        city.lat = self.config['lat']
-        city.lng = self.config['lng']
-        city.create_rect()
-        city.type = "Bixi"
-        return [city]
+        ret = []
+        for service in self.config:
+            if country.uid != service['country_uid']:
+                continue
+
+            city = City()
+            city.uid = service['city_uid']
+            city.id = city.uid
+            city.name = service['city_name']
+            city.bikeName = service['bike_name']
+            city.bikeIcon = ""
+            city.lat = service['lat']
+            city.lng = service['lng']
+            city.create_rect()
+            city.type = "Bixi"
+            #city.rect = self.get_city_bike_zone(service, city)
+            ret.append(city)
+        return ret
 
     def get_stations(self, city):
         stations = []
-        url = self.url()
+        url = self.url(city)
         fp = urlopen(url)
 
         data = fp.read()
@@ -112,7 +149,7 @@ class Bixi(Provider):
 
     def dump_city(self, city):
         #city.rect = self.get_city_bike_zone(service, city)
-        city.infos = self.url()
+        city.infos = self.url(city)
         data = self._dump_city(city)
         print data
 

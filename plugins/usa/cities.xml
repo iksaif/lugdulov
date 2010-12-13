@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cities>
-  <city id="montreal">
+  <city id="washington">
     <type>Bixi</type>
     <latitude min="38.83722" max="38.96204">38.90752</latitude>
     <longitude min="-77.10753" max="-76.92555">-77.02708</longitude>

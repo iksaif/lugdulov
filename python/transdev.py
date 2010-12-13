@@ -28,44 +28,108 @@ import re
 import datetime
 from plugin import *
 
-class VeloPop(Provider):
-    config = {
+class Transdev(Provider):
+    config = [
+        {
         'country_uid' : 'fr',
-        'country_Name' : 'France',
+        'country_name' : 'France',
         'city_uid'    : 'avignon',
-        'city_Name'    : 'Avignon',
+        'city_name'    : 'Avignon',
         'bike_name'    : 'Velopop',
-        'server' : 'www.velopop.fr',
+        'server' : 'http://www.velopop.fr/stations.html',
         'lat'  : 43.9486126,
         'lng'  : 4.8059666,
-        'service_class' : 'VeloPop'
+        },
+        {
+        'country_uid' : 'fr',
+        'country_name' : 'France',
+        'city_uid'    : 'saint-etienne',
+        'city_name'    : 'Saint-Etienne',
+        'bike_name'    : u'VéliVert',
+        'server' : 'http://www.velivert.fr/sag_vls_stations_ste.html',
+        'lat'  : 45.42753,
+        'lng'  : 4.39176,
+        },
+        {
+        'country_uid' : 'fr',
+        'country_name' : 'France',
+        'city_uid'    : 'saint-chamond',
+        'city_name'    : 'Saint-Chamond',
+        'bike_name'    : u'VéliVert',
+        'server' : 'http://www.velivert.fr/sag_vls_stations_stc.html',
+        'lat'  : 45.47269,
+        'lng'  : 4.51075,
+        },
+        {
+        'country_uid' : 'fr',
+        'country_name' : 'France',
+        'city_uid'    : 'firminy',
+        'city_name'    : 'Firminy',
+        'bike_name'    : u'VéliVert',
+        'server' : 'http://www.velivert.fr/sag_vls_stations_fir.html',
+        'lat'  : 45.38509,
+        'lng'  : 4.28788,
+        },
+        {
+        'country_uid' : 'fr',
+        'country_name' : 'France',
+        'city_uid'    : 'rive-de-gier',
+        'city_name'    : 'Rive de Gier',
+        'bike_name'    : u'VéliVert',
+        'server' : 'http://www.velivert.fr/sag_vls_stations_rdg.html',
+        'lat'  : 45.52366,
+        'lng'  : 4.61041,
         }
+        ]
 
-    def url(self):
-        return 'http://' + self.config['server'] + "/stations.html"
+    def service_by_city(self, city):
+        for service in self.config:
+            if service['city_uid'] == city.uid:
+                return service
+        return None
+
+    def url(self, city):
+        service = self.service_by_city(city)
+        return service['server']
 
     def get_countries(self):
-        country = Country()
-        country.uid = "fr"
-        country.name = "France"
-        return [country]
+        ret = []
+        done = {}
+
+        for service in self.config:
+            if service['country_uid'] in done:
+                continue
+            done[service['country_uid']] = True
+
+            country = Country()
+            country.uid = service['country_uid']
+            country.name = service['country_name']
+            ret.append(country)
+        return ret
 
     def get_cities(self, country):
-        city = City()
-        city.uid = self.config['city_uid']
-        city.id = city.uid
-        city.name = self.config['city_Name']
-        city.bikeName = self.config['bike_name']
-        city.lat = self.config['lat']
-        city.lng = self.config['lng']
-        city.create_rect()
-        city.type = "VeloPop"
-        return [city]
+        ret = []
+        for service in self.config:
+            if country.uid != service['country_uid']:
+                continue
 
+            city = City()
+            city.uid = service['city_uid']
+            city.id = city.uid
+            city.name = service['city_name']
+            city.bikeName = service['bike_name']
+            city.bikeIcon = ""
+            city.lat = service['lat']
+            city.lng = service['lng']
+            city.create_rect()
+            city.type = "Transdev"
+            city.rect = self.get_city_bike_zone(service, city)
+            ret.append(city)
+        return ret
 
     def get_stations(self, city):
         stations = []
-        url = self.url()
+        url = self.url(city)
         fp = urlopen(url)
         data = fp.read()
 
@@ -94,7 +158,7 @@ class VeloPop(Provider):
 
     def dump_city(self, city):
         #city.rect = self.get_city_bike_zone(service, city)
-        city.infos = self.url()
+        city.infos = self.url(city)
         data = self._dump_city(city)
         print data
 
@@ -105,7 +169,7 @@ class VeloPop(Provider):
 
 
 def test():
-    prov = VeloPop()
+    prov = Transdev()
 
     countries = prov.get_countries()
     print countries
