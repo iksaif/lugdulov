@@ -117,6 +117,7 @@ if (BUILD_STATIC_PLUGINS)
   target_link_libraries(lugdulov stationslower-austria)
   target_link_libraries(lugdulov stationslatvia)
   target_link_libraries(lugdulov stationsnew-zealand)
+  target_link_libraries(lugdulov stationsusa)
 endif ()
 
 target_link_libraries(

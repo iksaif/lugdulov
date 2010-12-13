@@ -60,8 +60,9 @@ TRANSLATIONS = i18n/lugdulov_fr.ts i18n/lugdulov_cs.ts
 
 symbian: {
     LIBS += -lstationsfrance -lstationsbelgium -lstationsireland -lstationsluxembourg
-    LIBS += -lstationsspain -lstationsjapan -lstationsaustria -lstationsgermany -lstationslatvia -lstationslower_austria
+    LIBS += -lstationsspain -lstationsjapan -lstationsaustria -lstationsgermany -lstationslatvia
     LIBS += -lstationsnew_zealand -lstationsswitzerland -lstationsunited_kingdom -lstationscanada
+    LIBS += -lstationslower_austria -lstationsusa
 
     TARGET.EPOCALLOWDLLDATA = 1
     TARGET.CAPABILITY = ReadUserData UserEnvironment NetworkServices Location

@@ -28,6 +28,7 @@
 #include "stationsplugincitybike.h"
 #include "stationsplugindupral.h"
 #include "stationspluginvelin.h"
+#include "stationspluginbixi.h"
 
 StationsPluginFactorySimple::StationsPluginFactorySimple()
 {
@@ -183,6 +184,8 @@ StationsPluginFactorySimple::pluginForType(const QString & type)
     plugin = new StationsPluginDupral();
   else if (type == "VelIn")
     plugin = new StationsPluginVelIn();
+  else if (type == "Bixi")
+    plugin = new StationsPluginBixi();
   else {
     qCritical() << "Unknown plugin type" << type;
     Q_ASSERT(plugin);

@@ -16,22 +16,22 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_MONTREAL_H
-#define STATIONS_MONTREAL_H
+#ifndef STATIONS_BIXI_H
+#define STATIONS_BIXI_H
 
 #include <QtCore/QMap>
 
 #include "stationspluginsingle.h"
 
-class StationsPluginMontreal : public StationsPluginSingle
+class StationsPluginBixi : public StationsPluginSingle
 {
   Q_OBJECT
  public:
-  StationsPluginMontreal(QObject *parent = NULL);
-  virtual ~StationsPluginMontreal();
+  StationsPluginBixi(QObject *parent = NULL);
+  virtual ~StationsPluginBixi();
 
  protected:
   virtual void handleInfos(const QByteArray & data);
 };
 
-#endif /* STATIONS_MONTREAL_H */
+#endif /* STATIONS_BIXI_H */

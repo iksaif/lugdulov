@@ -18,6 +18,7 @@ SOURCES =   tools.cpp onlinestatemanager.cpp \
   stationspluginnextbike.cpp \
   stationspluginvelin.cpp \
   stationsplugindupral.cpp \
+  stationspluginbixi.cpp \
   station.cpp \
   settings.cpp \
   stationsmodel.cpp \
@@ -34,6 +35,7 @@ HEADERS =  tools.h onlinestatemanager.h \
   stationspluginnextbike.h \
   stationspluginvelin.h \
   stationsplugindupral.h \
+  stationspluginbixi.h \
   settings.h \
   stationspluginmanager.h \
   stationsmodel.h \

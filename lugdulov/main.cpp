@@ -42,6 +42,7 @@ Q_IMPORT_PLUGIN(stationsaustria);
 Q_IMPORT_PLUGIN(stationsloweraustria);
 Q_IMPORT_PLUGIN(stationslatvia);
 Q_IMPORT_PLUGIN(stationsnewzealand);
+Q_IMPORT_PLUGIN(stationsusa);
 #endif
 
 int main(int argc, char *argv[])
@@ -62,6 +63,7 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(lower_austria);
     Q_INIT_RESOURCE(latvia);
     Q_INIT_RESOURCE(new_zealand);
+    Q_INIT_RESOURCE(usa);
 #endif
 
     QTranslator qtTranslator;

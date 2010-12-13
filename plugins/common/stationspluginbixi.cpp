@@ -20,19 +20,19 @@
 
 #include "station.h"
 #include "tools.h"
-#include "montreal.h"
+#include "stationspluginbixi.h"
 
-StationsPluginMontreal::StationsPluginMontreal(QObject *parent)
+StationsPluginBixi::StationsPluginBixi(QObject *parent)
   : StationsPluginSingle(parent)
 {
 }
 
-StationsPluginMontreal::~StationsPluginMontreal()
+StationsPluginBixi::~StationsPluginBixi()
 {
 }
 
 void
-StationsPluginMontreal::handleInfos(const QByteArray & data)
+StationsPluginBixi::handleInfos(const QByteArray & data)
 {
   QDomDocument doc;
   QDomNodeList list;

@@ -1,9 +1,9 @@
-TARGET  = stationscanada
+TARGET  = stationsusa
 include(../pluginbase.pri)
 
 HEADERS += factory.h
 
 SOURCES += factory.cpp
 
-RESOURCES += canada.qrc
+RESOURCES += usa.qrc
 

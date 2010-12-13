@@ -20,22 +20,12 @@
 
 #include "config.h"
 #include "factory.h"
-#include "montreal.h"
 
 StationsPluginFactoryCanada::StationsPluginFactoryCanada()
 {
   loadInfos(":/canada/canada.xml");
   loadCities(":/canada/cities.xml");
   loadCities(PLUGINS_EXTEND_DIR "/canada/cities.xml");
-}
-
-StationsPluginSimple *
-StationsPluginFactoryCanada::pluginForType(const QString & type)
-{
-  if (type == "Montreal" || type == "Bixi")
-    return new StationsPluginMontreal();
-  else
-    return StationsPluginFactorySimple::pluginForType(type);
 }
 
 Q_EXPORT_PLUGIN2(stationscanada, StationsPluginFactoryCanada)
