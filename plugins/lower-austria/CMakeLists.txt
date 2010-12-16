@@ -17,14 +17,4 @@ set(lower-austria_HDRS
 qt4_wrap_cpp(lower-austria_MOC_SRCS ${lower-austria_HDRS})
 qt4_add_resources(lower-austria_RC_SRCS lower-austria.qrc)
 
-link_directories(
-  ${QT_LIBRARY_DIR}
-)
-
 add_plugin(stationslower-austria ${lower-austria_SRCS} ${lower-austria_MOC_SRCS} ${lower-austria_RC_SRCS})
-
-target_link_libraries(
-  stationslower-austria
-  lugdulov_base
-  ${QT_LIBRARIES}
-)

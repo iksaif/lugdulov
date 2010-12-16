@@ -20,16 +20,4 @@ set(united-kingdom_HDRS
 qt4_wrap_cpp(united-kingdom_MOC_SRCS ${united-kingdom_HDRS})
 qt4_add_resources(united-kingdom_RC_SRCS united-kingdom.qrc)
 
-link_directories(
-  ${QT_LIBRARY_DIR}
-  ${QJSON_LIBRARY_DIRS}
-)
-
 add_plugin(stationsunited-kingdom ${united-kingdom_SRCS} ${united-kingdom_MOC_SRCS} ${united-kingdom_RC_SRCS})
-
-target_link_libraries(
-  stationsunited-kingdom
-  lugdulov_base
-  ${QT_LIBRARIES}
-  ${QJSON_LIBRARIES}
-)

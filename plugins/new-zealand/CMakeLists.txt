@@ -17,14 +17,4 @@ set(new-zealand_HDRS
 qt4_wrap_cpp(new-zealand_MOC_SRCS ${new-zealand_HDRS})
 qt4_add_resources(new-zealand_RC_SRCS new-zealand.qrc)
 
-link_directories(
-  ${QT_LIBRARY_DIR}
-)
-
 add_plugin(stationsnew-zealand ${new-zealand_SRCS} ${new-zealand_MOC_SRCS} ${new-zealand_RC_SRCS})
-
-target_link_libraries(
-  stationsnew-zealand
-  lugdulov_base
-  ${QT_LIBRARIES}
-)

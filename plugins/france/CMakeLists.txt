@@ -35,16 +35,4 @@ qt4_add_resources(france_RC_SRCS france.qrc)
 
 _qt4_add_translation(QM_FILES ${france_TRS})
 
-link_directories(
-  ${QT_LIBRARY_DIR}
-  ${QJSON_LIBRARY_DIRS}
-)
-
 add_plugin(stationsfrance ${france_SRCS} ${france_MOC_SRCS} ${france_RC_SRCS})
-
-target_link_libraries(
-  stationsfrance
-  lugdulov_base
-  ${QT_LIBRARIES}
-  ${QJSON_LIBRARIES}
-)

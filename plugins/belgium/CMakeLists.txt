@@ -15,14 +15,4 @@ set(belgium_HDRS
 qt4_wrap_cpp(belgium_MOC_SRCS ${belgium_HDRS})
 qt4_add_resources(belgium_RC_SRCS belgium.qrc)
 
-link_directories(
-  ${QT_LIBRARY_DIR}
-)
-
 add_plugin(stationsbelgium ${belgium_SRCS} ${belgium_MOC_SRCS} ${belgium_RC_SRCS})
-
-target_link_libraries(
-  stationsbelgium
-  lugdulov_base
-  ${QT_LIBRARIES}
-)

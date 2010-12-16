@@ -17,14 +17,4 @@ set(luxembourg_HDRS
 qt4_wrap_cpp(luxembourg_MOC_SRCS ${luxembourg_HDRS})
 qt4_add_resources(luxembourg_RC_SRCS luxembourg.qrc)
 
-link_directories(
-  ${QT_LIBRARY_DIR}
-)
-
 add_plugin(stationsluxembourg ${luxembourg_SRCS} ${luxembourg_MOC_SRCS} ${luxembourg_RC_SRCS})
-
-target_link_libraries(
-  stationsluxembourg
-  lugdulov_base
-  ${QT_LIBRARIES}
-)

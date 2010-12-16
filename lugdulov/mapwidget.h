@@ -18,7 +18,7 @@
 
 #include "config.h"
 
-#if defined(QMAPCONTROL)
+#if defined(USE_QMAPCONTROL)
 # include "mapwidget_qmapcontrol.h"
 #else
 # include "mapwidget_qtm.h"

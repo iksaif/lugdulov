@@ -17,14 +17,4 @@ set(germany_HDRS
 qt4_wrap_cpp(germany_MOC_SRCS ${germany_HDRS})
 qt4_add_resources(germany_RC_SRCS germany.qrc)
 
-link_directories(
-  ${QT_LIBRARY_DIR}
-)
-
 add_plugin(stationsgermany ${germany_SRCS} ${germany_MOC_SRCS} ${germany_RC_SRCS})
-
-target_link_libraries(
-  stationsgermany
-  lugdulov_base
-  ${QT_LIBRARIES}
-)

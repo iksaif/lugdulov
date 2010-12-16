@@ -23,6 +23,11 @@ macro(ADD_PLUGIN)
   add_definitions(${QT_DEFINITIONS})
   add_definitions(-DQT_PLUGIN)
 
+  link_directories(
+	${QT_LIBRARY_DIR}
+	${QJSON_LIBRARY_DIRS}
+  )
+
   if(BUILD_STATIC_PLUGINS)
     add_definitions(-DQT_STATICPLUGIN)
     add_library(${LIBNAME} STATIC ${SRCFILES})
@@ -34,4 +39,11 @@ macro(ADD_PLUGIN)
       RUNTIME DESTINATION lib/lugdulov/plugins
       )
   endif()
+
+  target_link_libraries(
+    ${LIBNAME}
+    lugdulov_base
+    ${QT_LIBRARIES}
+    ${QJSON_LIBRARIES}
+  )
 endmacro()

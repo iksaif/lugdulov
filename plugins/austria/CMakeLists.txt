@@ -19,14 +19,4 @@ set(austria_HDRS
 qt4_wrap_cpp(austria_MOC_SRCS ${austria_HDRS})
 qt4_add_resources(austria_RC_SRCS austria.qrc)
 
-link_directories(
-  ${QT_LIBRARY_DIR}
-)
-
 add_plugin(stationsaustria ${austria_SRCS} ${austria_MOC_SRCS} ${austria_RC_SRCS})
-
-target_link_libraries(
-  stationsaustria
-  lugdulov_base
-  ${QT_LIBRARIES}
-)

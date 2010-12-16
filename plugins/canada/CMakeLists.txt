@@ -17,14 +17,4 @@ set(canada_HDRS
 qt4_wrap_cpp(canada_MOC_SRCS ${canada_HDRS})
 qt4_add_resources(canada_RC_SRCS canada.qrc)
 
-link_directories(
-  ${QT_LIBRARY_DIR}
-)
-
 add_plugin(stationscanada ${canada_SRCS} ${canada_MOC_SRCS} ${canada_RC_SRCS})
-
-target_link_libraries(
-  stationscanada
-  lugdulov_base
-  ${QT_LIBRARIES}
-)

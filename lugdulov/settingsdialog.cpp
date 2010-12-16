@@ -34,12 +34,12 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 #endif
   ui(new Ui_SettingsDialog())
 {
-  QStringList providers = QGeoServiceProvider::availableServiceProviders();
-
   ui->setupUi(this);
   setupDialog(this);
 
-#if !defined(QMAPCONTROL)
+#if !defined(USE_QMAPCONTROL)
+  QStringList providers = QGeoServiceProvider::availableServiceProviders();
+
   if (providers.contains("google"))
       ui->comboBox->addItem(tr("Google Maps"), "google");
   if (providers.contains("openstreetmap")) {

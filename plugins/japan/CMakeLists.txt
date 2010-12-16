@@ -17,14 +17,4 @@ set(japan_HDRS
 qt4_wrap_cpp(japan_MOC_SRCS ${japan_HDRS})
 qt4_add_resources(japan_RC_SRCS japan.qrc)
 
-link_directories(
-  ${QT_LIBRARY_DIR}
-)
-
 add_plugin(stationsjapan ${japan_SRCS} ${japan_MOC_SRCS} ${japan_RC_SRCS})
-
-target_link_libraries(
-  stationsjapan
-  lugdulov_base
-  ${QT_LIBRARIES}
-)

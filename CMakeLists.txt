@@ -19,8 +19,8 @@ option(BUILD_UTILS "build cli utilities [default: off]" OFF)
 include(lugdulov)
 include(QtTranslations) # Local file for maemo_qt4_add_translation()
 
-set(PLUGINS_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}lib/lugdulov/plugins")
-set(PLUGINS_EXTEND_DIR "${CMAKE_INSTALL_PREFIX}share/lugdulov/plugins")
+set(PLUGINS_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib/lugdulov/plugins")
+set(PLUGINS_EXTEND_DIR "${CMAKE_INSTALL_PREFIX}/share/lugdulov/plugins")
 
 find_package(Qt4 REQUIRED)
 find_package(QJSON REQUIRED)

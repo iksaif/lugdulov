@@ -17,14 +17,4 @@ set(latvia_HDRS
 qt4_wrap_cpp(latvia_MOC_SRCS ${latvia_HDRS})
 qt4_add_resources(latvia_RC_SRCS latvia.qrc)
 
-link_directories(
-  ${QT_LIBRARY_DIR}
-)
-
 add_plugin(stationslatvia ${latvia_SRCS} ${latvia_MOC_SRCS} ${latvia_RC_SRCS})
-
-target_link_libraries(
-  stationslatvia
-  lugdulov_base
-  ${QT_LIBRARIES}
-)

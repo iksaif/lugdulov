@@ -17,14 +17,4 @@ set(ireland_HDRS
 qt4_wrap_cpp(ireland_MOC_SRCS ${ireland_HDRS})
 qt4_add_resources(ireland_RC_SRCS ireland.qrc)
 
-link_directories(
-  ${QT_LIBRARY_DIR}
-)
-
 add_plugin(stationsireland ${ireland_SRCS} ${ireland_MOC_SRCS} ${ireland_RC_SRCS})
-
-target_link_libraries(
-  stationsireland
-  lugdulov_base
-  ${QT_LIBRARIES}
-)

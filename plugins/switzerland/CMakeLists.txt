@@ -17,14 +17,4 @@ set(switzerland_HDRS
 qt4_wrap_cpp(switzerland_MOC_SRCS ${switzerland_HDRS})
 qt4_add_resources(switzerland_RC_SRCS switzerland.qrc)
 
-link_directories(
-  ${QT_LIBRARY_DIR}
-)
-
 add_plugin(stationsswitzerland ${switzerland_SRCS} ${switzerland_MOC_SRCS} ${switzerland_RC_SRCS})
-
-target_link_libraries(
-  stationsswitzerland
-  lugdulov_base
-  ${QT_LIBRARIES}
-)
