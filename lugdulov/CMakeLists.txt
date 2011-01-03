@@ -53,12 +53,18 @@ set(lugdulov_MOC_HDRS
   settingsdialog.h
   mapdialog.h)
 
-if (QMAPCONTROL)
-  set(lugdulov_SRCS ${lugdulov_SRCS} mapwidget_qmapcontrol.cpp)
-  set(lugdulov_MOC_HDRS ${lugdulov_MOC_HDRS} mapwidget_qmapcontrol.h)
+
+if (LUGDULOV_LITE)
+    set(lugdulov_SRCS ${lugdulov_SRCS} mapwidget_lite.cpp)
+    set(lugdulov_MOC_HDRS ${lugdulov_MOC_HDRS} mapwidget_lite.h)
 else()
-  set(lugdulov_SRCS ${lugdulov_SRCS} mapwidget_qtm.cpp mapgraphicswidget_qtm.cpp)
-  set(lugdulov_MOC_HDRS ${lugdulov_MOC_HDRS} mapwidget_qtm.h mapgraphicswidget_qtm.h)
+  if (QMAPCONTROL)
+    set(lugdulov_SRCS ${lugdulov_SRCS} mapwidget_qmapcontrol.cpp)
+    set(lugdulov_MOC_HDRS ${lugdulov_MOC_HDRS} mapwidget_qmapcontrol.h)
+  else()
+    set(lugdulov_SRCS ${lugdulov_SRCS} mapwidget_qtm.cpp mapgraphicswidget_qtm.cpp)
+    set(lugdulov_MOC_HDRS ${lugdulov_MOC_HDRS} mapwidget_qtm.h mapgraphicswidget_qtm.h)
+  endif()
 endif()
 
 set(lugdulov_RCS res/lugdulov.qrc i18n/i18n.qrc)

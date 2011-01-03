@@ -15,6 +15,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/mod
 
 cmake_dependent_option(BUILD_STATIC_PLUGINS "build static plugins [default: off]" OFF "NOT BUILD_SHARED_LIBS" ON)
 option(BUILD_UTILS "build cli utilities [default: off]" OFF)
+option(LUGDULOV_LITE "build lite version [default: off]" OFF)
 
 include(lugdulov)
 include(QtTranslations) # Local file for maemo_qt4_add_translation()
@@ -65,20 +66,20 @@ if(NOT EXECUTABLE_OUTPUT_PATH)
   set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin CACHE STRING
     "Single output directory for building all executables."
     FORCE)
-endif(NOT EXECUTABLE_OUTPUT_PATH)
+endif()
 
 if(NOT LIBRARY_OUTPUT_PATH)
   set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin CACHE STRING
     "Single output directory for building all libraries."
     FORCE)
-endif(NOT LIBRARY_OUTPUT_PATH)
+endif()
 
 # compile in debug mode
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Debug CACHE STRING
     "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel."
     FORCE)
-endif(NOT CMAKE_BUILD_TYPE)
+endif()
 
 if("${CMAKE_BUILD_TYPE}" MATCHES "^Rel.*")
   add_definitions("-DQT_NO_DEBUG_OUTPUT")
@@ -99,19 +100,19 @@ set(QT_USE_QTNETWORK TRUE)
 set(QT_USE_QTXML TRUE)
 set(QT_USE_QTSQL TRUE)
 
-include( ${QT_USE_FILE} )
+include(${QT_USE_FILE})
 
 # Find config.h
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(plugins)
-if (QMAPCONTROL)
+if(QMAPCONTROL)
   add_subdirectory(qmapcontrol)
-endif ()
+endif()
 add_subdirectory(lugdulov)
-if (BUILD_UTILS)
+if(BUILD_UTILS)
   add_subdirectory(utils)
-endif ()
+endif()
 add_subdirectory(pkg)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake config.h ESCAPE_QUOTES)

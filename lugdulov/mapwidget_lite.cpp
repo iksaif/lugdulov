@@ -16,14 +16,39 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include "config.h"
+#include "mapwidget_lite.h"
 
-#if defined(LUGDULOV_LITE)
-# include "mapwidget_lite.h"
+MapWidget::MapWidget(QWidget * parent)
+  : QLabel(parent)
+{
+#if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
+  setText(tr("The Map functionality is not supported in the lite version,"
+	     "you need to purchase the full version on OVI store."));
 #else
-# if defined(USE_QMAPCONTROL)
-#  include "mapwidget_qmapcontrol.h"
-# else
-#  include "mapwidget_qtm.h"
-# endif
+  setText(tr("Map not supported."));
 #endif
+}
+
+MapWidget::~MapWidget()
+{
+}
+
+void
+MapWidget::setPlugin(StationsPlugin *p)
+{
+  Q_UNUSED(p);
+}
+
+void
+MapWidget::centerView(const QPointF & position, int zoom)
+{
+  Q_UNUSED(position);
+  Q_UNUSED(zoom);
+}
+
+void
+MapWidget::positionUpdated(const QGeoPositionInfo & info)
+{
+  Q_UNUSED(info);
+}
+

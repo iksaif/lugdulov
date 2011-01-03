@@ -7,3 +7,4 @@
 #cmakedefine PLUGINS_EXTEND_DIR		"@PLUGINS_EXTEND_DIR@"
 #cmakedefine Q_WS_MAEMO_5
 #cmakedefine USE_QMAPCONTROL
+#cmakedefine LUGDULOV_LITE

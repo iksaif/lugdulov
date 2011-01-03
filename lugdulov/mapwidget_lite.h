@@ -16,14 +16,31 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include "config.h"
+#ifndef MAPWIDGET_H
+#define MAPWIDGET_H
 
-#if defined(LUGDULOV_LITE)
-# include "mapwidget_lite.h"
-#else
-# if defined(USE_QMAPCONTROL)
-#  include "mapwidget_qmapcontrol.h"
-# else
-#  include "mapwidget_qtm.h"
-# endif
+#include <QtGui/QLabel>
+#include <QtCore/QTimer>
+#include <QtCore/QMap>
+
+#include "mobility.h"
+
+class StationsPlugin;
+
+class MapWidget : public QLabel
+{
+  Q_OBJECT
+ public:
+  MapWidget(QWidget * parent = 0);
+  ~MapWidget();
+
+  void setPlugin(StationsPlugin *p);
+
+ public slots:
+  void centerView(const QPointF & position, int zoom = -1);
+#ifdef HAVE_QT_LOCATION
+  void positionUpdated(const QGeoPositionInfo & info);
+#endif
+};
+
 #endif
