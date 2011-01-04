@@ -33,16 +33,20 @@
 #  include <QGeoPositionInfoSource>
 #  include <QGeoCoordinate>
 #  include <QGeoPositionInfo>
+# ifndef USE_QMAPCONTROL
 #  include <QGraphicsGeoMap>
 #  include <QGeoMapPixmapObject>
 #  include <QGeoServiceProvider>
+# endif
 # else
 #  include <QtLocation/QGeoPositionInfoSource>
 #  include <QtLocation/QGeoPositionInfo>
 #  include <QtLocation/QGeoPositionInfoSource>
+# ifndef USE_QMAPCONTROL
 #  include <QtLocation/QGraphicsGeoMap>
 #  include <QtLocation/QGeoMapPixmapObject>
 #  include <QtLocation/QGeoServiceProvider>
+# endif
 # endif
 #endif
 
