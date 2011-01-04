@@ -162,7 +162,7 @@ StationsSortFilterProxyModel::setBookmarks(QList < int > list)
 }
 
 void
-StationsSortFilterProxyModel::enableBookmarks(bool enabled)
+StationsSortFilterProxyModel::onlyBookmarks(bool enabled)
 {
   bookmarksEnabled_ = enabled;
   invalidate();

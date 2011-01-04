@@ -26,23 +26,12 @@
 #include "config.h"
 
 #include "ui_stationslistdialog.h"
+#include "ui_stationslistwidget.h"
 
-#include "tools.h"
 #include "lugdulov.h"
-#include "settings.h"
-#include "stationsplugin.h"
-#include "station.h"
 #include "stationslistdialog.h"
-#include "stationsmodel.h"
-#include "stationdelegate.h"
-#include "stationssortfilterproxymodel.h"
-#include "stationslistview.h"
-
-#if defined(Q_WS_MAEMO_5) || defined(Q_OS_SYMBIAN) || defined(Q_OS_SIMULATOR)
-static const int filterTimeout = 1000;
-#else
-static const int filterTimeout = 200;
-#endif
+#include "stationslistwidget.h"
+#include "stationsplugin.h"
 
 StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
   :
@@ -51,42 +40,17 @@ StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
 #else
   QDialog(parent),
 #endif
-  plugin(plugin),
   ui(new Ui_StationsListDialog())
 {
   ui->setupUi(this);
   setupDialog(this);
 
-  ui->refreshButton->setIcon(QIcon::fromTheme("view-refresh", QPixmap(":/res/view-refresh.png")));
-#ifdef Q_WS_MAEMO_5
-  ui->refreshButton->setText("");
-#endif
-  ui->lineEdit->setFocus(Qt::OtherFocusReason);
-
-  connect(ui->lineEdit, SIGNAL(textEdited(const QString &)),
-	  this, SLOT(filterEdited(const QString &)));
-  connect(ui->refreshButton, SIGNAL(clicked()), ui->listView, SLOT(forceUpdate()));
-  connect(&filterTimer, SIGNAL(timeout()), this, SLOT(filter()));
-
-  ui->listView->setAlternatingRowColors(true);
-  ui->listView->setItemDelegate(new StationDelegate(ui->listView));
-
-  model = new StationsModel(plugin, this);
-  proxy = new StationsSortFilterProxyModel(this);
-
-  //proxy->setStationLimit(5);
-  proxy->setSourceModel(model);
-  proxy->setBookmarks(Settings::bookmarks(plugin));
-  proxy->setSortRole(StationsSortFilterProxyModel::StationDistanceRole);
-  ui->listView->setStationsPlugin(plugin);
-  ui->listView->setModel(proxy);
-
-
   connect(plugin, SIGNAL(progress(qint64, qint64)), this, SLOT(progress(qint64, qint64)));
   connect(plugin, SIGNAL(error(const QString &, const QString &)),
 	  this, SLOT(error(const QString &, const QString &)));
 
-  QTimer::singleShot(1, plugin, SLOT(fetchAll())); // First fetch cached data
+  ui->widget->setPlugin(plugin);
+  ui->widget->ui->bookmarksButton->hide();
 }
 
 StationsListDialog::~StationsListDialog()
@@ -94,41 +58,25 @@ StationsListDialog::~StationsListDialog()
   delete ui;
 }
 
+void
+StationsListDialog::onlyBookmarks(bool enabled)
+{
+  ui->widget->onlyBookmarks(enabled);
+}
+
 #ifdef HAVE_QT_LOCATION
 void
 StationsListDialog::positionRequestTimeout()
 {
-  position = QGeoPositionInfo();
+  ui->widget->positionRequestTimeout();
 }
 
 void
 StationsListDialog::positionUpdated(QGeoPositionInfo info)
 {
-  QGeoCoordinate coord = info.coordinate();
-
-  if (!coord.isValid())
-    return ;
-
-  position = info;
-
-  proxy->setPosition(QPointF(coord.latitude(), coord.longitude()));
-  proxy->sort(0);
+  ui->widget->positionUpdated(info);
 }
 #endif
-
-void
-StationsListDialog::filterEdited(const QString & text)
-{
-  filterTimer.start(filterTimeout);
-}
-
-void
-StationsListDialog::filter(void)
-{
-  proxy->setFilterRole(StationsModel::StationNameRole);
-  proxy->setFilterWildcard(QString("*%1*").arg(ui->lineEdit->text()));
-  proxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
-}
 
 void
 StationsListDialog::progress(qint64 done, qint64 total)

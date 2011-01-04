@@ -16,6 +16,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/mod
 cmake_dependent_option(BUILD_STATIC_PLUGINS "build static plugins [default: off]" OFF "NOT BUILD_SHARED_LIBS" ON)
 option(BUILD_UTILS "build cli utilities [default: off]" OFF)
 option(LUGDULOV_LITE "build lite version [default: off]" OFF)
+option(LUGDULOV_FULL_UI "use the 'full' ui [default: off]" OFF)
 
 include(lugdulov)
 include(QtTranslations) # Local file for maemo_qt4_add_translation()

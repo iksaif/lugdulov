@@ -40,6 +40,12 @@ MapWidget::setPlugin(StationsPlugin *p)
 }
 
 void
+MapWidget::centerOnStation(Station *station)
+{
+  Q_UNUSED(station);
+}
+
+void
 MapWidget::centerView(const QPointF & position, int zoom)
 {
   Q_UNUSED(position);

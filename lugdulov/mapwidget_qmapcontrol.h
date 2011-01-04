@@ -44,10 +44,14 @@ class MapWidget : public QWidget
   void setPlugin(StationsPlugin *p);
 
  public slots:
+  void centerOnStation(Station *station);
   void centerView(const QPointF & position, int zoom = -1);
 #ifdef HAVE_QT_LOCATION
   void positionUpdated(const QGeoPositionInfo & info);
 #endif
+
+ signals:
+  void centerChanged(const QPointF & position);
 
  private slots:
   void viewChanged(const QPointF & coordinate, int zoom);

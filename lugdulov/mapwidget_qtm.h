@@ -44,8 +44,12 @@ class MapWidget : public QGraphicsView
   void setPlugin(StationsPlugin *p);
 
  public slots:
+  void centerOnStation(Station *station);
   void centerView(const QPointF & position, int zoom = -1);
   void positionUpdated(const QGeoPositionInfo & info);
+
+ signals:
+  void centerChanged(const QPointF & position);
 
  protected:
   virtual void resizeEvent(QResizeEvent* event);

@@ -20,6 +20,7 @@
 # define MAINWINDOW_H
 
 #include <QtGui/QProgressBar>
+#include <QtGui/QMainWindow>
 
 #ifdef Q_WS_MAEMO_5
 #include <QtMaemo5/QMaemo5InformationBox>
@@ -27,14 +28,13 @@
 
 #include "mobility.h"
 
-#include "ui_mainwindow.h"
-
+class Ui_MainWindow;
 class StationsPluginManager;
 class StationsPlugin;
 class Station;
 class QProgressBar;
 
-class MainWindow : public QMainWindow, private Ui_MainWindow
+class MainWindow : public QMainWindow
 {
   Q_OBJECT
 
@@ -53,9 +53,10 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
   void about();
   void aboutQt();
 
-  void search();
+  void search(bool bookmarks = false);
   void map();
   void bookmarks();
+
   void settings();
 
   void buttonClicked();
@@ -76,6 +77,7 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
 
  private:
   void chooseStationsPlugin();
+  void fullUiSetStationPlugin(StationsPlugin *plugin);
 
  private:
   StationsPluginManager *manager;
@@ -85,6 +87,7 @@ class MainWindow : public QMainWindow, private Ui_MainWindow
   QGeoPositionInfoSource *localisation;
   QGeoPositionInfo position;
 #endif
+  Ui_MainWindow *ui;
 };
 
 #endif

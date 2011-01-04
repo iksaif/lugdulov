@@ -137,8 +137,8 @@ MapWidget::createInnerLayout()
 void
 MapWidget::setPlugin(StationsPlugin *p)
 {
-  delete model;
   delete proxy;
+  delete model;
 
   plugin = p;
 
@@ -218,10 +218,17 @@ void
 MapWidget::centerView(const QPointF & pt, int z)
 {
   mapWidget->setCenter(QGeoCoordinate(pt.x(), pt.y()));
+
   if (z != -1)
     mapWidget->setZoomLevel(z);
 
   QTimer::singleShot(0, this, SLOT(refreshStations()));
+}
+
+void
+MapWidget::centerOnStation(Station *station)
+{
+  centerView(station->pos(), 17);
 }
 
 void
@@ -263,6 +270,8 @@ MapWidget::refreshStations()
   }
 
   refreshStatus();
+
+  emit centerChanged(QPointF(mapWidget->center().latitude(), mapWidget->center().longitude()));
 }
 
 void

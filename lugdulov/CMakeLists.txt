@@ -24,7 +24,7 @@ set(lugdulov_SRCS
   mainwindow.cpp
   stationdialog.cpp
   stationslistdialog.cpp
-  bookmarklistdialog.cpp
+  stationslistwidget.cpp
   stationdelegate.cpp
   stationslistview.cpp
   pluginsdialog.cpp
@@ -34,8 +34,10 @@ set(lugdulov_SRCS
 
 set(lugdulov_UIS
   mainwindow.ui
+  fullwindow.ui
   stationdialog.ui
   stationslistdialog.ui
+  stationslistwidget.ui
   pluginsdialog.ui
   aboutdialog.ui
   settingsdialog.ui
@@ -45,7 +47,7 @@ set(lugdulov_MOC_HDRS
   mainwindow.h
   stationdialog.h
   stationslistdialog.h
-  bookmarklistdialog.h
+  stationslistwidget.h
   stationdelegate.h
   stationslistview.h
   pluginsdialog.h
@@ -53,8 +55,7 @@ set(lugdulov_MOC_HDRS
   settingsdialog.h
   mapdialog.h)
 
-
-if (LUGDULOV_LITE)
+if(LUGDULOV_LITE)
     set(lugdulov_SRCS ${lugdulov_SRCS} mapwidget_lite.cpp)
     set(lugdulov_MOC_HDRS ${lugdulov_MOC_HDRS} mapwidget_lite.h)
 else()

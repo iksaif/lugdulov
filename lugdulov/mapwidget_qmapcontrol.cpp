@@ -157,8 +157,8 @@ MapWidget::setupMapControl()
 void
 MapWidget::setPlugin(StationsPlugin *p)
 {
-  delete model;
   delete proxy;
+  delete model;
 
   plugin = p;
 
@@ -334,6 +334,8 @@ MapWidget::refreshStations()
   }
 
   refreshStatus();
+
+  emit centerChanged(QPointF(coord.x(), coord.y()));
 }
 
 void
@@ -367,6 +369,12 @@ MapWidget::centerView(const QPointF & pt, int zoom)
     mc->setZoom(zoom);
 
   QTimer::singleShot(0, this, SLOT(refreshStations()));
+}
+
+void
+MapWidget::centerOnStation(Station *station)
+{
+  centerView(station->pos(), 17);
 }
 
 void

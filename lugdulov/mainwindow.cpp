@@ -23,13 +23,18 @@
 
 #include "lugdulov.h"
 
+#if defined(LUGDULOV_FULL_UI)
+#include "ui_fullwindow.h"
+#else
+#include "ui_mainwindow.h"
+#endif
+
 #include "tools.h"
 #include "stationsplugin.h"
 #include "stationspluginmanager.h"
 #include "station.h"
 #include "mainwindow.h"
 #include "stationslistdialog.h"
-#include "bookmarklistdialog.h"
 #include "pluginsdialog.h"
 #include "mapdialog.h"
 #include "settings.h"
@@ -37,33 +42,46 @@
 #include "settingsdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
-  : QMainWindow(parent)
+  : QMainWindow(parent),
+    ui(new Ui_MainWindow)
 {
-  setupUi(this);
+  ui->setupUi(this);
 
 #ifdef HAVE_QT_LOCATION
   localisation = NULL;
 #endif
 #if defined(Q_WS_MAEMO_5)
-  menu_File->removeAction(quitAction);
-  menu_Help->removeAction(aboutQtAction);
+  ui->menu_File->removeAction(quitAction);
+  ui->menu_Help->removeAction(aboutQtAction);
   setAttribute(Qt::WA_Maemo5StackedWindow);
   setAttribute(Qt::WA_Maemo5AutoOrientation, true);
 
-  searchLinkButton->setDescription(tr("Search stations by name"));
-  bookmarkLinkButton->setDescription(tr("Manage your favorites stations."));
+# if !defined(LUGDULOV_FULL_UI)
+  ui->searchLinkButton->setDescription(tr("Search stations by name"));
+  ui->bookmarkLinkButton->setDescription(tr("Manage your favorites stations."));
+# endif
 #elif defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
-  pushButton->setIconSize(QSize(24,24));
-  searchLinkButton->setDescription(QString());
-  bookmarkLinkButton->setDescription(QString());
-  mapLinkButton->setDescription(QString());
+  ui->pushButton->setIconSize(QSize(24,24));
+# if !defined(LUGDULOV_FULL_UI)
+  ui->searchLinkButton->setDescription(QString());
+  ui->bookmarkLinkButton->setDescription(QString());
+  ui->mapLinkButton->setDescription(QString());
+# endif
 #else
-  pushButton->setIconSize(QSize(24,24));
+  ui->pushButton->setIconSize(QSize(24,24));
 #endif
 
 #if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR) || defined(Q_WS_MAEMO_5)
-  iconLabel->hide();
-  titleLabel->hide();
+  ui->iconLabel->hide();
+  ui->titleLabel->hide();
+#endif
+
+
+#if defined(LUGDULOV_FULL_UI)
+  connect(ui->mapWidget, SIGNAL(centerChanged(const QPointF &)),
+	  ui->listWidget, SLOT(positionUpdated(const QPointF &)));
+  connect(ui->listWidget, SIGNAL(stationSelected(Station *)),
+	  ui->mapWidget, SLOT(centerOnStation(Station *)));
 #endif
 
 #if defined(Q_WS_MAEMO_5)
@@ -85,6 +103,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+  delete ui;
 }
 
 void
@@ -99,27 +118,29 @@ MainWindow::createButton()
   selectedPlugin = manager->station(selected);
 
   setStationsPlugin(selectedPlugin);
-  connect(pushButton, SIGNAL(clicked(bool)), this, SLOT(buttonClicked()));
+  connect(ui->pushButton, SIGNAL(clicked(bool)), this, SLOT(buttonClicked()));
 }
 
 void
 MainWindow::createActions()
 {
-  quitAction->setIcon(QIcon::fromTheme("dialog-close"));
-  aboutAction->setIcon(QIcon::fromTheme("dialog-information"));
-  aboutQtAction->setIcon(QPixmap(":/trolltech/qmessagebox/images/qtlogo-64.png"));
-  settingsAction->setIcon(QIcon::fromTheme("configure", QPixmap(":/res/configure.png")));
-  settingsButton->setIcon(QIcon::fromTheme("configure", QPixmap(":/res/configure.png")));
+  ui->quitAction->setIcon(QIcon::fromTheme("dialog-close"));
+  ui->aboutAction->setIcon(QIcon::fromTheme("dialog-information"));
+  ui->aboutQtAction->setIcon(QPixmap(":/trolltech/qmessagebox/images/qtlogo-64.png"));
+  ui->settingsAction->setIcon(QIcon::fromTheme("configure", QPixmap(":/res/configure.png")));
+  ui->settingsButton->setIcon(QIcon::fromTheme("configure", QPixmap(":/res/configure.png")));
 
-  connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
-  connect(aboutQtAction, SIGNAL(triggered()), this, SLOT(aboutQt()));
+  connect(ui->aboutAction, SIGNAL(triggered()), this, SLOT(about()));
+  connect(ui->aboutQtAction, SIGNAL(triggered()), this, SLOT(aboutQt()));
 
-  connect(searchLinkButton, SIGNAL(clicked(bool)), this, SLOT(search()));
-  connect(mapLinkButton, SIGNAL(clicked(bool)), this, SLOT(map()));
-  connect(bookmarkLinkButton, SIGNAL(clicked(bool)), this, SLOT(bookmarks()));
+#if !defined(LUGDULOV_FULL_UI)
+  connect(ui->searchLinkButton, SIGNAL(clicked(bool)), this, SLOT(search()));
+  connect(ui->mapLinkButton, SIGNAL(clicked(bool)), this, SLOT(map()));
+  connect(ui->bookmarkLinkButton, SIGNAL(clicked(bool)), this, SLOT(bookmarks()));
+#endif
 
-  connect(settingsAction, SIGNAL(triggered(bool)), this, SLOT(settings()));
-  connect(settingsButton, SIGNAL(clicked(bool)), this, SLOT(settings()));
+  connect(ui->settingsAction, SIGNAL(triggered(bool)), this, SLOT(settings()));
+  connect(ui->settingsButton, SIGNAL(clicked(bool)), this, SLOT(settings()));
 }
 
 void
@@ -145,8 +166,7 @@ MainWindow::delayedInit()
 
   statusMsg(tr("Waiting for GPS fix..."));
 
-  connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)),
-	  this, SLOT(positionUpdated(QGeoPositionInfo)));
+  connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), this, SLOT(positionUpdated(QGeoPositionInfo)));
   connect(localisation, SIGNAL(updateTimeout()), this, SLOT(positionRequestTimeout()));
 
   if (conf.value("GpsPowerSave").toBool())
@@ -180,6 +200,10 @@ MainWindow::positionUpdated(QGeoPositionInfo info)
 
   QPointF pt(coord.latitude(), coord.longitude());
 
+#if defined(LUGDULOV_FULL_UI)
+  ui->mapWidget->positionUpdated(info);
+#endif
+
   if (plugin) // && plugin->rect().contains(pt))
     return ;
 
@@ -211,19 +235,21 @@ MainWindow::setStationsPlugin(StationsPlugin *sta, bool save)
     plugin->setParent(this);
 
   if (plugin) {
-    pushButton->setText(plugin->name());
-    pushButton->setIcon(plugin->bikeIcon());
+    ui->pushButton->setText(plugin->name());
+    ui->pushButton->setIcon(plugin->bikeIcon());
 
     connect(plugin, SIGNAL(progress(qint64, qint64)), this, SLOT(progress(qint64, qint64)));
 
     QTimer::singleShot(1, this, SLOT(updatePlugin()));
   } else {
-    pushButton->setText(tr("Auto"));
+    ui->pushButton->setText(tr("Auto"));
   }
   if (save) {
     Settings conf;
     conf.setValue("StationsPlugin", plugin ? plugin->id() : "auto");
   }
+
+  fullUiSetStationPlugin(plugin);
 }
 
 void
@@ -250,83 +276,6 @@ MainWindow::statusMsg(const QString & msg, int timeout)
 #else
   statusBar()->showMessage(msg, timeout);
 #endif
-}
-
-void
-MainWindow::search()
-{
-  if (!plugin) {
-    chooseStationsPlugin();
-    return ;
-  }
-
-  StationsListDialog *dlg = new StationsListDialog(plugin, this);
-
-#ifdef HAVE_QT_LOCATION
-  if (localisation) {
-    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), dlg, SLOT(positionUpdated(QGeoPositionInfo)));
-    connect(localisation, SIGNAL(updateTimeout()), dlg, SLOT(positionRequestTimeout()));
-
-    if (position.isValid())
-      dlg->positionUpdated(position);
-  }
-#endif
-  showAndDelete(dlg);
-}
-
-void
-MainWindow::map()
-{
-  if (!plugin) {
-    chooseStationsPlugin();
-    return ;
-  }
-
-  MapDialog *map = new MapDialog(plugin, this);
-  QPointF pt = plugin->center();
-  int zoom = 15;
-
-#ifdef HAVE_QT_LOCATION
-  if (localisation) {
-    QGeoCoordinate coord = position.coordinate();
-    QPointF pt(coord.latitude(), coord.longitude());
-
-    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)),
-	    map, SLOT(positionUpdated(QGeoPositionInfo)));
-
-    if (coord.isValid() && plugin->rect().contains(pt)) {
-      zoom = 0;
-      map->positionUpdated(position);
-    }
-  }
-#endif
-
-  if (zoom)
-    map->centerView(pt, zoom);
-  showAndDelete(map);
-}
-
-void
-MainWindow::bookmarks()
-{
-  if (!plugin) {
-    chooseStationsPlugin();
-    return ;
-  }
-
-  BookmarkListDialog *dlg = new BookmarkListDialog(plugin, this);
-
-#ifdef HAVE_QT_LOCATION
-  if (localisation) {
-    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)),
-	    dlg, SLOT(positionUpdated(QGeoPositionInfo)));
-    connect(localisation, SIGNAL(updateTimeout()), dlg, SLOT(positionRequestTimeout()));
-
-    if (position.isValid())
-      dlg->positionUpdated(position);
-  }
-#endif
-  showAndDelete(dlg);
 }
 
 void
@@ -392,3 +341,100 @@ MainWindow::settings()
   if (dialog.exec())
     dialog.saveSettings();
 }
+
+void
+MainWindow::search(bool bookmarks)
+{
+  if (!plugin) {
+    chooseStationsPlugin();
+    return ;
+  }
+
+  StationsListDialog *dlg = new StationsListDialog(plugin, this);
+
+#ifdef HAVE_QT_LOCATION
+  if (localisation) {
+    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), dlg, SLOT(positionUpdated(QGeoPositionInfo)));
+    connect(localisation, SIGNAL(updateTimeout()), dlg, SLOT(positionRequestTimeout()));
+
+    if (position.isValid())
+      dlg->positionUpdated(position);
+  }
+#endif
+
+  dlg->onlyBookmarks(bookmarks);
+
+  showAndDelete(dlg);
+}
+
+void
+MainWindow::bookmarks()
+{
+  search(true);
+}
+
+void
+MainWindow::map()
+{
+  if (!plugin) {
+    chooseStationsPlugin();
+    return ;
+  }
+
+  MapDialog *map = new MapDialog(plugin, this);
+  QPointF pt = plugin->center();
+  int zoom = 15;
+
+#ifdef HAVE_QT_LOCATION
+  if (localisation) {
+    QGeoCoordinate coord = position.coordinate();
+    QPointF pt(coord.latitude(), coord.longitude());
+
+    connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)),
+	    map, SLOT(positionUpdated(QGeoPositionInfo)));
+
+    if (coord.isValid() && plugin->rect().contains(pt)) {
+      zoom = 0;
+      map->positionUpdated(position);
+    }
+  }
+#endif
+
+  if (zoom)
+    map->centerView(pt, zoom);
+  showAndDelete(map);
+}
+
+#if defined(LUGDULOV_FULL_UI)
+void
+MainWindow::fullUiSetStationPlugin(StationsPlugin *plugin)
+{
+  if (plugin) {
+    QPointF pt = plugin->center();
+    int zoom = 15;
+
+    ui->mapWidget->setPlugin(plugin);
+    ui->listWidget->setPlugin(plugin);
+
+#ifdef HAVE_QT_LOCATION
+  if (localisation) {
+    QGeoCoordinate coord = position.coordinate();
+    QPointF pt(coord.latitude(), coord.longitude());
+
+    if (coord.isValid() && plugin->rect().contains(pt)) {
+      zoom = 0;
+      ui->mapWidget->positionUpdated(position);
+    }
+  }
+#endif
+
+  if (zoom)
+    ui->mapWidget->centerView(pt, zoom);
+  }
+}
+#else
+void
+MainWindow::fullUiSetStationPlugin(StationsPlugin *plugin)
+{
+}
+#endif

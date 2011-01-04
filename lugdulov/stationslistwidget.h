@@ -16,38 +16,63 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONSLISTDIALOG_H
-# define STATIONSLISTDIALOG_H
+#ifndef STATIONSLISTWIDGET_H
+# define STATIONSLISTWIDGET_H
 
 #include <QtCore/QTimer>
-#include <QtGui/QDialog>
+#include <QtGui/QWidget>
+#include <QtCore/QModelIndex>
 
 #include "mobility.h"
 
+class StationsModel;
 class StationsPlugin;
-class Ui_StationsListDialog;
+class StationsSortFilterProxyModel;
+class StationsListDialog;
+class StationsView;
+class Station;
+class Ui_StationsListWidget;
 
-class StationsListDialog : public QDialog
+class StationsListWidget : public QWidget
 {
   Q_OBJECT
 
  public:
-  StationsListDialog(StationsPlugin *plugin, QWidget *parent = 0);
-  ~StationsListDialog();
+  StationsListWidget(QWidget *parent = 0);
+  ~StationsListWidget();
 
  public slots:
-  void onlyBookmarks(bool enabled);
+  void setPlugin(StationsPlugin *plugin);
+  void positionUpdated(const QPointF & pos);
 #ifdef HAVE_QT_LOCATION
   void positionUpdated(QGeoPositionInfo info);
   void positionRequestTimeout();
 #endif
 
- private slots:
-  void progress(qint64 done, qint64 total);
-  void error(const QString & title, const QString & message);
+ signals:
+  void stationSelected(Station *station);
 
  private:
-  Ui_StationsListDialog *ui;
+  void setupListWidget();
+
+ private slots:
+  void stationClicked(const QModelIndex & index);
+  void onlyBookmarks(bool enabled);
+  void filterEdited(const QString & text);
+  void filter(void);
+
+ private:
+  StationsPlugin *plugin;
+  StationsModel *model;
+  StationsSortFilterProxyModel *proxy;
+  StationsView *view;
+#ifdef HAVE_QT_LOCATION
+  QGeoPositionInfo position;
+#endif
+  QTimer filterTimer;
+  Ui_StationsListWidget *ui;
+
+  friend class StationsListDialog;
 };
 
 #endif

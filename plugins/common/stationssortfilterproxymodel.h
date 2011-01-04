@@ -48,7 +48,7 @@ public:
 public slots:
     void setStationLimit(int limit);
     void setBookmarks(QList < int > bookmarks);
-    void enableBookmarks(bool enabled);
+    void onlyBookmarks(bool enabled);
     void setPosition(const QPointF &pos);
     void setPositionFilter(const QPointF &pos, double radius = -1);
 
