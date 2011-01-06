@@ -9,15 +9,10 @@ include_directories(
   ${QT_INCLUDE_DIR}
 )
 
-if (QTLOCATION_FOUND)
-  include_directories(${QTLOCATION_INCLUDE_DIR})
-  link_directories(${QTLOCATION_LIBRARY_DIRS})
-endif ()
-
-if (QTBEARER_FOUND)
-  include_directories(${QTBEARER_INCLUDE_DIR})
-  link_directories(${QTBEARER_LIBRARY_DIRS})
-endif ()
+if (QT_MOBILITY_FOUND)
+  include_directories(${QT_MOBILITY_INCLUDE_DIR})
+  link_directories(${QT_MOBILITY_LIBRARY_DIR})
+endif()
 
 set(lugdulov_SRCS
   main.cpp

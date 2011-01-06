@@ -4,6 +4,10 @@ include_directories(
   ${QJSON_INCLUDE_DIR}
 )
 
+if (QT_MOBILITY_FOUND)
+  include_directories(${QT_MOBILITY_INCLUDE_DIR})
+endif()
+
 set(lugdulov_base_SRCS
   tools.cpp
   stationspluginfactorysimple.cpp

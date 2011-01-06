@@ -5,7 +5,7 @@ project(lugdulov)
 include(CMakeDependentOption)
 
 set(VERSION_MAJOR "0")
-set(VERSION_MINOR "3")
+set(VERSION_MINOR "4")
 set(VERSION_PATCH "0")
 
 if(CMAKE_SYSTEM_NAME MATCHES Linux)
@@ -24,6 +24,8 @@ include(QtTranslations) # Local file for maemo_qt4_add_translation()
 set(PLUGINS_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib/lugdulov/plugins")
 set(PLUGINS_EXTEND_DIR "${CMAKE_INSTALL_PREFIX}/share/lugdulov/plugins")
 
+set(QTMOBILITY_MKSPEC_VERSION "11")
+
 find_package(Qt4 REQUIRED)
 find_package(QJSON REQUIRED)
 find_package(QtMobility)
@@ -41,7 +43,7 @@ endif()
 set(HAVE_QT_LOCATION ${QT_MOBILITY_LOCATION_FOUND})
 set(HAVE_QT_BEARER ${QT_MOBILITY_BEARER_FOUND})
 
-if (QT_MOBILITY_LOCATION_FOUND AND QT_MOBILITY_VERSION VERSION_GREATER 1.1.0)
+if (QT_MOBILITY_LOCATION_FOUND AND QT_MOBILITY_VERSION VERSION_GREATER 1.1.0 OR QT_MOBILITY_VERSION VERSION_EQUAL 1.1.0)
   option(QMAPCONTROL "use qmapcontrol [default: on]" ON)
 else()
   message(STATUS "QGraphicsGeoMap not available, falling back to QMapControl")

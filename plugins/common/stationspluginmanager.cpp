@@ -91,7 +91,8 @@ StationsPluginManager::loadPlugins()
 
   QDir dir = QCoreApplication::applicationDirPath();
 
-  loadPlugins(dir);
+  if (dir != QDir(PLUGINS_INSTALL_DIR))
+    loadPlugins(dir);
 
 #if defined(Q_OS_MAC)
   if (dir.dirName() == "MacOS") {
@@ -106,7 +107,8 @@ StationsPluginManager::loadPlugins()
   dir.cd("lugdulov");
   dir.cd("plugins");
 
-  loadPlugins(dir);
+  if (dir != QDir(PLUGINS_INSTALL_DIR))
+    loadPlugins(dir);
 #endif
 }
 

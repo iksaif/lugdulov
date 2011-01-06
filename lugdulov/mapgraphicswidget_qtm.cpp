@@ -92,6 +92,7 @@ void MapGraphicsWidget::mousePressEvent(QGraphicsSceneMouseEvent* event)
             kineticPanSpeed = QPointF();
 
             lastMoveTime = QTime::currentTime();
+	    lastClickTime = lastMoveTime;
         }
     }
 
@@ -103,6 +104,13 @@ void MapGraphicsWidget::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
     if (event->button() == Qt::LeftButton) {
         if (panActive) {
             panActive = false;
+
+	    if (lastClickTime.msecsTo(QTime::currentTime()) < holdTimeThreshold) {
+	      QList < QGeoMapObject * > objects = mapObjectsAtScreenPosition(event->pos());
+
+	      emit objectsClicked(objects);
+	      return ;
+	    }
 
             if (!enableKineticPanning || lastMoveTime.msecsTo(QTime::currentTime()) > holdTimeThreshold) {
                 return;

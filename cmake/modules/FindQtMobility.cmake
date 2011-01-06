@@ -1,10 +1,10 @@
 INCLUDE(FindQt4)
 
 set(MOBILITY_CONFIG_MKSPECS_FILE "")
-IF(EXISTS "${QT_MKSPECS_DIR}/features/mobilityconfig.prf")
-    set(MOBILITY_CONFIG_MKSPECS_FILE "${QT_MKSPECS_DIR}/features/mobilityconfig.prf")
-ELSEIF(EXISTS "${QT_MKSPECS_DIR}/features/mobility.prf")
-    set(MOBILITY_CONFIG_MKSPECS_FILE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules/mobilityconfig.prf")
+IF(EXISTS "${QT_MKSPECS_DIR}/features/mobilityconfig${MOBILITY_MKSPEC_VERSION}.prf")
+    set(MOBILITY_CONFIG_MKSPECS_FILE "${QT_MKSPECS_DIR}/features/mobilityconfig${MOBILITY_MKSPEC_VERSION}.prf")
+ELSEIF(EXISTS "${QT_MKSPECS_DIR}/features/mobility${MOBILITY_MKSPEC_VERSION}.prf")
+    set(MOBILITY_CONFIG_MKSPECS_FILE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/mobilityconfig${MOBILITY_MKSPEC_VERSION}.prf")
 ENDIF()
 
 macro(export_component component)
@@ -24,8 +24,8 @@ macro(export_component component)
     ENDIF()
 endmacro()
 
-IF(EXISTS "${QT_MKSPECS_DIR}/features/mobility.prf")
-    FILE(READ ${QT_MKSPECS_DIR}/features/mobility.prf MOBILITY_FILE_CONTENTS)
+IF(EXISTS "${QT_MKSPECS_DIR}/features/mobility${MOBILITY_MKSPEC_VERSION}.prf")
+    FILE(READ ${QT_MKSPECS_DIR}/features/mobility${MOBILITY_MKSPEC_VERSION}.prf MOBILITY_FILE_CONTENTS)
 
     STRING(REGEX MATCH "MOBILITY_PREFIX=([^\n]+)" QT_MOBILITY_PREFIX "${MOBILITY_FILE_CONTENTS}")
     SET(QT_MOBILITY_PREFIX ${CMAKE_MATCH_1})

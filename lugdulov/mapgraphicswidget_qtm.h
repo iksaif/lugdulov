@@ -81,6 +81,7 @@ private:
     QPoint panDir;
     QTimer *kineticTimer;
     QTime lastMoveTime;
+    QTime lastClickTime;
 
     // An entry in the mouse history. first=speed, second=time
     typedef QPair<QPointF, QTime> MouseHistoryEntry;
