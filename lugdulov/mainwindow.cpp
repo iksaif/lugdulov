@@ -51,8 +51,8 @@ MainWindow::MainWindow(QWidget *parent)
   localisation = NULL;
 #endif
 #if defined(Q_WS_MAEMO_5)
-  ui->menu_File->removeAction(quitAction);
-  ui->menu_Help->removeAction(aboutQtAction);
+  ui->menu_File->removeAction(ui->quitAction);
+  ui->menu_Help->removeAction(ui->aboutQtAction);
   setAttribute(Qt::WA_Maemo5StackedWindow);
   setAttribute(Qt::WA_Maemo5AutoOrientation, true);
 
@@ -357,8 +357,7 @@ MainWindow::search(bool bookmarks)
     connect(localisation, SIGNAL(positionUpdated(QGeoPositionInfo)), dlg, SLOT(positionUpdated(QGeoPositionInfo)));
     connect(localisation, SIGNAL(updateTimeout()), dlg, SLOT(positionRequestTimeout()));
 
-    if (position.isValid())
-      dlg->positionUpdated(position);
+    localisation->requestUpdate(15000);
   }
 #endif
 
@@ -397,6 +396,8 @@ MainWindow::map()
       zoom = 0;
       map->positionUpdated(position);
     }
+
+    localisation->requestUpdate(15000);
   }
 #endif
 
@@ -425,6 +426,8 @@ MainWindow::fullUiSetStationPlugin(StationsPlugin *plugin)
       zoom = 0;
       ui->mapWidget->positionUpdated(position);
     }
+
+    localisation->requestUpdate(15000);
   }
 #endif
 
