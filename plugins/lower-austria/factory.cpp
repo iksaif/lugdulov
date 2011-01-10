@@ -18,14 +18,12 @@
 
 #include <QtCore/QtPlugin>
 
-#include "config.h"
+
 #include "factory.h"
 
 StationsPluginFactoryLowerAustria::StationsPluginFactoryLowerAustria()
 {
-  loadInfos(":/lower-austria/lower-austria.xml");
-  loadCities(":/lower-austria/cities.xml");
-  loadCities(PLUGINS_EXTEND_DIR "/lower-austria/cities.xml");
+  init("lower-austria");
 }
 
 Q_EXPORT_PLUGIN2(stationslower-austria, StationsPluginFactoryLowerAustria)

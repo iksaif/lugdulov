@@ -20,6 +20,7 @@
 #define TOOLS_H
 
 #include <QtCore/QString>
+#include <QtCore/Qdir>
 
 class QNetworkRequest;
 
@@ -28,6 +29,7 @@ class Tools {
   static QString ucFirst(const QString & str);
   static void fixupRequest(QNetworkRequest * request);
   static bool isOnline();
+  static QDir pluginsPath(void);
 };
 
 #endif

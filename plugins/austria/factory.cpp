@@ -18,15 +18,13 @@
 
 #include <QtCore/QtPlugin>
 
-#include "config.h"
+
 #include "factory.h"
 #include "wien.h"
 
 StationsPluginFactoryAustria::StationsPluginFactoryAustria()
 {
-  loadInfos(":/austria/austria.xml");
-  loadCities(":/austria/cities.xml");
-  loadCities(PLUGINS_EXTEND_DIR "/austria/cities.xml");
+  init("austria");
 }
 
 StationsPluginSimple *

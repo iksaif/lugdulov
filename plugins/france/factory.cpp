@@ -18,7 +18,6 @@
 
 #include <QtCore/QtPlugin>
 
-#include "config.h"
 #include "stationsplugin.h"
 #include "factory.h"
 #include "larochelle.h"
@@ -28,9 +27,7 @@
 
 StationsPluginFactoryFrance::StationsPluginFactoryFrance()
 {
-  loadInfos(":/france/france.xml");
-  loadCities(":/france/cities.xml");
-  loadCities(PLUGINS_EXTEND_DIR "/france/cities.xml");
+  init("france");
 }
 
 StationsPluginSimple *

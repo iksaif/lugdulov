@@ -18,14 +18,12 @@
 
 #include <QtCore/QtPlugin>
 
-#include "config.h"
+
 #include "factory.h"
 
 StationsPluginFactoryLuxembourg::StationsPluginFactoryLuxembourg()
 {
-  loadInfos(":/luxembourg/luxembourg.xml");
-  loadCities(":/luxembourg/cities.xml");
-  loadCities(PLUGINS_EXTEND_DIR "/luxembourg/cities.xml");
+  init("luxembourg");
 }
 
 Q_EXPORT_PLUGIN2(stationsluxembourg, StationsPluginFactoryLuxembourg)

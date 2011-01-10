@@ -46,6 +46,7 @@ class StationsPluginFactorySimple : public StationsPluginFactory
   virtual QIcon icon() const;
 
  protected:
+  void init(const QString & id);
   void loadCities(const QString & xml);
   void loadInfos(const QString & xml);
 

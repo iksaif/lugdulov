@@ -22,6 +22,7 @@
 #include <QtCore/QDebug>
 
 #include "config.h"
+#include "tools.h"
 #include "stationspluginfactorysimple.h"
 #include "stationsplugincyclocity.h"
 #include "stationspluginnextbike.h"
@@ -38,6 +39,14 @@ StationsPluginFactorySimple::StationsPluginFactorySimple()
 
 StationsPluginFactorySimple::~StationsPluginFactorySimple()
 {
+}
+
+void
+StationsPluginFactorySimple::init(const QString & id)
+{
+  loadInfos(QString(":/%1/%1.xml").arg(id));
+  loadCities(QString(":/%1/cities.xml").arg(id));
+  loadCities(Tools::pluginsPath().canonicalPath() + QString("/%1/cities.xml").arg(id));
 }
 
 void
@@ -164,7 +173,7 @@ StationsPluginFactorySimple::plugin(const QString & city)
     plugin->d = new StationsPluginSimplePrivate();
     *plugin->d = cities[city];
     plugin->loadOverride(QString(":/%1/%2.xml").arg(id()).arg(city));
-    plugin->loadOverride(QString(PLUGINS_EXTEND_DIR "/%1/%2.xml").arg(id()).arg(city));
+    plugin->loadOverride(Tools::pluginsPath().canonicalPath() + QString("/%1/%2.xml").arg(id()).arg(city));
   }
 
   return plugin;

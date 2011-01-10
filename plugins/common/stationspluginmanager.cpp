@@ -25,6 +25,7 @@
 #include <QtCore/QDebug>
 
 #include "config.h"
+#include "tools.h"
 #include "stationspluginmanager.h"
 #include "stationspluginfactory.h"
 #include "stationspluginfactorysimple.h"
@@ -87,27 +88,14 @@ StationsPluginManager::loadPlugins()
   }
 
 #ifndef BUILD_STATIC_PLUGINS
-  loadPlugins(QDir(PLUGINS_INSTALL_DIR));
+  QDir app = QCoreApplication::applicationDirPath();
+  QDir dir;
 
-  QDir dir = QCoreApplication::applicationDirPath();
+  loadPlugins(app);
 
-  if (dir != QDir(PLUGINS_INSTALL_DIR))
-    loadPlugins(dir);
+  dir = Tools::pluginsPath();
 
-#if defined(Q_OS_MAC)
-  if (dir.dirName() == "MacOS") {
-    dir.cdUp();
-    dir.cdUp();
-    dir.cdUp();
-  }
-#else
-  dir.cdUp();
-#endif
-  dir.cd("lib");
-  dir.cd("lugdulov");
-  dir.cd("plugins");
-
-  if (dir != QDir(PLUGINS_INSTALL_DIR))
+  if (dir != app)
     loadPlugins(dir);
 #endif
 }

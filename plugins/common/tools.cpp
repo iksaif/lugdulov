@@ -17,6 +17,7 @@
  */
 
 #include <QtCore/QStringList>
+#include <QtCore/QCoreApplication>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
 
@@ -74,4 +75,27 @@ Tools::isOnline()
 #else
     return true;
 #endif
+}
+
+QDir
+Tools::pluginsPath(void)
+{
+  QDir dir = QCoreApplication::applicationDirPath();
+
+#if defined(Q_OS_MAC)
+  if (dir.dirName() == "MacOS") {
+    dir.cdUp();
+  }
+  dir.cd("plugins");
+  dir.cd("lugdulov");
+#elif defined(Q_OS_WINDOWS)
+  dir.cd("plugins");
+  dir.cd("lugdulov");
+#else
+  dir.cdUp();
+  dir.cd("lib");
+  dir.cd("lugdulov");
+  dir.cd("plugins");
+#endif
+  return dir;
 }

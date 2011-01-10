@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 
 project(lugdulov)
 
@@ -20,9 +20,6 @@ option(LUGDULOV_FULL_UI "use the 'full' ui [default: off]" OFF)
 
 include(lugdulov)
 include(QtTranslations) # Local file for maemo_qt4_add_translation()
-
-set(PLUGINS_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib/lugdulov/plugins")
-set(PLUGINS_EXTEND_DIR "${CMAKE_INSTALL_PREFIX}/share/lugdulov/plugins")
 
 set(QTMOBILITY_MKSPEC_VERSION "11")
 
@@ -92,8 +89,18 @@ endif("${CMAKE_BUILD_TYPE}" MATCHES "^Rel.*")
 #add extra search paths for libraries and includes
 set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
 set(LIB_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE STRING "Directory where lib will install")
-set(BIN_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/bin" CACHE STRING "Directory where binary will install")
 set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include" CACHE STRING "Directory where include will install")
+
+if (APPLE)
+   set(PLUGIN_INSTALL_DIR "lugdulov.app/Contents/PlugIns/lugdulov")
+   set(BIN_INSTALL_DIR "lugdulov.app/Contents/MacOS")
+elseif (WIN32)
+   set(PLUGIN_INSTALL_DIR "plugins/lugdulov")
+   set(BIN_INSTALL_DIR ".")
+else()
+   set(PLUGIN_INSTALL_DIR "lib/lugdulov/plugins")
+   set(BIN_INSTALL_DIR "bin")
+endif()
 
 set (LUGDULOV_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
@@ -121,16 +128,21 @@ add_subdirectory(pkg)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake config.h ESCAPE_QUOTES)
 
 ## Package ##
+
+# Bundle only accept .txt files
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/COPYING ${CMAKE_CURRENT_BINARY_DIR}/COPYING.txt)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/README ${CMAKE_CURRENT_BINARY_DIR}/README.txt)
+
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Lugdulo'V")
 set(CPACK_PACKAGE_VENDOR "iksaif.net")
 set(CPACK_PACKAGE_VERSION_MAJOR ${VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${VERSION_PATCH})
 set(CPACK_VERSION ${LUGDULOV_VERSION})
-set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README")
-set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README")
-set(CPACK_RESOURCE_FILE_WELCOME "${CMAKE_CURRENT_SOURCE_DIR}/README")
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/COPYING")
+set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_BINARY_DIR}/README.txt")
+set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_BINARY_DIR}/README.txt")
+set(CPACK_RESOURCE_FILE_WELCOME "${CMAKE_CURRENT_BINARY_DIR}/README.txt")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_BINARY_DIR}/COPYING.txt")
 set(CPACK_PACKAGE_CONTACT "Corentin Chary <corentin.chary@gmail.com>")
 set(CPACK_PACKAGE_VENDOR "http://xf.iksaif.net/dev/lugdulov.html")
 set(CPACK_SOURCE_IGNORE_FILES
@@ -165,7 +177,34 @@ if(WIN32)
   set(CPACK_NSIS_URL_INFO_ABOUT "http://xf.iksaif.net/dev/lugdulov.html")
   set(CPACK_NSIS_CONTACT "Corentin Chary <corentin.chary@gmail.com>")
   set(CPACK_PACKAGE_INSTALL_DIRECTORY "lugdulov")
-else(WIN32)
+elseif(APPLE)
+  set(CPACK_GENERATOR "DragNDrop")
+
+  set(CPACK_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}-osx")
+  set(CPACK_PACKAGE_ICON ${CMAKE_SOURCE_DIR}/lugdulov/res/lugdulov.icns)
+
+  set(CPACK_BUNDLE_ICON ${CMAKE_SOURCE_DIR}/lugdulov/res/lugdulov.icns)
+  set(CPACK_BUNDLE_NAME "lugdulov")
+  set(CPACK_BUNDLE_STARTUP_COMMAND "${CMAKE_SOURCE_DIR}/pkg/osx/lugdulov-startup")
+  set(CPACK_BUNDLE_PLIST ${CMAKE_BINARY_DIR}/Info.plist)  
+
+  set(MACOSX_BUNDLE_GUI_IDENTIFIER "http://xf.iksaif.net/dev/lugdulov.html")
+  set(MACOSX_BUNDLE_LONG_VERSION_STRING "lugdulov" ${CPACK_VERSION})
+  set(MACOSX_BUNDLE_BUNDLE_NAME "lugdulov")
+  set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${CPACK_VERSION})
+  set(MACOSX_BUNDLE_BUNDLE_VERSION ${CPACK_VERSION})
+  set(MACOSX_BUNDLE_COPYRIGHT "Copyright 2010-2011 Corentin Chary")
+  set(MACOSX_BUNDLE_INFO_STRING "Lugdulo'V - Find a bike in your city")
+  set(MACOSX_BUNDLE_ICON_FILE "lugdulov.icns")
+  set(MACOSX_BUNDLE_EXECUTABLE_NAME "${CMAKE_SOURCE_DIR}/pkg/osx/lugdulov-startup")
+  configure_file(pkg/osx/Info.plist.in ${CMAKE_BINARY_DIR}/Info.plist)
+  set(MACOSX_BUNDLE_INFO_PLIST ${CMAKE_BINARY_DIR}/Info.plist)
+
+  install(FILES ${CMAKE_BINARY_DIR}/Info.plist DESTINATION lugdulov.app/Contents/)
+  install(FILES lugdulov/res/lugdulov.icns DESTINATION lugdulov.app/Contents/Resources)
+
+  set(CPACK_BINARY_DRAGNDROP ON)
+else()
   set(CPACK_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}-${CMAKE_SYSTEM_NAME}")
   set(CPACK_SOURCE_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}")
   set(CPACK_GENERATOR "DEB")
@@ -173,5 +212,5 @@ else(WIN32)
   ## Debian specific ##
   set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt4-core (>= 4.6), libqt4-xml (>= 4.6), libqt4-gui (>= 4.6), libqt4-network (>= 4.6), qjson | libqjson0")
   set(CPACK_DEBIAN_PACKAGE_BUILDS_DEPENDS "libqt4-dev (>= 4.6), cmake (>= 2.6), qjson | libqjson-dev")
-endif(WIN32)
+endif()
 include(CPack)

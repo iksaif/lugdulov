@@ -21,6 +21,7 @@
 #include <QtCore/QTranslator>
 #include <QtCore/QLibraryInfo>
 #include <QtCore/QtPlugin>
+#include <QtCore/QDir>
 
 #include "config.h"
 
@@ -78,6 +79,15 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName("Lugdulov");
     QCoreApplication::setApplicationName("Lugdulov");
     QCoreApplication::setApplicationVersion(LUGDULOV_VERSION);
+
+#if defined(Q_OS_MAC) || defined(Q_OS_WINDOWS)
+    QDir dir(QApplication::applicationDirPath());
+#if defined(Q_OS_MAC)
+    dir.cdUp();
+#endif
+    dir.cd("plugins");
+    QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
+#endif
 
     Settings::settings();
 

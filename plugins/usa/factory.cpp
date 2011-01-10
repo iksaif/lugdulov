@@ -18,14 +18,12 @@
 
 #include <QtCore/QtPlugin>
 
-#include "config.h"
+
 #include "factory.h"
 
 StationsPluginFactoryUsa::StationsPluginFactoryUsa()
 {
-  loadInfos(":/usa/usa.xml");
-  loadCities(":/usa/cities.xml");
-  loadCities(PLUGINS_EXTEND_DIR "/usa/cities.xml");
+  init("usa");
 }
 
 Q_EXPORT_PLUGIN2(stationsusa, StationsPluginFactoryUsa)
