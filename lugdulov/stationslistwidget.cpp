@@ -80,14 +80,21 @@ void
 StationsListWidget::setPlugin(StationsPlugin *p)
 {
   ui->listView->setModel(NULL);
+  ui->listView->reset();
+
+  if (!plugin)
+    ui->listView->setStationsPlugin(NULL);
 
   delete proxy;
   delete model;
 
   plugin = p;
 
-  if (!plugin)
+  if (!plugin) {
+    proxy = NULL;
+    model = NULL;
     return ;
+  }
 
   model = new StationsModel(plugin, this);
   proxy = new StationsSortFilterProxyModel(this);

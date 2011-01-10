@@ -161,8 +161,11 @@ MainWindow::delayedInit()
 
   localisation = QGeoPositionInfoSource::createDefaultSource(this);
 
-  if (!localisation)
+  if (!localisation) {
+    if (!plugin)
+      buttonClicked();
     return ;
+  }
 
   statusMsg(tr("Waiting for GPS fix..."));
 
@@ -176,6 +179,8 @@ MainWindow::delayedInit()
   localisation->startUpdates();
   localisation->requestUpdate(15000);
 #endif
+  if (!plugin)
+    buttonClicked();
 }
 
 #ifdef HAVE_QT_LOCATION
@@ -410,6 +415,9 @@ MainWindow::map()
 void
 MainWindow::fullUiSetStationPlugin(StationsPlugin *plugin)
 {
+  ui->mapWidget->setPlugin(plugin);
+  ui->listWidget->setPlugin(plugin);
+
   if (plugin) {
     QPointF pt = plugin->center();
     int zoom = 15;

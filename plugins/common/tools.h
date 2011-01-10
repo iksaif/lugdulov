@@ -20,7 +20,7 @@
 #define TOOLS_H
 
 #include <QtCore/QString>
-#include <QtCore/Qdir>
+#include <QtCore/QDir>
 
 class QNetworkRequest;
 

@@ -162,6 +162,18 @@ MapWidget::setPlugin(StationsPlugin *p)
 
   plugin = p;
 
+  foreach (Geometry *geometry, geometries)
+    stationsLayer->removeGeometry(geometry);
+  qDeleteAll(geometries);
+  stations.clear();
+  geometries.clear();
+
+  if (!plugin) {
+    proxy = NULL;
+    model = NULL;
+    return ;
+  }
+
   model = new StationsModel(plugin, this);
   proxy = new StationsSortFilterProxyModel(model);
 

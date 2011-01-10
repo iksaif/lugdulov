@@ -142,6 +142,17 @@ MapWidget::setPlugin(StationsPlugin *p)
 
   plugin = p;
 
+  // Hum ?
+  //qDeleteAll(objects.values());
+  stations.clear();
+  objects.clear();
+
+  if (!plugin) {
+    proxy = NULL;
+    model = NULL;
+    return ;
+  }
+
   model = new StationsModel(plugin, this);
   proxy = new StationsSortFilterProxyModel(model);
 

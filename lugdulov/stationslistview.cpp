@@ -170,6 +170,8 @@ StationsListView::update()
   QModelIndex index;
   QModelIndexList list;
 
+  if (!plugin)
+    return ;
   while (viewport()->rect().contains(0, rect.y() + rect.height() + 1)){
     index = indexAt(QPoint(rect.x(), rect.y() + rect.height() + 1));
 
@@ -187,6 +189,7 @@ StationsListView::update()
 
     plugin->updateCached(station);
   }
+  scrollTimer->stop();
 }
 
 void

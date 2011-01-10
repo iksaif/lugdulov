@@ -81,7 +81,7 @@ class MapWidget : public QGraphicsView
   QMap < QGeoMapObject *, Station * > stations;
   QMap < Station *, QGeoMapObject * > objects;
 
-  QPushButton* follow;
+  QPushButton *follow;
   StationsModel *model;
   StationsSortFilterProxyModel *proxy;
 
