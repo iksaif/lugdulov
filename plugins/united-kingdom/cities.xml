@@ -4,7 +4,7 @@
     <type>VelIn</type>
     <latitude min="51.281307" max="51.681307">51.481307</latitude>
     <longitude min="-3.380498" max="-2.980498">-3.180498</longitude>
-    <infos>http://oybike.com/</infos>
+    <infos>http://www.oybike.com/oybike/cms.nsf/customFrmMap?openform</infos>
     <name>Cardiff</name>
     <bikeName>OYBike</bikeName>
   </city>
@@ -12,7 +12,7 @@
     <type>VelIn</type>
     <latitude min="51.255041" max="51.655041">51.455041</latitude>
     <longitude min="-1.169088" max="-0.769088">-0.969088</longitude>
-    <infos>http://oybike.com/</infos>
+    <infos>http://www.oybike.com/oybike/cms.nsf/customFrmMap?openform</infos>
     <name>Reading</name>
     <bikeName>OYBike</bikeName>
   </city>

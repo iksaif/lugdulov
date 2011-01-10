@@ -178,7 +178,7 @@
     <type>VelIn</type>
     <latitude min="50.758029" max="51.158029">50.958029</latitude>
     <longitude min="1.652413" max="2.052413">1.852413</longitude>
-    <infos>http://www.vel-in.fr/</infos>
+    <infos>http://www.vel-in.fr/calais/cms.nsf/customFrmMap?OpenForm&amp;lang=fr</infos>
     <name>Calais</name>
     <bikeName>Velin</bikeName>
   </city>
@@ -186,7 +186,7 @@
     <type>VelIn</type>
     <latitude min="43.503427" max="43.903427">43.703427</latitude>
     <longitude min="7.066266" max="7.466266">7.266266</longitude>
-    <infos>http://www.velobleu.org/</infos>
+    <infos>http://www.velobleu.org/nice/nicecms.nsf/customFrmMap?OpenForm</infos>
     <name>Nice</name>
     <bikeName>VeloBleu</bikeName>
   </city>
@@ -194,7 +194,7 @@
     <type>VelIn</type>
     <latitude min="47.454903" max="47.854903">47.654903</latitude>
     <longitude min="-2.959521" max="-2.559521">-2.759521</longitude>
-    <infos>http://www.velocea.fr/</infos>
+    <infos>http://www.velocea.fr/vannes/vannescms.nsf/customFrmMap?OpenForm</infos>
     <name>Vannes</name>
     <bikeName>Velocea</bikeName>
   </city>

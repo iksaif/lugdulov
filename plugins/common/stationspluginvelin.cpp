@@ -53,7 +53,11 @@ StationsPluginVelIn::forgeUrl(void)
   baseUrl.setScheme("http");
   baseUrl.setHost(server.encodedHost());
 
+#if 0
   request(baseUrl, StationsPluginVelIn::HomePage);
+#else
+  request(d->infosUrl, StationsPluginVelIn::MapPage);
+#endif
 }
 
 void
@@ -85,9 +89,8 @@ StationsPluginVelIn::handleInfos(const QByteArray & data)
       continue ;
 
     station = getOrCreateStation(id);
-
     if (station->name().isEmpty())
-      station->setName(sta["name"].toString());
+      station->setName(QUrl::fromPercentEncoding(sta["name"].toByteArray()));
     if (station->pos().isNull())
       station->setPos(QPointF(sta["lat"].toReal(), sta["lng"].toReal()));
     station->setBikes(sta["ab"].toInt());
@@ -117,6 +120,7 @@ StationsPluginVelIn::handleStatus(const QByteArray & data, int type)
       QUrl url = baseUrl;
 
       url = QUrl(url.toString() + captured.at(1));
+
       request(url, StationsPluginVelIn::FormPage);
     }
   } else if (type == StationsPluginVelIn::FormPage) {
