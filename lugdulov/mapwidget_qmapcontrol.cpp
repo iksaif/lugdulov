@@ -203,7 +203,7 @@ MapWidget::positionUpdated(const QGeoPositionInfo & info)
     return ;
 
   if (plugin && plugin->rect().contains(coord))
-    centerView(coord);
+    centerView(coord, 17);
 }
 #endif
 
