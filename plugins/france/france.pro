@@ -7,15 +7,13 @@ HEADERS += factory.h \
   larochelle.h \
   lyon.h \
   orleans.h \
-  rennes.h \
-  avignon.h \
+  rennes.h
 
 SOURCES += factory.cpp \
   larochelle.cpp \
   lyon.cpp \
   orleans.cpp \
-  rennes.cpp \
-  avignon.cpp \
+  rennes.cpp
 
 RESOURCES += france.qrc
 

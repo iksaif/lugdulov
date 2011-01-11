@@ -31,6 +31,7 @@ maemo5: {
 symbian: {
     QJSON_INCLUDE_PATH = "C:\NokiaQtSDK\Symbian\SDK\epoc32\include\qjson"
     DEFINES += BUILD_STATIC_PLUGINS=1
+    DEFINES += QMAPCONTROL=1
     DEFINES += LUGDULOV_VERSION=\"\\\"$${VERSION}\\\"\"
 }
 
@@ -42,9 +43,8 @@ symbian: {
     unix {
         QJSON_INCLUDE_PATH = "/usr/include/qjson/"
     }
+    DEFINES += QMAPCONTROL=1
     DEFINES += LUGDULOV_VERSION=\\\"$${VERSION}\\\"
-    DEFINES += PLUGINS_INSTALL_DIR=\\\"$${LUGDULOV_INSTALL_PLUGINS}\\\"
-    DEFINES += PLUGINS_EXTEND_DIR=\\\"$${PREFIX}/share/lugdulov/plugins\\\"
 }
 
 contains(LUGDULOV_CONFIG, bearer) {

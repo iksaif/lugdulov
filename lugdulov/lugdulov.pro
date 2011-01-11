@@ -36,25 +36,27 @@ LIBS += -L../qmapcontrol/$${suffix}
 HEADERS += mainwindow.h \
     stationdialog.h \
     stationslistdialog.h \
-    bookmarklistdialog.h \
+    stationslistwidget.h \
     stationdelegate.h \
     stationslistview.h \
     mapdialog.h \
-    mapwidget.h \
+    mapwidget_qmapcontrol.h \
     pluginsdialog.h \
-    aboutdialog.h
+    aboutdialog.h \
+    settingsdialog.h
 
 SOURCES += main.cpp \
     mainwindow.cpp \
     stationdialog.cpp \
     stationslistdialog.cpp \
-    bookmarklistdialog.cpp \
+    stationslistwidget.cpp \
     stationdelegate.cpp \
     stationslistview.cpp \
     mapdialog.cpp \
-    mapwidget.cpp \
+    mapwidget_qmapcontrol.cpp \
     pluginsdialog.cpp \
-    aboutdialog.cpp
+    aboutdialog.cpp \
+    settingsdialog.cpp
 
 TRANSLATIONS = i18n/lugdulov_fr.ts i18n/lugdulov_cs.ts
 
@@ -103,10 +105,11 @@ OTHER_FILES += res/velov.png \
 
 FORMS += mainwindow.ui \
     stationdialog.ui \
-    stationslistdialog.ui \
+    stationslistwidget.ui \
     mapdialog.ui \
     pluginsdialog.ui \
-    aboutdialog.ui
+    aboutdialog.ui \
+    settingsdialog.ui
 
 RESOURCES += res/lugdulov.qrc \
     i18n/i18n.qrc
