@@ -140,7 +140,7 @@ StationsPluginFactorySimple::loadCity(const QDomNode & city)
 
   if (data.id.isEmpty() || !data.rect.isValid() || data.center.isNull() ||
       data.name.isEmpty() || data.bikeName.isEmpty() || data.type.isEmpty()) {
-    qWarning() << "Error processing city " << data.id << data.rect << data.center
+    qWarning() << "Error processing city " << data.id
 	       << data.name << data.bikeName << data.type;
     return ;
   }

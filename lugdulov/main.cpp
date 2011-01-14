@@ -20,6 +20,7 @@
 #include <QtGui/QApplication>
 #include <QtCore/QTranslator>
 #include <QtCore/QLibraryInfo>
+#include <QtCore/QLocale>
 #include <QtCore/QtPlugin>
 #include <QtCore/QDir>
 

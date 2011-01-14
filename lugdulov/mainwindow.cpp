@@ -179,8 +179,11 @@ MainWindow::delayedInit()
   localisation->startUpdates();
   localisation->requestUpdate(15000);
 #endif
+
+#if defined(LUGDULOV_FULL_UI) && !defined(HAVE_QT_LOCATION)
   if (!plugin)
     buttonClicked();
+#endif
 }
 
 #ifdef HAVE_QT_LOCATION
@@ -224,8 +227,10 @@ MainWindow::buttonClicked()
 {
   PluginsDialog dlg(manager, this);
 
-  dlg.exec();
-  setStationsPlugin(dlg.plugin(), true);
+  if (dlg.exec())
+    setStationsPlugin(dlg.plugin(), true);
+  else
+    setStationsPlugin(NULL, true);
 }
 
 void
@@ -341,10 +346,19 @@ MainWindow::updatePlugin(void)
 void
 MainWindow::settings()
 {
+  Settings conf;
+  QString provider = conf.value("MapProvider").toString();
+  
   SettingsDialog dialog(this);
 
   if (dialog.exec())
     dialog.saveSettings();
+
+#if defined(LUGDULOV_FULL_UI)	
+  if (provider != conf.value("MapProvider").toString())
+    QMessageBox::warning(this, tr("Please restart Lugdulo'V."),
+		       tr("You need to restart Lugdulo'V  for changes to take effect."));
+#endif
 }
 
 void

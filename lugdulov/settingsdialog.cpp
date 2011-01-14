@@ -63,6 +63,9 @@ SettingsDialog::SettingsDialog(QWidget *parent)
   if (conf.value("GpsPowerSave").toBool())
     ui->checkBox->setCheckState(Qt::Checked);
 
+#if !defined(HAVE_QT_LOCATION)
+  ui->checkBox->hide();
+#endif
 }
 
 SettingsDialog::~SettingsDialog()
