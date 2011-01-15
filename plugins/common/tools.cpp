@@ -76,7 +76,7 @@ Tools::isOnline()
     return true;
 #endif
 }
-#include <QDebug>
+
 QDir
 Tools::pluginsPath(void)
 {
@@ -97,6 +97,5 @@ Tools::pluginsPath(void)
   dir.cd("lugdulov");
   dir.cd("plugins");
 #endif
-qWarning() << dir.canonicalPath();
   return dir;
 }
