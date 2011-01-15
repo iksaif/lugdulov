@@ -143,6 +143,7 @@ class CityBike(Provider):
         data_html = fp.read()
 
         match = re.search(r'(<kml .*kml>)', data_html, re.MULTILINE|re.DOTALL)
+
         data_kml = match.group(0)
 
         # the html page is coded in iso8859-1 and the kml is declared as utf-8

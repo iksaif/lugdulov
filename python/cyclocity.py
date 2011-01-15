@@ -206,6 +206,16 @@ class CycloCity(Provider):
             'lat': 49.6100036,
             'lng': 6.1295960
             },
+    {
+            'city_uid'     : 'valencia',
+            'country_uid'  : 'es',
+            'country_Name' : 'Spain',
+            'city_Name'    : 'Valencia',
+            'bike_name'    : 'Valenbisi',
+            'lat'          : 39.459258,
+            'lng'          : -0.376453,
+            'server'       : 'www.valenbisi.es'
+            },
 
     {
             'city_uid'    : 'santander',

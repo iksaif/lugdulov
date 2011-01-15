@@ -43,6 +43,7 @@ class VelIn(Provider):
             'city_name'    : 'Calais',
             'bike_name'    : 'Vel''in',
             'server' : 'www.vel-in.fr',
+            'url' : 'http://www.vel-in.fr/calais/cms.nsf/customFrmMap?OpenForm&amp;lang=fr',
             'lat'  : 50.9580293,
             'lng'  : 1.8524129,
             'service_class' : 'VelIn'
@@ -54,6 +55,7 @@ class VelIn(Provider):
             'city_name'    : 'Nice',
             'bike_name'    : 'VeloBleu',
             'server' : 'www.velobleu.org',
+            'url' : 'http://www.velobleu.org/nice/nicecms.nsf/customFrmMap?OpenForm',
             'lat'  : 43.7034273,
             'lng'  : 7.2662656,
             'service_class' : 'VelIn'
@@ -65,6 +67,7 @@ class VelIn(Provider):
             'city_name'    : 'Cardiff',
             'bike_name'    : 'OYBike',
             'server' : 'oybike.com',
+            'url' : 'http://www.oybike.com/oybike/cms.nsf/customFrmMap?openform',
             'lat'  : 51.4813069,
             'lng'  : -3.1804979,
             'service_class' : 'VelIn'
@@ -76,6 +79,7 @@ class VelIn(Provider):
             'city_name'    : 'Reading',
             'bike_name'    : 'OYBike',
             'server' : 'oybike.com',
+            'url' : 'http://www.oybike.com/oybike/cms.nsf/customFrmMap?openform',
             'lat'  : 51.4550410,
             'lng'  : -0.9690884,
             'service_class' : 'VelIn'
@@ -87,6 +91,7 @@ class VelIn(Provider):
             'city_name'    : 'Vannes',
             'bike_name'    : 'Velocea',
             'server' : 'www.velocea.fr',
+            'url' : 'http://www.velocea.fr/vannes/vannescms.nsf/customFrmMap?OpenForm',
             'lat'  : 47.6549032,
             'lng'  : -2.7595206,
             'service_class' : 'Velocea'
@@ -199,7 +204,8 @@ class VelIn(Provider):
 
     def dump_city(self, city):
         #city.rect = self.get_city_bike_zone(service, city)
-        city.infos = 'http://' + self.service_by_city(city)['server'] + "/"
+        #city.infos = 'http://' + self.service_by_city(city)['server'] + "/"
+        city.infos = self.service_by_city(city)['url']
         data = self._dump_city(city)
         print data
 
