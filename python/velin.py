@@ -43,7 +43,7 @@ class VelIn(Provider):
             'city_name'    : 'Calais',
             'bike_name'    : 'Vel''in',
             'server' : 'www.vel-in.fr',
-            'url' : 'http://www.vel-in.fr/calais/cms.nsf/customFrmMap?OpenForm&amp;lang=fr',
+            'url' : 'http://www.vel-in.fr/calais/cms.nsf/customFrmMap?OpenForm&lang=fr',
             'lat'  : 50.9580293,
             'lng'  : 1.8524129,
             'service_class' : 'VelIn'

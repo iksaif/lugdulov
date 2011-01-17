@@ -141,8 +141,8 @@ class Provider():
 
     def get_city_bike_zone(self, service, city, offset = 0.01):
         lat_min  = city.rect[0]
-        lat_max  = city.rect[1]
-        lng_min = city.rect[2]
+        lat_max  = city.rect[2]
+        lng_min = city.rect[1]
         lng_max = city.rect[3]
         lat_center = city.lat
         lng_center = city.lng

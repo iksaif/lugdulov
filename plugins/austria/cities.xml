@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cities>
-  <city id="neusiedler_see">
+  <city id="23">
     <type>NextBike</type>
     <latitude min="46.839000" max="48.839000">47.839000</latitude>
     <longitude min="15.761000" max="17.761000">16.761000</longitude>
@@ -8,7 +8,7 @@
     <name>Neusiedler See</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="bregenzerwald">
+  <city id="71">
     <type>NextBike</type>
     <latitude min="46.375100" max="48.375100">47.375100</latitude>
     <longitude min="8.933010" max="10.933010">9.933010</longitude>

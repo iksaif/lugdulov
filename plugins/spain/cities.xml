@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cities>
+  <city id="valencia">
+    <type>CycloCity</type>
+    <latitude min="39.249258" max="39.669258">39.459258</latitude>
+    <longitude min="-0.586453" max="-0.166453">-0.376453</longitude>
+    <status>http://www.valenbisi.es/service/stationdetails/%1</status>
+    <infos>http://www.valenbisi.es/service/carto</infos>
+    <name>Valencia</name>
+    <bikeName>Valenbisi</bikeName>
+  </city>
   <city id="santander">
     <type>CycloCity</type>
-    <latitude min="43.250960" max="43.488472">43.460960</latitude>
-    <longitude min="-3.834801" max="-3.597934">-3.807934</longitude>
+    <latitude min="43.250960" max="43.670960">43.460960</latitude>
+    <longitude min="-4.017934" max="-3.597934">-3.807934</longitude>
     <status>http://www.tusbic.es/service/stationdetails/%1</status>
     <infos>http://www.tusbic.es/service/carto</infos>
     <name>Santander</name>
@@ -11,8 +20,8 @@
   </city>
   <city id="seville">
     <type>CycloCity</type>
-    <latitude min="37.172640" max="37.434758">37.382640</latitude>
-    <longitude min="-6.022005" max="-5.786295">-5.996295</longitude>
+    <latitude min="37.172640" max="37.592640">37.382640</latitude>
+    <longitude min="-6.206295" max="-5.786295">-5.996295</longitude>
     <status>http://www.sevici.es/service/stationdetails/%1</status>
     <infos>http://www.sevici.es/service/carto</infos>
     <name>Séville</name>
@@ -20,19 +29,10 @@
   </city>
   <city id="barcelone">
     <type>CityBike</type>
-    <latitude min="41.177917" max="41.460881">41.387917</latitude>
-    <longitude min="2.101631" max="2.379919">2.169919</longitude>
+    <latitude min="41.177917" max="41.597917">41.387917</latitude>
+    <longitude min="1.959919" max="2.379919">2.169919</longitude>
     <infos>http://www.bicing.cat/localizaciones/localizaciones.php</infos>
     <name>Barcelone</name>
     <bikeName>Bicing</bikeName>
-  </city>
-  <city id="valencia">
-    <type>CycloCity</type>
-    <latitude min="39.438845" max="39.498478">39.459258</latitude>
-    <longitude min="-0.418339" max="-0.33371">-0.376453</longitude>
-    <status>http://www.valenbisi.es/service/stationdetails/%1</status>
-    <infos>http://www.valenbisi.es/service/carto</infos>
-    <name>Valencia</name>
-    <bikeName>Valenbisi</bikeName>
   </city>
 </cities>
