@@ -119,7 +119,7 @@ StationsPluginSimple::fetchAll()
 {
   if (!cacheLoaded) {
     QFile file(diskCache());
-  
+
     if (file.exists()) {
       loadDiskCache(file.fileName());
       emit stationsCreated(stations.values());

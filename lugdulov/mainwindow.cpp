@@ -348,13 +348,13 @@ MainWindow::settings()
 {
   Settings conf;
   QString provider = conf.value("MapProvider").toString();
-  
+
   SettingsDialog dialog(this);
 
   if (dialog.exec())
     dialog.saveSettings();
 
-#if defined(LUGDULOV_FULL_UI)	
+#if defined(LUGDULOV_FULL_UI)
   if (provider != conf.value("MapProvider").toString())
     QMessageBox::warning(this, tr("Please restart Lugdulo'V."),
 		       tr("You need to restart Lugdulo'V  for changes to take effect."));

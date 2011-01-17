@@ -18,8 +18,6 @@
 
 #include <QtXml/QDomNode>
 
-#include <qjson/parser.h>
-
 #include "station.h"
 #include "tools.h"
 #include "orleans.h"
