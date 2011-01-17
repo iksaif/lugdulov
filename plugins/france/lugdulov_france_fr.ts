@@ -8,12 +8,12 @@
         <translation type="obsolete">Erreur réseau</translation>
     </message>
     <message>
-        <location filename="lyon.cpp" line="169"/>
+        <location filename="lyon.cpp" line="158"/>
         <source>Velo&apos;V map</source>
         <translation>Carte des Velo&apos;V</translation>
     </message>
     <message>
-        <location filename="lyon.cpp" line="170"/>
+        <location filename="lyon.cpp" line="159"/>
         <source>Show this station in the official Velo&apos;V map</source>
         <translation>Montrer cette station sur la carte officielle des Velo&apos;V</translation>
     </message>
