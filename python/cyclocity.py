@@ -247,6 +247,16 @@ class CycloCity(Provider):
             'server' :  'www.cyclocity.jp',
             'lat': 36.6959518,
             'lng': 137.2136768
+            },
+    {
+            'city_uid'    : 'brisbane',
+            'country_uid' : 'au',
+            'country_Name' : 'Australia',
+            'city_Name'    : 'Brisbane',
+            'bike_name'    : 'CycloCycle',
+            'server' :  'www.citycycle.com.au',
+            'lat': -27.47538,
+            'lng': 153.019466
             }
     ]
 
@@ -322,7 +332,7 @@ class CycloCity(Provider):
             for elem in ["minLat", "minLng", "maxLat", "maxLng"]:
                 elems[elem] = float(arrondissement.getAttribute(elem))
 
-            zone.rect = (elems["minLat"], elems["minLng"], elems["maxLat"], elems["maxLng"])
+            zone.rect = (elems["minLat"], elems["maxLat"], elems["minLng"], elems["maxLng"])
             zone.create_center()
             zones.append(zone)
         return zones

@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="australia">
+    <file>au.png</file>
+    <file>cities.xml</file>
+    <file>australia.xml</file>
+  </qresource>
+</RCC>
+

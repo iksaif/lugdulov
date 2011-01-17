@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cities>
+<city id="brisbane">
+  <type>CycloCity</type>
+  <latitude min="-27.685380" max="152.829466">-27.475380</latitude>
+  <longitude min="-27.285380" max="153.229466">153.019466</longitude>
+  <status>http://www.citycycle.com.au/service/stationdetails/%1</status>
+  <infos>http://www.citycycle.com.au/service/carto</infos>
+  <name>Brisbane</name>
+  <bikeName>CycloCycle</bikeName>
+</city>
+<city id="melbourne">
+  <type>Melbourne</type>
+  <latitude min="-38.014598" max="-37.614598">-37.814598</latitude>
+  <longitude min="144.763398" max="145.163398">144.963398</longitude>
+  <infos>http://www.melbournebikeshare.com.au/stationmap/data</infos>
+  <name>Melbourne</name>
+  <bikeName>Melbourne Bike Share</bikeName>
+</city>
+</cities>

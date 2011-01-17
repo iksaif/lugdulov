@@ -18,6 +18,7 @@ def getproviders():
     import velostar
     import cyclehire
     import bixi
+    import melbourne
 
     ret = []
     ret.append(cyclocity.CycloCity())
@@ -33,6 +34,7 @@ def getproviders():
     ret.append(velostar.VeloStar())
     ret.append(cyclehire.CycleHire())
     ret.append(bixi.Bixi())
+    ret.append(melbourne.Melbourne())
 
     return ret
 

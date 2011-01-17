@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<country id="australia">
+  <name>Australia</name>
+  <description>Australia</description>
+  <icon>:/australia/au.png</icon>
+<country>
