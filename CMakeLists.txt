@@ -177,6 +177,9 @@ elseif(APPLE)
   set(CPACK_BUNDLE_STARTUP_COMMAND "${CMAKE_SOURCE_DIR}/pkg/osx/lugdulov-startup")
   set(CPACK_BUNDLE_PLIST ${CMAKE_BINARY_DIR}/Info.plist)  
 
+  #set(CPACK_DMG_BACKGROUND_IMAGE pkg/osx/background.png)
+  #set(CPACK_DMG_DS_STORE pkg/osx/DS_Store)
+
   set(MACOSX_BUNDLE_GUI_IDENTIFIER "http://xf.iksaif.net/dev/lugdulov.html")
   set(MACOSX_BUNDLE_LONG_VERSION_STRING "lugdulov" ${CPACK_VERSION})
   set(MACOSX_BUNDLE_BUNDLE_NAME "lugdulov")
