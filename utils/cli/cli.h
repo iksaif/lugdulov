@@ -49,17 +49,20 @@ class Cli : public QObject
   void stationsUpdated(const QList < Station *> & stations);
   void stationsError();
 
+  void testFinished();
   void infosFinished();
 
  private:
+  void fetchAll();
   void list();
   void infos();
+  void test();
   void serialize(const QVariant & out);
 
   StationsPluginManager *manager;
 
   QCommandLine *cmdline;
-  enum Action { List, Infos } action;
+  enum Action { List, Infos, Test } action;
   enum Format { Xml, Json } format;
   QStringList plugins;
 

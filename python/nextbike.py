@@ -65,6 +65,10 @@ class NextBike(Provider):
             ret.append(country)
         return ret
 
+    def nametoid(self, name):
+        name = name.lower().strip().replace(' ', '-')
+        return normalize("NFD", name).encode("ascii", "ignore")
+
     def get_cities(self, country):
         #    <city uid="1" lat="51.3402" lng="12.3722" zoom="14" maps_icon="" break="0" name="Leipzig">
         ret = []
@@ -81,13 +85,13 @@ class NextBike(Provider):
         nodes = cnode.getElementsByTagName("city")
         for node in nodes:
             city = City()
-            city.uid = node.getAttribute('uid')
             city.name = node.getAttribute('name')
             #city.oname = city.name
             #if city.name.find("(") != -1:
             #    city.name = city.name.split('(')[0]
-            #city.uid = city.name.lower().strip().replace(' ', '-')
-            city.uid = normalize("NFD", city.uid).encode("ascii", "ignore")
+            city.id = self.nametoid(city.name)
+            #city.uid = node.getAttribute('uid')
+            city.uid = city.id
             city.bikeName = 'nextbike'
             city.lat = float(node.getAttribute('lat'))
             city.lng = float(node.getAttribute('lng'))
@@ -108,6 +112,8 @@ class NextBike(Provider):
         for anode in dom.getElementsByTagName("country"):
             for node in anode.getElementsByTagName("city"):
                 if node.getAttribute('uid') == city.id:
+                    cnode = node
+                if self.nametoid(node.getAttribute('name')) == city.id:
                     cnode = node
         if not cnode:
             return []
@@ -130,6 +136,7 @@ class NextBike(Provider):
             if node.hasAttribute('bike_racks'):
                 station.slots = int(node.getAttribute('bike_racks'))
             stations.append(station)
+
         return stations
 
     def get_status(self, station, city):

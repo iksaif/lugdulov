@@ -53,6 +53,20 @@ StationsPluginNextBike::handleInfos(const QByteArray & data)
       if (city.toElement().attribute("uid") == cityId)
 	goto found;
 
+      QString name = city.toElement().attribute("name");
+
+      name = name.trimmed().toLower();
+      name.replace(" ", "_");
+      name = name.normalized(QString::NormalizationForm_KD);
+
+      for (int i = 0; i < name.size(); ++i)
+	if ((!name[i].isLetterOrNumber() && !name[i].isPunct()) ||
+	    name[i].category() == QChar::Letter_Modifier)
+	  name.remove(i, 1);
+
+      if (name == cityId)
+	goto found;
+
       city = city.nextSiblingElement("city");
     }
     country = country.nextSiblingElement("country");

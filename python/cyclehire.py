@@ -50,7 +50,7 @@ class CycleHire(Provider):
     def get_countries(self):
         country = Country()
         country.uid = "uk"
-        country.name = "United Kingdom"
+        country.name = "United-Kingdom"
         return [country]
 
     def get_cities(self, country):

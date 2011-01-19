@@ -8,7 +8,7 @@ for ctry in `./gen.py countries | tr ' ' '-'`; do
     for city in `./gen.py cities $ctry_uid | tr ' ' '_'`; do
 	city_lower=$(echo $city | cut -d':' -f2 | tr '-' '_' | tr -d '.')
 	city_id=$(echo $city | cut -d':' -f1)
-	out=stations/${city_lower}.xml
+	out=stations/${ctry_uid}-${city_id}.xml
 	echo "$ctry_lower/$city_lower ($city_id)"
 	echo '<?xml version="1.0" encoding="utf-8"?>' > $out
 	echo '<stations>' >> $out

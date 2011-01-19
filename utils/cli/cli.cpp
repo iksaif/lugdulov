@@ -34,6 +34,7 @@ static const struct QCommandLineConfigEntry conf[] =
   {
     { QCommandLine::Switch, 'l', "list", "List available plugins (default)", QCommandLine::Optional },
     { QCommandLine::Switch, 'i', "infos", "Fetch informations", QCommandLine::Optional },
+    { QCommandLine::Switch, 't', "test", "Test plugins", QCommandLine::Optional },
     { QCommandLine::Option, 'f', "fmt", "Output format (xml, json (default))", QCommandLine::Optional },
     { QCommandLine::Param, '\0', "plugin", "Fetch informations for that plugin", QCommandLine::OptionalMultiple },
     QCOMMANDLINE_CONFIG_ENTRY_END
@@ -77,6 +78,8 @@ Cli::switchFound(const QString & name)
     action = List;
   if (name == "infos")
     action = Infos;
+  if (name == "test")
+    action = Test;
 }
 
 void
@@ -114,7 +117,10 @@ Cli::serialize(const QVariant & out)
 {
   if (format == Json) {
     QJson::Serializer serializer;
-    QByteArray json = serializer.serialize(out);
+    QByteArray json;
+
+    serializer.setIndentMode(QJson::IndentMinimum);
+    json = serializer.serialize(out);
 
     std::cout << json.data() << std::endl;
   }
@@ -135,6 +141,12 @@ Cli::stationsCreated(const QList < Station *> & data)
       if (!stations[plugin].contains(station))
 	stations[plugin].append(station);
   }
+
+  std::cerr << updated[plugin].size() << "/" << stations[plugin].size()
+	    << " total: " << stations.size() - working.size() << "/"
+	    << stations.size() << "                                \r";
+
+
   foreach (Station *station, data)
     plugin->updateCached(station);
 }
@@ -144,8 +156,10 @@ Cli::stationsUpdated(const QList < Station *> & data)
 {
   StationsPlugin *plugin = (StationsPlugin *)sender();
 
-  foreach (Station *station, data)
-    updated[plugin][station] = true;
+  foreach (Station *station, data) {
+    if (station->bikes() != -1)
+      updated[plugin][station] = true;
+  }
 
   std::cerr << updated[plugin].size() << "/" << stations[plugin].size()
 	    << " total: " << stations.size() - working.size() << "/"
@@ -153,8 +167,12 @@ Cli::stationsUpdated(const QList < Station *> & data)
 
   if (updated[plugin].size() == stations[plugin].size())
     working.remove(plugin);
-  if (working.isEmpty())
-    infosFinished();
+  if (working.isEmpty()) {
+    if (action == Infos)
+      infosFinished();
+    if (action == Test)
+      testFinished();
+  }
 }
 
 void
@@ -163,8 +181,49 @@ Cli::stationsError()
   StationsPlugin *plugin = (StationsPlugin *)sender();
 
   working.remove(plugin);
-  if (working.isEmpty())
-    QTimer::singleShot(5, this, SLOT(infosFinished()));
+  if (working.isEmpty()) {
+    if (action == Infos)
+      QTimer::singleShot(5, this, SLOT(infosFinished()));
+    if (action == Test)
+      QTimer::singleShot(5, this, SLOT(testFinished()));
+  }
+}
+
+void
+Cli::testFinished()
+{
+  QVariantMap map;
+  QVariantList cities;
+
+  foreach(StationsPlugin *plugin, stations.keys()) {
+    QVariantMap city;
+    QVariantList infos;
+    int bikes = 0, freeSlots = 0, totalSlots = 0;
+
+    city["name"] = plugin->name();
+    city["id"] = plugin->id();
+    city["bikeName"] = plugin->bikeName();
+
+    foreach(Station *station, stations[plugin]) {
+      if (station->freeSlots() >= 0)
+	freeSlots += station->freeSlots();
+      if (station->totalSlots() >= 0)
+	totalSlots += station->totalSlots();
+      if (station->bikes() >= 0)
+	bikes += station->bikes();
+    }
+
+    city["bikes"] = bikes;
+    city["freeSlots"] = freeSlots;
+    city["totalSlots"] = totalSlots;
+    city["stations"] = stations[plugin].count();
+
+    cities.append(city);
+  }
+
+  map["cities"] = cities;
+  serialize(map);
+  exit(1);
 }
 
 void
@@ -250,11 +309,24 @@ Cli::list()
   serialize(map);
 }
 
+
 void
 Cli::infos()
 {
+  fetchAll();
+}
+
+void
+Cli::test()
+{
+  fetchAll();
+}
+
+void
+Cli::fetchAll()
+{
   foreach(StationsPlugin *plugin, manager->stations().values()) {
-    if (plugins.contains(plugin->id()) || plugins.contains(plugin->name())) {
+    if (!plugins.size() || plugins.contains(plugin->id()) || plugins.contains(plugin->name())) {
       working[plugin] = true;
 
       connect(plugin, SIGNAL(error(const QString &, const QString &)),
@@ -278,6 +350,8 @@ Cli::run()
     QCoreApplication::instance()->quit();
   } else if (action == Infos) {
     infos();
+  } else if(action == Test) {
+    test();
   } else {
     QCoreApplication::instance()->quit();
   }

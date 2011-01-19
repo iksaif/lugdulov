@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cities>
-  <city id="57">
+  <city id="st_polten">
     <type>NextBike</type>
     <latitude min="47.205800" max="49.205800">48.205800</latitude>
     <longitude min="14.623200" max="16.623200">15.623200</longitude>
@@ -8,7 +8,7 @@
     <name>St. Pölten</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="64">
+  <city id="modling">
     <type>NextBike</type>
     <latitude min="47.104700" max="49.104700">48.104700</latitude>
     <longitude min="15.320200" max="17.320200">16.320200</longitude>
@@ -16,7 +16,7 @@
     <name>Mödling</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="142">
+  <city id="wachau">
     <type>NextBike</type>
     <latitude min="47.318800" max="49.318800">48.318800</latitude>
     <longitude min="14.416600" max="16.416600">15.416600</longitude>
@@ -24,7 +24,7 @@
     <name>Wachau</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="143">
+  <city id="tulln">
     <type>NextBike</type>
     <latitude min="47.326900" max="49.326900">48.326900</latitude>
     <longitude min="15.056900" max="17.056900">16.056900</longitude>
@@ -32,7 +32,7 @@
     <name>Tulln</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="144">
+  <city id="triestingtal">
     <type>NextBike</type>
     <latitude min="46.983500" max="48.983500">47.983500</latitude>
     <longitude min="15.081200" max="17.081200">16.081200</longitude>
@@ -40,7 +40,7 @@
     <name>Triestingtal</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="146">
+  <city id="baden">
     <type>NextBike</type>
     <latitude min="47.063400" max="49.063400">48.063400</latitude>
     <longitude min="15.313700" max="17.313700">16.313700</longitude>
@@ -48,7 +48,7 @@
     <name>Baden</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="149">
+  <city id="romerland">
     <type>NextBike</type>
     <latitude min="47.105400" max="49.105400">48.105400</latitude>
     <longitude min="15.866400" max="17.866400">16.866400</longitude>
@@ -56,7 +56,7 @@
     <name>Römerland</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="150">
+  <city id="obb_bahnhofe">
     <type>NextBike</type>
     <latitude min="47.019300" max="49.019300">48.019300</latitude>
     <longitude min="15.309200" max="17.309200">16.309200</longitude>
@@ -64,7 +64,7 @@
     <name>Öbb-Bahnhöfe</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="151">
+  <city id="wieselburg">
     <type>NextBike</type>
     <latitude min="47.190800" max="49.190800">48.190800</latitude>
     <longitude min="14.316300" max="16.316300">15.316300</longitude>
@@ -72,7 +72,7 @@
     <name>Wieselburg</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="156">
+  <city id="wiener_neustadt">
     <type>NextBike</type>
     <latitude min="46.809000" max="48.809000">47.809000</latitude>
     <longitude min="15.249800" max="17.249800">16.249800</longitude>

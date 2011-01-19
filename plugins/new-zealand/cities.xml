@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cities>
-  <city id="34">
+  <city id="auckland">
     <type>NextBike</type>
     <latitude min="-37.860300" max="-35.860300">-36.860300</latitude>
     <longitude min="173.763000" max="175.763000">174.763000</longitude>

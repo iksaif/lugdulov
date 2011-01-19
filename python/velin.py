@@ -107,23 +107,28 @@ class VelIn(Provider):
         return self.forge_url(city)
 
     def forge_url(self, city):
-        mapdb = 'oybike/stands.nsf'
         service = self.service_by_city(city)
 
-        # for the key follow the path
-        fp = urlopen('http://' + service['server']  + "/")
-        html = fp.read()
-        rg = re.compile('window\.location = \'(.*?)\';')
-        location = rg.search(html).group(1)
+        if 0:
+            mapdb = 'oybike/stands.nsf'
 
-        fp = urlopen('http://' + service['server']  + location)
-        html = fp.read()
-        rg = re.compile('(customFrmMap\?OpenForm\&ParentUNID=.*?\?open\&lang=fr)')
-        request = rg.search(html).group(1)
-        rg = re.compile('var webdbname = \'(.*?)\';')
-        webdbname = rg.search(html).group(1)
-        url_map = 'http://' + service['server'] + '/' + webdbname + '/' + request
-        fp = urlopen(url_map)
+            # for the key follow the path
+            fp = urlopen('http://' + service['server']  + "/")
+            html = fp.read()
+            rg = re.compile('window\.location = \'(.*?)\';')
+            location = rg.search(html).group(1)
+
+            fp = urlopen('http://' + service['server']  + location)
+            html = fp.read()
+            rg = re.compile('(customFrmMap\?OpenForm\&ParentUNID=.*?\?open\&lang=fr)')
+            request = rg.search(html).group(1)
+            rg = re.compile('var webdbname = \'(.*?)\';')
+            webdbname = rg.search(html).group(1)
+            url_map = 'http://' + service['server'] + '/' + webdbname + '/' + request
+            fp = urlopen(url_map)
+        else:
+            fp = urlopen(service['url'])
+
         html = fp.read()
         rg = re.compile('var mapdbkey = \'(.*?)\';')
         mapdbkey = rg.search(html).group(1)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cities>
-  <city id="88">
+  <city id="sursee_(lv)">
     <type>NextBike</type>
     <latitude min="46.171300" max="48.171300">47.171300</latitude>
     <longitude min="7.108770" max="9.108770">8.108770</longitude>
@@ -8,7 +8,7 @@
     <name>Sursee (Lv)</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="89">
+  <city id="sempach_station_(lv)">
     <type>NextBike</type>
     <latitude min="46.117000" max="48.117000">47.117000</latitude>
     <longitude min="7.194680" max="9.194680">8.194680</longitude>
@@ -16,7 +16,7 @@
     <name>Sempach Station (Lv)</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="91">
+  <city id="schupfheim_(lv)">
     <type>NextBike</type>
     <latitude min="45.950100" max="47.950100">46.950100</latitude>
     <longitude min="7.014850" max="9.014850">8.014850</longitude>
@@ -24,7 +24,7 @@
     <name>Schüpfheim (Lv)</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="97">
+  <city id="zug_(lv)">
     <type>NextBike</type>
     <latitude min="46.166200" max="48.166200">47.166200</latitude>
     <longitude min="7.515410" max="9.515410">8.515410</longitude>
@@ -32,7 +32,7 @@
     <name>Zug (Lv)</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="98">
+  <city id="bern_(lv)">
     <type>NextBike</type>
     <latitude min="45.948000" max="47.948000">46.948000</latitude>
     <longitude min="6.448150" max="8.448150">7.448150</longitude>
@@ -40,7 +40,7 @@
     <name>Bern (Lv)</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="103">
+  <city id="root_(lv)">
     <type>NextBike</type>
     <latitude min="46.118300" max="48.118300">47.118300</latitude>
     <longitude min="7.375020" max="9.375020">8.375020</longitude>
@@ -48,7 +48,7 @@
     <name>Root (Lv)</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="104">
+  <city id="rotkreuz_(lv)">
     <type>NextBike</type>
     <latitude min="46.144000" max="48.144000">47.144000</latitude>
     <longitude min="7.440590" max="9.440590">8.440590</longitude>
@@ -56,7 +56,7 @@
     <name>Rotkreuz (Lv)</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="107">
+  <city id="kussnacht_am_rigi_(lv)">
     <type>NextBike</type>
     <latitude min="46.081700" max="48.081700">47.081700</latitude>
     <longitude min="7.439300" max="9.439300">8.439300</longitude>
@@ -64,7 +64,7 @@
     <name>Küssnacht Am Rigi (Lv)</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="108">
+  <city id="arth_goldau_(lv)">
     <type>NextBike</type>
     <latitude min="46.058200" max="48.058200">47.058200</latitude>
     <longitude min="7.538090" max="9.538090">8.538090</longitude>
@@ -72,7 +72,7 @@
     <name>Arth-Goldau (Lv)</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="109">
+  <city id="schwyz_(lv)">
     <type>NextBike</type>
     <latitude min="46.021100" max="48.021100">47.021100</latitude>
     <longitude min="7.653280" max="9.653280">8.653280</longitude>
@@ -80,7 +80,7 @@
     <name>Schwyz (Lv)</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="110">
+  <city id="brunnen_(lv)">
     <type>NextBike</type>
     <latitude min="45.998600" max="47.998600">46.998600</latitude>
     <longitude min="7.609080" max="9.609080">8.609080</longitude>
@@ -88,7 +88,7 @@
     <name>Brunnen (Lv)</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="113">
+  <city id="stansstad_(lv)">
     <type>NextBike</type>
     <latitude min="45.975200" max="47.975200">46.975200</latitude>
     <longitude min="7.338790" max="9.338790">8.338790</longitude>
@@ -96,7 +96,7 @@
     <name>Stansstad (Lv)</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="114">
+  <city id="sarnen_(lv)">
     <type>NextBike</type>
     <latitude min="45.895300" max="47.895300">46.895300</latitude>
     <longitude min="7.248670" max="9.248670">8.248670</longitude>
@@ -104,7 +104,7 @@
     <name>Sarnen (Lv)</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="117">
+  <city id="langenthal_(lv)">
     <type>NextBike</type>
     <latitude min="46.214000" max="48.214000">47.214000</latitude>
     <longitude min="6.785770" max="8.785770">7.785770</longitude>
@@ -112,7 +112,7 @@
     <name>Langenthal (Lv)</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="121">
+  <city id="hochdorf_(lv)">
     <type>NextBike</type>
     <latitude min="46.163300" max="48.163300">47.163300</latitude>
     <longitude min="7.295710" max="9.295710">8.295710</longitude>
@@ -120,7 +120,7 @@
     <name>Hochdorf (Lv)</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="123">
+  <city id="stans_(lv)">
     <type>NextBike</type>
     <latitude min="45.957100" max="47.957100">46.957100</latitude>
     <longitude min="7.366120" max="9.366120">8.366120</longitude>
@@ -128,7 +128,7 @@
     <name>Stans (Lv)</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="126">
+  <city id="luzern_(nb)">
     <type>NextBike</type>
     <latitude min="46.047600" max="48.047600">47.047600</latitude>
     <longitude min="7.301100" max="9.301100">8.301100</longitude>
