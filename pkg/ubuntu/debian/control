@@ -1,0 +1,16 @@
+Source: lugdulov
+Section: misc
+Priority: extra
+Maintainer: Corentin Chary <corentincj@iksaif.net>
+HomePage: http://dev.iksaif.net/projects/lugdulov
+Build-Depends: debhelper (>= 7), libqjson-dev, qtmobility-dev, libqt4-dev, cmake, pkg-config
+Standards-Version: 3.9.1
+
+Package: lugdulov
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: A bike sharing application.
+ Support cities in:
+ France, Belgium, Ireland, Luxembourg, Spain, Austria,
+ Germany, Latvia, Japan, New-Zealand, Switzerland,
+ United-Kingdom, Canada.

@@ -28,6 +28,11 @@ macro(ADD_PLUGIN)
 	${QJSON_LIBRARY_DIRS}
   )
 
+  if (QT_MOBILITY_FOUND)
+    include_directories(${QT_MOBILITY_INCLUDE_DIR})
+    link_directories(${QT_MOBILITY_LIBRARY_DIR})
+  endif()
+
   if(BUILD_STATIC_PLUGINS)
     add_definitions(-DQT_STATICPLUGIN)
     add_library(${LIBNAME} STATIC ${SRCFILES})
@@ -46,4 +51,9 @@ macro(ADD_PLUGIN)
     ${QT_LIBRARIES}
     ${QJSON_LIBRARIES}
   )
+
+  if (QT_MOBILITY_LOCATION_FOUND)
+    target_link_libraries(${LIBNAME} ${QT_MOBILITY_LOCATION_LIBRARY})
+  endif ()
+
 endmacro()

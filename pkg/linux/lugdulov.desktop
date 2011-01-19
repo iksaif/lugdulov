@@ -2,6 +2,7 @@
 Version=0.4.0
 Encoding=UTF-8
 Name=Lugdulo'V
-Exec=/opt/lugdulov/bin/lugdulov-wrapper
+Exec=/usr/bin/lugdulov
 Type=Application
 Icon=lugdulov
+

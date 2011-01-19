@@ -1,9 +1,9 @@
 if(APPLE)
   add_subdirectory(osx)
-endif()
-
-if(Q_WS_MAEMO_5)
+elseif(Q_WS_MAEMO_5)
   add_subdirectory(maemo5)
+elseif("${CMAKE_SYSTEM}" MATCHES "Linux")
+  add_subdirectory(linux)
 endif()
 
 if(APPLE OR WIN32)
