@@ -4,7 +4,7 @@ lugdulov (0.4.0-1) unstable; urgency=low
   * New code to use QtLocation to draw the map (not enabled)
   * New settings window
   * New plugin system
-  * New cities (Saint Etienne, Washington DC, etc...)
+  * New cities (Saint Etienne, Washington DC, Melbourne, etc...)
 
  -- Corentin Chary <corentincj@iksaif.net>  Sat, 5 Jan 2011 00:00:00 +0200
 

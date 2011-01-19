@@ -150,18 +150,6 @@ set(CPACK_SOURCE_IGNORE_FILES
   "^${PROJECT_SOURCE_DIR}/build/")
 
 if(WIN32)
-if (0)
-  install(FILES
-        "${QT_BINARY_DIR}/QtCore${QT_VERSION_MAJOR}.dll"
-        "${QT_BINARY_DIR}/QtXml${QT_VERSION_MAJOR}.dll"
-        "${QT_BINARY_DIR}/QtGui${QT_VERSION_MAJOR}.dll"
-        "${QT_BINARY_DIR}/QtNetwork${QT_VERSION_MAJOR}.dll"
-        "${QT_BINARY_DIR}/mingwm10.dll"
-        "${QT_BINARY_DIR}/libgcc_s_dw2-1.dll"
-        "${CMAKE_BINARY_DIR}/bin/libqjson.dll"
-        DESTINATION bin
-  )
-  endif()
   set(CPACK_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}-win32")
   set(CPACK_SOURCE_PACKAGE_FILE_NAME "lugdulov")
   # set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\MyExecutable.exe")
