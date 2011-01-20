@@ -13,7 +13,7 @@ if(APPLE OR WIN32)
     set(plugins_dest "${BIN_INSTALL_DIR}/plugins")
   endif()
 
-  set(APPS "\${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}/lugdulov.exe")
+  set(APPS "\${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}/lugdulov${CMAKE_EXECUTABLE_SUFFIX}")
 
   if(WIN32)
     if(CMAKE_BUILD_TYPE MATCHES Debug OR CMAKE_BUILD_TYPE MATCHES RelWithDebInfo)
