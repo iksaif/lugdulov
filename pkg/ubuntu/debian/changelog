@@ -1,3 +1,9 @@
+lugdulov (0.4.0-2) maverick; urgency=low
+
+  * Upstream 0.4.0 release
+
+ -- Corentin Chary <corentincj@iksaif.net>  Sat, 20 Jan 2011 00:00:00 +0200
+
 lugdulov (0.4.0-1) maverick; urgency=low
 
   * Initial release
