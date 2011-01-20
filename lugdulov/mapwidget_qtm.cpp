@@ -158,7 +158,6 @@ MapWidget::setPlugin(StationsPlugin *p)
 
   proxy->setSourceModel(model);
   proxy->setStationLimit(10);
-  proxy->setBookmarks(Settings::bookmarks(plugin));
   proxy->setSortRole(StationsSortFilterProxyModel::StationDistanceRole);
 
   connect(model, SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)),

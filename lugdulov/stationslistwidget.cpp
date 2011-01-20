@@ -101,7 +101,6 @@ StationsListWidget::setPlugin(StationsPlugin *p)
 
   //proxy->setStationLimit(5);
   proxy->setSourceModel(model);
-  proxy->setBookmarks(Settings::bookmarks(plugin));
   proxy->setSortRole(StationsSortFilterProxyModel::StationDistanceRole);
   ui->listView->setStationsPlugin(plugin);
   ui->listView->setModel(proxy);

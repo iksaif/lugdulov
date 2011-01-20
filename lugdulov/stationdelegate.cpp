@@ -78,7 +78,7 @@ StationDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
   painter->setFont(font);
   painter->drawText(rect, Qt::AlignLeft|Qt::AlignTop, station->name());
 
-  if (index.data(StationsSortFilterProxyModel::StationBookmarkRole).toBool()) {
+  if (index.data(StationsModel::StationBookmarkRole).toBool()) {
     QPixmap bookmark = QPixmap(":/res/favorites.png").scaled(16, 16, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     QPoint pt(QFontMetrics(font).width(station->name()) + 5, rect.top());
 

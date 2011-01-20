@@ -18,6 +18,7 @@
 
 #include "stationsmodel.h"
 #include "stationsplugin.h"
+#include "settings.h"
 #include "station.h"
 
 StationsModel::StationsModel(StationsPlugin *plugin, QObject *parent)
@@ -27,6 +28,9 @@ StationsModel::StationsModel(StationsPlugin *plugin, QObject *parent)
 	  this, SLOT(stationsCreated(const QList < Station *> &)));
   connect(plugin_, SIGNAL(stationsUpdated(const QList < Station *> &)),
 	  this, SLOT(stationsUpdated(const QList < Station *> &)));
+
+  foreach (int id, Settings::bookmarks(plugin))
+    bookmarks[id] = true;
 }
 
 StationsModel::~StationsModel()
@@ -67,8 +71,32 @@ StationsModel::data(const QModelIndex & index, int role) const
     return station->freeSlots();
   else if (role == StationBikesRole)
     return station->bikes();
+  else if (role == StationBookmarkRole)
+    return bookmarks[station->id()];
 
   return QVariant();
+}
+
+bool
+StationsModel::setData(const QModelIndex & index, const QVariant & value, int role)
+{
+  Station *station;
+
+  if (!index.isValid())
+    return false;
+
+  station = stations.at(index.row());
+
+  if (role == StationBookmarkRole) {
+    bool marked = value.toBool();
+
+    Settings::bookmark(station, marked);
+    bookmarks[station->id()] = marked;
+
+    emit dataChanged(index, index);
+    return true;
+  }
+  return false;
 }
 
 void

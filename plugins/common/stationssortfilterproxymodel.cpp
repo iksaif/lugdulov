@@ -37,13 +37,11 @@ StationsSortFilterProxyModel::data(const QModelIndex & index, int role) const
 {
   Q_ASSERT(index.column() == 0);
 
-  if (role == StationBookmarkRole || role == StationDistanceRole) {
+  if (role == StationDistanceRole) {
     Station *station = (Station *)QSortFilterProxyModel::data(index, StationsModel::StationRole).value<void *>();
 
     if (!station)
       return QVariant();
-    else if (role == StationBookmarkRole)
-      return bookmarks[station->id()];
     else if (role == StationDistanceRole)
       return distance(station);
   }
@@ -66,10 +64,8 @@ StationsSortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex 
 
   if (bookmarksEnabled_) {
     QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
-    Station *l = (Station *)sourceModel()->data(index, StationsModel::StationRole).value<void *>();
-
-    if (l)
-      accept = bookmarks[l->id()];
+    
+    accept = sourceModel()->data(index, StationsModel::StationBookmarkRole).toBool();
   }
 
   return accept && QSortFilterProxyModel::filterAcceptsRow(sourceRow, sourceParent);
@@ -78,18 +74,18 @@ StationsSortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex 
 bool
 StationsSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
-  if (sortRole() == StationBookmarkRole || sortRole() == StationDistanceRole) {
+  if (sortRole() == StationsModel::StationBookmarkRole) {
+    bool l = sourceModel()->data(left, StationsModel::StationBookmarkRole).toBool();
+    bool r = sourceModel()->data(right, StationsModel::StationBookmarkRole).toBool();
+
+    return l < r;
+  } else if (sortRole() == StationDistanceRole) {
     Station *l = (Station *)sourceModel()->data(left, StationsModel::StationRole).value<void *>();
     Station *r = (Station *)sourceModel()->data(right, StationsModel::StationRole).value<void *>();
 
     if (!l || !r)
       return false;
-    if (sortRole() == StationBookmarkRole)
-      return bookmarks[l->id()] < bookmarks[r->id()];
-    else if (sortRole() == StationDistanceRole)
-      return distance(l) < distance(r);
-    else
-      return false;
+    return distance(l) < distance(r);
   } else
     return QSortFilterProxyModel::lessThan(left, right);
 }
@@ -149,15 +145,6 @@ StationsSortFilterProxyModel::setPositionFilter(const QPointF &pos, double radiu
   position_ = pos;
   stationRadiusFilter_ = radius;
   distancesCache.clear();
-  invalidate();
-}
-
-void
-StationsSortFilterProxyModel::setBookmarks(QList < int > list)
-{
-  bookmarks.clear();
-  foreach (int id, list)
-    bookmarks[id] = true;
   invalidate();
 }
 

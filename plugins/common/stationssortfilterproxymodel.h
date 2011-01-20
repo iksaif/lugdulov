@@ -31,7 +31,6 @@ class StationsSortFilterProxyModel : public QSortFilterProxyModel
 public:
     enum {
       StationDistanceRole,
-      StationBookmarkRole
     } Roles;
 
     StationsSortFilterProxyModel(QObject *parent = 0);
@@ -47,7 +46,6 @@ public:
 
 public slots:
     void setStationLimit(int limit);
-    void setBookmarks(QList < int > bookmarks);
     void onlyBookmarks(bool enabled);
     void setPosition(const QPointF &pos);
     void setPositionFilter(const QPointF &pos, double radius = -1);
@@ -65,7 +63,6 @@ private:
     QPointF position_;
     bool bookmarksEnabled_;
 
-    QMap < int , bool > bookmarks;
     static QMap < Station * , qreal > distancesCache;
 };
 

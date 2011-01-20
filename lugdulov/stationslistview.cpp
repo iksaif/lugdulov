@@ -121,9 +121,10 @@ StationsListView::action(QAction *action)
 
        map->centerView(station->pos());
        showAndDelete(map);
-    } else if (action == bookmark)
-      Settings::bookmark(station, !Settings::bookmarked(station));
-    else if (plugin)
+    } else if (action == bookmark) {
+      model()->setData(index, !Settings::bookmarked(station),
+		       StationsModel::StationBookmarkRole);
+    } else if (plugin)
 	plugin->actionTriggered(action, station, this);
   }
 }
