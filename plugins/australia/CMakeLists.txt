@@ -4,6 +4,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}
   ${lugdulov_base_SOURCE_DIR}
+  ${QJSON_INCLUDE_DIR}
 )
 
 set(australia_SRCS

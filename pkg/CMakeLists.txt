@@ -9,11 +9,11 @@ endif()
 if(APPLE OR WIN32)
   if(APPLE)
     set(plugins_dest "lugdulov.app/Contents/PlugIns")
-    set(APPS "\${CMAKE_INSTALL_PREFIX}/lugdulov.app/Contents/MacOS/lugdulov")
   elseif(WIN32)
-    set(plugins_dest "plugins")
-    set(APPS "\${CMAKE_INSTALL_PREFIX}/lugdulov.exe")
+    set(plugins_dest "${BIN_INSTALL_DIR}/plugins")
   endif()
+
+  set(APPS "\${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}/lugdulov.exe")
 
   if(WIN32)
     if(CMAKE_BUILD_TYPE MATCHES Debug OR CMAKE_BUILD_TYPE MATCHES RelWithDebInfo)
@@ -24,7 +24,7 @@ if(APPLE OR WIN32)
   	install(DIRECTORY "${QT_PLUGINS_DIR}/imageformats" DESTINATION ${plugins_dest})
   endif()
   
-  install(FILES "${QJSON_LIBRARIES}" DESTINATION .)
+  install(FILES "${QJSON_LIBRARIES}" DESTINATION ${BIN_INSTALL_DIR})
 
   #INSTALL(CODE "
   #  file(WRITE \"\${CMAKE_INSTALL_PREFIX}/qt.conf\" \"\")")
