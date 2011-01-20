@@ -398,20 +398,40 @@ MapWidget::resizeEvent(QResizeEvent * event)
 void
 MapWidget::keyPressEvent(QKeyEvent* event)
 {
-#if defined(Q_WS_MAEMO_5)
   switch (event->key()) {
+#if defined(Q_WS_MAEMO_5)
   case Qt::Key_F7:
     mc->zoomIn();
-    event->accept();
     break;
 
   case Qt::Key_F8:
     mc->zoomOut();
-    event->accept();
     break;
-  }
 #endif
-  QWidget::keyPressEvent(event);
+ case Qt::Key_Plus:
+    mc->zoomIn();
+    break;
+ case Qt::Key_Minus:
+    mc->zoomOut();
+    break;
+ case Qt::Key_Left:
+   mc->scrollLeft(5);
+   break;
+ case Qt::Key_Right:
+   mc->scrollRight(5);
+   break;
+ case Qt::Key_Up:
+   mc->scrollUp(5);
+   break;
+ case Qt::Key_Down:
+   mc->scrollDown(5);
+   break;
+ default:
+   QWidget::keyPressEvent(event);
+   return;
+   break;
+  }
+  event->accept();
 }
 
 #if defined(Q_WS_MAEMO_5)
