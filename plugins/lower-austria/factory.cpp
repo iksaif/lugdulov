@@ -26,4 +26,4 @@ StationsPluginFactoryLowerAustria::StationsPluginFactoryLowerAustria()
   init("lower-austria");
 }
 
-Q_EXPORT_PLUGIN2(stationslower-austria, StationsPluginFactoryLowerAustria)
+Q_EXPORT_PLUGIN2(stationsloweraustria, StationsPluginFactoryLowerAustria)

@@ -26,6 +26,7 @@
 #include "mobility.h"
 
 class StationsPlugin;
+class Station;
 
 class MapWidget : public QLabel
 {

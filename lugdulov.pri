@@ -7,7 +7,7 @@ LIBDIR = $${PREFIX}/lib
 
 
 VERSION = 0.4.0
-LUGDULOV_CONFIG = bearer location
+LUGDULOV_CONFIG = bearer location qmapcontrol lite
 LUGDULOV_INSTALL_PLUGINS = $${LIBDIR}/lugdulov
 
 CONFIG += qt thread mobility
@@ -31,7 +31,6 @@ maemo5: {
 symbian: {
     QJSON_INCLUDE_PATH = "C:\NokiaQtSDK\Symbian\SDK\epoc32\include\qjson"
     DEFINES += BUILD_STATIC_PLUGINS=1
-    DEFINES += QMAPCONTROL=1
     DEFINES += LUGDULOV_VERSION=\"\\\"$${VERSION}\\\"\"
 }
 
@@ -43,7 +42,6 @@ symbian: {
     unix {
         QJSON_INCLUDE_PATH = "/usr/include/qjson/"
     }
-    DEFINES += QMAPCONTROL=1
     DEFINES += LUGDULOV_VERSION=\\\"$${VERSION}\\\"
 }
 
@@ -56,5 +54,11 @@ contains(LUGDULOV_CONFIG, location) {
   DEFINES += HAVE_QT_LOCATION
   #LIBS += -lQtLocation
 }
-
+contains(LUGDULOV_CONFIG, lite) {
+  DEFINES += LUGDULOV_LITE=1
+} else {
+contains(LUGDULOV_CONFIG, qmapcontrol) {
+  DEFINES += USE_QMAPCONTROL=1
+}
+}
 

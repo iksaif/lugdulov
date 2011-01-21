@@ -37,7 +37,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
   ui->setupUi(this);
   setupDialog(this);
 
-#if !defined(USE_QMAPCONTROL)
+#if !defined(USE_QMAPCONTROL) && !defined(LUGDULOV_LITE)
   QStringList providers = QGeoServiceProvider::availableServiceProviders();
 
   if (providers.contains("google"))

@@ -33,7 +33,7 @@
 #  include <QGeoPositionInfoSource>
 #  include <QGeoCoordinate>
 #  include <QGeoPositionInfo>
-# ifndef USE_QMAPCONTROL
+# if !defined(USE_QMAPCONTROL) && !defined(LUGDULOV_LITE)
 #  include <QGraphicsGeoMap>
 #  include <QGeoMapPixmapObject>
 #  include <QGeoServiceProvider>
@@ -42,7 +42,7 @@
 #  include <QtLocation/QGeoPositionInfoSource>
 #  include <QtLocation/QGeoPositionInfo>
 #  include <QtLocation/QGeoPositionInfoSource>
-# ifndef USE_QMAPCONTROL
+# if !defined(USE_QMAPCONTROL) && !defined(LUGDULOV_LITE)
 #  include <QtLocation/QGraphicsGeoMap>
 #  include <QtLocation/QGeoMapPixmapObject>
 #  include <QtLocation/QGeoServiceProvider>

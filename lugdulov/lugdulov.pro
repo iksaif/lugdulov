@@ -4,20 +4,22 @@ QT += gui \
     xml \
     network
 
-TARGET = lugdulov
+contains(LUGDULOV_CONFIG, lite) {
+	TARGET = lugdulov-lite
+} else {
+	TARGET = lugdulov
+}
+
 ICON = lugdulov.svg
 
 DESTDIR = ../bin
 
 include(../lugdulov.pri)
 
-INCLUDEPATH += ../qmake/ \
-    ../plugins/common/ \
-    ../qmapcontrol/
+INCLUDEPATH += ../qmake/
+INCLUDEPATH += ../plugins/common/
 
-LIBS +=  -lqjson \
-    -llugdulov_base \
-    -lqmapcontrol
+LIBS +=  -lqjson -llugdulov_base
 
 unix {
     suffix = ""
@@ -31,7 +33,6 @@ win32 {
 }
 
 LIBS += -L../plugins/common/$${suffix}
-LIBS += -L../qmapcontrol/$${suffix}
 
 HEADERS += mainwindow.h \
     stationdialog.h \
@@ -40,7 +41,6 @@ HEADERS += mainwindow.h \
     stationdelegate.h \
     stationslistview.h \
     mapdialog.h \
-    mapwidget_qmapcontrol.h \
     pluginsdialog.h \
     aboutdialog.h \
     settingsdialog.h
@@ -53,10 +53,24 @@ SOURCES += main.cpp \
     stationdelegate.cpp \
     stationslistview.cpp \
     mapdialog.cpp \
-    mapwidget_qmapcontrol.cpp \
     pluginsdialog.cpp \
     aboutdialog.cpp \
     settingsdialog.cpp
+
+contains(LUGDULOV_CONFIG, lite) {
+  SOURCES += mapwidget_lite.cpp
+  HEADERS += mapwidget_lite.h
+} else {
+contains(LUGDULOV_CONFIG, qmapcontrol) {
+  SOURCES += mapwidget_qmapcontrol.cpp
+  HEADERS += mapwidget_qmapcontrol.h
+  INCLUDEPATH +=  ../qmapcontrol/
+  LIBS += -L../qmapcontrol/$${suffix} -lqmapcontrol
+} else {
+  SOURCES += mapwidget_qtm.cpp
+  HEADERS += mapwidget_qtm.h
+}
+}
 
 TRANSLATIONS = i18n/lugdulov_fr.ts i18n/lugdulov_cs.ts
 
@@ -64,24 +78,49 @@ symbian: {
     LIBS += -lstationsfrance -lstationsbelgium -lstationsireland -lstationsluxembourg
     LIBS += -lstationsspain -lstationsjapan -lstationsaustria -lstationsgermany -lstationslatvia
     LIBS += -lstationsnew_zealand -lstationsswitzerland -lstationsunited_kingdom -lstationscanada
-    LIBS += -lstationslower_austria -lstationsusa
+    LIBS += -lstationslower_austria -lstationsusa -lstationsaustralia
+
+	# 0x20036C9F 0xE25eb14f 0x20036CA0 0xE25eb14d
+	contains(LUGDULOV_CONFIG, lite) {
+		TARGET.UID3 = 0x20036CA0
+	} else {
+		TARGET.UID3 = 0x20036C9F
+	}
 
     TARGET.EPOCALLOWDLLDATA = 1
     TARGET.CAPABILITY = ReadUserData UserEnvironment NetworkServices Location
 
-#ReadDeviceData \
-#        WriteDeviceData
+	contains(LUGDULOV_CONFIG, lite) {
+		packageheader = "$${LITERAL_HASH}{\"Lugdulo'V Lite\"}, (0x20036CA0), 0, 4, 0, TYPE=SA"
+	} else {
+		packageheader = "$${LITERAL_HASH}{\"Lugdulo'V\"}, (0x20036C9F), 0, 4, 0, TYPE=SA"
+	}
 
     vendorinfo = \
     "%{\"Corentin Chary - iksaif.net \"}" \
     ":\"Corentin Chary - iksaif.net \""
 
-    LugdulovDeployment.pkg_prerules = vendorinfo
+	# Remove all the existing platform dependencies
+	default_deployment.pkg_prerules -= pkg_platform_dependencies
+
+	#Add a dependency for just the S60 5th edition (Symbian^1) and later phones
+	supported_platforms = \
+	"; Application that only supports >= S60 5th edition" \
+	"[0x1028315F],0,0,0,{\"S60ProductID\"}" \
+	"[0x20022E6D],0,0,0,{\"S60ProductID\"}"
+ 
+    LugdulovDeployment.pkg_prerules += packageheader  vendorinfo supported_platforms
     #LugdulovDeployment.sources = $(EPOCROOT)\\epoc32\\release\\$(PLATFORM)\\lugdulov.exe
     #LugdulovDeployment.sources = $${TARGET}.exe
     LugdulovDeployment.path = /sys/bin
 
     DEPLOYMENT += LugdulovDeployment
+	contains(LUGDULOV_CONFIG, lite) {
+		DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V Lite installer\"},(0x20036CA0),0,4,0"
+	} else {
+		DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V installer\"},(0x20036C9F),0,4,0"
+	}
+
 }
 
 OTHER_FILES += res/velov.png \
@@ -105,6 +144,7 @@ OTHER_FILES += res/velov.png \
 
 FORMS += mainwindow.ui \
     stationdialog.ui \
+    stationslistdialog.ui \
     stationslistwidget.ui \
     mapdialog.ui \
     pluginsdialog.ui \

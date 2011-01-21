@@ -17,6 +17,7 @@
  */
 
 #include "mapwidget_lite.h"
+#include "station.h"
 
 MapWidget::MapWidget(QWidget * parent)
   : QLabel(parent)
