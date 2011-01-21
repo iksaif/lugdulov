@@ -4,22 +4,30 @@ QT += gui \
     xml \
     network
 
-contains(LUGDULOV_CONFIG, lite) {
-	TARGET = lugdulov-lite
+include(../lugdulov.pri)
+
+symbian: {
+  contains(LUGDULOV_CONFIG, lite) {
+	TARGET = LugdulovLite
+  } else {
+	TARGET = Lugdulov
+  }
 } else {
+  contains(LUGDULOV_CONFIG, lite) {
+	TARGET = lugdulov_lite
+  } else {
 	TARGET = lugdulov
+  }
 }
 
 ICON = lugdulov.svg
 
 DESTDIR = ../bin
 
-include(../lugdulov.pri)
-
 INCLUDEPATH += ../qmake/
 INCLUDEPATH += ../plugins/common/
 
-LIBS +=  -lqjson -llugdulov_base
+LIBS += -lqjson -llugdulov_base
 
 unix {
     suffix = ""
@@ -82,18 +90,18 @@ symbian: {
 
 	# 0x20036C9F 0xE25eb14f 0x20036CA0 0xE25eb14d
 	contains(LUGDULOV_CONFIG, lite) {
-		TARGET.UID3 = 0x20036CA0
+		TARGET.UID3 = 0xE25eb15f
 	} else {
-		TARGET.UID3 = 0x20036C9F
+		TARGET.UID3 = 0xE25eb16f
 	}
 
     TARGET.EPOCALLOWDLLDATA = 1
     TARGET.CAPABILITY = ReadUserData UserEnvironment NetworkServices Location
 
 	contains(LUGDULOV_CONFIG, lite) {
-		packageheader = "$${LITERAL_HASH}{\"Lugdulo'V Lite\"}, (0x20036CA0), 0, 4, 0, TYPE=SA"
+		packageheader = "$${LITERAL_HASH}{\"Lugdulo'V Lite\"}, (0xE25eb14f), 0, 4, 0, TYPE=SA"
 	} else {
-		packageheader = "$${LITERAL_HASH}{\"Lugdulo'V\"}, (0x20036C9F), 0, 4, 0, TYPE=SA"
+		packageheader = "$${LITERAL_HASH}{\"Lugdulo'V\"}, (0xE25eb14f), 0, 4, 0, TYPE=SA"
 	}
 
     vendorinfo = \
@@ -109,16 +117,17 @@ symbian: {
 	"[0x1028315F],0,0,0,{\"S60ProductID\"}" \
 	"[0x20022E6D],0,0,0,{\"S60ProductID\"}"
  
-    LugdulovDeployment.pkg_prerules += packageheader  vendorinfo supported_platforms
     #LugdulovDeployment.sources = $(EPOCROOT)\\epoc32\\release\\$(PLATFORM)\\lugdulov.exe
     #LugdulovDeployment.sources = $${TARGET}.exe
+
+    LugdulovDeployment.pkg_prerules += packageheader  vendorinfo supported_platforms
     LugdulovDeployment.path = /sys/bin
 
     DEPLOYMENT += LugdulovDeployment
 	contains(LUGDULOV_CONFIG, lite) {
-		DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V Lite installer\"},(0x20036CA0),0,4,0"
+		DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V Lite installer\"},(0xE25eb15f),0,4,0"
 	} else {
-		DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V installer\"},(0x20036C9F),0,4,0"
+		DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V installer\"},(0xE25eb16f),0,4,0"
 	}
 
 }
