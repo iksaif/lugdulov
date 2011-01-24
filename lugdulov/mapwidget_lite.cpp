@@ -23,8 +23,11 @@ MapWidget::MapWidget(QWidget * parent)
   : QLabel(parent)
 {
 #if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
-  setText(tr("The Map functionality is not supported in the lite version,"
-	     "you need to purchase the full version on OVI store."));
+  setWordWrap(true);
+  setText(tr("Map functionality is not available in the lite version,"
+	     " you need to purchase the full version on "
+		 "<a href='http://store.ovi.com/content/65625'>OVI store</a>."));
+  setOpenExternalLinks(true);
 #else
   setText(tr("Map not supported."));
 #endif

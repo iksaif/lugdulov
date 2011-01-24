@@ -43,6 +43,7 @@ StationDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
 		       const QModelIndex &index) const
 {
   Station *station = (Station *)index.data(StationsModel::StationRole).value<void *>();
+  QString description, name;
 
   if (!station)
     return QStyledItemDelegate::paint(painter, option, index);
@@ -76,7 +77,17 @@ StationDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
   rect.setTop(rect.top() + 5);
 
   painter->setFont(font);
-  painter->drawText(rect, Qt::AlignLeft|Qt::AlignTop, station->name());
+  name = station->name();
+  if (QFontMetrics(font).width(name) > option.rect.width()) {
+      QFontMetrics fm(font);
+      qreal size = qMax(0, option.rect.width());
+
+      size /= fm.averageCharWidth();
+      size -= QString::fromLatin1(" ... ").size();
+      name = station->name().left(size);
+      name += QLatin1String("...");
+  }
+  painter->drawText(rect, Qt::AlignLeft|Qt::AlignTop, name);
 
   if (index.data(StationsModel::StationBookmarkRole).toBool()) {
     QPixmap bookmark = QPixmap(":/res/favorites.png").scaled(16, 16, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -93,7 +104,6 @@ StationDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
 #endif
   painter->setFont(font);
 
-  QString description;
   qreal distance = index.data(StationsSortFilterProxyModel::StationDistanceRole).toDouble();
   QString distanceText;
 

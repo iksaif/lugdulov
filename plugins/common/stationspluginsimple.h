@@ -63,8 +63,8 @@ class StationsPluginSimple : public StationsPlugin
 
  private slots:
   virtual void networkError(QNetworkReply::NetworkError code);
-  void ignoreSslErros(QNetworkReply *rep, const QList<QSslError> &errors);
-  virtual void finished();
+  void ignoreSslErrors(QNetworkReply *rep, const QList<QSslError> &errors);
+  virtual void finished(QNetworkReply *rep);
 
  protected:
   virtual QUrl infosUrl();

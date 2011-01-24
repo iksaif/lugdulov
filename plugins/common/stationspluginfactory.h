@@ -32,6 +32,11 @@ class StationsPluginFactory {
   virtual ~StationsPluginFactory() {}
 
   /**
+   * Must be called once before using the factory
+   */
+  virtual void init() = 0;
+	
+  /**
    * Return an unique identifier
    */
   virtual QString id() const = 0;

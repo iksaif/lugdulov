@@ -58,7 +58,8 @@ StationsPluginSimple::initNetwork(void)
 
   nm = new QNetworkAccessManager(this);
   connect(nm, SIGNAL(sslErrors(QNetworkReply *, const QList<QSslError> &)),
-	  this, SLOT(ignoreSslErros(QNetworkReply *, const QList<QSslError> &)));
+	  this, SLOT(ignoreSslErrors(QNetworkReply *, const QList<QSslError> &)));
+  connect(nm, SIGNAL(finished(QNetworkReply *)), this, SLOT(finished(QNetworkReply *)));
 }
 
 QRectF
@@ -121,8 +122,12 @@ StationsPluginSimple::fetchAll()
     QFile file(diskCache());
 
     if (file.exists()) {
+	  qDebug() << "Loading cache" << file.fileName();
       loadDiskCache(file.fileName());
-      emit stationsCreated(stations.values());
+	  if (stations.isEmpty())
+	    fetchOnline();
+	  else
+        emit stationsCreated(stations.values());
     } else
       fetchOnline();
 
@@ -158,7 +163,7 @@ StationsPluginSimple::update(const QList < Station * > & stations)
 }
 
 void
-StationsPluginSimple::ignoreSslErros(QNetworkReply *rep, const QList<QSslError> &errors)
+StationsPluginSimple::ignoreSslErrors(QNetworkReply *rep, const QList<QSslError> &errors)
 {
   Q_UNUSED(errors);
   rep->ignoreSslErrors();
@@ -170,6 +175,7 @@ StationsPluginSimple::networkError(QNetworkReply::NetworkError code)
   QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
 
   if (rep) {
+    qDebug() << "Network Error" << rep->errorString();
     if (Tools::isOnline())
         emit error(tr("Network Error"), rep->errorString());
     step++;
@@ -179,12 +185,13 @@ StationsPluginSimple::networkError(QNetworkReply::NetworkError code)
 }
 
 void
-StationsPluginSimple::finished()
+StationsPluginSimple::finished(QNetworkReply *rep)
 {
-  QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
   int id;
 
-  if (!replies.contains(rep) || !rep)
+  qDebug() << "Url loaded" << rep->url().toString();
+
+  if (!replies.contains(rep))
     return ;
 
   rep->deleteLater();
@@ -213,6 +220,9 @@ StationsPluginSimple::request(const QUrl & url, int id)
   if (url.isEmpty())
     return ;
 
+  qDebug() << "Loading url" << url.toString()
+           << "( online:" << Tools::isOnline() << ")";
+
   QNetworkReply *rep;
   QNetworkRequest req(url);
 
@@ -223,7 +233,6 @@ StationsPluginSimple::request(const QUrl & url, int id)
 
   connect(rep, SIGNAL(error(QNetworkReply::NetworkError)),
           this, SLOT(networkError(QNetworkReply::NetworkError)));
-  connect(rep, SIGNAL(finished()), this, SLOT(finished()));
 
   if (count == 0) {
     emit started();

@@ -45,6 +45,7 @@ Q_IMPORT_PLUGIN(stationsloweraustria);
 Q_IMPORT_PLUGIN(stationslatvia);
 Q_IMPORT_PLUGIN(stationsnewzealand);
 Q_IMPORT_PLUGIN(stationsusa);
+Q_IMPORT_PLUGIN(stationsaustralia);
 #endif
 
 int main(int argc, char *argv[])
@@ -66,6 +67,7 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(latvia);
     Q_INIT_RESOURCE(new_zealand);
     Q_INIT_RESOURCE(usa);
+	Q_INIT_RESOURCE(australia);
 #endif
 
     QTranslator qtTranslator;
@@ -94,7 +96,7 @@ int main(int argc, char *argv[])
 
     MainWindow w;
 
-#ifdef Q_WS_S60
+#ifdef Q_OS_SYMBIAN
     w.showMaximized();
 #else
     w.show();

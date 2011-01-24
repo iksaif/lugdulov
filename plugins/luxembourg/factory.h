@@ -21,7 +21,7 @@
 
 #include "stationspluginfactorysimple.h"
 
-class StationsPluginFactoryLuxembourg : public QObject, public StationsPluginFactorySimple
+class StationsPluginFactoryLuxembourg : public StationsPluginFactorySimple
 {
   Q_OBJECT
   Q_INTERFACES(StationsPluginFactory)

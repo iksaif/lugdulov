@@ -131,6 +131,8 @@ StationsPluginManager::loadPlugin(QObject *plugin)
   if (!factory)
     return ;
 
+  factory->init();
+
   qDebug() << "lugdulov: stations plugin " << factory->id() << factory->name() << "loaded.";
 
   factories[factory->id()] = factory;

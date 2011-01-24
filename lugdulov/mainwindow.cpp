@@ -76,6 +76,9 @@ MainWindow::MainWindow(QWidget *parent)
   ui->titleLabel->hide();
 #endif
 
+#if defined(LUGDULOV_LITE)
+  setWindowTitle("Lugdulo'V Lite");
+#endif
 
 #if defined(LUGDULOV_FULL_UI)
   connect(ui->mapWidget, SIGNAL(centerChanged(const QPointF &)),
@@ -109,15 +112,6 @@ MainWindow::~MainWindow()
 void
 MainWindow::createButton()
 {
-  Settings conf;
-  QString selected = conf.value("StationsPlugin").toString();
-  StationsPlugin *selectedPlugin = NULL;
-
-  manager = new StationsPluginManager(this);
-
-  selectedPlugin = manager->station(selected);
-
-  setStationsPlugin(selectedPlugin);
   connect(ui->pushButton, SIGNAL(clicked(bool)), this, SLOT(buttonClicked()));
 }
 
@@ -146,6 +140,16 @@ MainWindow::createActions()
 void
 MainWindow::delayedInit()
 {
+  Settings conf;
+  QString selected = conf.value("StationsPlugin").toString();
+  StationsPlugin *selectedPlugin = NULL;
+
+  manager = new StationsPluginManager(this);
+
+  selectedPlugin = manager->station(selected);
+
+  setStationsPlugin(selectedPlugin);
+
 #if defined(HAVE_QT_BEARER) || QT_VERSION >= 0x040700
   QNetworkConfigurationManager manager;
   const bool selectIap = (manager.capabilities()& QNetworkConfigurationManager::CanStartAndStopInterfaces);
@@ -153,12 +157,10 @@ MainWindow::delayedInit()
   QNetworkSession* session = new QNetworkSession(ap, this);
 
   (void) selectIap;
-
   session->open();
+  qDebug() << "Network session" << session->isOpen();
 #endif
 #ifdef HAVE_QT_LOCATION
-  Settings conf;
-
   localisation = QGeoPositionInfoSource::createDefaultSource(this);
 
   if (!localisation) {
@@ -333,9 +335,10 @@ MainWindow::updatePlugin(void)
     /* Don't fetch stations from network on slow links */
     if (type != QNetworkConfiguration::BearerEthernet &&
 	type != QNetworkConfiguration::BearerWLAN &&
-	type != QNetworkConfiguration::BearerWiMAX)
+	type != QNetworkConfiguration::BearerWiMAX) {
+	  qDebug() << "Network is slow, skipping fechOnline()";
       return ;
-    else
+    } else
       break ;
   }
 #endif

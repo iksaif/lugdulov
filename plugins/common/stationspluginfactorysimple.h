@@ -30,11 +30,15 @@
 class StationsPlugin;
 class StationsPluginSimple;
 
-class StationsPluginFactorySimple : public StationsPluginFactory
+class StationsPluginFactorySimple : public QObject, public StationsPluginFactory
 {
+  Q_OBJECT
+
  public:
   StationsPluginFactorySimple();
   virtual ~StationsPluginFactorySimple();
+
+  void init();
 
   virtual QList < StationsPlugin * > plugins(void);
   virtual StationsPlugin *plugin(const QString & id);
@@ -51,10 +55,12 @@ class StationsPluginFactorySimple : public StationsPluginFactory
   void loadInfos(const QString & xml);
 
   virtual StationsPluginSimple *pluginForType(const QString & type);
-
+	
  private:
   void loadCity(const QDomNode & node);
 
+  bool initialized;
+  
   QMap < QString , StationsPluginSimplePrivate > cities;
 
   QString id_;

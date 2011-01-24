@@ -18,6 +18,7 @@
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>
+#include <QtCore/QTimer>
 #include <QtXml/QDomDocument>
 #include <QtCore/QDebug>
 
@@ -33,6 +34,7 @@
 #include "stationsplugintransdev.h"
 
 StationsPluginFactorySimple::StationsPluginFactorySimple()
+  : QObject(NULL), initialized(false)
 {
 
 }
@@ -44,9 +46,23 @@ StationsPluginFactorySimple::~StationsPluginFactorySimple()
 void
 StationsPluginFactorySimple::init(const QString & id)
 {
-  loadInfos(QString(":/%1/%1.xml").arg(id));
-  loadCities(QString(":/%1/cities.xml").arg(id));
-  loadCities(Tools::pluginsPath().canonicalPath() + QString("/%1/cities.xml").arg(id));
+  id_ = id;
+#if !(defined(BUILD_STATIC_PLUGINS) && defined(Q_OS_SYMBIAN))
+  /* On Symbian, it seems that we can't do much in static plugin
+   * constructors ... */
+  init();
+#endif
+}
+
+void
+StationsPluginFactorySimple::init()
+{
+  if (initialized)
+    return ;
+  loadInfos(QString(":/%1/%1.xml").arg(id_));
+  loadCities(QString(":/%1/cities.xml").arg(id_));
+  loadCities(Tools::pluginsPath().canonicalPath() + QString("/%1/cities.xml").arg(id_));
+  initialized = true;
 }
 
 void

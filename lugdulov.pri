@@ -7,7 +7,7 @@ LIBDIR = $${PREFIX}/lib
 
 
 VERSION = 0.4.0
-LUGDULOV_CONFIG = qmapcontrol
+LUGDULOV_CONFIG = bearer location qmapcontrol
 LUGDULOV_INSTALL_PLUGINS = $${LIBDIR}/lugdulov
 
 CONFIG += qt thread mobility

@@ -90,18 +90,18 @@ symbian: {
 
 	# 0x20036C9F 0xE25eb14f 0x20036CA0 0xE25eb14d
 	contains(LUGDULOV_CONFIG, lite) {
-		TARGET.UID3 = 0xE25eb15f
+		TARGET.UID3 = 0x20036CA0
 	} else {
-		TARGET.UID3 = 0xE25eb16f
+		TARGET.UID3 = 0x20036C9F
 	}
 
     TARGET.EPOCALLOWDLLDATA = 1
     TARGET.CAPABILITY = ReadUserData UserEnvironment NetworkServices Location
 
 	contains(LUGDULOV_CONFIG, lite) {
-		packageheader = "$${LITERAL_HASH}{\"Lugdulo'V Lite\"}, (0xE25eb14f), 0, 4, 0, TYPE=SA"
+		packageheader = "$${LITERAL_HASH}{\"Lugdulo'V Lite\"}, (0x20036CA0), 0, 4, 0, TYPE=SA"
 	} else {
-		packageheader = "$${LITERAL_HASH}{\"Lugdulo'V\"}, (0xE25eb14f), 0, 4, 0, TYPE=SA"
+		packageheader = "$${LITERAL_HASH}{\"Lugdulo'V\"}, (0x20036C9F), 0, 4, 0, TYPE=SA"
 	}
 
     vendorinfo = \
@@ -125,9 +125,9 @@ symbian: {
 
     DEPLOYMENT += LugdulovDeployment
 	contains(LUGDULOV_CONFIG, lite) {
-		DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V Lite installer\"},(0xE25eb15f),0,4,0"
+		DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V Lite installer\"},(0x2002CCCF),0,4,0"
 	} else {
-		DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V installer\"},(0xE25eb16f),0,4,0"
+		DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V installer\"},(0x2002CCCF),0,4,0"
 	}
 
 }

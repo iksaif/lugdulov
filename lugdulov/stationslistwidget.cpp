@@ -55,7 +55,7 @@ StationsListWidget::StationsListWidget(QWidget *parent)
   ui->setupUi(this);
 
   ui->refreshButton->setIcon(QIcon::fromTheme("view-refresh", QPixmap(":/res/view-refresh.png")));
-#ifdef Q_WS_MAEMO_5
+#if defined(Q_WS_MAEMO_5) || defined(Q_WS_S60)
   ui->refreshButton->setText("");
 #endif
   ui->lineEdit->setFocus(Qt::OtherFocusReason);
