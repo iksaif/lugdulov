@@ -200,7 +200,7 @@ MainWindow::positionUpdated(QGeoPositionInfo info)
 {
   QGeoCoordinate coord = info.coordinate();
 
-  qWarning() << "Position Updated" << coord;
+  qDebug() << "Position Updated" << coord;
 
   if (!coord.isValid() || (coord.latitude() == 0 && coord.longitude() == 0))
     return ;

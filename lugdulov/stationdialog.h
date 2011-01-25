@@ -49,9 +49,7 @@ private slots:
 
   void requestError(QNetworkReply::NetworkError code);
   void requestFinished();
-#if !defined(Q_WS_S60) && !defined(Q_WS_SIMULATOR)
   void orientationChanged();
-#endif
 
 private:
   Station *station;

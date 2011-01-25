@@ -51,8 +51,23 @@ StationDialog::StationDialog(Station *station, QWidget * parent)
 	    this, SLOT(setupWidgets()));
   }
 
-#if !defined(Q_WS_S60) && !defined(Q_WS_SIMULATOR)
+#if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
+  QFont font = descriptionLabel->font();
+  stationLabel->setFont(font);
+#endif
+
+#if defined(Q_WS_MAEMO_5) || defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
+  orientationChanged();
+  connect(QApplication::desktop(), SIGNAL(resized(int)), this, SLOT(orientationChanged()));
+#endif
+
+  if (station->plugin()) {
+    bikeLabel->setPixmap(station->plugin()->bikeIcon().pixmap(bikeLabel->pixmap()->size()));
+  }
+
   fetchImage();
+#if !defined(Q_WS_S60) && !defined(Q_WS_SIMULATOR)
+  resize(sizeHint());
 #endif
 }
 
@@ -95,28 +110,6 @@ StationDialog::setupWidgets()
 
   descriptionLabel->setText(station->description());
   stationLabel->setText(station->name());
-
-#if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
-  QFont font = descriptionLabel->font();
-  stationLabel->setFont(font);
-#endif
-
-#ifdef Q_WS_MAEMO_5
-  orientationChanged();
-  connect(QApplication::desktop(), SIGNAL(resized(int)), this, SLOT(orientationChanged()));
-#endif
-
-  if (station->plugin()) {
-    bikeLabel->setPixmap(station->plugin()->bikeIcon().pixmap(bikeLabel->pixmap()->size()));
-  }
-
-  if (!iconLabel->pixmap()) {
-    iconLabel->setText("");
-    iconLabel->hide();
-  }
-#if !defined(Q_WS_S60) && !defined(Q_WS_SIMULATOR)
-  resize(sizeHint());
-#endif
 }
 
 void
@@ -174,7 +167,7 @@ StationDialog::fetchImage()
   connect(rep, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(requestError(QNetworkReply::NetworkError)));
   connect(rep, SIGNAL(finished()), this, SLOT(requestFinished()));
 
-#ifdef Q_WS_MAEMO_5
+#if defined(Q_WS_MAEMO_5)
   setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
 #endif
 }
@@ -205,7 +198,7 @@ StationDialog::requestFinished()
     pix = pix.scaled(iconLabel->width(), iconLabel->height(),
 		     Qt::KeepAspectRatio, Qt::SmoothTransformation);
     iconLabel->setPixmap(pix);
-#ifdef Q_WS_MAEMO_5
+#if defined(Q_WS_MAEMO_5) || defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
     orientationChanged();
 #else
     iconLabel->show();
@@ -214,17 +207,19 @@ StationDialog::requestFinished()
   }
 }
 
-#if !defined(Q_WS_S60) && !defined(Q_WS_SIMULATOR)
 void StationDialog::orientationChanged()
 {
   QRect screenGeometry = QApplication::desktop()->screenGeometry();
 
-  if (screenGeometry.width() > screenGeometry.height())
-    iconLabel->hide();
-  else
+  if (screenGeometry.width() < screenGeometry.height() && iconLabel->pixmap())
     iconLabel->show();
-}
+  else
+    iconLabel->hide();
+  resize(sizeHint());
+#if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
+  showMaximized();
 #endif
+}
 
 void StationDialog::bookmark(bool bookmark)
 {

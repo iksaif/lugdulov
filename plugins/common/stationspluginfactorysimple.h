@@ -33,7 +33,7 @@ class StationsPluginSimple;
 class StationsPluginFactorySimple : public QObject, public StationsPluginFactory
 {
   Q_OBJECT
-
+  Q_INTERFACES(StationsPluginFactory)
  public:
   StationsPluginFactorySimple();
   virtual ~StationsPluginFactorySimple();
