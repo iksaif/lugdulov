@@ -46,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui(new Ui_MainWindow)
 {
   ui->setupUi(this);
-
+  manager = NULL;
 #ifdef HAVE_QT_LOCATION
   localisation = NULL;
 #endif
@@ -192,13 +192,15 @@ MainWindow::delayedInit()
 void
 MainWindow::positionRequestTimeout()
 {
-
+  qDebug() << "positionRequestTimeout";
 }
 
 void
 MainWindow::positionUpdated(QGeoPositionInfo info)
 {
   QGeoCoordinate coord = info.coordinate();
+
+  qWarning() << "Position Updated" << coord;
 
   if (!coord.isValid() || (coord.latitude() == 0 && coord.longitude() == 0))
     return ;
@@ -281,6 +283,7 @@ MainWindow::aboutQt()
 void
 MainWindow::statusMsg(const QString & msg, int timeout)
 {
+  qDebug() << "Message" << msg << timeout;
 #ifdef Q_WS_MAEMO_5
   if (!timeout)
     timeout = QMaemo5InformationBox::NoTimeout;

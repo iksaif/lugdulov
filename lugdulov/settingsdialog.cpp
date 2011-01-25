@@ -49,7 +49,9 @@ SettingsDialog::SettingsDialog(QWidget *parent)
   if (providers.contains("nokia"))
       ui->comboBox->addItem(tr("Ovi Maps (Nokia)"), "nokia");
 #else
+# if !defined(Q_OS_SYMBIAN) /* Doesn't seems to work on symbian */
   ui->comboBox->addItem(tr("Google Maps"), "google");
+# endif
   ui->comboBox->addItem(tr("Open Street Map"), "openstreetmap");
   ui->comboBox->addItem(tr("Open Cycle Map"), "opencyclemap");
 #endif
@@ -57,7 +59,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
   Settings conf;
   int idx;
 
-  if ((idx = ui->comboBox->findData(conf.value("MapProvider"))) != -1)
+  if ((idx = ui->comboBox->findData(conf.value("MapProvider", "opencyclemap"))) != -1)
     ui->comboBox->setCurrentIndex(idx);
 
   if (conf.value("GpsPowerSave").toBool())

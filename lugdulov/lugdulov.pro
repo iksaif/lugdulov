@@ -29,6 +29,7 @@ INCLUDEPATH += ../plugins/common/
 
 LIBS += -lqjson -llugdulov_base
 
+
 unix {
     suffix = ""
 }
