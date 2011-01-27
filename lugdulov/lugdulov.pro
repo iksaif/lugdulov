@@ -89,31 +89,35 @@ symbian: {
     LIBS += -lstationsnew_zealand -lstationsswitzerland -lstationsunited_kingdom -lstationscanada
     LIBS += -lstationslower_austria -lstationsusa -lstationsaustralia
 
-	# 0x20036C9F 0xE25eb14f 0x20036CA0 0xE25eb14d
-	contains(LUGDULOV_CONFIG, lite) {
-		TARGET.UID3 = 0x20036CA0
-	} else {
-		TARGET.UID3 = 0x20036C9F
-	}
+    # 0x20036C9F 0xE25eb14f 0x20036CA0 0xE25eb14d
+    contains(LUGDULOV_CONFIG, debug) {
+        TARGET.UID3 = 0xE25eb20f
+    } else {
+        contains(LUGDULOV_CONFIG, lite) {
+            TARGET.UID3 = 0x20036CA0
+        } else {
+            TARGET.UID3 = 0x20036C9F
+       }
+    }
 
     TARGET.EPOCALLOWDLLDATA = 1
     TARGET.CAPABILITY = ReadUserData UserEnvironment NetworkServices Location
 
-	contains(LUGDULOV_CONFIG, lite) {
-		packageheader = "$${LITERAL_HASH}{\"Lugdulo'V Lite\"}, (0x20036CA0), 0, 4, 0, TYPE=SA"
-	} else {
-		packageheader = "$${LITERAL_HASH}{\"Lugdulo'V\"}, (0x20036C9F), 0, 4, 0, TYPE=SA"
-	}
+    contains(LUGDULOV_CONFIG, lite) {
+        packageheader = "$${LITERAL_HASH}{\"Lugdulo'V Lite\"}, ($${TARGET.UID3}), 0, 4, 0, TYPE=SA"
+    } else {
+        packageheader = "$${LITERAL_HASH}{\"Lugdulo'V\"}, ($${TARGET.UID3}), 0, 4, 0, TYPE=SA"
+    }
 
     vendorinfo = \
     "%{\"Corentin Chary - iksaif.net \"}" \
     ":\"Corentin Chary - iksaif.net \""
 
-	# Remove all the existing platform dependencies
-	default_deployment.pkg_prerules -= pkg_platform_dependencies
+    # Remove all the existing platform dependencies
+    default_deployment.pkg_prerules -= pkg_platform_dependencies
 
-	#Add a dependency for just the S60 5th edition (Symbian^1) and later phones
-	supported_platforms = \
+    #Add a dependency for just the S60 5th edition (Symbian^1) and later phones
+    supported_platforms = \
 	"; Application that only supports >= S60 5th edition" \
 	"[0x1028315F],0,0,0,{\"S60ProductID\"}" \
 	"[0x20022E6D],0,0,0,{\"S60ProductID\"}"
@@ -125,12 +129,11 @@ symbian: {
     LugdulovDeployment.path = /sys/bin
 
     DEPLOYMENT += LugdulovDeployment
-	contains(LUGDULOV_CONFIG, lite) {
-		DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V Lite installer\"},(0x2002CCCF),0,4,0"
-	} else {
-		DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V installer\"},(0x2002CCCF),0,4,0"
-	}
-
+    contains(LUGDULOV_CONFIG, lite) {
+        DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V Lite installer\"},(0x2002CCCF),0,4,0"
+    } else {
+        DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V installer\"},(0x2002CCCF),0,4,0"
+    }
 }
 
 OTHER_FILES += res/velov.png \

@@ -32,10 +32,10 @@ namespace qmapcontrol
     {
         emptyPixmap.fill(Qt::transparent);
 
+#if !defined(Q_OS_SYMBIAN)
         if (QPixmapCache::cacheLimit() <= 20000)
-        {
             QPixmapCache::setCacheLimit(20000);	// in kB
-        }
+#endif
     }
 
 
