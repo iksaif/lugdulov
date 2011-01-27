@@ -107,12 +107,18 @@ StationDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
   qreal distance = index.data(StationsSortFilterProxyModel::StationDistanceRole).toDouble();
   QString distanceText;
 
-#if !defined(Q_WS_S60) && !defined(Q_WS_SIMULATOR)
-  if (distance >= 0)
-    distanceText.sprintf(" (%dm)", (int)distance);
-
+  if (distance >= 0) {
+      if (distance >= 1000) {
+          distanceText.sprintf("%.1fkm", distance / 1000.);
+      } else {
+          distanceText.sprintf("%dm", (int)distance);
+      }
+  }
+#if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
+  painter->drawText(rect, Qt::AlignLeft|Qt::AlignBottom, distanceText);
+#else
   description = station->description();
-  description += distanceText;
+  description += " (" + distanceText + ")";
   if (QFontMetrics(font).width(description) > option.rect.width()) {
       QFontMetrics fm(font);
       qreal size = qMax(0, option.rect.width() - fm.width(distanceText));
