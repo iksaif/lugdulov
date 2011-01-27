@@ -65,8 +65,8 @@ StationDialog::StationDialog(Station *station, QWidget * parent)
     bikeLabel->setPixmap(station->plugin()->bikeIcon().pixmap(bikeLabel->pixmap()->size()));
   }
 
-  fetchImage();
 #if !defined(Q_WS_S60) && !defined(Q_WS_SIMULATOR)
+  fetchImage(); // Enable it when Qt 4.7 is release
   resize(sizeHint());
 #endif
 }
@@ -207,7 +207,8 @@ StationDialog::requestFinished()
   }
 }
 
-void StationDialog::orientationChanged()
+void
+StationDialog::orientationChanged()
 {
   QRect screenGeometry = QApplication::desktop()->screenGeometry();
 

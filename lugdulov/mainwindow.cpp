@@ -231,6 +231,10 @@ MainWindow::buttonClicked()
 {
   PluginsDialog dlg(manager, this);
 
+#if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
+  dlg.showMaximized();
+#endif
+
   if (dlg.exec())
     setStationsPlugin(dlg.plugin(), true);
   else
@@ -356,6 +360,10 @@ MainWindow::settings()
   QString provider = conf.value("MapProvider").toString();
 
   SettingsDialog dialog(this);
+
+#if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
+  dialog.showMaximized();
+#endif
 
   if (dialog.exec())
     dialog.saveSettings();

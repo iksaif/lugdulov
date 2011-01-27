@@ -47,7 +47,6 @@ static inline void setupDialog(QDialog *dialog, bool back = true)
   dialog->setAttribute(Qt::WA_Maemo5AutoOrientation, true);
 #endif
 #if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
-  //dialog->showMaximized();
 
   if (back) {
       QAction* backAction = new QAction( QObject::tr("Back"), dialog);
