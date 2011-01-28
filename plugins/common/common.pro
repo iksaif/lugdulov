@@ -9,7 +9,7 @@ CONFIG += staticlib
 
 TARGET = lugdulov_base
 
-SOURCES =   tools.cpp onlinestatemanager.cpp \
+SOURCES =   tools.cpp \
   stationsplugin.cpp \
   stationspluginsimple.cpp \
   stationspluginsingle.cpp \
@@ -27,7 +27,7 @@ SOURCES =   tools.cpp onlinestatemanager.cpp \
   stationspluginmanager.cpp \
   stationspluginfactorysimple.cpp
 
-HEADERS =  tools.h onlinestatemanager.h \
+HEADERS =  tools.h \
   stationsplugin.h \
   stationspluginsimple.h \
   stationspluginsingle.h \
@@ -45,3 +45,7 @@ HEADERS =  tools.h onlinestatemanager.h \
   stationspluginfactorysimple.h
 
 
+contains(LUGDULOV_CONFIG, bearer) {
+    SOURCES += onlinestatemanager.cpp
+    HEADERS += onlinestatemanager.h
+}

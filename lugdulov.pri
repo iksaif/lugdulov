@@ -7,19 +7,24 @@ LIBDIR = $${PREFIX}/lib
 
 
 VERSION = 0.4.0
-LUGDULOV_CONFIG = bearer location qmapcontrol lite
+LUGDULOV_CONFIG = qmapcontrol
 LUGDULOV_INSTALL_PLUGINS = $${LIBDIR}/lugdulov
 
 CONFIG += qt thread mobility
-MOBILITY += location
+
+contains(LUGDULOV_CONFIG, location) {
+   MOBILITY += location
+}
 
 QT_VERSION = $$[QT_VERSION]
 QT_VERSION = $$split(QT_VERSION, ".")
 QT_VER_MAJ = $$member(QT_VERSION, 0)
 QT_VER_MIN = $$member(QT_VERSION, 1)
 
-lessThan(QT_VER_MAJ, 4) | lessThan(QT_VER_MIN, 7) {
-    MOBILITY += bearer
+contains(LUGDULOV_CONFIG, location) {
+    lessThan(QT_VER_MAJ, 4) | lessThan(QT_VER_MIN, 7) {
+        MOBILITY += bearer
+    }
 }
 
 QT += gui xml network
