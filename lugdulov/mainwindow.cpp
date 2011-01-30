@@ -304,7 +304,7 @@ MainWindow::chooseStationsPlugin()
 		       tr("We can't guess your current location, "
 			  "please choose one in the list."));
 
-  buttonClicked();
+  QTimer::singleShot(0, this, SLOT(buttonClicked()));
 }
 
 void
