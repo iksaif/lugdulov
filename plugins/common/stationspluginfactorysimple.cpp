@@ -47,8 +47,8 @@ void
 StationsPluginFactorySimple::init(const QString & id)
 {
   id_ = id;
-#if !(defined(BUILD_STATIC_PLUGINS) && defined(Q_OS_SYMBIAN))
-  /* On Symbian, it seems that we can't do much in static plugin
+#if !defined(BUILD_STATIC_PLUGINS)
+  /* On Symbian and OS/2, it seems that we can't do much in static plugin
    * constructors ... */
   init();
 #endif
