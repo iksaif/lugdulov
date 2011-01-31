@@ -30,6 +30,7 @@ set(lugdulov_base_SRCS
 
 set(lugdulov_base_MOC_HDRS
   stationsplugin.h
+  stationspluginfactorysimple.h
   stationspluginsimple.h
   stationspluginsingle.h
   stationsplugincyclocity.h
