@@ -50,7 +50,8 @@ StationsListWidget::StationsListWidget(QWidget *parent)
   plugin(NULL),
   model(NULL),
   proxy(NULL),
-  ui(new Ui_StationsListWidget())
+  ui(new Ui_StationsListWidget()),
+  currentStation(NULL)
 {
   ui->setupUi(this);
 
@@ -139,6 +140,9 @@ StationsListWidget::positionUpdated(const QPointF & center)
   if (!proxy)
     return ;
 
+  if (currentStation && currentStation->pos() == center)
+    return ;
+
   proxy->setPosition(center);
   proxy->sort(0);
 }
@@ -170,6 +174,8 @@ void
 StationsListWidget::stationClicked(const QModelIndex & index)
 {
   Station *station = (Station *)index.data(StationsModel::StationRole).value<void *>();
+
+  currentStation = station;
 
   if (station)
     emit stationSelected(station);

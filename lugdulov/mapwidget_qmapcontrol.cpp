@@ -62,6 +62,7 @@ MapWidget::MapWidget(QWidget *parent)
 MapWidget::~MapWidget()
 {
   grabZoomKeys(false);
+  delete mc;
 }
 
 void

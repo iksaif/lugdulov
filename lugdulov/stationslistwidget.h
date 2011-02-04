@@ -71,6 +71,8 @@ class StationsListWidget : public QWidget
 #endif
   QTimer filterTimer;
   Ui_StationsListWidget *ui;
+  bool clicked;
+  Station *currentStation;
 
   friend class StationsListDialog;
 };
