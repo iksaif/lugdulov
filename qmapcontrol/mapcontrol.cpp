@@ -209,6 +209,7 @@ namespace qmapcontrol
             QRect rect = QRect(pre_click_px, current_mouse_pos);
             painter.drawRect(rect);
         }
+		painter.end();
         emit viewChanged(currentCoordinate(), currentZoom());
     }
 

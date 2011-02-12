@@ -6,7 +6,7 @@ BINDIR = $${PREFIX}/bin
 LIBDIR = $${PREFIX}/lib
 
 
-VERSION = 0.4.0
+VERSION = 0.4.1
 LUGDULOV_CONFIG = bearer location qmapcontrol
 LUGDULOV_INSTALL_PLUGINS = $${LIBDIR}/lugdulov
 

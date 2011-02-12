@@ -40,6 +40,10 @@ AboutDialog::AboutDialog(QWidget *parent)
   setupDialog(this);
   ui->versionLabel->setText(ui->versionLabel->text() + QString(" %1").arg(LUGDULOV_VERSION));
 
+#if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
+  ui->aboutLabel->setStyleSheet("QWidget { font-size: 10px; }");
+#endif
+
 #if defined(Q_WS_MAEMO_5)
   ui->buttonBox->hide();
 

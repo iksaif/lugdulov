@@ -275,6 +275,10 @@ MainWindow::about()
 {
   AboutDialog dialog(this);
 
+#if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
+  dialog.showMaximized();
+#endif
+
   dialog.exec();
 }
 

@@ -103,10 +103,13 @@ symbian: {
     TARGET.EPOCALLOWDLLDATA = 1
     TARGET.CAPABILITY = ReadUserData UserEnvironment NetworkServices Location
 
+	# Need more RAM for map
+	TARGET.EPOCHEAPSIZE = 0x100000 0x2000000
+
     contains(LUGDULOV_CONFIG, lite) {
-        packageheader = "$${LITERAL_HASH}{\"Lugdulo'V Lite\"}, ($${TARGET.UID3}), 0, 4, 0, TYPE=SA"
+        packageheader = "$${LITERAL_HASH}{\"Lugdulo'V Lite\"}, ($${TARGET.UID3}), 0, 4, 1, TYPE=SA"
     } else {
-        packageheader = "$${LITERAL_HASH}{\"Lugdulo'V\"}, ($${TARGET.UID3}), 0, 4, 0, TYPE=SA"
+        packageheader = "$${LITERAL_HASH}{\"Lugdulo'V\"}, ($${TARGET.UID3}), 0, 4, 1, TYPE=SA"
     }
 
     vendorinfo = \
@@ -130,9 +133,9 @@ symbian: {
 
     DEPLOYMENT += LugdulovDeployment
     contains(LUGDULOV_CONFIG, lite) {
-        DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V Lite installer\"},(0x2002CCCF),0,4,0"
+        DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V Lite installer\"},(0x2002CCCF),0,4,1"
     } else {
-        DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V installer\"},(0x2002CCCF),0,4,0"
+        DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V installer\"},(0x2002CCCF),0,4,1"
     }
 }
 

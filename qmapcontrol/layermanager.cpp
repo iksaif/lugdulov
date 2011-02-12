@@ -247,6 +247,7 @@ namespace qmapcontrol
                 }
             }
         }
+		painter.end();
 
         composedOffscreenImage = composedOffscreenImage2;
         scroll = mapmiddle_px-whilenewscroll;
@@ -271,6 +272,7 @@ namespace qmapcontrol
         painter.translate(-screenmiddle);
 
         painter.drawPixmap(0,0,tmpImg);
+		painter.end();
 
         QListIterator<Layer*> it(mylayers);
         //TODO: remove hack, that mapadapters wont get set zoom multiple times
@@ -323,6 +325,7 @@ namespace qmapcontrol
         painter.translate(screenmiddle);
         painter.scale(2,2);
         painter.translate(-screenmiddle);
+		painter.end();
 
         QListIterator<Layer*> it(mylayers);
         //TODO: remove hack, that mapadapters wont get set zoom multiple times
