@@ -1,8 +1,10 @@
 [Desktop Entry]
 Version=0.4.0
 Encoding=UTF-8
-Name=Lugdulo'V
-Exec=/usr/bin/lugdulov
+Exec=lugdulov
 Type=Application
 Icon=lugdulov
-
+Categories=Utility;
+Terminal=False
+StartupNotify=true
+Name=Lugdulo'V

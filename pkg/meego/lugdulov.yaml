@@ -1,0 +1,23 @@
+Name: lugdulov
+Summary: Lugdulo'V - Find a bike in your City
+Version: 0.4.0
+Release: 1
+Group: Applications/Productivity
+License: GPLv2
+URL: http://xf.iksaif.net/dev/lugdulov.html
+Sources:
+    - "%{name}-%{version}.tar.bz2"
+Description: Find a bike quickly in your city, with map and geolocalisation support !
+
+PkgConfigBR:
+    - QtCore >= 4.6.0
+    - QtNetwork
+    - QtGui
+    - QJson
+
+PkgBR:
+    - qt-mobility-devel
+    - cmake
+
+Configure: none
+Builder: make

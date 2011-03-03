@@ -193,6 +193,11 @@ void
 MainWindow::positionRequestTimeout()
 {
   qDebug() << "positionRequestTimeout";
+
+#if defined(LUGDULOV_FULL_UI)
+  if (!plugin)
+    buttonClicked();
+#endif
 }
 
 void
@@ -248,6 +253,16 @@ MainWindow::setStationsPlugin(StationsPlugin *sta, bool save)
     plugin->deleteLater();
 
   plugin = sta;
+
+#if defined(LUGDULOV_FULL_UI)
+  if (!plugin) {
+    ui->mapWidget->hide();
+    ui->listWidget->hide();
+  } else {
+    ui->mapWidget->show();
+    ui->listWidget->show();
+  }
+#endif
 
   if (plugin)
     plugin->setParent(this);
