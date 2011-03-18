@@ -7,3 +7,4 @@
 #cmakedefine USE_QMAPCONTROL
 #cmakedefine LUGDULOV_LITE
 #cmakedefine LUGDULOV_FULL_UI
+#cmakedefine LUGDULOV_MEEGO

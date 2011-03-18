@@ -79,7 +79,11 @@ int main(int argc, char *argv[])
     lugdulovTranslator.load("lugdulov_" + QLocale::system().name(), ":/");
     app.installTranslator(&lugdulovTranslator);
 
+#if defined(LUGDULOV_MEEGO)
+    QCoreApplication::setOrganizationName("net.iksaif.lugdulov");
+#else
     QCoreApplication::setOrganizationName("Lugdulov");
+#endif
     QCoreApplication::setApplicationName("Lugdulov");
     QCoreApplication::setApplicationVersion(LUGDULOV_VERSION);
 

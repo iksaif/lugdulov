@@ -6,7 +6,7 @@ include(CMakeDependentOption)
 
 set(VERSION_MAJOR "0")
 set(VERSION_MINOR "4")
-set(VERSION_PATCH "0")
+set(VERSION_PATCH "1")
 
 if(CMAKE_SYSTEM_NAME MATCHES Linux)
   set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /usr/share/apps/cmake/modules/)
@@ -17,6 +17,7 @@ cmake_dependent_option(BUILD_STATIC_PLUGINS "build static plugins [default: off]
 option(BUILD_UTILS "build cli utilities [default: off]" OFF)
 option(LUGDULOV_LITE "build lite version [default: off]" OFF)
 option(LUGDULOV_FULL_UI "use the 'full' ui [default: off]" OFF)
+option(LUGDULOV_MEEGO "build for MeeGo [default: off]"  OFF)
 
 include(lugdulov)
 include(QtTranslations) # Local file for maemo_qt4_add_translation()
@@ -197,8 +198,14 @@ elseif(APPLE)
 
   set(CPACK_BINARY_DRAGNDROP ON)
 else()
-  set(CPACK_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}-${CMAKE_SYSTEM_NAME}")
-  set(CPACK_SOURCE_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}")
+  if (LUGDULOV_MEEGO)
+    set(CPACK_PACKAGE_FILE_NAME "net.iksaif.lugdulov-${CPACK_VERSION}-${CMAKE_SYSTEM_NAME}")
+    set(CPACK_SOURCE_PACKAGE_FILE_NAME "net.iksaif.lugdulov-${CPACK_VERSION}")
+  else()
+    set(CPACK_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}-${CMAKE_SYSTEM_NAME}")
+    set(CPACK_SOURCE_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}")
+  endif()
+
   set(CPACK_GENERATOR "DEB")
   set(CPACK_SOURCE_GENERATOR "TGZ;TBZ2")
   ## Debian specific ##
