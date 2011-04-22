@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-  bixi.py
+  bcycle.py
 
-  Copyright (C) 2010 Patrick Installé <PatrickInstalle@P-Installe.be>
+  Copyright (C) 2011 Corentin Chary <corentin.chary@gmail.com>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -19,8 +19,6 @@
   with this program; if not, write to the Free Software Foundation, Inc.,
   59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-  This program parse the data of Velodi - Dijon - France, Bip! Perpingan France, ...
-
 """
 import sys
 import os
@@ -31,64 +29,35 @@ import urllib2
 
 from plugin import *
 
-'''
-<stations>
-−
-<station>
-<id>1</id>
-<name>Notre Dame / Place Jacques Cartier</name>
-<terminalName>6001</terminalName>
-<lat>45.508183</lat>
-<long>-73.554094</long>
-<installed>true</installed>
-<locked>false</locked>
-<installDate>1276012920000</installDate>
-<removalDate/>
-<temporary>false</temporary>
-<nbBikes>2</nbBikes>
-<nbEmptyDocks>29</nbEmptyDocks>
-</station>
-'''
-
-class Bixi(Provider):
+class BCycle(Provider):
     config = [
         {
-        'country_uid' : 'ca',
-        'country_name' : 'Canada',
-        'city_uid'    : 'montreal',
-        'city_name'    : 'Montreal',
-        'bike_name'    : 'Bixi',
-        'server' : 'https://profil.bixi.ca/data/bikeStations.xml',
-        'lat'  : 45.5088670,
-        'lng'  : -73.5542420,
-        },
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
+            'city_uid'    : 'denver',
+            'city_name'    : 'denver',
+            'bike_name'    : 'BCycle',
+            'server' : 'http://denver.bcycle.com/',
+            'lat'  : 39.739167,
+            'lng'  : -104.984722,
+            },
         {
-        'country_uid' : 'usa',
-        'country_name' : 'USA',
-        'city_uid'    : 'washington',
-        'city_name'    : 'Washington, DC',
-        'bike_name'    : 'Bixi',
-        'server' : 'http://www.capitalbikeshare.com/stations/bikeStations.xml',
-        'lat'  : 38.90752,
-        'lng'  : -77.02708,
-        },
-       {
-        'country_uid' : 'usa',
-        'country_name' : 'USA',
-        'city_uid'    : 'minneapolis',
-        'city_name'    : 'Minneapolis',
-        'bike_name'    : 'Bixi',
-        'server' : 'http://secure.niceridemn.org/data2/bikeStations.xml',
-        'lat'  : 44.9801,
-        'lng'  : -93.251867,
-        }
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
+            'city_uid'    : 'chicago',
+            'city_name'    : 'Chicago',
+            'bike_name'    : 'BCycle',
+            'server' : 'http://chicago.bcycle.com/',
+            'lat'  : 41.877741,
+            'lng'  : -87.63382,
+            },
         ]
 
     def service_by_city(self, city):
         for service in self.config:
             if service['city_uid'] == city.uid:
                 return service
-        return None
+        return Non
 
     def url(self, city):
         service = self.service_by_city(city)
@@ -124,7 +93,7 @@ class Bixi(Provider):
             city.lat = service['lat']
             city.lng = service['lng']
             city.create_rect()
-            city.type = "Bixi"
+            city.type = "BCycle"
             #city.rect = self.get_city_bike_zone(service, city)
             ret.append(city)
         return ret
@@ -133,21 +102,43 @@ class Bixi(Provider):
         stations = []
         url = self.url(city)
         fp = urlopen(url)
-
         data = fp.read()
-        dom = xml.dom.minidom.parseString(data)
-        for node in  dom.getElementsByTagName('station'):
+
+        """
+        var icon = '/images/maps/marker.png';
+        var back = 'infowin-available'
+        var point = new google.maps.LatLng(41.86727, -87.61527);
+        kioskpoints.push(point);
+        var marker = new createMarker(point, "<div class='location'><strong>Shedd Aquarium</strong><br />1200 S Lakeshore Drive<br />Chicago, IL 60605</div><div class='avail'>Bikes available: <strong>9</strong><br />Docks available: <strong>12</strong></div><br/>", icon, back);
+        markers.push(marker);
+        """
+        rgpos = re.compile(r'point = new google\.maps\.LatLng\((.*?), (.*?)\);')
+        rgmark = re.compile(r'var marker = new createMarker\(point, \"(.*?)\", icon, back\);')
+        rghtml = re.compile(r'<div class=\'location\'><strong>(.*?)</strong><br />(.*?)</div><div class=\'avail\'>Bikes available: <strong>(\d+)</strong><br />Docks available: <strong>(\d+)</strong></div><br/>')
+
+        id = 1
+
+        for node in rgpos.findall(data):
             station = Station()
-            station.uid = node.getElementsByTagName('id')[0].childNodes[0].toxml()
-            station.id = station.uid
-            station.name = node.getElementsByTagName('name')[0].childNodes[0].toxml()
-            station.lat = float(node.getElementsByTagName('lat')[0].childNodes[0].toxml())
-            station.lng = float(node.getElementsByTagName('long')[0].childNodes[0].toxml())
-            station.zone = "0"
-            station.bikes = int(node.getElementsByTagName('nbBikes')[0].childNodes[0].toxml())
-            station.slots = int(node.getElementsByTagName('nbEmptyDocks')[0].childNodes[0].toxml())
+            station.uid = str(id)
+            station.id = str(id)
+            station.lat = float(node[0])
+            station.lng = float(node[1])
+            station.zone = ""
             stations.append(station)
+            id += 1
+
+        id = 1
+        for node in rghtml.findall(data):
+            station = stations[id - 1]
+            station.name = node[0]
+            station.description = node[1].replace("<br />", "")
+            station.bikes = int(node[2])
+            station.slots = int(node[3])
+            id += 1
+
         return stations
+
 
     def get_status(self, station, city):
         return station
@@ -167,7 +158,7 @@ class Bixi(Provider):
         print data.encode('utf8')
 
 def test():
-    prov = Bixi()
+    prov = BCycle()
 
     countries = prov.get_countries()
     print countries

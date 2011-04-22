@@ -32,6 +32,7 @@
 #include "stationspluginvelin.h"
 #include "stationspluginbixi.h"
 #include "stationsplugintransdev.h"
+#include "stationspluginbcycle.h"
 
 StationsPluginFactorySimple::StationsPluginFactorySimple()
   : QObject(NULL), initialized(false)
@@ -172,6 +173,8 @@ StationsPluginFactorySimple::plugins()
   foreach (QString id, cities.keys())
     plugins << plugin(id);
 
+  plugins.removeAll(NULL);
+
   return plugins;
 }
 
@@ -214,9 +217,10 @@ StationsPluginFactorySimple::pluginForType(const QString & type)
     plugin = new StationsPluginBixi();
   else if (type == "Transdev")
     plugin = new StationsPluginTransdev();
+  else if (type == "BCycle")
+    plugin = new StationsPluginBcycle();
   else {
     qCritical() << "Unknown plugin type" << type;
-    Q_ASSERT(plugin);
   }
 
   return plugin;

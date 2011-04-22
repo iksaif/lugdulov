@@ -290,7 +290,7 @@ StationsPluginSimple::getOrCreateStation(int id)
 }
 
 void
-StationsPluginSimple::storeOrDropStation(Station *station)
+StationsPluginSimple::storeOrDropStation(Station *station, bool full)
 {
   if (!station || station->id() < 0)
     goto drop;
@@ -302,6 +302,9 @@ StationsPluginSimple::storeOrDropStation(Station *station)
     goto drop;
 
   if (station->name().isEmpty())
+    goto drop;
+
+  if (full && station->freeSlots() == 0 && station->bikes() == 0 && station->totalSlots() == 0)
     goto drop;
 
  store:

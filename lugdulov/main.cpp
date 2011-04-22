@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(latvia);
     Q_INIT_RESOURCE(new_zealand);
     Q_INIT_RESOURCE(usa);
-	Q_INIT_RESOURCE(australia);
+    Q_INIT_RESOURCE(australia);
 #endif
 
     QTranslator qtTranslator;

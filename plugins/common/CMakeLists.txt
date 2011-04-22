@@ -21,6 +21,7 @@ set(lugdulov_base_SRCS
   stationsplugindupral.cpp
   stationspluginbixi.cpp
   stationsplugintransdev.cpp
+  stationspluginbcycle.cpp
   station.cpp
   stationspluginmanager.cpp
   stationsmodel.cpp
@@ -40,6 +41,7 @@ set(lugdulov_base_MOC_HDRS
   stationsplugindupral.h
   stationspluginbixi.h
   stationsplugintransdev.h
+  stationspluginbcycle.h
   stationspluginmanager.h
   stationsmodel.h
   stationssortfilterproxymodel.h

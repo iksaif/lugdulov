@@ -16,20 +16,22 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_USA_H
-#define STATIONS_USA_H
+#ifndef STATIONS_MIAMI_H
+#define STATIONS_MIAMI_H
 
-#include "stationspluginfactorysimple.h"
+#include <QtCore/QMap>
 
-class StationsPluginFactoryUsa : public StationsPluginFactorySimple
+#include "stationspluginsingle.h"
+
+class StationsPluginMiami : public StationsPluginSingle
 {
   Q_OBJECT
-  Q_INTERFACES(StationsPluginFactory)
  public:
-  StationsPluginFactoryUsa();
+  StationsPluginMiami(QObject *parent = NULL);
+  virtual ~StationsPluginMiami();
 
  protected:
-  StationsPluginSimple *pluginForType(const QString & type);
+  virtual void handleInfos(const QByteArray & data);
 };
 
-#endif /* STATIONS_USA_H */
+#endif /* STATIONS_MIAMI_H */

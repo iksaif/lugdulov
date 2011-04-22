@@ -19,56 +19,54 @@
 #include <QtXml/QDomNode>
 
 #include "station.h"
-#include "stationsplugintransdev.h"
-
-StationsPluginTransdev::StationsPluginTransdev(QObject *parent)
+#include "tools.h"
+#include "miami.h"
+#include <QDebug>
+StationsPluginMiami::StationsPluginMiami(QObject *parent)
   : StationsPluginSingle(parent)
 {
 }
 
-StationsPluginTransdev::~StationsPluginTransdev()
+StationsPluginMiami::~StationsPluginMiami()
 {
 }
-#include <QDebug>
+
 void
-StationsPluginTransdev::handleInfos(const QByteArray & data)
+StationsPluginMiami::handleInfos(const QByteArray & data)
 {
-  QRegExp re("map\\.addOverlay\\(newmark_0[1|3]\\((\\d+), ([0-9\\.]+),([0-9\\.]+), "
-	     "\"<div .*>(.*)<br>.*disponibles: (\\d+)<br>Emplacements libres: (\\d+)<br>");
-  int ofs = 0;
+  QDomDocument doc;
+  QDomNodeList list;
 
-  re.setMinimal(true);
+  doc.setContent(data);
 
-  while ((ofs = re.indexIn(data, ofs)) >= 0) {
+  list = doc.elementsByTagName("location");
+  for (int i = 0; i < list.size(); ++i) {
     bool ok;
     int id;
-    QPointF pos;
     Station *station;
-    QStringList capt = re.capturedTexts();
+    QPointF pos;
+    QDomNode node = list.at(i);
 
-    ofs += re.matchedLength();
+    id = node.firstChildElement("Id").toElement().text().toInt(&ok);
 
-    if (capt.size() != 7)
+    if (id <= 0 || !ok)
       continue ;
 
-    id = capt.at(1).toInt(&ok);
-    pos = QPointF(capt.at(2).toDouble(),
-		  capt.at(3).toDouble());
-
-    if (!ok)
-      continue ;
+    pos = QPointF(node.firstChildElement("Latitude").toElement().text().toDouble(),
+		  node.firstChildElement("Longitude").toElement().text().toDouble());
 
     station = getOrCreateStation(id);
 
     if (station->name().isEmpty())
-      station->setName(capt.at(4));
+      station->setName(Tools::ucFirst(node.firstChildElement("Address").toElement().text()));
     if (station->pos().isNull())
       station->setPos(pos);
-    station->setBikes(capt.at(5).toInt());
-    station->setFreeSlots(capt.at(6).toInt());
+
+    station->setFreeSlots(node.firstChildElement("Dockings").toElement().text().toInt());
+    station->setBikes(node.firstChildElement("Bikes").toElement().text().toInt());
     station->setTotalSlots(station->bikes() + station->freeSlots());
 
-    storeOrDropStation(station);
+    storeOrDropStation(station, true);
   }
 
   emit stationsCreated(stations.values());

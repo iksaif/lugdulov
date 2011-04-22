@@ -1,9 +1,9 @@
 TARGET  = stationsusa
 include(../pluginbase.pri)
 
-HEADERS += factory.h
+HEADERS += factory.h miami.h
 
-SOURCES += factory.cpp
+SOURCES += factory.cpp miami.cpp
 
 RESOURCES += usa.qrc
 

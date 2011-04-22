@@ -96,14 +96,6 @@
     <name>Hamburg</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="koblenz">
-    <type>NextBike</type>
-    <latitude min="49.356300" max="51.356300">50.356300</latitude>
-    <longitude min="6.586570" max="8.586570">7.586570</longitude>
-    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Koblenz</name>
-    <bikeName>nextbike</bikeName>
-  </city>
   <city id="dusseldorf">
     <type>NextBike</type>
     <latitude min="50.224300" max="52.224300">51.224300</latitude>
@@ -166,6 +158,14 @@
     <longitude min="8.055910" max="10.055910">9.055910</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Tübingen</name>
+    <bikeName>nextbike</bikeName>
+  </city>
+  <city id="travemunde">
+    <type>NextBike</type>
+    <latitude min="52.961800" max="54.961800">53.961800</latitude>
+    <longitude min="9.868300" max="11.868300">10.868300</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Travemünde</name>
     <bikeName>nextbike</bikeName>
   </city>
   <city id="dortmund">
@@ -256,6 +256,14 @@
     <name>Flensburg</name>
     <bikeName>nextbike</bikeName>
   </city>
+  <city id="trier">
+    <type>NextBike</type>
+    <latitude min="48.753700" max="50.753700">49.753700</latitude>
+    <longitude min="5.646250" max="7.646250">6.646250</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Trier</name>
+    <bikeName>nextbike</bikeName>
+  </city>
   <city id="kiel">
     <type>NextBike</type>
     <latitude min="53.322700" max="55.322700">54.322700</latitude>
@@ -278,6 +286,22 @@
     <longitude min="12.067600" max="14.067600">13.067600</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Potsdam</name>
+    <bikeName>nextbike</bikeName>
+  </city>
+  <city id="gutersloh">
+    <type>NextBike</type>
+    <latitude min="50.904900" max="52.904900">51.904900</latitude>
+    <longitude min="7.392750" max="9.392750">8.392750</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Gütersloh</name>
+    <bikeName>nextbike</bikeName>
+  </city>
+  <city id="norderstedt">
+    <type>NextBike</type>
+    <latitude min="52.678200" max="54.678200">53.678200</latitude>
+    <longitude min="9.004400" max="11.004400">10.004400</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Norderstedt</name>
     <bikeName>nextbike</bikeName>
   </city>
 </cities>

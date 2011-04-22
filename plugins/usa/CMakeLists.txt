@@ -8,10 +8,12 @@ include_directories(
 
 set(usa_SRCS
   factory.cpp
+  miami.cpp
 )
 
 set(usa_HDRS
   factory.h
+  miami.h
 )
 
 qt4_wrap_cpp(usa_MOC_SRCS ${usa_HDRS})

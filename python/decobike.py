@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-  bixi.py
+  decobike.py
 
-  Copyright (C) 2010 Patrick Installé <PatrickInstalle@P-Installe.be>
+  Copyright (C) 2011 Corentin Chary <corentin.chary@gmail.com>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -19,8 +19,6 @@
   with this program; if not, write to the Free Software Foundation, Inc.,
   59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-  This program parse the data of Velodi - Dijon - France, Bip! Perpingan France, ...
-
 """
 import sys
 import os
@@ -31,64 +29,25 @@ import urllib2
 
 from plugin import *
 
-'''
-<stations>
-−
-<station>
-<id>1</id>
-<name>Notre Dame / Place Jacques Cartier</name>
-<terminalName>6001</terminalName>
-<lat>45.508183</lat>
-<long>-73.554094</long>
-<installed>true</installed>
-<locked>false</locked>
-<installDate>1276012920000</installDate>
-<removalDate/>
-<temporary>false</temporary>
-<nbBikes>2</nbBikes>
-<nbEmptyDocks>29</nbEmptyDocks>
-</station>
-'''
-
-class Bixi(Provider):
+class DecoBikes(Provider):
     config = [
         {
-        'country_uid' : 'ca',
-        'country_name' : 'Canada',
-        'city_uid'    : 'montreal',
-        'city_name'    : 'Montreal',
-        'bike_name'    : 'Bixi',
-        'server' : 'https://profil.bixi.ca/data/bikeStations.xml',
-        'lat'  : 45.5088670,
-        'lng'  : -73.5542420,
-        },
-        {
-        'country_uid' : 'usa',
-        'country_name' : 'USA',
-        'city_uid'    : 'washington',
-        'city_name'    : 'Washington, DC',
-        'bike_name'    : 'Bixi',
-        'server' : 'http://www.capitalbikeshare.com/stations/bikeStations.xml',
-        'lat'  : 38.90752,
-        'lng'  : -77.02708,
-        },
-       {
-        'country_uid' : 'usa',
-        'country_name' : 'USA',
-        'city_uid'    : 'minneapolis',
-        'city_name'    : 'Minneapolis',
-        'bike_name'    : 'Bixi',
-        'server' : 'http://secure.niceridemn.org/data2/bikeStations.xml',
-        'lat'  : 44.9801,
-        'lng'  : -93.251867,
-        }
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
+            'city_uid'    : 'miamibeach',
+            'city_name'    : 'Miami Beach',
+            'bike_name'    : 'DecoBikes',
+            'server' : 'http://www.decobike.com/playmoves.xml',
+            'lat'  : 25.796027,
+            'lng'  : -80.133934,
+            },
         ]
 
     def service_by_city(self, city):
         for service in self.config:
             if service['city_uid'] == city.uid:
                 return service
-        return None
+        return Non
 
     def url(self, city):
         service = self.service_by_city(city)
@@ -124,7 +83,7 @@ class Bixi(Provider):
             city.lat = service['lat']
             city.lng = service['lng']
             city.create_rect()
-            city.type = "Bixi"
+            city.type = "DecoBikes"
             #city.rect = self.get_city_bike_zone(service, city)
             ret.append(city)
         return ret
@@ -133,21 +92,39 @@ class Bixi(Provider):
         stations = []
         url = self.url(city)
         fp = urlopen(url)
-
         data = fp.read()
         dom = xml.dom.minidom.parseString(data)
-        for node in  dom.getElementsByTagName('station'):
+
+        """
+        <?xml version="1.0"?>
+         <locations>
+          <location>
+           <Id>201</Id>
+           <Address>19th Street &amp; Dade Blvd</Address>
+           <Distance>0</Distance>
+           <Latitude>25.7948074</Latitude>
+           <Longitude>-80.13935</Longitude>
+           <Bikes>9</Bikes>
+           <Dockings>7</Dockings>
+           <StationAdList></StationAdList>
+          </location>
+         </locations>
+        """
+        for node in dom.getElementsByTagName("location"):
             station = Station()
-            station.uid = node.getElementsByTagName('id')[0].childNodes[0].toxml()
+            station.uid = node.getElementsByTagName("Id")[0].firstChild.toxml()
             station.id = station.uid
-            station.name = node.getElementsByTagName('name')[0].childNodes[0].toxml()
-            station.lat = float(node.getElementsByTagName('lat')[0].childNodes[0].toxml())
-            station.lng = float(node.getElementsByTagName('long')[0].childNodes[0].toxml())
-            station.zone = "0"
-            station.bikes = int(node.getElementsByTagName('nbBikes')[0].childNodes[0].toxml())
-            station.slots = int(node.getElementsByTagName('nbEmptyDocks')[0].childNodes[0].toxml())
+            station.lat = float(node.getElementsByTagName("Latitude")[0].firstChild.toxml())
+            station.lng = float(node.getElementsByTagName("Longitude")[0].firstChild.toxml())
+            station.name = node.getElementsByTagName("Address")[0].firstChild.toxml()
+            station.description = ""
+            station.bikes = int(node.getElementsByTagName("Bikes")[0].firstChild.toxml())
+            station.slots = int(node.getElementsByTagName("Dockings")[0].firstChild.toxml())
+            station.zone = ""
             stations.append(station)
+
         return stations
+
 
     def get_status(self, station, city):
         return station
@@ -167,7 +144,7 @@ class Bixi(Provider):
         print data.encode('utf8')
 
 def test():
-    prov = Bixi()
+    prov = Decobikes()
 
     countries = prov.get_countries()
     print countries

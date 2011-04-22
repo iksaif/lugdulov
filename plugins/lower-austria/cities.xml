@@ -40,18 +40,18 @@
     <name>Triestingtal</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="baden">
+  <city id="thermenregion">
     <type>NextBike</type>
     <latitude min="47.063400" max="49.063400">48.063400</latitude>
     <longitude min="15.313700" max="17.313700">16.313700</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Baden</name>
+    <name>Thermenregion</name>
     <bikeName>nextbike</bikeName>
   </city>
   <city id="romerland">
     <type>NextBike</type>
-    <latitude min="47.105400" max="49.105400">48.105400</latitude>
-    <longitude min="15.866400" max="17.866400">16.866400</longitude>
+    <latitude min="47.059700" max="49.059700">48.059700</latitude>
+    <longitude min="15.855800" max="17.855800">16.855800</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Römerland</name>
     <bikeName>nextbike</bikeName>
@@ -64,20 +64,44 @@
     <name>Öbb-Bahnhöfe</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="wieselburg">
+  <city id="waldviertel">
     <type>NextBike</type>
-    <latitude min="47.190800" max="49.190800">48.190800</latitude>
-    <longitude min="14.316300" max="16.316300">15.316300</longitude>
+    <latitude min="47.739900" max="49.739900">48.739900</latitude>
+    <longitude min="14.183100" max="16.183100">15.183100</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Wieselburg</name>
+    <name>Waldviertel</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="wiener_neustadt">
+  <city id="haag">
     <type>NextBike</type>
-    <latitude min="46.809000" max="48.809000">47.809000</latitude>
-    <longitude min="15.249800" max="17.249800">16.249800</longitude>
+    <latitude min="47.036800" max="49.036800">48.036800</latitude>
+    <longitude min="13.786200" max="15.786200">14.786200</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Wiener Neustadt</name>
+    <name>Haag</name>
+    <bikeName>nextbike</bikeName>
+  </city>
+  <city id="piestingtal">
+    <type>NextBike</type>
+    <latitude min="46.882300" max="48.882300">47.882300</latitude>
+    <longitude min="15.044800" max="17.044800">16.044800</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Piestingtal</name>
+    <bikeName>nextbike</bikeName>
+  </city>
+  <city id="mistelbach">
+    <type>NextBike</type>
+    <latitude min="47.567400" max="49.567400">48.567400</latitude>
+    <longitude min="15.572200" max="17.572200">16.572200</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Mistelbach</name>
+    <bikeName>nextbike</bikeName>
+  </city>
+  <city id="marchfeld">
+    <type>NextBike</type>
+    <latitude min="47.274100" max="49.274100">48.274100</latitude>
+    <longitude min="15.711600" max="17.711600">16.711600</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Marchfeld</name>
     <bikeName>nextbike</bikeName>
   </city>
 </cities>

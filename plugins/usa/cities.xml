@@ -8,4 +8,36 @@
     <name>Washington, Dc</name>
     <bikeName>Bixi</bikeName>
   </city>
+  <city id="minneapolis">
+    <type>Bixi</type>
+    <latitude min="44.780100" max="45.180100">44.980100</latitude>
+    <longitude min="-93.451867" max="-93.051867">-93.251867</longitude>
+    <infos>http://secure.niceridemn.org/data2/bikeStations.xml</infos>
+    <name>Minneapolis</name>
+    <bikeName>Bixi</bikeName>
+  </city>
+  <city id="denver">
+    <type>BCycle</type>
+    <latitude min="39.539167" max="39.939167">39.739167</latitude>
+    <longitude min="-105.184722" max="-104.784722">-104.984722</longitude>
+    <infos>http://denver.bcycle.com/</infos>
+    <name>Denver</name>
+    <bikeName>BCycle</bikeName>
+  </city>
+  <city id="chicago">
+    <type>BCycle</type>
+    <latitude min="41.677741" max="42.077741">41.877741</latitude>
+    <longitude min="-87.833820" max="-87.433820">-87.633820</longitude>
+    <infos>http://chicago.bcycle.com/</infos>
+    <name>Chicago</name>
+    <bikeName>BCycle</bikeName>
+  </city>
+  <city id="miamibeach">
+    <type>DecoBikes</type>
+    <latitude min="25.596027" max="25.996027">25.796027</latitude>
+    <longitude min="-80.333934" max="-79.933934">-80.133934</longitude>
+    <infos>http://www.decobike.com/playmoves.xml</infos>
+    <name>Miami Beach</name>
+    <bikeName>DecoBikes</bikeName>
+  </city>
 </cities>

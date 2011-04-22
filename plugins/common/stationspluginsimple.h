@@ -76,7 +76,7 @@ class StationsPluginSimple : public StationsPlugin
   void request(const QUrl & url, int id = -1);
 
   Station *getOrCreateStation(int id);
-  void storeOrDropStation(Station *station);
+  void storeOrDropStation(Station *station, bool full = false);
 
   StationsPluginSimplePrivate *d;
 

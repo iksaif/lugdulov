@@ -18,12 +18,21 @@
 
 #include <QtCore/QtPlugin>
 
-
 #include "factory.h"
+#include "miami.h"
 
 StationsPluginFactoryUsa::StationsPluginFactoryUsa()
 {
   init("usa");
+}
+
+StationsPluginSimple *
+StationsPluginFactoryUsa::pluginForType(const QString & type)
+{
+  if (type == "DecoBikes")
+    return new StationsPluginMiami();
+  else
+    return StationsPluginFactorySimple::pluginForType(type);
 }
 
 Q_EXPORT_PLUGIN2(stationsusa, StationsPluginFactoryUsa)
