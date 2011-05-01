@@ -10,7 +10,10 @@ include_directories(
 )
 
 if (QT_MOBILITY_FOUND)
-  include_directories(${QT_MOBILITY_INCLUDE_DIR})
+  include_directories(
+    ${QT_MOBILITY_INCLUDE_DIR}
+    ${QT_MOBILITY_INCLUDE_DIR}/QtMobility
+  )
   link_directories(${QT_MOBILITY_LIBRARY_DIR})
 endif()
 
