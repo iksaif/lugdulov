@@ -125,6 +125,7 @@ symbian: {
     #Add a dependency for just the S60 5th edition (Symbian^1) and later phones
     supported_platforms = \
 	"; Application that only supports >= S60 5th edition" \
+	#"[0x101F7961],0,0,0,{\"Series603rdProductID\"}" \
 	"[0x1028315F],0,0,0,{\"S60ProductID\"}" \
 	"[0x20022E6D],0,0,0,{\"S60ProductID\"}"
  

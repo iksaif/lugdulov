@@ -6,7 +6,12 @@ BINDIR = $${PREFIX}/bin
 LIBDIR = $${PREFIX}/lib
 
 
+<<<<<<< Updated upstream
 VERSION = 0.5.0
+=======
+VERSION = 0.4.1
+LUGDULOV_CONFIG = bearer location qmapcontrol debug
+>>>>>>> Stashed changes
 LUGDULOV_INSTALL_PLUGINS = $${LIBDIR}/lugdulov
 
 CONFIG(android): LUGDULOV_CONFIG = qmapcontrol staticplugins
@@ -49,7 +54,7 @@ contains(LUGDULOV_CONFIG, staticplugins) {
 
 # QJson
 symbian {
-    QJSON_INCLUDE_PATH = "C:\NokiaQtSDK\Symbian\SDK\epoc32\include\qjson"
+    QJSON_INCLUDE_PATH = "C:\\NokiaQtSDK\\Symbian\\SDK\\epoc32\\include\\qjson"
 } else:win32 {
     QJSON_INCLUDE_PATH = "C:\\Program Files\\qjson\\include"
     LIBS += -L"C:\\Program Files\\qjson\\lib"
@@ -71,11 +76,11 @@ contains(LUGDULOV_CONFIG, location) {
   DEFINES += HAVE_QT_LOCATION
   #LIBS += -lQtLocation
 }
+
 contains(LUGDULOV_CONFIG, lite) {
   DEFINES += LUGDULOV_LITE=1
-} else {
-contains(LUGDULOV_CONFIG, qmapcontrol) {
+} else:contains(LUGDULOV_CONFIG, qmapcontrol) {
   DEFINES += USE_QMAPCONTROL=1
 }
-}
+
 
