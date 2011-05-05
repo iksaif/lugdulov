@@ -1,8 +1,6 @@
 TEMPLATE = app
 
-QT += gui \
-    xml \
-    network
+QT += gui xml network
 
 include(../lugdulov.pri)
 
@@ -22,10 +20,19 @@ symbian: {
 
 ICON = lugdulov.svg
 
-DESTDIR = ../bin
+!CONFIG(android): DESTDIR = ../bin
 
 INCLUDEPATH += ../qmake/
 INCLUDEPATH += ../plugins/common/
+
+contains(LUGDULOV_CONFIG, staticplugins) {
+    LIBS += -L../lib/
+    LIBS += -lstationsfrance -lstationsbelgium -lstationsireland -lstationsluxembourg
+    LIBS += -lstationsspain -lstationsjapan -lstationsaustria -lstationsgermany -lstationslatvia
+    LIBS += -lstationsswitzerland -lstationscanada -lstationsusa -lstationsaustralia
+    symbian: LIBS += -lstationsnew_zealand -lstationslower_austria -lstationsunited_kingdom
+    else: LIBS += -lstationsnew-zealand -lstationslower-austria -lstationsunited-kingdom
+}
 
 LIBS += -lqjson -llugdulov_base
 
@@ -84,10 +91,6 @@ contains(LUGDULOV_CONFIG, qmapcontrol) {
 TRANSLATIONS = i18n/lugdulov_fr.ts i18n/lugdulov_cs.ts
 
 symbian: {
-    LIBS += -lstationsfrance -lstationsbelgium -lstationsireland -lstationsluxembourg
-    LIBS += -lstationsspain -lstationsjapan -lstationsaustria -lstationsgermany -lstationslatvia
-    LIBS += -lstationsnew_zealand -lstationsswitzerland -lstationsunited_kingdom -lstationscanada
-    LIBS += -lstationslower_austria -lstationsusa -lstationsaustralia
 
     # 0x20036C9F 0xE25eb14f 0x20036CA0 0xE25eb14d
     contains(LUGDULOV_CONFIG, debug) {

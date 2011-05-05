@@ -167,6 +167,8 @@ StationsPluginLyon::actionTriggered(QAction *action, Station *station, QWidget *
 {
   int data = action->data().toInt();
 
+  Q_UNUSED(parent);
+
   if (data == ActionVelovMap) {
     QString str("http://www.velov.grandlyon.com/Plan-interactif.61.0.html?&gid=%1");
 

@@ -2,7 +2,7 @@ include (../lugdulov.pri)
 
 INCLUDEPATH += ../../qmake/ ../common/
 
-DESTDIR = ../../bin/
+!CONFIG(android): DESTDIR = ../../lib/
 
 TEMPLATE = lib
 CONFIG += qt plugin
@@ -25,8 +25,11 @@ win32 {
 
 wince*:LIBS += $$QMAKE_LIBS_GUI
 
+contains(LUGDULOV_CONFIG, staticplugins) {
+   CONFIG += staticlib
+}
+
 symbian: {
-    CONFIG += staticlib
     TARGET.EPOCALLOWDLLDATA=1
     TARGET.CAPABILITY = All -Tcb
     TARGET = $${TARGET}

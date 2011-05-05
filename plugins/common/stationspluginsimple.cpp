@@ -174,6 +174,8 @@ StationsPluginSimple::networkError(QNetworkReply::NetworkError code)
 {
   QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
 
+  Q_UNUSED(code);
+
   if (rep) {
     qDebug() << "Network Error" << rep->errorString();
     if (Tools::isOnline())
@@ -258,6 +260,7 @@ StationsPluginSimple::infosUrl()
 QUrl
 StationsPluginSimple::imageUrl(int id)
 {
+  Q_UNUSED(id);
   return QUrl();
 }
 
@@ -272,6 +275,9 @@ StationsPluginSimple::actions()
 void
 StationsPluginSimple::actionTriggered(QAction *action, Station *station, QWidget *parent)
 {
+    Q_UNUSED(action);
+    Q_UNUSED(station);
+    Q_UNUSED(parent);
 }
 
 Station *

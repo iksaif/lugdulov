@@ -48,7 +48,7 @@ Tools::ucFirst(const QString & str)
 void
 Tools::fixupRequest(QNetworkRequest * request)
 {
-  if (!isOnline())
+  if (!isOnline()) {
 #if defined(Q_WS_MAEMO_5)
     request->setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysCache);
 #elif defined(Q_OS_SYMBIAN)
@@ -56,8 +56,9 @@ Tools::fixupRequest(QNetworkRequest * request)
     request->setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
 #else
     /* FIXME, may work correctly on win32 and osx, need to test */
-    ; /* Do nothing ... */
+      Q_UNUSED(request); /* Do nothing ... */
 #endif
+  }
 
 #if defined(Q_WS_MAEMO_5)
   request->setRawHeader("User-Agent", "Mozilla/5.0 (X11; U; Linux armv7l; fr-FR; rv:1.9.2b6pre) Gecko/20100318 Firefox/3.5 Maemo Browser 1.7.4.8 RX-51 N900");

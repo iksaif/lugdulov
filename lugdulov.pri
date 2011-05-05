@@ -6,13 +6,17 @@ BINDIR = $${PREFIX}/bin
 LIBDIR = $${PREFIX}/lib
 
 
-VERSION = 0.4.1
-LUGDULOV_CONFIG = bearer location qmapcontrol
+VERSION = 0.5.0
 LUGDULOV_INSTALL_PLUGINS = $${LIBDIR}/lugdulov
 
-CONFIG += qt thread mobility
+CONFIG(android): LUGDULOV_CONFIG = qmapcontrol staticplugins
+else:symbian: LUGDULOV_CONFIG = bearer location qmapcontrol staticplugins
+else: LUGDULOV_CONFIG = bearer location qmapcontrol
+
+CONFIG += qt thread
 
 contains(LUGDULOV_CONFIG, location) {
+   CONFIG += mobility
    MOBILITY += location
 }
 
@@ -21,7 +25,7 @@ QT_VERSION = $$split(QT_VERSION, ".")
 QT_VER_MAJ = $$member(QT_VERSION, 0)
 QT_VER_MIN = $$member(QT_VERSION, 1)
 
-contains(LUGDULOV_CONFIG, location) {
+contains(LUGDULOV_CONFIG, bearer) {
     lessThan(QT_VER_MAJ, 4) | lessThan(QT_VER_MIN, 7) {
         MOBILITY += bearer
     }
@@ -29,25 +33,33 @@ contains(LUGDULOV_CONFIG, location) {
 
 QT += gui xml network
 
+# Add missing Q_WS_MAEMO_5
 maemo5: {
         DEFINES += Q_WS_MAEMO_5
 }
 
-symbian: {
-    QJSON_INCLUDE_PATH = "C:\NokiaQtSDK\Symbian\SDK\epoc32\include\qjson"
+# Version
+symbian: DEFINES += LUGDULOV_VERSION=\"\\\"$${VERSION}\\\"\"
+else: DEFINES += LUGDULOV_VERSION=\\\"$${VERSION}\\\"
+
+# Plugins
+contains(LUGDULOV_CONFIG, staticplugins) {
     DEFINES += BUILD_STATIC_PLUGINS=1
-    DEFINES += LUGDULOV_VERSION=\"\\\"$${VERSION}\\\"\"
 }
 
-!symbian: {
-    win32 {
-        QJSON_INCLUDE_PATH = "C:\\Program Files\\qjson\\include"
-        LIBS += -L"C:\\Program Files\\qjson\\lib"
-    }
-    unix {
-        QJSON_INCLUDE_PATH = "/usr/include/qjson/"
-    }
-    DEFINES += LUGDULOV_VERSION=\\\"$${VERSION}\\\"
+# QJson
+symbian {
+    QJSON_INCLUDE_PATH = "C:\NokiaQtSDK\Symbian\SDK\epoc32\include\qjson"
+} else:win32 {
+    QJSON_INCLUDE_PATH = "C:\\Program Files\\qjson\\include"
+    LIBS += -L"C:\\Program Files\\qjson\\lib"
+} else:CONFIG(android) {
+    # You'll need to install libqjson.a somewhete and setup
+    # these paths
+    #QJSON_INCLUDE_PATH = -I$[QT_INSTALL_HEADERS]
+    #LIBS += -L$[QT_INSTALL_LIBS]
+} else {
+    QJSON_INCLUDE_PATH = "/usr/include/qjson/"
 }
 
 contains(LUGDULOV_CONFIG, bearer) {
