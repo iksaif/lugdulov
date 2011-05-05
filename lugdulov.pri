@@ -5,17 +5,11 @@ isEmpty(PREFIX) {
 BINDIR = $${PREFIX}/bin
 LIBDIR = $${PREFIX}/lib
 
-
-<<<<<<< Updated upstream
 VERSION = 0.5.0
-=======
-VERSION = 0.4.1
-LUGDULOV_CONFIG = bearer location qmapcontrol debug
->>>>>>> Stashed changes
 LUGDULOV_INSTALL_PLUGINS = $${LIBDIR}/lugdulov
 
 CONFIG(android): LUGDULOV_CONFIG = qmapcontrol staticplugins
-else:symbian: LUGDULOV_CONFIG = bearer location qmapcontrol staticplugins
+else:symbian: LUGDULOV_CONFIG = bearer location qmapcontrol staticplugins debug
 else: LUGDULOV_CONFIG = bearer location qmapcontrol
 
 CONFIG += qt thread
