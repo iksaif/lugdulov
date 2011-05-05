@@ -4,7 +4,7 @@
   plugin.py
 
   Copyright (C) 2010 Patrick Installé <PatrickInstalle@P-Installe.be>
-  Copyright (C) 2010 Corentin Chary <corentincj@iksaif.net>
+  Copyright (C) 2010-2011 Corentin Chary <corentincj@iksaif.net>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
