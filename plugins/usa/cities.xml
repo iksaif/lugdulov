@@ -56,14 +56,6 @@
     <name>Des Moines</name>
     <bikeName>BCycle</bikeName>
   </city>
-  <city id="boulder">
-    <type>BCycle</type>
-    <latitude min="39.819444" max="40.219444">40.019444</latitude>
-    <longitude min="-105.492778" max="-105.092778">-105.292778</longitude>
-    <infos>http://boulder.bcycle.com/</infos>
-    <name>Boulder</name>
-    <bikeName>BCycle</bikeName>
-  </city>
   <city id="miamibeach">
     <type>DecoBikes</type>
     <latitude min="25.596027" max="25.996027">25.796027</latitude>
