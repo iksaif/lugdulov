@@ -30,6 +30,59 @@ import urllib2
 from plugin import *
 
 class BCycle(Provider):
+    """
+        {
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
+            'city_uid'    : 'spartanburg',
+            'city_name'    : 'Spartanburg',
+            'bike_name'    : 'BCycle',
+            'server' : 'http://spartanburg.bcycle.com/',
+            'lat'  : 34.946667,
+            'lng'  : -81.9275,
+            }
+        {
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
+            'city_uid'    : 'omaha',
+            'city_name'    : 'Omaha',
+            'bike_name'    : 'BCycle',
+            'server' : 'http://omaha.bcycle.com/',
+            'lat'  : 41.25,
+            'lng'  : -96,
+            },
+        {
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
+            'city_uid'    : 'madison',
+            'city_name'    : 'Madison',
+            'bike_name'    : 'BCycle',
+            'server' : 'http://madison.bcycle.com/',
+            'lat'  : 43.066667,
+            'lng'  : -89.4,
+            },
+        {
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
+            'city_uid'    : 'louisville',
+            'city_name'    : 'Louisville',
+            'bike_name'    : 'BCycle',
+            'server' : 'http://louisville.bcycle.com/',
+            'lat'  : 38.254167,
+            'lng'  : -85.760278,
+            },
+        {
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
+            'city_uid'    : 'browardcounty',
+            'city_name'    : 'Broward County',
+            'bike_name'    : 'BCycle',
+            'server' : 'http://browardcounty.bcycle.com/',
+            'lat'  : 45.767299,
+            'lng'  : 4.834329
+            },
+    """
+
     config = [
         {
             'country_uid' : 'usa',
@@ -50,6 +103,46 @@ class BCycle(Provider):
             'server' : 'http://chicago.bcycle.com/',
             'lat'  : 41.877741,
             'lng'  : -87.63382,
+            },
+        {
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
+            'city_uid'    : 'sanantonio',
+            'city_name'    : 'San Antonio',
+            'bike_name'    : 'BCycle',
+            'server' : 'http://sanantonio.bcycle.com/',
+            'lat'  : 29.416667,
+            'lng'  : -98.5,
+            },
+        {
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
+            'city_uid'    : 'hawaii',
+            'city_name'    : 'Hawaii',
+            'bike_name'    : 'BCycle',
+            'server' : 'http://hawaii.bcycle.com/',
+            'lat'  : 21.333611,
+            'lng'  : -157.698056,
+            },
+        {
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
+            'city_uid'    : 'desmoines',
+            'city_name'    : 'Des Moines',
+            'bike_name'    : 'BCycle',
+            'server' : 'http://desmoines.bcycle.com/',
+            'lat'  : 41.590833,
+            'lng'  : -93.620833,
+            },
+        {
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
+            'city_uid'    : 'boulder',
+            'city_name'    : 'Boulder',
+            'bike_name'    : 'BCycle',
+            'server' : 'http://boulder.bcycle.com/',
+            'lat'  : 40.019444,
+            'lng'  : -105.292778,
             },
         ]
 

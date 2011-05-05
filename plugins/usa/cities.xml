@@ -32,6 +32,38 @@
     <name>Chicago</name>
     <bikeName>BCycle</bikeName>
   </city>
+  <city id="sanantonio">
+    <type>BCycle</type>
+    <latitude min="29.216667" max="29.616667">29.416667</latitude>
+    <longitude min="-98.700000" max="-98.300000">-98.500000</longitude>
+    <infos>http://sanantonio.bcycle.com/</infos>
+    <name>San Antonio</name>
+    <bikeName>BCycle</bikeName>
+  </city>
+  <city id="hawaii">
+    <type>BCycle</type>
+    <latitude min="21.133611" max="21.533611">21.333611</latitude>
+    <longitude min="-157.898056" max="-157.498056">-157.698056</longitude>
+    <infos>http://hawaii.bcycle.com/</infos>
+    <name>Hawaii</name>
+    <bikeName>BCycle</bikeName>
+  </city>
+  <city id="desmoines">
+    <type>BCycle</type>
+    <latitude min="41.390833" max="41.790833">41.590833</latitude>
+    <longitude min="-93.820833" max="-93.420833">-93.620833</longitude>
+    <infos>http://desmoines.bcycle.com/</infos>
+    <name>Des Moines</name>
+    <bikeName>BCycle</bikeName>
+  </city>
+  <city id="boulder">
+    <type>BCycle</type>
+    <latitude min="39.819444" max="40.219444">40.019444</latitude>
+    <longitude min="-105.492778" max="-105.092778">-105.292778</longitude>
+    <infos>http://boulder.bcycle.com/</infos>
+    <name>Boulder</name>
+    <bikeName>BCycle</bikeName>
+  </city>
   <city id="miamibeach">
     <type>DecoBikes</type>
     <latitude min="25.596027" max="25.996027">25.796027</latitude>
