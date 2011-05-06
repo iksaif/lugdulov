@@ -9,10 +9,13 @@ VERSION = 0.5.0
 LUGDULOV_INSTALL_PLUGINS = $${LIBDIR}/lugdulov
 
 CONFIG(android): LUGDULOV_CONFIG = qmapcontrol staticplugins
-else:symbian: LUGDULOV_CONFIG = bearer location qmapcontrol staticplugins debug
+else:symbian: LUGDULOV_CONFIG = bearer location  staticplugins debug
 else: LUGDULOV_CONFIG = bearer location qmapcontrol
 
 CONFIG += qt thread
+
+# Remove SDK warnings
+symbian:QMAKE_CXXFLAGS += -Wno-attributes -Wno-parentheses
 
 contains(LUGDULOV_CONFIG, location) {
    CONFIG += mobility
@@ -49,6 +52,7 @@ contains(LUGDULOV_CONFIG, staticplugins) {
 # QJson
 symbian {
     QJSON_INCLUDE_PATH = "C:\\NokiaQtSDK\\Symbian\\SDK\\epoc32\\include\\qjson"
+	QJSON_INCLUDE_PATH = "C:\\dev\\symbian\\qjson\\src"
 } else:win32 {
     QJSON_INCLUDE_PATH = "C:\\Program Files\\qjson\\include"
     LIBS += -L"C:\\Program Files\\qjson\\lib"

@@ -156,7 +156,7 @@ namespace qmapcontrol
             if (currentZoom() >= 0 && distanceList.size() > currentZoom())
             {
                 double line;
-                line = distanceList.at( currentZoom() ) / pow(2, 18-currentZoom() ) / 0.597164;
+                line = distanceList.at( currentZoom() ) / pow(2., 18-currentZoom() ) / 0.597164;
 
                 // draw the scale
                 painter.setPen(Qt::black);

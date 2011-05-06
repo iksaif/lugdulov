@@ -25,30 +25,32 @@ ICON = lugdulov.svg
 INCLUDEPATH += ../qmake/
 INCLUDEPATH += ../plugins/common/
 
-contains(LUGDULOV_CONFIG, staticplugins) {
-    LIBS += -L../lib/
-    LIBS += -lstationsfrance -lstationsbelgium -lstationsireland -lstationsluxembourg
-    LIBS += -lstationsspain -lstationsjapan -lstationsaustria -lstationsgermany -lstationslatvia
-    LIBS += -lstationsswitzerland -lstationscanada -lstationsusa -lstationsaustralia
-    symbian: LIBS += -lstationsnew_zealand -lstationslower_austria -lstationsunited_kingdom
-    else: LIBS += -lstationsnew-zealand -lstationslower-austria -lstationsunited-kingdom
-}
-
-LIBS += -lqjson -llugdulov_base
-
-
 unix {
     suffix = ""
-}
-win32 {
+	libsuffix = "" # Not needed
+} else: win32 {
     CONFIG(debug, debug|release) {
       suffix = debug
     } else {
       suffix = release
     }
+	libsuffix = "" # Not needed
+} else: symbian {
+	contains(LUGDULOV_CONFIG, staticplugins): libsuffix = ".lib"
+	else: libsuffix = ".dll"
 }
 
 LIBS += -L../plugins/common/$${suffix}
+
+contains(LUGDULOV_CONFIG, staticplugins) {
+    LIBS += -L../lib/
+    LIBS += -lstationsfrance$${libsuffix} -lstationsbelgium$${libsuffix} -lstationsireland$${libsuffix} -lstationsluxembourg$${libsuffix}
+    LIBS += -lstationsspain$${libsuffix} -lstationsjapan$${libsuffix} -lstationsaustria$${libsuffix} -lstationsgermany -lstationslatvia$${libsuffix}
+    LIBS += -lstationsswitzerland$${libsuffix} -lstationscanada$${libsuffix} -lstationsusa$${libsuffix} -lstationsaustralia$${libsuffix}
+    LIBS += -lstationsnew-zealand$${libsuffix} -lstationslower-austria$${libsuffix} -lstationsunited-kingdom$${libsuffix}
+}
+
+LIBS += -lqjson -llugdulov_base
 
 HEADERS += mainwindow.h \
     stationdialog.h \
@@ -76,16 +78,14 @@ SOURCES += main.cpp \
 contains(LUGDULOV_CONFIG, lite) {
   SOURCES += mapwidget_lite.cpp
   HEADERS += mapwidget_lite.h
-} else {
-contains(LUGDULOV_CONFIG, qmapcontrol) {
+} else: contains(LUGDULOV_CONFIG, qmapcontrol) {
   SOURCES += mapwidget_qmapcontrol.cpp
   HEADERS += mapwidget_qmapcontrol.h
   INCLUDEPATH +=  ../qmapcontrol/
   LIBS += -L../qmapcontrol/$${suffix} -lqmapcontrol
 } else {
-  SOURCES += mapwidget_qtm.cpp
-  HEADERS += mapwidget_qtm.h
-}
+  SOURCES += mapwidget_qtm.cpp mapgraphicswidget_qtm.cpp
+  HEADERS += mapwidget_qtm.h mapgraphicswidget_qtm.h
 }
 
 TRANSLATIONS = i18n/lugdulov_fr.ts i18n/lugdulov_cs.ts
