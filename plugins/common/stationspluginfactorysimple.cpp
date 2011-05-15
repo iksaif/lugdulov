@@ -31,6 +31,7 @@
 #include "stationsplugindupral.h"
 #include "stationspluginvelin.h"
 #include "stationspluginbixi.h"
+#include "stationspluginbixi2.h"
 #include "stationsplugintransdev.h"
 #include "stationspluginbcycle.h"
 
@@ -215,6 +216,8 @@ StationsPluginFactorySimple::pluginForType(const QString & type)
     plugin = new StationsPluginVelIn();
   else if (type == "Bixi")
     plugin = new StationsPluginBixi();
+  else if (type == "Bixi2")
+    plugin = new StationsPluginBixi2();
   else if (type == "Transdev")
     plugin = new StationsPluginTransdev();
   else if (type == "BCycle")

@@ -24,6 +24,7 @@
 """
 import sys
 import os
+import json
 import re
 import xml.dom.minidom
 import datetime
@@ -31,7 +32,7 @@ import urllib2
 
 from plugin import *
 
-'''
+''' Bixi
 <stations>
 −
 <station>
@@ -50,6 +51,10 @@ from plugin import *
 </station>
 '''
 
+''' Bixi2
+var station = {id:"1",name:"Notre Dame / Place Jacques Cartier",lat:"45.508183",long:"-73.554094",nbBikes:"12",nbEmptyDocks:"19",installed:"true",locked:"false",temporary:"false", sponsorName:null, sponsorLink:null, sponsorLogo:null};
+'''
+
 class Bixi(Provider):
     config = [
         {
@@ -57,10 +62,20 @@ class Bixi(Provider):
         'country_name' : 'Canada',
         'city_uid'    : 'montreal',
         'city_name'    : 'Montreal',
-        'bike_name'    : 'Bixi',
-        'server' : 'https://profil.bixi.ca/data/bikeStations.xml',
+        'bike_name'    : 'Bixi2',
+        'server' : 'https://montreal.bixi.com/maps/statajax',
         'lat'  : 45.5088670,
         'lng'  : -73.5542420,
+        },
+        {
+        'country_uid' : 'ca',
+        'country_name' : 'Canada',
+        'city_uid'    : 'toronto',
+        'city_name'    : 'Toronto',
+        'bike_name'    : 'Bixi2',
+        'server' : 'https://toronto.bixi.com/maps/statajax',
+        'lat'  : 43.656152,
+        'lng'  : -79.385225,
         },
         {
         'country_uid' : 'usa',
@@ -124,12 +139,19 @@ class Bixi(Provider):
             city.lat = service['lat']
             city.lng = service['lng']
             city.create_rect()
-            city.type = "Bixi"
+            city.type = service['bike_name']
             #city.rect = self.get_city_bike_zone(service, city)
             ret.append(city)
         return ret
 
     def get_stations(self, city):
+
+        if city.type == 'Bixi2':
+            return self.get_stations_bixi2(city)
+        else:
+            return self.get_stations_bixi(city)
+
+    def get_stations_bixi(self, city):
         stations = []
         url = self.url(city)
         fp = urlopen(url)
@@ -146,6 +168,27 @@ class Bixi(Provider):
             station.zone = "0"
             station.bikes = int(node.getElementsByTagName('nbBikes')[0].childNodes[0].toxml())
             station.slots = int(node.getElementsByTagName('nbEmptyDocks')[0].childNodes[0].toxml())
+            stations.append(station)
+        return stations
+
+    def get_stations_bixi2(self, city):
+        stations = []
+        url = self.url(city)
+        fp = urlopen(url)
+
+        data = fp.read()
+
+        rg = re.compile(r'id:"(\d+)",name:"(.*)",lat:"(.*)",long:"(.*)",nbBikes:"(\d+)",nbEmptyDocks:"(\d+)",installed:"(true|false)",locked:"(true|false)",temporary:"(true|false)"')
+        for node in rg.findall(data):
+            station = Station()
+            station.uid = node[0]
+            station.id = station.uid
+            station.name = node[1]
+            station.lat = float(node[2])
+            station.lng = float(node[3])
+            station.bikes = int(node[4])
+            station.slots = int(node[5])
+            station.zone = ""
             stations.append(station)
         return stations
 

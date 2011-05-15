@@ -54,16 +54,6 @@ class BCycle(Provider):
         {
             'country_uid' : 'usa',
             'country_name' : 'USA',
-            'city_uid'    : 'madison',
-            'city_name'    : 'Madison',
-            'bike_name'    : 'BCycle',
-            'server' : 'http://madison.bcycle.com/',
-            'lat'  : 43.066667,
-            'lng'  : -89.4,
-            },
-        {
-            'country_uid' : 'usa',
-            'country_name' : 'USA',
             'city_uid'    : 'louisville',
             'city_name'    : 'Louisville',
             'bike_name'    : 'BCycle',
@@ -80,16 +70,6 @@ class BCycle(Provider):
             'server' : 'http://browardcounty.bcycle.com/',
             'lat'  : 45.767299,
             'lng'  : 4.834329
-            },
-        {
-            'country_uid' : 'usa',
-            'country_name' : 'USA',
-            'city_uid'    : 'boulder',
-            'city_name'    : 'Boulder',
-            'bike_name'    : 'BCycle',
-            'server' : 'http://boulder.bcycle.com/',
-            'lat'  : 40.019444,
-            'lng'  : -105.292778,
             },
     """
 
@@ -143,6 +123,26 @@ class BCycle(Provider):
             'server' : 'http://desmoines.bcycle.com/',
             'lat'  : 41.590833,
             'lng'  : -93.620833,
+            },
+        {
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
+            'city_uid'    : 'boulder',
+            'city_name'    : 'Boulder',
+            'bike_name'    : 'BCycle',
+            'server' : 'http://boulder.bcycle.com/',
+            'lat'  : 40.019444,
+            'lng'  : -105.292778,
+            },
+        {
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
+            'city_uid'    : 'madison',
+            'city_name'    : 'Madison',
+            'bike_name'    : 'BCycle',
+            'server' : 'http://madison.bcycle.com/',
+            'lat'  : 43.066667,
+            'lng'  : -89.4,
             },
         ]
 

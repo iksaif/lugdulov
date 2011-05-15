@@ -17,21 +17,21 @@
  */
 
 #include "station.h"
-#include "london.h"
+#include "stationspluginbixi2.h"
 
-StationsPluginLondon::StationsPluginLondon(QObject *parent)
+StationsPluginBixi2::StationsPluginBixi2(QObject *parent)
   : StationsPluginSingle(parent)
 {
 }
 
-StationsPluginLondon::~StationsPluginLondon()
+StationsPluginBixi2::~StationsPluginBixi2()
 {
 }
 
 void
-StationsPluginLondon::handleInfos(const QByteArray & data)
+StationsPluginBixi2::handleInfos(const QByteArray & data)
 {
-  QRegExp re("id:\"(\\d+)\",name:\"(.*)\",lat:\"(.*)\",long:\"(.*)\",nbBikes:\"(\\d+)\",nbEmptyDocks:\"(\\d+)\"");
+  QRegExp re("id:\"(\\d+)\",name:\"(.*)\",lat:\"(.*)\",long:\"(.*)\",nbBikes:\"(\\d+)\",nbEmptyDocks:\"(\\d+)\",installed:\"(true|false)\",locked:\"(true|false)\",temporary:\"(true|false)\"");
   int ofs = 0;
 
   re.setMinimal(true);
@@ -45,7 +45,7 @@ StationsPluginLondon::handleInfos(const QByteArray & data)
 
     ofs++;
 
-    if (capt.size() != 7)
+    if (capt.size() != 10)
       continue ;
 
     id = capt.at(1).toInt(&ok);

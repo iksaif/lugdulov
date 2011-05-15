@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cities>
   <city id="montreal">
-    <type>Bixi</type>
+    <type>Bixi2</type>
     <latitude min="45.308867" max="45.708867">45.508867</latitude>
     <longitude min="-73.754242" max="-73.354242">-73.554242</longitude>
-    <infos>https://profil.bixi.ca/data/bikeStations.xml</infos>
+    <infos>https://montreal.bixi.com/maps/statajax</infos>
     <name>Montreal</name>
-    <bikeName>Bixi</bikeName>
+    <bikeName>Bixi2</bikeName>
+  </city>
+  <city id="toronto">
+    <type>Bixi2</type>
+    <latitude min="43.456152" max="43.856152">43.656152</latitude>
+    <longitude min="-79.585225" max="-79.185225">-79.385225</longitude>
+    <infos>https://toronto.bixi.com/maps/statajax</infos>
+    <name>Toronto</name>
+    <bikeName>Bixi2</bikeName>
   </city>
 </cities>

@@ -16,14 +16,6 @@
     <name>Dresden</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="nurnberg">
-    <type>NextBike</type>
-    <latitude min="48.447900" max="50.447900">49.447900</latitude>
-    <longitude min="10.081400" max="12.081400">11.081400</longitude>
-    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Nürnberg</name>
-    <bikeName>nextbike</bikeName>
-  </city>
   <city id="frankfurt">
     <type>NextBike</type>
     <latitude min="49.107200" max="51.107200">50.107200</latitude>
@@ -238,6 +230,14 @@
     <longitude min="9.004400" max="11.004400">10.004400</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Norderstedt</name>
+    <bikeName>nextbike</bikeName>
+  </city>
+  <city id="halensee_kudamm">
+    <type>NextBike</type>
+    <latitude min="51.498600" max="53.498600">52.498600</latitude>
+    <longitude min="12.300100" max="14.300100">13.300100</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Halensee Kudamm</name>
     <bikeName>nextbike</bikeName>
   </city>
 </cities>

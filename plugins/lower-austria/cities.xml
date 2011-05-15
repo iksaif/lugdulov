@@ -42,16 +42,16 @@
   </city>
   <city id="thermenregion">
     <type>NextBike</type>
-    <latitude min="47.063400" max="49.063400">48.063400</latitude>
-    <longitude min="15.313700" max="17.313700">16.313700</longitude>
+    <latitude min="46.989200" max="48.989200">47.989200</latitude>
+    <longitude min="15.264600" max="17.264600">16.264600</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Thermenregion</name>
     <bikeName>nextbike</bikeName>
   </city>
   <city id="romerland">
     <type>NextBike</type>
-    <latitude min="47.059700" max="49.059700">48.059700</latitude>
-    <longitude min="15.855800" max="17.855800">16.855800</longitude>
+    <latitude min="47.090900" max="49.090900">48.090900</latitude>
+    <longitude min="15.853000" max="17.853000">16.853000</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Römerland</name>
     <bikeName>nextbike</bikeName>
@@ -88,6 +88,14 @@
     <name>Waldviertel</name>
     <bikeName>nextbike</bikeName>
   </city>
+  <city id="neunkirchen">
+    <type>NextBike</type>
+    <latitude min="46.722700" max="48.722700">47.722700</latitude>
+    <longitude min="15.080400" max="17.080400">16.080400</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Neunkirchen</name>
+    <bikeName>nextbike</bikeName>
+  </city>
   <city id="unteres_traisental">
     <type>NextBike</type>
     <latitude min="47.334300" max="49.334300">48.334300</latitude>
@@ -98,8 +106,8 @@
   </city>
   <city id="haag">
     <type>NextBike</type>
-    <latitude min="47.036800" max="49.036800">48.036800</latitude>
-    <longitude min="13.786200" max="15.786200">14.786200</longitude>
+    <latitude min="47.064300" max="49.064300">48.064300</latitude>
+    <longitude min="13.736800" max="15.736800">14.736800</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Haag</name>
     <bikeName>nextbike</bikeName>
