@@ -55,6 +55,9 @@ qt4_wrap_cpp(qmapcontrol_MOC_SOURCE ${qmapcontrol_MOC_HDRS})
 
 link_directories(${QT_LIBRARY_DIR})
 
-add_convenience_library(qmapcontrol ${qmapcontrol_SRCS} ${qmapcontrol_MOC_SOURCE})
+add_convenience_library(qmapcontrol
+  ${qmapcontrol_SRCS}
+  ${qmapcontrol_MOC_SOURCE}
+)
 
 target_link_libraries(qmapcontrol ${QT_LIBRARIES})

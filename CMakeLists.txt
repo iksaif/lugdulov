@@ -1,12 +1,13 @@
 cmake_minimum_required(VERSION 2.6)
+cmake_policy(SET CMP0017 NEW)
 
 project(lugdulov)
 
 include(CMakeDependentOption)
 
 set(VERSION_MAJOR "0")
-set(VERSION_MINOR "4")
-set(VERSION_PATCH "1")
+set(VERSION_MINOR "5")
+set(VERSION_PATCH "0")
 
 if(CMAKE_SYSTEM_NAME MATCHES Linux)
   set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /usr/share/apps/cmake/modules/)
@@ -50,8 +51,12 @@ endif()
 
 set(USE_QMAPCONTROL ${QMAPCONTROL})
 
-if (QT_VERSION_MAJOR EQUAL "4" AND QT_VERSION_MINOR EQUAL "7")
+if (QT_VERSION VERSION_LESS "4.7.0")
   set(HAVE_QT_BEARER TRUE)
+endif()
+
+if (QT_VERSION VERSION_LESS "4.8.0")
+  set(HAVE_KINETIC_SCROLLER_SOLUTION TRUE)
 endif()
 
 ## GCC  ##
@@ -115,14 +120,23 @@ include(${QT_USE_FILE})
 # Find config.h
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 
+if (HAVE_KINETIC_SCROLLER_SOLUTION)
+  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/kineticscroller/include/)
+  add_subdirectory(kineticscroller)
+endif()
+
 add_subdirectory(plugins)
+
 if(QMAPCONTROL)
   add_subdirectory(qmapcontrol)
 endif()
+
 add_subdirectory(lugdulov)
+
 if(BUILD_UTILS)
   add_subdirectory(utils)
 endif()
+
 add_subdirectory(pkg)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake config.h ESCAPE_QUOTES)

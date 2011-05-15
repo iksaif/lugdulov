@@ -142,6 +142,10 @@ if (QMAPCONTROL)
   target_link_libraries(lugdulov qmapcontrol)
 endif()
 
+if (HAVE_KINETIC_SCROLLER_SOLUTION)
+  target_link_libraries(lugdulov kineticscroller)
+endif()
+
 install(TARGETS lugdulov
   RUNTIME DESTINATION ${BIN_INSTALL_DIR}
 )

@@ -77,6 +77,8 @@ PluginsDialog::PluginsDialog(StationsPluginManager *manager, QWidget *parent)
 
   lineEdit->setFocus(Qt::OtherFocusReason);
   connect(lineEdit, SIGNAL(textEdited(const QString &)), this, SLOT(filter(const QString &)));
+
+  installKineticScroller(treeWidget);
 }
 
 PluginsDialog::~PluginsDialog()

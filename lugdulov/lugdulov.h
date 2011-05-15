@@ -22,6 +22,7 @@
 #include <qglobal.h>
 #include <QtGui/QDialog>
 #include <QtGui/QAction>
+#include <QtGui/QAbstractItemView>
 
 #include "config.h"
 
@@ -56,6 +57,32 @@ static inline void setupDialog(QDialog *dialog, bool back = true)
       dialog->addAction(backAction);
   }
 #endif
+}
+
+#ifdef HAVE_KINETIC_SCROLLER_SOLUTION
+#include <QtScroller>
+#define QScroller QtScroller
+#endif
+
+static inline QScroller *installKineticScroller(QObject *target)
+{
+  bool touch = false;
+  QScroller::ScrollerGestureType type;
+
+  if (touch)
+    type = QtScroller::TouchGesture;
+  else
+    type = QtScroller::LeftMouseButtonGesture;
+
+  QScroller::grabGesture(target, type);
+  return QScroller::scroller(target);
+}
+
+static inline QScroller *installKineticScroller(QAbstractItemView *view)
+{
+  view->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+  view->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+  return installKineticScroller(view->viewport());
 }
 
 #endif

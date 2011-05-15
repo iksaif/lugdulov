@@ -52,6 +52,8 @@ StationsListView::StationsListView(QWidget *parent)
 #endif
   setContextMenuPolicy(Qt::CustomContextMenu);
   connect(this, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showContextMenu(const QPoint &)));
+
+  installKineticScroller(this);
 }
 
 
