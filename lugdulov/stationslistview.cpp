@@ -43,6 +43,7 @@ StationsListView::StationsListView(QWidget *parent)
 
   scrollTimer = new QTimer(this);
   scrollTimer->setInterval(500);
+  scrollTimer->setSingleShot(true);
   connect(scrollTimer, SIGNAL(timeout()), this, SLOT(update()));
 
 #if defined(Q_WS_MAEMO_5) || defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
@@ -192,7 +193,6 @@ StationsListView::update()
 
     plugin->updateCached(station);
   }
-  scrollTimer->stop();
 }
 
 void
@@ -211,7 +211,7 @@ void
 StationsListView::rowsInserted(const QModelIndex & parent, int start, int end)
 {
   QListView::rowsInserted(parent, start, end);
-  // Delayed to allow QSortFilterProxyModel to do is work
+  // Delayed to allow QSortFilterProxyModel doing is work
   scrollTimer->start();
 }
 
@@ -219,6 +219,6 @@ void
 StationsListView::scrollContentsBy(int dx, int dy)
 {
   QListView::scrollContentsBy(dx, dy);
-  // Delayed a little because the user may be still scrolling
+  // Delayed a little because the user may still be scrolling
   scrollTimer->start();
 }

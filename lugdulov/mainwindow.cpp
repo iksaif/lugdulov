@@ -234,7 +234,15 @@ MainWindow::positionUpdated(QGeoPositionInfo info)
 void
 MainWindow::buttonClicked()
 {
-  PluginsDialog dlg(manager, this);
+  bool have_localization = false;
+
+#ifdef HAVE_QT_LOCATION
+  have_localization = !!localisation;
+#endif
+
+  PluginsDialog dlg(manager, have_localization, this);
+
+  dlg.setCurrentPlugin(plugin);
 
 #if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
   dlg.showMaximized();
@@ -242,8 +250,6 @@ MainWindow::buttonClicked()
 
   if (dlg.exec())
     setStationsPlugin(dlg.plugin(), true);
-  else
-    setStationsPlugin(NULL, true);
 }
 
 void

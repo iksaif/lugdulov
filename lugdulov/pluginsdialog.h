@@ -29,14 +29,19 @@ class PluginsDialog : public QDialog, private Ui_PluginsDialog
   Q_OBJECT
 
  public:
-  PluginsDialog(StationsPluginManager *manager, QWidget *parent = 0);
+  PluginsDialog(StationsPluginManager *manager, bool localization,
+		QWidget *parent = 0);
   ~PluginsDialog();
 
   StationsPlugin *plugin();
 
+ public:
+  void setCurrentPlugin(StationsPlugin *plugin);
+
  private slots:
   void itemClicked(QTreeWidgetItem *item, int column);
   void itemDoubleClicked(QTreeWidgetItem *item, int column);
+  void itemSelectionChanged();
   void filter(const QString &str);
 
  private:

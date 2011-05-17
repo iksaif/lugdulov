@@ -24,7 +24,8 @@
 #include "stationspluginfactory.h"
 #include "stationspluginmanager.h"
 
-PluginsDialog::PluginsDialog(StationsPluginManager *manager, QWidget *parent)
+PluginsDialog::PluginsDialog(StationsPluginManager *manager, bool localization,
+			     QWidget *parent)
   :
 #ifdef Q_WS_MAEMO_5
   QDialog(parent, Qt::Window)
@@ -42,6 +43,8 @@ PluginsDialog::PluginsDialog(StationsPluginManager *manager, QWidget *parent)
 #elif !defined(Q_OS_SYMBIAN) && !defined(Q_WS_SIMULATOR)
   treeWidget->setIconSize(QSize(24, 24));
 #endif
+
+  treeWidget->setSortingEnabled(false);
 
   QMap < StationsPluginFactory *, StationsPlugin * > ret = manager->stations();
 
@@ -68,12 +71,30 @@ PluginsDialog::PluginsDialog(StationsPluginManager *manager, QWidget *parent)
       item->setData(0, Qt::UserRole, QVariant::fromValue((void *)plugin));
     }
   }
+
+  treeWidget->sortItems(0, Qt::AscendingOrder);
+
+  if (localization) {
+    QTreeWidgetItem *item = new QTreeWidgetItem((QTreeWidget *)NULL, Plugin);
+    QFont font = item->font(0);
+
+    font.setBold(true);
+    item->setText(0, tr("Automatic"));
+    item->setIcon(0, QIcon::fromTheme("gps", QPixmap(":/res/gps.png")));
+    item->setFont(0, font);
+
+    treeWidget->insertTopLevelItem(0, item);
+    treeWidget->setCurrentItem(treeWidget->topLevelItem(0));
+  }
+
   treeWidget->header()->setResizeMode(0, QHeaderView::Stretch);
 
   connect(treeWidget, SIGNAL(itemClicked(QTreeWidgetItem *, int)),
 	  this, SLOT(itemClicked(QTreeWidgetItem *, int)));
   connect(treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
 	  this, SLOT(itemDoubleClicked(QTreeWidgetItem *, int)));
+  connect(treeWidget, SIGNAL(itemSelectionChanged()),
+	  this, SLOT(itemSelectionChanged()));
 
   lineEdit->setFocus(Qt::OtherFocusReason);
   connect(lineEdit, SIGNAL(textEdited(const QString &)), this, SLOT(filter(const QString &)));
@@ -83,6 +104,26 @@ PluginsDialog::PluginsDialog(StationsPluginManager *manager, QWidget *parent)
 
 PluginsDialog::~PluginsDialog()
 {
+}
+
+void
+PluginsDialog::setCurrentPlugin(StationsPlugin *plugin)
+{
+  QList<QTreeWidgetItem *> items;
+
+  if (plugin)
+    items = treeWidget->findItems(plugin->name(), Qt::MatchExactly | Qt::MatchRecursive, 0);
+
+  if (!items.isEmpty()) {
+    foreach (QTreeWidgetItem *item, items) {
+      StationsPlugin *ip = (StationsPlugin *)item->data(0, Qt::UserRole).value<void *>();
+
+      if (ip->id() == plugin->id()) {
+	treeWidget->setCurrentItem(item);
+	selected = ip;
+      }
+    }
+  }
 }
 
 void
@@ -127,23 +168,32 @@ PluginsDialog::filter(const QString &txt)
 }
 
 void
+PluginsDialog::itemSelectionChanged()
+{
+  QList<QTreeWidgetItem *> items = treeWidget->selectedItems();
+  QTreeWidgetItem *item;
+
+  if (items.isEmpty())
+    return ;
+
+  item = items.first();
+
+  if (item->type() == Plugin)
+    selected = (StationsPlugin *)item->data(0, Qt::UserRole).value<void *>();
+}
+
+void
 PluginsDialog::itemClicked(QTreeWidgetItem *item, int column)
 {
-  if (item->type() == Plugin) {
-    selected = (StationsPlugin *)item->data(0, Qt::UserRole).value<void *>();
 #ifdef Q_WS_MAEMO_5
-    accept();
+  accept();
 #endif
-  }
 }
 
 void
 PluginsDialog::itemDoubleClicked(QTreeWidgetItem *item, int column)
 {
-  if (item->type() == Plugin) {
-    selected = (StationsPlugin *)item->data(0, Qt::UserRole).value<void *>();
-    accept();
-  }
+  accept();
 }
 
 StationsPlugin *
