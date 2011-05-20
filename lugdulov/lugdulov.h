@@ -61,7 +61,11 @@ static inline void setupDialog(QDialog *dialog, bool back = true)
 
 #ifdef HAVE_KINETIC_SCROLLER_SOLUTION
 #include <QtScroller>
+#include <QtScrollEvent>
+#include <QtScrollPrepareEvent>
 #define QScroller QtScroller
+#define QScrollEvent QtScrollEvent
+#define QScrollPrepareEvent QtScrollPrepareEvent
 #endif
 
 static inline QScroller *installKineticScroller(QObject *target)

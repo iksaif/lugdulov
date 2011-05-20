@@ -65,10 +65,8 @@ StationDialog::StationDialog(Station *station, QWidget * parent)
     bikeLabel->setPixmap(station->plugin()->bikeIcon().pixmap(bikeLabel->pixmap()->size()));
   }
 
-#if !defined(Q_WS_S60) && !defined(Q_WS_SIMULATOR)
-  fetchImage(); // Enable it when Qt 4.7 is release
+  fetchImage();
   resize(sizeHint());
-#endif
 }
 
 StationDialog::~StationDialog()
@@ -154,8 +152,10 @@ StationDialog::fetchImage()
 {
   QUrl url = station->plugin()->imageUrl(station->id());
 
-  if (url.isEmpty())
+  if (url.isEmpty()) {
+    iconLabel->hide();
     return ;
+  }
 
   nm = new QNetworkAccessManager(this);
   QNetworkReply *rep;
