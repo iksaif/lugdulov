@@ -94,6 +94,8 @@ StationDialog::setupWidgets()
       else
 	slotsProgressBar->setRange(0, 1);
       slotsProgressBar->setValue(station->freeSlots());
+      slotsProgressBar->setFormat("%v");
+      bikeProgressBar->setFormat(tr("N/A"));
     }
     if (station->bikes() >= 0) {
       if (station->bikes())
@@ -101,9 +103,9 @@ StationDialog::setupWidgets()
       else
 	bikeProgressBar->setRange(0, 1);
       bikeProgressBar->setValue(station->bikes());
+      slotsProgressBar->setFormat(tr("N/A"));
+      bikeProgressBar->setFormat("%v");
     }
-    slotsProgressBar->setFormat("%v");
-    bikeProgressBar->setFormat("%v");
   }
 
   descriptionLabel->setText(station->description());

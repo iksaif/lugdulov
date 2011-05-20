@@ -79,7 +79,18 @@ class Transdev(Provider):
         'server' : 'http://www.velivert.fr/sag_vls_stations_rdg.html',
         'lat'  : 45.52366,
         'lng'  : 4.61041,
+        },
+        {
+        'country_uid' : 'fr',
+        'country_name' : 'France',
+        'city_uid'    : 'strasbourg',
+        'city_name'    : 'Strasbourg',
+        'bike_name'    : u'Vel\'hop',
+        'server' : 'http://www.velhop.strasbourg.eu/sag_vls_stations.html',
+        'lat'  : 48.574350,
+        'lng'  : 7.747500,
         }
+
         ]
 
     def service_by_city(self, city):
@@ -134,14 +145,14 @@ class Transdev(Provider):
         data = fp.read()
 
         # map.addOverlay(newmark_03(3, 43.943233,4.805682, "<div align=\"left\">01 Jaures<br>Vélos disponibles: 1<br>Emplacements libres: 31<br>CB: Oui<br></div>"));
-        rg = re.compile(r'map\.addOverlay\(newmark_\d+\((\d+), ([0-9\.]+),([0-9\.]+), "<div .*>(.*)<br>.*disponibles: (\d+)<br>Emplacements libres: (\d+)<br>')
+        rg = re.compile(r'map\.addOverlay\(newmark_\d+\((\d+), ([0-9\.]+),([0-9\.]+), "<div .*>(.*)<br>.*disponibles: (\d+)<br>(Emplacements libres: (\d+)<br>)?')
 
         #print data
         for node in rg.findall(data):
             station = Station()
             station.uid = node[0]
             station.id = station.uid
-            station.name = node[3]
+            station.name = node[3].decode('latin9')
             station.lat = float(node[1])
             station.lng = float(node[2])
             station.bikes = node[4]

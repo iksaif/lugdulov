@@ -34,7 +34,7 @@ void
 StationsPluginTransdev::handleInfos(const QByteArray & data)
 {
   QRegExp re("map\\.addOverlay\\(newmark_0[1|3]\\((\\d+), ([0-9\\.]+),([0-9\\.]+), "
-	     "\"<div .*>(.*)<br>.*disponibles: (\\d+)<br>Emplacements libres: (\\d+)<br>");
+	     "\"<div .*>(.*)<br>.*disponibles: (\\d+)<br>(Emplacements libres: (\\d+)<br>)?.*</div>");
   int ofs = 0;
 
   re.setMinimal(true);
@@ -48,7 +48,7 @@ StationsPluginTransdev::handleInfos(const QByteArray & data)
 
     ofs += re.matchedLength();
 
-    if (capt.size() != 7)
+    if (capt.size() != 8)
       continue ;
 
     id = capt.at(1).toInt(&ok);
@@ -65,9 +65,10 @@ StationsPluginTransdev::handleInfos(const QByteArray & data)
     if (station->pos().isNull())
       station->setPos(pos);
     station->setBikes(capt.at(5).toInt());
-    station->setFreeSlots(capt.at(6).toInt());
-    station->setTotalSlots(station->bikes() + station->freeSlots());
-
+    if (!capt.at(7).isEmpty()) {
+      station->setFreeSlots(capt.at(7).toInt());
+      station->setTotalSlots(station->bikes() + station->freeSlots());
+    }
     storeOrDropStation(station);
   }
 

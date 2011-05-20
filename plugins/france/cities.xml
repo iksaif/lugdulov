@@ -247,6 +247,14 @@
     <name>Rive De Gier</name>
     <bikeName>VéliVert</bikeName>
   </city>
+  <city id="strasbourg">
+    <type>Transdev</type>
+    <latitude min="48.514350" max="48.634350">48.574350</latitude>
+    <longitude min="7.687500" max="7.807500">7.747500</longitude>
+    <infos>http://www.velhop.strasbourg.eu/sag_vls_stations.html</infos>
+    <name>Strasbourg</name>
+    <bikeName>Vel'hop</bikeName>
+  </city>
   <city id="rennes">
     <type>VeloStar</type>
     <latitude min="47.911761" max="48.311761">48.111761</latitude>
