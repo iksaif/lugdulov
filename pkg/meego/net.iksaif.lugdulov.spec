@@ -7,7 +7,7 @@
 
 Name:       net.iksaif.lugdulov
 Summary:    Lugdulo'V - Find a bike in your City
-Version:    0.4.1
+Version:    0.5.0
 Release:    1
 Group:      Applications/Productivity
 License:    GPLv2
