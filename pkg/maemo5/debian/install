@@ -19,4 +19,5 @@ opt/lugdulov/lib/lugdulov/plugins/libstationsusa.so
 opt/lugdulov/lib/lugdulov/plugins/libstationsaustralia.so
 #opt/lugdulov/lib/plugins/geoservices/libqtgeoservices_google.so
 #opt/lugdulov/lib/plugins/geoservices/libqtgeoservices_openstreetmap.so
+opt/lugdulov/lib/libQtLocation.so.*
 opt/lugdulov/bin/lugdulov-wrapper

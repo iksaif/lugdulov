@@ -8,7 +8,7 @@ fi
 
 ## For osm and google geoservices plugins
 ## (not used yet)
-# if [ "${QT_PLUGIN_PATH+set}" = "set" ]; then
+#if [ "${QT_PLUGIN_PATH+set}" = "set" ]; then
 #    export QT_PLUGIN_PATH="${QT_PLUGIN_PATH}:/opt/lugdulov/lib"
 #else
 #    export QT_PLUGIN_PATH="/opt/lugdulov/lib"
