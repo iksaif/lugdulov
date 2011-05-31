@@ -79,7 +79,9 @@ qt4_wrap_ui(UI_HDRS ${lugdulov_UIS})
 qt4_add_resources(RC_SRCS ${lugdulov_RCS})
 
 if (WIN32)
- set(GUI_TYPE WIN32)
+ if("${CMAKE_BUILD_TYPE}" MATCHES "^Rel.*")
+	set(GUI_TYPE WIN32)
+ endif()
  add_custom_command( OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/icon.o
                      COMMAND windres.exe -I${CMAKE_CURRENT_SOURCE_DIR} -i${CMAKE_CURRENT_SOURCE_DIR}/lugdulov.rc
                      -o ${CMAKE_CURRENT_BINARY_DIR}/icon.o )

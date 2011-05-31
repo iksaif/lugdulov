@@ -56,9 +56,10 @@ MapWidget::centerView(const QPointF & position, int zoom)
   Q_UNUSED(zoom);
 }
 
+#ifdef HAVE_QT_LOCATION
 void
 MapWidget::positionUpdated(const QGeoPositionInfo & info)
 {
   Q_UNUSED(info);
 }
-
+#endif

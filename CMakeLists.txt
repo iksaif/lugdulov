@@ -220,10 +220,8 @@ else()
     set(CPACK_SOURCE_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}")
   endif()
 
-  set(CPACK_GENERATOR "DEB")
+  set(CPACK_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}-${CMAKE_SYSTEM_NAME}")
+  set(CPACK_SOURCE_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}")
   set(CPACK_SOURCE_GENERATOR "TGZ;TBZ2")
-  ## Debian specific ##
-  set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt4-core (>= 4.6), libqt4-xml (>= 4.6), libqt4-gui (>= 4.6), libqt4-network (>= 4.6), qjson | libqjson0")
-  set(CPACK_DEBIAN_PACKAGE_BUILDS_DEPENDS "libqt4-dev (>= 4.6), cmake (>= 2.6), qjson | libqjson-dev")
 endif()
 include(CPack)
