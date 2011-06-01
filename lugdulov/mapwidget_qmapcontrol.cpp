@@ -123,7 +123,7 @@ MapWidget::setupMapControl()
   Layer* l = new Layer("Custom Layer", mapadapter, Layer::MapLayer);
 
 #if defined(Q_WS_MAEMO_5) || defined(Q_WS_S60)
-  mc->enablePersistentCache();
+  mc->enablePersistentCache(QDesktopServices::storageLocation(QDesktopServices::CacheLocation));
 #else
   mc->enablePersistentCache(QDesktopServices::storageLocation(QDesktopServices::CacheLocation));
 #endif

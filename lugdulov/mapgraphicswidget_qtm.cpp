@@ -106,9 +106,9 @@ void MapGraphicsWidget::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
             panActive = false;
 
 	    if (lastClickTime.msecsTo(QTime::currentTime()) < holdTimeThreshold) {
-	      QList < QGeoMapObject * > objects = mapObjectsAtScreenPosition(event->pos());
-
-	      emit objectsClicked(objects);
+	      //QList < QGeoMapObject * > objects = mapObjectsAtScreenPosition(event->pos());
+	      //emit objectsClicked(objects);
+	      emit clicked(event->pos());
 	      return ;
 	    }
 
@@ -130,9 +130,10 @@ void MapGraphicsWidget::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
             }
 
 	    if (entries_considered == 0) {
-	      QList < QGeoMapObject * > objects = mapObjectsAtScreenPosition(event->pos());
-
-	      emit objectsClicked(objects);
+	      //Doesn't work on symbian/maemo
+	      //QList < QGeoMapObject * > objects = mapObjectsAtScreenPosition(event->pos());
+	      //emit objectsClicked(objects);
+	      emit clicked(event->pos());
 	    }
 
             if (entries_considered > 0)

@@ -67,8 +67,10 @@ MapWidget::MapWidget(QWidget *parent)
 
   connect(mapWidget, SIGNAL(centerChanged (const QGeoCoordinate &)),
 	  this, SLOT(viewChanged(const QGeoCoordinate &)));
-  connect(mapWidget, SIGNAL(objectsClicked (QList < QGeoMapObject * >)),
-	  this, SLOT(objectsClicked (QList < QGeoMapObject * >)));
+  //connect(mapWidget, SIGNAL(objectsClicked (QList < QGeoMapObject * >)),
+  //this, SLOT(objectsClicked (QList < QGeoMapObject * >)));
+  connect(mapWidget, SIGNAL(clicked(const QPointF &)),
+	  this, SLOT(mapClicked(const QPointF &)));
 
   stationsTimer = new QTimer(this);
   stationsTimer->setInterval(1000);
@@ -306,6 +308,28 @@ MapWidget::dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRi
     if (objects.find(station) != objects.end())
       showStation(station);
   }
+}
+
+/* Workaround for mapObjectsAtScreenPosition */
+void
+MapWidget::mapClicked(const QPointF & pos)
+{
+  QList < QGeoMapObject * > list;
+
+#ifdef __arm__
+  /* http://bugreports.qt.nokia.com/browse/QTBUG-18176 */
+  foreach (QGeoMapObject *object, objects.values()) {
+    QPointF a = mapWidget->coordinateToScreenPosition(object->boundingBox().center());
+    QRectF rect(a.x() - 24, a.y() - 24, 48, 48);
+
+    if (rect.contains(pos) && !a.isNull())
+      list << object;
+  }
+#else
+  list = mapWidget->mapObjectsAtScreenPosition(pos);
+#endif
+
+  objectsClicked(list);
 }
 
 void

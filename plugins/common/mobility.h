@@ -37,6 +37,7 @@
 #  include <QGraphicsGeoMap>
 #  include <QGeoMapPixmapObject>
 #  include <QGeoServiceProvider>
+#  include <QGeoBoundingBox>
 # endif
 # else
 #  include <QtLocation/QGeoPositionInfoSource>
@@ -46,6 +47,7 @@
 #  include <QtLocation/QGraphicsGeoMap>
 #  include <QtLocation/QGeoMapPixmapObject>
 #  include <QtLocation/QGeoServiceProvider>
+#  include <QtLocation/QGeoBoundingBox>
 # endif
 # endif
 #endif

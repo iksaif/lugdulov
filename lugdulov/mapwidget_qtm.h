@@ -62,6 +62,7 @@ class MapWidget : public QGraphicsView
   void refreshStations();
   void refreshStatus();
   void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight);
+  void mapClicked(const QPointF & pos);
   void objectsClicked(QList < QGeoMapObject * > geom);
 
  private:

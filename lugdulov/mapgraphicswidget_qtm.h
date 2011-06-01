@@ -55,7 +55,8 @@ public:
     ~MapGraphicsWidget();
 
 signals:
-    void objectsClicked(QList < QGeoMapObject * > objects);
+    //void objectsClicked(QList < QGeoMapObject * > objects);
+    void clicked(const QPointF & pos);
 
 private slots:
     void kineticTimerEvent();
