@@ -46,6 +46,9 @@ Q_IMPORT_PLUGIN(stationslatvia);
 Q_IMPORT_PLUGIN(stationsnewzealand);
 Q_IMPORT_PLUGIN(stationsusa);
 Q_IMPORT_PLUGIN(stationsaustralia);
+
+Q_IMPORT_PLUGIN(qtgeoservices_google);
+Q_IMPORT_PLUGIN(qtgeoservices_osm);
 #endif
 
 int main(int argc, char *argv[])

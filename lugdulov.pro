@@ -1,10 +1,18 @@
 TEMPLATE = subdirs
-SUBDIRS = sub_plugins sub_qmapcontrol sub_lugdulov
+SUBDIRS = sub_plugins sub_kineticscroller sub_lugdulov
+
+include(lugdulov.pri)
 
 sub_plugins.subdir     = plugins
 sub_qmapcontrol.subdir = qmapcontrol
+sub_kineticscroller.subdir    = kineticscroller
 sub_lugdulov.subdir    = lugdulov
-sub_lugdulov.depends   = sub_plugins sub_qmapcontrol
+sub_lugdulov.depends   = sub_plugins sub_kineticscroller
+
+contains(LUGDULOV_CONFIG, qmapcontrol) {
+	SUBDIRS += sub_qmapcontrol 
+	sub_lugdulov.depends += sub_qmapcontrol 
+}
 
 OTHER_FILES += \
     android/res/drawable-mdpi/icon.png \

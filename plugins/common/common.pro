@@ -19,6 +19,7 @@ SOURCES =   tools.cpp \
   stationspluginvelin.cpp \
   stationsplugindupral.cpp \
   stationspluginbixi.cpp \
+  stationspluginbixi2.cpp \
   stationsplugintransdev.cpp \
   stationspluginbcycle.cpp \
   station.cpp \
@@ -38,6 +39,7 @@ HEADERS =  tools.h \
   stationspluginvelin.h \
   stationsplugindupral.h \
   stationspluginbixi.h \
+  stationspluginbixi2.h \
   stationsplugintransdev.h \
   stationspluginbcycle.h \
   settings.h \

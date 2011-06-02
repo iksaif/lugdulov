@@ -3,7 +3,6 @@ CONFIG *= staticlib create_prl
 DEPENDPATH += ../include
 INCLUDEPATH += ../include
 TARGET = QtScroller
-DESTDIR = ../lib
 
 !no-webkit:QT += webkit
 no-webkit:DEFINES += QTSCROLLER_NO_WEBKIT

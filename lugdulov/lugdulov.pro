@@ -40,9 +40,18 @@ unix {
 	else: libsuffix = ".dll"
 }
 
+lessThan(QT_VER_MAJ, 4) | lessThan(QT_VER_MIN, 8) {
+	DEFINES += HAVE_KINETIC_SCROLLER_SOLUTION
+	INCLUDEPATH += ../kineticscroller/include/
+	LIBS += -lQtScroller$${libsuffix}
+}
+
 LIBS += -L../plugins/common/$${suffix}
 
 contains(LUGDULOV_CONFIG, staticplugins) {
+	!contains(LUGDULOV_CONFIG, qmapcontrol) {
+		symbian:LIBS += -lqtgeoservices_google$${libsuffix} -lqtgeoservices_osm$${libsuffix}
+	}
     LIBS += -L../lib/
     LIBS += -lstationsfrance$${libsuffix} -lstationsbelgium$${libsuffix} -lstationsireland$${libsuffix} -lstationsluxembourg$${libsuffix}
     LIBS += -lstationsspain$${libsuffix} -lstationsjapan$${libsuffix} -lstationsaustria$${libsuffix} -lstationsgermany -lstationslatvia$${libsuffix}

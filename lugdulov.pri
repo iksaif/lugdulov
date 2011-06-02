@@ -6,12 +6,12 @@ BINDIR = $${PREFIX}/bin
 LIBDIR = $${PREFIX}/lib
 
 VERSION = 0.5.0
-LUGDULOV_CONFIG =  qmapcontrol lite
+LUGDULOV_CONFIG = 
 LUGDULOV_INSTALL_PLUGINS = $${LIBDIR}/lugdulov
 
 CONFIG(android): LUGDULOV_CONFIG = qmapcontrol staticplugins
-else:symbian: LUGDULOV_CONFIG = bearer location  staticplugins debug
-else: LUGDULOV_CONFIG = bearer location qmapcontrol
+else:symbian: LUGDULOV_CONFIG = bearer location staticplugins debug
+else: LUGDULOV_CONFIG = bearer location
 
 CONFIG += qt thread
 
@@ -34,11 +34,11 @@ contains(LUGDULOV_CONFIG, bearer) {
     }
 }
 
-QT += gui xml network
+QT += gui xml network webkit
 
 # Add missing Q_WS_MAEMO_5
 maemo5: {
-        DEFINES += Q_WS_MAEMO_5
+    DEFINES += Q_WS_MAEMO_5
 }
 
 # Version
@@ -52,8 +52,8 @@ contains(LUGDULOV_CONFIG, staticplugins) {
 
 # QJson
 symbian {
-    QJSON_INCLUDE_PATH = "C:\\NokiaQtSDK\\Symbian\\SDK\\epoc32\\include\\qjson"
-	#QJSON_INCLUDE_PATH = "C:\\dev\\symbian\\qjson\\src"
+    #QJSON_INCLUDE_PATH = "C:\\NokiaQtSDK\\Symbian\\SDK\\epoc32\\include\\qjson"
+	QJSON_INCLUDE_PATH = "C:\\dev\\win32\\local\\include\\"
 } else:win32 {
     QJSON_INCLUDE_PATH = "C:\\Program Files\\qjson\\include"
     LIBS += -L"C:\\Program Files\\qjson\\lib"
