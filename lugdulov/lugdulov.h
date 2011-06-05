@@ -59,6 +59,14 @@ static inline void setupDialog(QDialog *dialog, bool back = true)
 #endif
 }
 
+#if defined(Q_WS_MAEMO_5)
+#include <QtMaemo5/QtMaemo5>
+
+static inline void installKineticScroller(QAbstractScrollArea *area)
+{
+  area->property("kineticScroller").value<QAbstractKineticScroller *>()->setEnabled(true);
+}
+#else
 #ifdef HAVE_KINETIC_SCROLLER_SOLUTION
 #include <QtScroller>
 #include <QtScrollEvent>
@@ -88,5 +96,6 @@ static inline QScroller *installKineticScroller(QAbstractItemView *view)
   view->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
   return installKineticScroller(view->viewport());
 }
+#endif
 
 #endif

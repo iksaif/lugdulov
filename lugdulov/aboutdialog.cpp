@@ -44,8 +44,8 @@ AboutDialog::AboutDialog(QWidget *parent)
   ui->buttonBox->hide();
 #endif
 
- QScroller::grabGesture(ui->licenceBrowser->viewport(), QtScroller::LeftMouseButtonGesture);
- QScroller::grabGesture(ui->authorsBrowser->viewport(), QtScroller::LeftMouseButtonGesture);
+  installKineticScroller(ui->licenceBrowser);
+  installKineticScroller(ui->authorsBrowser);
 }
 
 AboutDialog::~AboutDialog()
