@@ -128,7 +128,7 @@ StationsListWidget::positionUpdated(QGeoPositionInfo info)
 
   if (!proxy)
     return ;
-
+  qDebug() << info;
   proxy->setPosition(QPointF(coord.latitude(), coord.longitude()));
   proxy->sort(0);
 }
@@ -138,9 +138,6 @@ void
 StationsListWidget::positionUpdated(const QPointF & center)
 {
   if (!proxy)
-    return ;
-
-  if (currentStation && currentStation->pos() == center)
     return ;
 
   proxy->setPosition(center);

@@ -47,6 +47,7 @@ class MapWidget : public QGraphicsView
   void centerOnStation(Station *station);
   void centerView(const QPointF & position, int zoom = -1);
   void positionUpdated(const QGeoPositionInfo & info);
+  void centerChanged();
 
  signals:
   void centerChanged(const QPointF & position);

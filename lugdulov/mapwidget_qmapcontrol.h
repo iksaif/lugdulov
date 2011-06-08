@@ -49,6 +49,7 @@ class MapWidget : public QWidget
 #ifdef HAVE_QT_LOCATION
   void positionUpdated(const QGeoPositionInfo & info);
 #endif
+  void centerChanged();
 
  signals:
   void centerChanged(const QPointF & position);

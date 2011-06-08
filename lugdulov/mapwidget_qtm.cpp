@@ -283,6 +283,12 @@ MapWidget::refreshStations()
 
   refreshStatus();
 
+  QTimer::singleShot(2000, this, SLOT(centerChanged()));
+}
+
+void
+MapWidget::centerChanged()
+{
   emit centerChanged(QPointF(mapWidget->center().latitude(), mapWidget->center().longitude()));
 }
 
