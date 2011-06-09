@@ -48,6 +48,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
   }
   if (providers.contains("nokia"))
       ui->comboBox->addItem(tr("Ovi Maps (Nokia)"), "nokia");
+  if (providers.contains("cloudmade"))
+      ui->comboBox->addItem(tr("Cloudmade"), "cloudmade");
 #else
 # if !defined(Q_OS_SYMBIAN) /* Doesn't seems to work on symbian */
   ui->comboBox->addItem(tr("Google Maps"), "google");

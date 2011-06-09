@@ -13,7 +13,6 @@ Group:      Applications/Productivity
 License:    GPLv2
 URL:        http://xf.iksaif.net/dev/lugdulov.html
 Source0:    %{name}-%{version}.tar.bz2
-Source100:  net.iksaif.lugdulov.yaml
 BuildRequires:  pkgconfig(QtCore) >= 4.6.0
 BuildRequires:  pkgconfig(QtNetwork)
 BuildRequires:  pkgconfig(QtGui)
@@ -36,12 +35,22 @@ Find a bike quickly in your city, with map and geolocalisation support !
 %build
 # >> build pre
 # << build pre
+mkdir qtm-geoservices-meego-build
+cd qtm-geoservices-meego-build
+cmake ../qtm-geoservices-extras/  \
+    -DCMAKE_INSTALL_PREFIX:PATH=/opt/%{name}
+
+make %{?jobs:-j%jobs}
+
+cd ..
+
 mkdir meego-build
 cd meego-build
 cmake ..  \
     -DCMAKE_INSTALL_PREFIX:PATH=/opt/%{name} \
     -DLUGDULOV_FULL_UI=ON \
-    -DLUGDULOV_MEEGO=ON
+    -DLUGDULOV_MEEGO=ON \
+    -DQMAPCONTROL=OFF
 
 
 make %{?jobs:-j%jobs}
@@ -52,6 +61,11 @@ make %{?jobs:-j%jobs}
 rm -rf %{buildroot}
 # >> install pre
 # << install pre
+cd qtm-geoservices-meego-build
+%make_install 
+
+cd ..
+
 cd meego-build
 %make_install 
 
@@ -99,3 +113,5 @@ update-desktop-database %{_datadir}/applications &> /dev/null || :
 /usr/share/icons/hicolor/64x64/apps/net.iksaif.lugdulov.png
 /usr/share/icons/hicolor/128x128/apps/net.iksaif.lugdulov.png
 /usr/share/icons/hicolor/scalable/apps/net.iksaif.lugdulov.svg
+/opt/net.iksaif.lugdulov/plugins/geoservices/libqtgeoservices_osm.so
+/opt/net.iksaif.lugdulov/plugins/geoservices/libqtgeoservices_google.so

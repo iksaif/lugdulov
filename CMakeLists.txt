@@ -219,8 +219,6 @@ else()
     set(CPACK_SOURCE_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}")
   endif()
 
-  set(CPACK_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}-${CMAKE_SYSTEM_NAME}")
-  set(CPACK_SOURCE_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}")
   set(CPACK_SOURCE_GENERATOR "TGZ;TBZ2")
 endif()
 include(CPack)

@@ -50,7 +50,7 @@ MapWidget::MapWidget(QWidget *parent)
   statusTimer(0)
 {
   Settings conf;
-  QString provider = conf.value("MapProvider").toString();
+  QString provider = conf.value("MapProvider", "opencyclemap").toString();
 
   QGraphicsScene* scene = new QGraphicsScene(this);
   setScene(scene);
@@ -178,7 +178,7 @@ MapWidget::setProvider(QString providerId)
   QStringList providers = QGeoServiceProvider::availableServiceProviders();
   QMap<QString, QVariant> parameters;
 
-  if (providerId != "google" && providerId != "nokia" && providerId != "openstreetmap")
+  if (providerId != "google" && providerId != "nokia" && providerId != "openstreetmap" && providerId != "cloudmade")
     providerId = "opencyclemap";
 
   if (providerId == "opencyclemap") {
@@ -223,7 +223,7 @@ MapWidget::positionUpdated(const QGeoPositionInfo & info)
     return ;
 
   mapWidget->setCenter(info.coordinate());
-  mapWidget->setZoomLevel(mapWidget->maximumZoomLevel());
+  mapWidget->setZoomLevel(mapWidget->maximumZoomLevel() - 1);
 }
 
 void
@@ -232,7 +232,7 @@ MapWidget::centerView(const QPointF & pt, int z)
   mapWidget->setCenter(QGeoCoordinate(pt.x(), pt.y()));
 
   if (z != -1)
-    mapWidget->setZoomLevel(z);
+    mapWidget->setZoomLevel(qMin(z, 17));
 
   QTimer::singleShot(0, this, SLOT(refreshStations()));
 }
@@ -346,7 +346,7 @@ MapWidget::objectsClicked(QList < QGeoMapObject * > objects)
 void
 MapWidget::zoomIn()
 {
-  mapWidget->setZoomLevel(mapWidget->zoomLevel() + 1);
+  mapWidget->setZoomLevel(qMax((int)mapWidget->zoomLevel() + 1, 17));
 }
 
 void

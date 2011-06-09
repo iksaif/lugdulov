@@ -90,9 +90,9 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("Lugdulov");
     QCoreApplication::setApplicationVersion(LUGDULOV_VERSION);
 
-#if defined(Q_OS_MAC) || defined(Q_OS_WINDOWS)
+#if defined(Q_OS_MAC) || defined(Q_OS_WINDOWS) || defined(Q_WS_MAEMO5) || defined(LUGDULOV_MEEGO)
     QDir dir(QApplication::applicationDirPath());
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MAC) || defined(Q_WS_MAEMO5) || defined(LUGDULOV_MEEGO)
     dir.cdUp();
 #endif
     dir.cd("plugins");
