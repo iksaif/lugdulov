@@ -322,8 +322,9 @@ MapWidget::mapClicked(const QPointF & pos)
 {
   QList < QGeoMapObject * > list;
 
-#ifdef __arm__
+#if /*__arm__*/ 1
   /* http://bugreports.qt.nokia.com/browse/QTBUG-18176 */
+  /* Also seems to only take the first setPixmap() into account */
   foreach (QGeoMapObject *object, objects.values()) {
     QPointF a = mapWidget->coordinateToScreenPosition(object->boundingBox().center());
     QRectF rect(a.x() - 24, a.y() - 24, 48, 48);
