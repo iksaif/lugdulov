@@ -107,6 +107,9 @@ update-desktop-database %{_datadir}/applications &> /dev/null || :
 /opt/net.iksaif.lugdulov/lib/lugdulov/plugins/libstationsswitzerland.so
 /opt/net.iksaif.lugdulov/lib/lugdulov/plugins/libstationsunited-kingdom.so
 /opt/net.iksaif.lugdulov/lib/lugdulov/plugins/libstationsusa.so
+/opt/net.iksqif.lugdulov/lib/lugdulov/plugins/libstationsturkey.so
+/opt/net.iksaif.lugdulov/lib/lugdulov/plugins/libstationspoland.so
+/opt/net.iksaif.lugdulov/lib/lugdulov/plugins/libstationsslovenia.so
 /usr/share/applications/net.iksaif.lugdulov.desktop
 /usr/share/icons/hicolor/16x16/apps/net.iksaif.lugdulov.png
 /usr/share/icons/hicolor/32x32/apps/net.iksaif.lugdulov.png

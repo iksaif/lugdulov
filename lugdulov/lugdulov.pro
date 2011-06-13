@@ -57,6 +57,7 @@ contains(LUGDULOV_CONFIG, staticplugins) {
     LIBS += -lstationsspain$${libsuffix} -lstationsjapan$${libsuffix} -lstationsaustria$${libsuffix} -lstationsgermany -lstationslatvia$${libsuffix}
     LIBS += -lstationsswitzerland$${libsuffix} -lstationscanada$${libsuffix} -lstationsusa$${libsuffix} -lstationsaustralia$${libsuffix}
     LIBS += -lstationsnew-zealand$${libsuffix} -lstationslower-austria$${libsuffix} -lstationsunited-kingdom$${libsuffix}
+    LIBS += -lturkey$${libsuffix} -lslovenia$${libsuffix} -lpoland$${libsuffix}
 }
 
 LIBS += -lqjson -llugdulov_base
@@ -137,7 +138,7 @@ symbian: {
 	#"[0x101F7961],0,0,0,{\"Series603rdProductID\"}" \
 	"[0x1028315F],0,0,0,{\"S60ProductID\"}" \
 	"[0x20022E6D],0,0,0,{\"S60ProductID\"}"
- 
+
     #LugdulovDeployment.sources = $(EPOCROOT)\\epoc32\\release\\$(PLATFORM)\\lugdulov.exe
     #LugdulovDeployment.sources = $${TARGET}.exe
 
