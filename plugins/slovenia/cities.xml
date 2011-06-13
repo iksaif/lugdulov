@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cities>
+  <city id="ljubljana">
+    <type>CycloCity</type>
+    <latitude min="45.845556" max="46.265556">46.055556</latitude>
+    <longitude min="14.298333" max="14.718333">14.508333</longitude>
+    <status>http://www.bicikelj.si/service/stationdetails/%1</status>
+    <infos>http://www.bicikelj.si/service/carto</infos>
+    <name>Ljubljana</name>
+    <bikeName>Bicike(lj)</bikeName>
+  </city>
+</cities>

@@ -257,7 +257,17 @@ class CycloCity(Provider):
             'server' :  'www.citycycle.com.au',
             'lat': -27.47538,
             'lng': 153.019466
-            }
+            },
+    {
+            'city_uid'    : 'ljubljana',
+            'country_uid' : 'si',
+            'country_Name' : 'Slovenia',
+            'city_Name'    : 'Ljubljana',
+            'bike_name'    : 'Bicike(lj)',
+            'server' :  'www.bicikelj.si',
+            'lat': 46.055556,
+            'lng': 14.508333
+            },
     ]
 
     cache = {}
