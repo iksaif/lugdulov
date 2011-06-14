@@ -6,7 +6,7 @@
     <longitude min="23.103300" max="25.103300">24.103300</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Riga</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>BalticBike</bikeName>
   </city>
   <city id="jurmala">
     <type>NextBike</type>
@@ -14,6 +14,6 @@
     <longitude min="22.822500" max="24.822500">23.822500</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Jurmala</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>BalticBike</bikeName>
   </city>
 </cities>

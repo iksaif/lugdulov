@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="turkey">
+    <file>tr.png</file>
+    <file>cities.xml</file>
+    <file>turkey.xml</file>
+  </qresource>
+</RCC>
+

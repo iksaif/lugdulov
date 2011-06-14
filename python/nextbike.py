@@ -51,9 +51,18 @@ class NextBike(Provider):
         self.dom = xml.dom.minidom.parseString(data)
         return self.dom
 
+    def clean_country_name(self, name):
+        network = 'nextbike'
+        for net in ['nextbike', 'BalticBike', 'metropolradruhr', 'NorisBike', 'LEIHRADL', 'UsedomRad']:
+            if net in name:
+                network = net
+            name = name.replace(network + ' ', '')
+        return name, network
+
     def get_countries(self):
         # <country lat="50.7086" lng="10.6348" zoom="5" name="Germany" hotline="+493069205046" domain="de">
         ret = []
+        done = {}
 
         nodes = self.get_dom().getElementsByTagName("country")
         if not nodes:
@@ -61,8 +70,10 @@ class NextBike(Provider):
         for node in nodes:
             country = Country()
             country.uid = node.getAttribute('domain')
-            country.name = node.getAttribute('name')
-            ret.append(country)
+            country.name = self.clean_country_name(node.getAttribute('name'))[0]
+            if country.name not in done:
+                ret.append(country)
+                done[country.name] = True
         return ret
 
     def nametoid(self, name):
@@ -75,29 +86,26 @@ class NextBike(Provider):
         countries = self.get_dom().getElementsByTagName("country")
         cnode = None
 
-        for node in countries:
-            if node.getAttribute('name') == country.name:
-                cnode = node
-                break
-        if cnode == None:
-            return ret
-
-        nodes = cnode.getElementsByTagName("city")
-        for node in nodes:
-            city = City()
-            city.name = node.getAttribute('name')
-            #city.oname = city.name
-            #if city.name.find("(") != -1:
-            #    city.name = city.name.split('(')[0]
-            city.id = self.nametoid(city.name)
-            #city.uid = node.getAttribute('uid')
-            city.uid = city.id
-            city.bikeName = 'nextbike'
-            city.lat = float(node.getAttribute('lat'))
-            city.lng = float(node.getAttribute('lng'))
-            city.type = "NextBike"
-            city.create_rect(1)
-            ret.append(city)
+        for cnode in countries:
+            cname, net = self.clean_country_name(cnode.getAttribute('name'))
+            if cname != country.name:
+                continue
+            nodes = cnode.getElementsByTagName("city")
+            for node in nodes:
+                city = City()
+                city.name = node.getAttribute('name')
+                #city.oname = city.name
+                #if city.name.find("(") != -1:
+                #    city.name = city.name.split('(')[0]
+                city.id = self.nametoid(city.name)
+                #city.uid = node.getAttribute('uid')
+                city.uid = city.id
+                city.bikeName = net
+                city.lat = float(node.getAttribute('lat'))
+                city.lng = float(node.getAttribute('lng'))
+                city.type = "NextBike"
+                city.create_rect(1)
+                ret.append(city)
         return ret
 
     def get_zones(self, city):

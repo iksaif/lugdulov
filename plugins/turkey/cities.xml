@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cities>
-  <city id="luzern_(nb)">
+  <city id="konya">
     <type>NextBike</type>
-    <latitude min="46.047600" max="48.047600">47.047600</latitude>
-    <longitude min="7.301100" max="9.301100">8.301100</longitude>
+    <latitude min="36.872700" max="38.872700">37.872700</latitude>
+    <longitude min="31.503700" max="33.503700">32.503700</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Luzern (Nb)</name>
+    <name>Konya</name>
     <bikeName>nextbike</bikeName>
   </city>
 </cities>

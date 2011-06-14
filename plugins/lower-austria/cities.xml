@@ -6,7 +6,7 @@
     <longitude min="14.623200" max="16.623200">15.623200</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>St. Pölten</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="modling">
     <type>NextBike</type>
@@ -14,7 +14,7 @@
     <longitude min="15.320200" max="17.320200">16.320200</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Mödling</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="wachau">
     <type>NextBike</type>
@@ -22,7 +22,7 @@
     <longitude min="14.416600" max="16.416600">15.416600</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Wachau</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="tulln">
     <type>NextBike</type>
@@ -30,7 +30,7 @@
     <longitude min="15.056900" max="17.056900">16.056900</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Tulln</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="triestingtal">
     <type>NextBike</type>
@@ -38,7 +38,7 @@
     <longitude min="15.081200" max="17.081200">16.081200</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Triestingtal</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="thermenregion">
     <type>NextBike</type>
@@ -46,7 +46,7 @@
     <longitude min="15.264600" max="17.264600">16.264600</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Thermenregion</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="romerland">
     <type>NextBike</type>
@@ -54,7 +54,7 @@
     <longitude min="15.853000" max="17.853000">16.853000</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Römerland</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="obb_bahnhofe">
     <type>NextBike</type>
@@ -62,7 +62,7 @@
     <longitude min="15.309200" max="17.309200">16.309200</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Öbb-Bahnhöfe</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="wieselburg">
     <type>NextBike</type>
@@ -70,7 +70,7 @@
     <longitude min="14.155600" max="16.155600">15.155600</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Wieselburg</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="wiener_neustadt">
     <type>NextBike</type>
@@ -78,7 +78,7 @@
     <longitude min="15.249800" max="17.249800">16.249800</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Wiener Neustadt</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="waldviertel">
     <type>NextBike</type>
@@ -86,7 +86,7 @@
     <longitude min="14.065000" max="16.065000">15.065000</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Waldviertel</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="neunkirchen">
     <type>NextBike</type>
@@ -94,7 +94,7 @@
     <longitude min="15.080400" max="17.080400">16.080400</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Neunkirchen</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="unteres_traisental">
     <type>NextBike</type>
@@ -102,7 +102,7 @@
     <longitude min="14.687800" max="16.687800">15.687800</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Unteres Traisental</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="haag">
     <type>NextBike</type>
@@ -110,7 +110,7 @@
     <longitude min="13.736800" max="15.736800">14.736800</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Haag</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="piestingtal">
     <type>NextBike</type>
@@ -118,7 +118,7 @@
     <longitude min="14.946700" max="16.946700">15.946700</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Piestingtal</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="mistelbach">
     <type>NextBike</type>
@@ -126,7 +126,7 @@
     <longitude min="15.572200" max="17.572200">16.572200</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Mistelbach</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="marchfeld">
     <type>NextBike</type>
@@ -134,7 +134,7 @@
     <longitude min="15.711600" max="17.711600">16.711600</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Marchfeld</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="10_vor_wien">
     <type>NextBike</type>
@@ -142,6 +142,14 @@
     <longitude min="15.273500" max="17.273500">16.273500</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>10 Vor Wien</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="traisen___golsental">
+    <type>NextBike</type>
+    <latitude min="46.946700" max="48.946700">47.946700</latitude>
+    <longitude min="14.687100" max="16.687100">15.687100</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Traisen - Gölsental</name>
+    <bikeName>LEIHRADL</bikeName>
   </city>
 </cities>

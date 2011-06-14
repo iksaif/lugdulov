@@ -112,70 +112,6 @@
     <name>Travemünde</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="dortmund">
-    <type>NextBike</type>
-    <latitude min="50.514100" max="52.514100">51.514100</latitude>
-    <longitude min="6.462550" max="8.462550">7.462550</longitude>
-    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Dortmund</name>
-    <bikeName>nextbike</bikeName>
-  </city>
-  <city id="bochum">
-    <type>NextBike</type>
-    <latitude min="50.481300" max="52.481300">51.481300</latitude>
-    <longitude min="6.213300" max="8.213300">7.213300</longitude>
-    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Bochum</name>
-    <bikeName>nextbike</bikeName>
-  </city>
-  <city id="bottrop">
-    <type>NextBike</type>
-    <latitude min="50.526300" max="52.526300">51.526300</latitude>
-    <longitude min="5.946110" max="7.946110">6.946110</longitude>
-    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Bottrop</name>
-    <bikeName>nextbike</bikeName>
-  </city>
-  <city id="duisburg">
-    <type>NextBike</type>
-    <latitude min="50.448700" max="52.448700">51.448700</latitude>
-    <longitude min="5.775130" max="7.775130">6.775130</longitude>
-    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Duisburg</name>
-    <bikeName>nextbike</bikeName>
-  </city>
-  <city id="essen">
-    <type>NextBike</type>
-    <latitude min="50.442500" max="52.442500">51.442500</latitude>
-    <longitude min="6.023010" max="8.023010">7.023010</longitude>
-    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Essen</name>
-    <bikeName>nextbike</bikeName>
-  </city>
-  <city id="gelsenkirchen">
-    <type>NextBike</type>
-    <latitude min="50.540400" max="52.540400">51.540400</latitude>
-    <longitude min="6.070390" max="8.070390">7.070390</longitude>
-    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Gelsenkirchen</name>
-    <bikeName>nextbike</bikeName>
-  </city>
-  <city id="hamm">
-    <type>NextBike</type>
-    <latitude min="50.677500" max="52.677500">51.677500</latitude>
-    <longitude min="6.848360" max="8.848360">7.848360</longitude>
-    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Hamm</name>
-    <bikeName>nextbike</bikeName>
-  </city>
-  <city id="herne">
-    <type>NextBike</type>
-    <latitude min="50.523300" max="52.523300">51.523300</latitude>
-    <longitude min="6.146610" max="8.146610">7.146610</longitude>
-    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Herne</name>
-    <bikeName>nextbike</bikeName>
-  </city>
   <city id="mulheim_adr">
     <type>NextBike</type>
     <latitude min="50.430800" max="52.430800">51.430800</latitude>
@@ -190,6 +126,14 @@
     <longitude min="5.851690" max="7.851690">6.851690</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Oberhausen</name>
+    <bikeName>nextbike</bikeName>
+  </city>
+  <city id="munchen">
+    <type>NextBike</type>
+    <latitude min="47.139200" max="49.139200">48.139200</latitude>
+    <longitude min="10.579100" max="12.579100">11.579100</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>München</name>
     <bikeName>nextbike</bikeName>
   </city>
   <city id="flensburg">
@@ -239,5 +183,85 @@
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Halensee Kudamm</name>
     <bikeName>nextbike</bikeName>
+  </city>
+  <city id="usedom">
+    <type>NextBike</type>
+    <latitude min="52.977900" max="54.977900">53.977900</latitude>
+    <longitude min="12.992500" max="14.992500">13.992500</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Usedom</name>
+    <bikeName>UsedomRad</bikeName>
+  </city>
+  <city id="nurnberg">
+    <type>NextBike</type>
+    <latitude min="48.447900" max="50.447900">49.447900</latitude>
+    <longitude min="10.081400" max="12.081400">11.081400</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Nürnberg</name>
+    <bikeName>NorisBike</bikeName>
+  </city>
+  <city id="dortmund">
+    <type>NextBike</type>
+    <latitude min="50.514100" max="52.514100">51.514100</latitude>
+    <longitude min="6.462550" max="8.462550">7.462550</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Dortmund</name>
+    <bikeName>metropolradruhr</bikeName>
+  </city>
+  <city id="bochum">
+    <type>NextBike</type>
+    <latitude min="50.481300" max="52.481300">51.481300</latitude>
+    <longitude min="6.213300" max="8.213300">7.213300</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Bochum</name>
+    <bikeName>metropolradruhr</bikeName>
+  </city>
+  <city id="bottrop">
+    <type>NextBike</type>
+    <latitude min="50.526300" max="52.526300">51.526300</latitude>
+    <longitude min="5.946110" max="7.946110">6.946110</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Bottrop</name>
+    <bikeName>metropolradruhr</bikeName>
+  </city>
+  <city id="duisburg">
+    <type>NextBike</type>
+    <latitude min="50.448700" max="52.448700">51.448700</latitude>
+    <longitude min="5.775130" max="7.775130">6.775130</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Duisburg</name>
+    <bikeName>metropolradruhr</bikeName>
+  </city>
+  <city id="essen">
+    <type>NextBike</type>
+    <latitude min="50.442500" max="52.442500">51.442500</latitude>
+    <longitude min="6.023010" max="8.023010">7.023010</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Essen</name>
+    <bikeName>metropolradruhr</bikeName>
+  </city>
+  <city id="gelsenkirchen">
+    <type>NextBike</type>
+    <latitude min="50.540400" max="52.540400">51.540400</latitude>
+    <longitude min="6.070390" max="8.070390">7.070390</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Gelsenkirchen</name>
+    <bikeName>metropolradruhr</bikeName>
+  </city>
+  <city id="hamm">
+    <type>NextBike</type>
+    <latitude min="50.677500" max="52.677500">51.677500</latitude>
+    <longitude min="6.848360" max="8.848360">7.848360</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Hamm</name>
+    <bikeName>metropolradruhr</bikeName>
+  </city>
+  <city id="herne">
+    <type>NextBike</type>
+    <latitude min="50.523300" max="52.523300">51.523300</latitude>
+    <longitude min="6.146610" max="8.146610">7.146610</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Herne</name>
+    <bikeName>metropolradruhr</bikeName>
   </city>
 </cities>

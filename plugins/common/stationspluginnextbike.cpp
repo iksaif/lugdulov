@@ -63,6 +63,12 @@ StationsPluginNextBike::handleInfos(const QByteArray & data)
 	if ((!name[i].isLetterOrNumber() && !name[i].isPunct()) ||
 	    name[i].category() == QChar::Letter_Modifier)
 	  name.remove(i, 1);
+      for (int i = 0; i < name.size(); ++i) {
+	if (name[i].toAscii() == '\0')
+	  name.remove(i, 1);
+	if (name[i].toAscii() == '-')
+	  name[i] = '_';
+      }
 
       if (name == cityId)
 	goto found;

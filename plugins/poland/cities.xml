@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cities>
-  <city id="luzern_(nb)">
+  <city id="wrocaw">
     <type>NextBike</type>
-    <latitude min="46.047600" max="48.047600">47.047600</latitude>
-    <longitude min="7.301100" max="9.301100">8.301100</longitude>
+    <latitude min="50.109700" max="52.109700">51.109700</latitude>
+    <longitude min="16.048500" max="18.048500">17.048500</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Luzern (Nb)</name>
+    <name>Wrocław</name>
     <bikeName>nextbike</bikeName>
   </city>
 </cities>
