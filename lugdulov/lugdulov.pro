@@ -105,12 +105,10 @@ symbian: {
     # 0x20036C9F 0xE25eb14f 0x20036CA0 0xE25eb14d
     contains(LUGDULOV_CONFIG, debug) {
         TARGET.UID3 = 0xE25eb20f
+    } else:contains(LUGDULOV_CONFIG, lite) {
+        TARGET.UID3 = 0x20036CA0
     } else {
-        contains(LUGDULOV_CONFIG, lite) {
-            TARGET.UID3 = 0x20036CA0
-        } else {
-            TARGET.UID3 = 0x20036C9F
-       }
+        TARGET.UID3 = 0x20036C9F
     }
 
     TARGET.EPOCALLOWDLLDATA = 1
@@ -120,9 +118,9 @@ symbian: {
 	TARGET.EPOCHEAPSIZE = 0x100000 0x2000000
 
     contains(LUGDULOV_CONFIG, lite) {
-        packageheader = "$${LITERAL_HASH}{\"Lugdulo'V Lite\"}, ($${TARGET.UID3}), 0, 4, 1, TYPE=SA"
+        packageheader = "$${LITERAL_HASH}{\"Lugdulo'V Lite\"}, ($${TARGET.UID3}), 0, 5, 0, TYPE=SA"
     } else {
-        packageheader = "$${LITERAL_HASH}{\"Lugdulo'V\"}, ($${TARGET.UID3}), 0, 4, 1, TYPE=SA"
+        packageheader = "$${LITERAL_HASH}{\"Lugdulo'V\"}, ($${TARGET.UID3}), 0, 5, 0, TYPE=SA"
     }
 
     vendorinfo = \
@@ -147,9 +145,9 @@ symbian: {
 
     DEPLOYMENT += LugdulovDeployment
     contains(LUGDULOV_CONFIG, lite) {
-        DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V Lite installer\"},(0x2002CCCF),0,4,1"
+        DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V Lite installer\"},(0x2002CCCF),0,5,0"
     } else {
-        DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V installer\"},(0x2002CCCF),0,4,1"
+        DEPLOYMENT.installer_header = "$${LITERAL_HASH}{\"Lugdulo'V installer\"},(0x2002CCCF),0,5,0"
     }
 }
 
