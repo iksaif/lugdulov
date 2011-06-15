@@ -34,7 +34,8 @@ contains(LUGDULOV_CONFIG, bearer) {
     }
 }
 
-QT += gui xml network webkit
+QT += gui xml network
+symbian:CONFIG+=no-webkit
 
 # Add missing Q_WS_MAEMO_5
 maemo5: {

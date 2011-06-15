@@ -1,5 +1,5 @@
 TEMPLATE = lib
-CONFIG *= staticlib create_prl
+CONFIG *= staticlib create_prl no-webkit
 DEPENDPATH += ../include
 INCLUDEPATH += ../include
 TARGET = QtScroller
