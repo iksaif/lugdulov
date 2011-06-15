@@ -215,6 +215,8 @@ MapWidget::setProvider(QString providerId)
 void
 MapWidget::positionUpdated(const QGeoPositionInfo & info)
 {
+  QPointF coord = QPointF(info.coordinate().latitude(), info.coordinate().longitude());
+
   follow->show();
 
   positionMarker->setCoordinate(info.coordinate());
