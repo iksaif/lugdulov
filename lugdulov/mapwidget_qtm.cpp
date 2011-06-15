@@ -222,6 +222,9 @@ MapWidget::positionUpdated(const QGeoPositionInfo & info)
   if (!follow->isChecked())
     return ;
 
+  if (!plugin || !plugin->rect().contains(coord))
+    return ;
+
   mapWidget->setCenter(info.coordinate());
   mapWidget->setZoomLevel(mapWidget->maximumZoomLevel() - 1);
 }
