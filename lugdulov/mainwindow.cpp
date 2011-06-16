@@ -50,6 +50,12 @@ MainWindow::MainWindow(QWidget *parent)
 #ifdef HAVE_QT_LOCATION
   localisation = NULL;
 #endif
+#if defined(Q_WS_S60)
+  menuBar()->clear();
+  menuBar()->addAction(ui->settingsAction);
+  menuBar()->addAction(ui->aboutAction);
+  menuBar()->addAction(ui->aboutQtAction);
+#endif
 #if defined(Q_WS_MAEMO_5)
   ui->menu_File->removeAction(ui->quitAction);
   ui->menu_Help->removeAction(ui->aboutQtAction);
