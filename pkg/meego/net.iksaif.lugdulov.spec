@@ -77,13 +77,13 @@ cd meego-build
 /bin/touch --no-create %{_datadir}/icons/hicolor || :
 %{_bindir}/gtk-update-icon-cache \
   --quiet %{_datadir}/icons/hicolor 2> /dev/null|| :
-update-desktop-database %{_datadir}/applications &> /dev/null || :
+%{_bindir}/update-desktop-database %{_datadir}/applications &> /dev/null || :
 
 %postun
 /bin/touch --no-create %{_datadir}/icons/hicolor || :
 %{_bindir}/gtk-update-icon-cache \
   --quiet %{_datadir}/icons/hicolor 2> /dev/null|| :
-update-desktop-database %{_datadir}/applications &> /dev/null || :
+%{_bindir}/update-desktop-database %{_datadir}/applications &> /dev/null || :
 
 
 %files
@@ -107,7 +107,7 @@ update-desktop-database %{_datadir}/applications &> /dev/null || :
 /opt/net.iksaif.lugdulov/lib/lugdulov/plugins/libstationsswitzerland.so
 /opt/net.iksaif.lugdulov/lib/lugdulov/plugins/libstationsunited-kingdom.so
 /opt/net.iksaif.lugdulov/lib/lugdulov/plugins/libstationsusa.so
-/opt/net.iksqif.lugdulov/lib/lugdulov/plugins/libstationsturkey.so
+/opt/net.iksaif.lugdulov/lib/lugdulov/plugins/libstationsturkey.so
 /opt/net.iksaif.lugdulov/lib/lugdulov/plugins/libstationspoland.so
 /opt/net.iksaif.lugdulov/lib/lugdulov/plugins/libstationsslovenia.so
 /usr/share/applications/net.iksaif.lugdulov.desktop
