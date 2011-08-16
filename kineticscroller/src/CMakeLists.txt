@@ -30,7 +30,7 @@ qt4_wrap_cpp(kineticscroller_MOC_SOURCE ${kineticscroller_MOC_HDRS})
 link_directories(${QT_LIBRARY_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 
-add_convenience_library(kineticscroller
+add_library(kineticscroller STATIC
   ${kineticscroller_SRCS}
   ${kineticscroller_MOC_SOURCE}
 )

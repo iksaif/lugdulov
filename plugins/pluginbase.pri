@@ -1,6 +1,6 @@
 include (../lugdulov.pri)
 
-INCLUDEPATH += ../../qmake/ ../common/
+INCLUDEPATH += ../../qmake/ ../../common/
 
 !CONFIG(android): DESTDIR = ../../lib/
 
@@ -13,13 +13,13 @@ TARGET = $${TARGET}
 LIBS += -llugdulov_base -lqjson
 
 unix {
-    LIBS += -L../common/
+    LIBS += -L../../common/
 }
 win32 {
     CONFIG(debug, debug|release) {
-        LIBS += -L../common/debug/
+        LIBS += -L../../common/debug/
     } else {
-        LIBS += -L../common/release
+        LIBS += -L../../common/release
     }
 }
 

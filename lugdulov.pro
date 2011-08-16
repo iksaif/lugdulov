@@ -1,13 +1,16 @@
 TEMPLATE = subdirs
-SUBDIRS = sub_plugins sub_kineticscroller sub_lugdulov
+SUBDIRS = sub_common sub_data sub_plugins sub_kineticscroller sub_lugdulov
 
 include(lugdulov.pri)
 
-sub_plugins.subdir     = plugins
-sub_qmapcontrol.subdir = qmapcontrol
-sub_kineticscroller.subdir    = kineticscroller
-sub_lugdulov.subdir    = lugdulov
-sub_lugdulov.depends   = sub_plugins sub_kineticscroller
+sub_common.subdir       = common
+sub_data.subdir        = data
+sub_plugins.subdir      = plugins
+sub_qmapcontrol.subdir  = qmapcontrol
+sub_kineticscroller.subdir = kineticscroller
+sub_lugdulov.subdir     = lugdulov
+sub_plugins.depends     = sub_common
+sub_lugdulov.depends    = sub_plugins sub_kineticscroller
 
 contains(LUGDULOV_CONFIG, qmapcontrol) {
 	SUBDIRS += sub_qmapcontrol 

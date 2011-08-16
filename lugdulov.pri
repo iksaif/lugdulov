@@ -28,12 +28,6 @@ QT_VERSION = $$split(QT_VERSION, ".")
 QT_VER_MAJ = $$member(QT_VERSION, 0)
 QT_VER_MIN = $$member(QT_VERSION, 1)
 
-contains(LUGDULOV_CONFIG, bearer) {
-    lessThan(QT_VER_MAJ, 4) | lessThan(QT_VER_MIN, 7) {
-        MOBILITY += bearer
-    }
-}
-
 QT += gui xml network
 symbian:CONFIG+=no-webkit
 
@@ -69,12 +63,10 @@ symbian {
 
 contains(LUGDULOV_CONFIG, bearer) {
   DEFINES += HAVE_QT_BEARER
-  #LIBS += -lQtBearer
 }
 
 contains(LUGDULOV_CONFIG, location) {
   DEFINES += HAVE_QT_LOCATION
-  #LIBS += -lQtLocation
 }
 
 contains(LUGDULOV_CONFIG, lite) {

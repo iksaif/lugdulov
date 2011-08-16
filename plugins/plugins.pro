@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
-SUBDIRS = sub_common sub_france sub_belgium sub_ireland sub_luxembourg \
+SUBDIRS = sub_france sub_belgium sub_ireland sub_luxembourg \
         sub_spain sub_japan sub_austria sub_germany sub_latvia sub_lower_austria \
         sub_new_zealand sub_switzerland sub_united_kingdom sub_canada sub_usa sub_australia \
         sub_turkey sub_slovenia sub_poland
@@ -23,24 +23,3 @@ sub_australia.subdir     = australia
 sub_turkey.subdir     = turkey
 sub_slovenia.subdir     = slovenia
 sub_poland.subdir     = poland
-sub_common.subdir   = common
-
-sub_france.depends = sub_common
-sub_belgium.depends = sub_common
-sub_ireland.depends = sub_common
-sub_luxembourg.depends = sub_common
-sub_spain.depends = sub_common
-sub_japan.depends = sub_common
-sub_austria.depends = sub_common
-sub_germany.depends = sub_common
-sub_latvia.depends = sub_common
-sub_lower_austria.depends = sub_common
-sub_new_zealand.depends = sub_common
-sub_switzerland.depends = sub_common
-sub_united_kingdom.depends = sub_common
-sub_canada.depends = sub_common
-sub_usa.depends = sub_common
-sub_australia.depends = sub_common
-sub_turkey.depends = sub_common
-sub_poland.depends = sub_common
-sub_slovenia.depends = sub_common

@@ -66,24 +66,15 @@ else()
   endif()
 endif()
 
-set(lugdulov_RCS res/lugdulov.qrc i18n/i18n.qrc)
-set(lugdulov_TRS
-  i18n/lugdulov_fr.ts
-  i18n/lugdulov_cs.ts
-)
-set_source_files_properties(${lugdulov_TRS} PROPERTIES OUTPUT_LOCATION ${lugdulov_core_SOURCE_DIR}/i18n)
-
-_qt4_add_translation(QM_FILES ${lugdulov_TRS})
 qt4_wrap_cpp(MOC_SOURCE ${lugdulov_MOC_HDRS})
 qt4_wrap_ui(UI_HDRS ${lugdulov_UIS})
-qt4_add_resources(RC_SRCS ${lugdulov_RCS})
 
 if (WIN32)
  if("${CMAKE_BUILD_TYPE}" MATCHES "^Rel.*")
 	set(GUI_TYPE WIN32)
  endif()
  add_custom_command( OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/icon.o
-                     COMMAND windres.exe -I${CMAKE_CURRENT_SOURCE_DIR} -i${CMAKE_CURRENT_SOURCE_DIR}/lugdulov.rc
+                     COMMAND windres.exe -I${data_SOURCE_DIR}/icons/ -i${data_SOURCE_DIR}/icons/lugdulov.rc
                      -o ${CMAKE_CURRENT_BINARY_DIR}/icon.o )
  set(lugdulov_SRCS ${lugdulov_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/icon.o)
 endif ()
@@ -99,8 +90,6 @@ add_executable(
   ${lugdulov_SRCS}
   ${UI_HDRS}
   ${MOC_SOURCE}
-  ${RC_SRCS}
-  ${QM_FILES}
 )
 
 if (QT_MOBILITY_LOCATION_FOUND)
@@ -140,6 +129,7 @@ endif ()
 target_link_libraries(
   lugdulov
   lugdulov_base
+  lugdulov_data
   ${QT_LIBRARIES}
 )
 

@@ -72,6 +72,8 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(usa);
     Q_INIT_RESOURCE(australia);
 #endif
+    Q_INIT_RESOURCE(i18n);
+    Q_INIT_RESOURCE(icons);
 
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(),

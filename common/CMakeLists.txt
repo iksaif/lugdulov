@@ -60,4 +60,7 @@ endif()
 
 qt4_wrap_cpp(lugdulov_base_MOC_SOURCE ${lugdulov_base_MOC_HDRS})
 
-add_convenience_library(lugdulov_base ${lugdulov_base_SRCS} ${lugdulov_base_MOC_SOURCE})
+add_library(lugdulov_base ${lugdulov_base_SRCS} ${lugdulov_base_MOC_SOURCE})
+if (CMAKE_COMPILER_IS_GNUCC)
+  set_target_properties(lugdulov_base PROPERTIES COMPILE_FLAGS "-fPIC")
+endif()

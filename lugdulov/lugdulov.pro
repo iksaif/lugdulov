@@ -23,7 +23,7 @@ ICON = lugdulov.svg
 !CONFIG(android): DESTDIR = ../bin
 
 INCLUDEPATH += ../qmake/
-INCLUDEPATH += ../plugins/common/
+INCLUDEPATH += ../common/
 
 unix {
     suffix = ""
@@ -43,10 +43,11 @@ unix {
 lessThan(QT_VER_MAJ, 4) | lessThan(QT_VER_MIN, 8) {
 	DEFINES += HAVE_KINETIC_SCROLLER_SOLUTION
 	INCLUDEPATH += ../kineticscroller/include/
-	LIBS += -lQtScroller$${libsuffix}
+	LIBS += -L../kineticscroller/src/ -lQtScroller$${libsuffix}
 }
 
-LIBS += -L../plugins/common/$${suffix}
+LIBS += -L../common/$${suffix}
+LIBS += -L../data/$${suffix}
 
 contains(LUGDULOV_CONFIG, staticplugins) {
 	!contains(LUGDULOV_CONFIG, qmapcontrol) {
@@ -60,7 +61,7 @@ contains(LUGDULOV_CONFIG, staticplugins) {
     LIBS += -lstationsturkey$${libsuffix} -lstationsslovenia$${libsuffix} -lstationspoland$${libsuffix}
 }
 
-LIBS += -lqjson -llugdulov_base
+LIBS += -lqjson -llugdulov_base -llugdulov_data
 
 HEADERS += mainwindow.h \
     stationdialog.h \
@@ -97,8 +98,6 @@ contains(LUGDULOV_CONFIG, lite) {
   SOURCES += mapwidget_qtm.cpp mapgraphicswidget_qtm.cpp
   HEADERS += mapwidget_qtm.h mapgraphicswidget_qtm.h
 }
-
-TRANSLATIONS = i18n/lugdulov_fr.ts i18n/lugdulov_cs.ts
 
 symbian: {
 
@@ -151,25 +150,6 @@ symbian: {
     }
 }
 
-OTHER_FILES += res/velov.png \
-    res/slot.png \
-    res/icon.png \
-    res/google-maps.png \
-    res/favorites.png \
-    res/bike.png \
-    res/view-refresh.png \
-    res/zoom-out.png \
-    res/zoom-in.png \
-    res/slot.png \
-    res/map.png \
-    res/icon64.png \
-    res/icon.png \
-    res/gps.png \
-    res/google-maps.png \
-    res/favorites.png \
-    res/circle.png \
-    res/bike.png
-
 FORMS += mainwindow.ui \
     stationdialog.ui \
     stationslistdialog.ui \
@@ -178,6 +158,3 @@ FORMS += mainwindow.ui \
     pluginsdialog.ui \
     aboutdialog.ui \
     settingsdialog.ui
-
-RESOURCES += res/lugdulov.qrc \
-    i18n/i18n.qrc

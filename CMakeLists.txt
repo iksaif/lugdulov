@@ -18,9 +18,10 @@ option(BUILD_UTILS "build cli utilities [default: off]" OFF)
 option(LUGDULOV_LITE "build lite version [default: off]" OFF)
 option(LUGDULOV_FULL_UI "use the 'full' ui [default: off]" OFF)
 option(LUGDULOV_MEEGO "build for MeeGo [default: off]"  OFF)
+option(LUGDULOV_QWIDGET "build the qwidget version [default: on]"  ON)
+option(LUGDULOV_MEEGO "build the qml version [default: off]"  OFF)
 
 include(lugdulov)
-include(QtTranslations) # Local file for maemo_qt4_add_translation()
 
 set(QTMOBILITY_MKSPEC_VERSION "11")
 
@@ -59,13 +60,15 @@ if (QT_VERSION VERSION_LESS "4.8.0")
 endif()
 
 ## GCC  ##
-set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O2")
-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0 -ggdb3 -DDEBUG=1")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99 -Wall -Wstrict-prototypes -Werror-implicit-function-declaration -Wno-pointer-sign")
+if (CMAKE_COMPILER_IS_GNUCC)
+  set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O2")
+  set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0 -ggdb3 -DDEBUG=1")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99 -Wall -Wstrict-prototypes -Werror-implicit-function-declaration -Wno-pointer-sign")
 
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb3 -DDEBUG=1")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+  set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2")
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb3 -DDEBUG=1")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+endif()
 
 if(NOT EXECUTABLE_OUTPUT_PATH)
   set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin CACHE STRING
@@ -124,13 +127,20 @@ if (HAVE_KINETIC_SCROLLER_SOLUTION)
   add_subdirectory(kineticscroller)
 endif()
 
+add_subdirectory(data)
+add_subdirectory(common)
 add_subdirectory(plugins)
 
 if(QMAPCONTROL)
   add_subdirectory(qmapcontrol)
 endif()
 
-add_subdirectory(lugdulov)
+if(LUGDULOV_QWIDGET)
+  add_subdirectory(lugdulov)
+endif()
+if(LUGDULOV_QML)
+  add_subdirectory(lugdulov-qml)
+endif()
 
 if(BUILD_UTILS)
   add_subdirectory(utils)
