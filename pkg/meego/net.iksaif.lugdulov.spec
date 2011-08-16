@@ -16,7 +16,6 @@ Source0:    %{name}-%{version}.tar.bz2
 BuildRequires:  pkgconfig(QtCore) >= 4.6.0
 BuildRequires:  pkgconfig(QtNetwork)
 BuildRequires:  pkgconfig(QtGui)
-BuildRequires:  pkgconfig(QJson)
 BuildRequires:  qt-mobility-devel
 BuildRequires:  cmake
 
@@ -35,22 +34,42 @@ Find a bike quickly in your city, with map and geolocalisation support !
 %build
 # >> build pre
 # << build pre
+
+old_pwd=$PWD
+
+mkdir qjson-meego-build
+cd qjson-meego-build
+cmake ../qjson/  \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX:PATH=$old_pwd/local/ \
+    -DBUILD_SHARED_LIBS=OFF
+
+make %{?jobs:-j%jobs}
+make install
+
+cd $old_pwd
+
 mkdir qtm-geoservices-meego-build
 cd qtm-geoservices-meego-build
 cmake ../qtm-geoservices-extras/  \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX:PATH=/opt/%{name}
 
 make %{?jobs:-j%jobs}
 
-cd ..
+cd $old_pwd
 
 mkdir meego-build
 cd meego-build
 cmake ..  \
     -DCMAKE_INSTALL_PREFIX:PATH=/opt/%{name} \
+    -DCMAKE_BUILD_TYPE=Release \
     -DLUGDULOV_FULL_UI=ON \
     -DLUGDULOV_MEEGO=ON \
-    -DQMAPCONTROL=OFF
+    -DQMAPCONTROL=OFF \
+    -DQJSON_INCLUDE_DIR:PATH=$old_pwd/local/include \
+    -DQJSON_LIBRARIES=qjson \
+    -DQJSON_LIBRARY_DIRS:PATH=$old_pwd/local/lib
 
 
 make %{?jobs:-j%jobs}

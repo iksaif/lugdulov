@@ -1,3 +1,6 @@
 [submodule "qtm-geoservices-extras"]
 	path = qtm-geoservices-extras
 	url = git://git.iksaif.net/qtm-geoservices-extras.git
+[submodule "qjson"]
+	path = qjson
+	url = git://git.iksaif.net/qjson.git
