@@ -81,9 +81,9 @@ StationDialog::setupWidgets()
   if (station->totalSlots() >= 0) {
     slotsProgressBar->setRange(0, station->totalSlots());
     bikeProgressBar->setRange(0, station->totalSlots());
-    if (!station->freeSlots() >= 0)
+    if (station->freeSlots() >= 0)
       slotsProgressBar->setValue(station->freeSlots());
-    if (!station->bikes() >= 0)
+    if (station->bikes() >= 0)
       bikeProgressBar->setValue(station->bikes());
     slotsProgressBar->setFormat("%v/%m");
     bikeProgressBar->setFormat("%v/%m");
