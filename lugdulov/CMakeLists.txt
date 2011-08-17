@@ -13,6 +13,7 @@ if (QT_MOBILITY_FOUND)
   include_directories(
     ${QT_MOBILITY_INCLUDE_DIR}
     ${QT_MOBILITY_INCLUDE_DIR}/QtMobility
+    ${QT_MOBILITY_LOCATION_INCLUDE_DIR}
   )
   link_directories(${QT_MOBILITY_LIBRARY_DIR})
 endif()
@@ -69,14 +70,19 @@ endif()
 qt4_wrap_cpp(MOC_SOURCE ${lugdulov_MOC_HDRS})
 qt4_wrap_ui(UI_HDRS ${lugdulov_UIS})
 
-if (WIN32)
+if(WIN32)
  if("${CMAKE_BUILD_TYPE}" MATCHES "^Rel.*")
 	set(GUI_TYPE WIN32)
  endif()
- add_custom_command( OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/icon.o
-                     COMMAND windres.exe -I${data_SOURCE_DIR}/icons/ -i${data_SOURCE_DIR}/icons/lugdulov.rc
-                     -o ${CMAKE_CURRENT_BINARY_DIR}/icon.o )
- set(lugdulov_SRCS ${lugdulov_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/icon.o)
+
+ if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+	 add_custom_command( OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/icon.o
+						 COMMAND windres.exe -I${CMAKE_CURRENT_SOURCE_DIR} -i${CMAKE_CURRENT_SOURCE_DIR}/lugdulov.rc
+						 -o ${CMAKE_CURRENT_BINARY_DIR}/icon.o )
+	 set(lugdulov_SRCS ${lugdulov_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/icon.o)
+ else()
+     set(lugdulov_SRCS ${lugdulov_SRCS} ${CMAKE_CURRENT_SOURCE_DIR}/lugdulov.rc)
+ endif()
 endif ()
 
 link_directories(

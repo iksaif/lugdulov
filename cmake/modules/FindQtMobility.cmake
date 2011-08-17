@@ -14,8 +14,46 @@ macro(export_component component)
         IF(${MOBILITY_FILE_CONTENTS} MATCHES "MOBILITY_CONFIG=.*${_COMPONENT}.*")
             STRING(TOUPPER ${component} _COMPONENT)
             SET(QT_MOBILITY_${_COMPONENT}_FOUND 1)
-            SET(QT_MOBILITY_${_COMPONENT}_INCLUDE_DIR ${QT_MOBILITY_PARENT_INCLUDE_DIR}/Qt${component})
-            SET(QT_MOBILITY_${_COMPONENT}_LIBRARY Qt${component})
+            SET(QT_MOBILITY_MODULE Qt${component})
+
+            SET(QT_MOBILITY_${_COMPONENT}_INCLUDE_DIR ${QT_MOBILITY_PARENT_INCLUDE_DIR}/${QT_MOBILITY_MODULE})
+
+            FIND_LIBRARY(QT_MOBILITY_${_COMPONENT}_LIBRARY_RELEASE
+                 NAMES ${QT_MOBILITY_MODULE}${QT_LIBINFIX} ${QT_MOBILITY_MODULE}${QT_LIBINFIX}1
+                 PATHS ${QT_MOBILITY_LIBRARY_DIR} NO_DEFAULT_PATH
+            )
+            FIND_LIBRARY(QT_MOBILITY_${_COMPONENT}_LIBRARY_DEBUG
+                 NAMES ${QT_MOBILITY_MODULE}${QT_LIBINFIX}_debug ${QT_MOBILITY_MODULE}${QT_LIBINFIX}d ${QT_MOBILITY_MODULE}${QT_LIBINFIX}d1
+                 PATHS ${QT_MOBILITY_LIBRARY_DIR} NO_DEFAULT_PATH
+            )
+
+            # if the release- as well as the debug-version of the library have been found:
+            IF (QT_MOBILITY_${_COMPONENT}_LIBRARY_DEBUG AND QT_MOBILITY_${_COMPONENT}_LIBRARY_RELEASE)
+              # if the generator supports configuration types then set
+              # optimized and debug libraries, or if the CMAKE_BUILD_TYPE has a value
+              IF (CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE)
+                SET(QT_MOBILITY_${_COMPONENT}_LIBRARY       optimized ${QT_MOBILITY_${_COMPONENT}_LIBRARY_RELEASE} debug ${QT_MOBILITY_${_COMPONENT}_LIBRARY_DEBUG})
+              ELSE(CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE)
+                # if there are no configuration types and CMAKE_BUILD_TYPE has no value
+                # then just use the release libraries
+                SET(QT_MOBILITY_${_COMPONENT}_LIBRARY       ${QT_MOBILITY_${_COMPONENT}_LIBRARY_RELEASE} )
+              ENDIF(CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE)
+              SET(QT_MOBILITY_${_COMPONENT}_LIBRARIES       optimized ${QT_MOBILITY_${_COMPONENT}_LIBRARY_RELEASE} debug ${QT_MOBILITY_${_COMPONENT}_LIBRARY_DEBUG})
+            ENDIF (QT_MOBILITY_${_COMPONENT}_LIBRARY_DEBUG AND QT_MOBILITY_${_COMPONENT}_LIBRARY_RELEASE)
+
+            # if only the release version was found, set the debug variable also to the release version
+            IF (QT_MOBILITY_${_COMPONENT}_LIBRARY_RELEASE AND NOT QT_MOBILITY_${_COMPONENT}_LIBRARY_DEBUG)
+                SET(QT_MOBILITY_${_COMPONENT}_LIBRARY_DEBUG ${QT_MOBILITY_${_COMPONENT}_LIBRARY_RELEASE})
+                SET(QT_MOBILITY_${_COMPONENT}_LIBRARY       ${QT_MOBILITY_${_COMPONENT}_LIBRARY_RELEASE})
+                SET(QT_MOBILITY_${_COMPONENT}_LIBRARIES     ${QT_MOBILITY_${_COMPONENT}_LIBRARY_RELEASE})
+            ENDIF (QT_MOBILITY_${_COMPONENT}_LIBRARY_RELEASE AND NOT QT_MOBILITY_${_COMPONENT}_LIBRARY_DEBUG)
+
+            # if only the debug version was found, set the release variable also to the debug version
+            IF (QT_MOBILITY_${_COMPONENT}_LIBRARY_DEBUG AND NOT QT_MOBILITY_${_COMPONENT}_LIBRARY_RELEASE)
+                SET(QT_MOBILITY_${_COMPONENT}_LIBRARY_RELEASE ${QT_MOBILITY_${_COMPONENT}_LIBRARY_DEBUG})
+                SET(QT_MOBILITY_${_COMPONENT}_LIBRARY         ${QT_MOBILITY_${_COMPONENT}_LIBRARY_DEBUG})
+                SET(QT_MOBILITY_${_COMPONENT}_LIBRARIES       ${QT_MOBILITY_${_COMPONENT}_LIBRARY_DEBUG})
+            ENDIF (QT_MOBILITY_${_COMPONENT}_LIBRARY_DEBUG AND NOT QT_MOBILITY_${_COMPONENT}_LIBRARY_RELEASE)
         ENDIF()
     ENDIF()
 endmacro()
