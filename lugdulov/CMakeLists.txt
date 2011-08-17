@@ -77,11 +77,11 @@ if(WIN32)
 
  if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	 add_custom_command( OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/icon.o
-						 COMMAND windres.exe -I${CMAKE_CURRENT_SOURCE_DIR} -i${CMAKE_CURRENT_SOURCE_DIR}/lugdulov.rc
+						 COMMAND windres.exe -I${data_SOURCE_DIR}/icons -i${data_SOURCE_DIR}/icons/lugdulov.rc
 						 -o ${CMAKE_CURRENT_BINARY_DIR}/icon.o )
 	 set(lugdulov_SRCS ${lugdulov_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/icon.o)
  else()
-     set(lugdulov_SRCS ${lugdulov_SRCS} ${CMAKE_CURRENT_SOURCE_DIR}/lugdulov.rc)
+     set(lugdulov_SRCS ${lugdulov_SRCS} ${data_SOURCE_DIR}/icons/lugdulov.rc)
  endif()
 endif ()
 

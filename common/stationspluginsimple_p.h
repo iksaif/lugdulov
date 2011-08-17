@@ -24,7 +24,8 @@
 #include <QtCore/QRectF>
 #include <QtGui/QIcon>
 
-struct StationsPluginSimplePrivate {
+class StationsPluginSimplePrivate {
+public:
   QRectF rect;
   QPointF center;
   QString statusUrl;
