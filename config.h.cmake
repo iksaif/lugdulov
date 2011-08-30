@@ -9,3 +9,4 @@
 #cmakedefine LUGDULOV_LITE
 #cmakedefine LUGDULOV_FULL_UI
 #cmakedefine LUGDULOV_MEEGO
+#cmakedefine HAVE_APPUP_SDK

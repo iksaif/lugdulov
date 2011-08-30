@@ -29,6 +29,11 @@
 #include "mainwindow.h"
 #include "settings.h"
 
+#ifdef HAVE_APPUP_SDK
+//Header for Intel AppUp(TM) software
+#include "adpcppf.h"
+#endif
+
 #ifdef BUILD_STATIC_PLUGINS
 Q_IMPORT_PLUGIN(stationsfrance);
 Q_IMPORT_PLUGIN(stationsbelgium);
@@ -52,9 +57,8 @@ Q_IMPORT_PLUGIN(qtgeoservices_google);
 Q_IMPORT_PLUGIN(qtgeoservices_osm);
 #endif
 
-int main(int argc, char *argv[])
+static void init_ressources()
 {
-    QApplication app(argc, argv);
 #ifdef BUILD_STATIC_PLUGINS
     Q_INIT_RESOURCE(france);
     Q_INIT_RESOURCE(belgium);
@@ -79,15 +83,72 @@ int main(int argc, char *argv[])
 #endif
     Q_INIT_RESOURCE(i18n);
     Q_INIT_RESOURCE(icons);
-
+}
+static void init_translations(QApplication *app)
+{
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(),
 		      QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-    app.installTranslator(&qtTranslator);
+    app->installTranslator(&qtTranslator);
 
     QTranslator lugdulovTranslator;
     lugdulovTranslator.load("lugdulov_" + QLocale::system().name(), ":/");
-    app.installTranslator(&lugdulovTranslator);
+    app->installTranslator(&lugdulovTranslator);
+}
+
+static void init_libraries()
+{
+#if defined(Q_OS_MAC) || defined(Q_OS_WINDOWS) || defined(Q_WS_MAEMO5) || defined(LUGDULOV_MEEGO)
+    QDir dir(QApplication::applicationDirPath());
+#if defined(Q_OS_MAC) || defined(Q_WS_MAEMO5) || defined(LUGDULOV_MEEGO)
+    dir.cdUp();
+#endif
+    dir.cd("plugins");
+    QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
+#endif
+}
+#ifdef HAVE_APPUP_SDK
+static Application *appupApp = NULL;
+
+static void clear_appup()
+{
+	//Cleanup code for Intel AppUp(TM) software
+	if (appupApp != NULL)
+		delete appupApp;
+	appupApp = NULL;
+}
+
+static bool init_appup()
+{
+	//Authorization code for Intel AppUp(TM) software	
+	try {
+#ifdef _DEBUG
+		appupApp = new Application(ApplicationId(ADP_DEBUG_APPLICATIONID));
+#else
+		appupApp = new Application(ApplicationId(0x8967B317, 0x8ABB492C, 0x831882D0, 0x42A04973));
+#endif
+	} catch (AdpException& e) {
+			MessageBoxA(0, e.what(), "AppUp error", MB_ICONERROR|MB_OK);
+			clear_appup();
+			return false;
+	}
+	return true;
+}
+#else
+static bool init_appup()
+{
+	return true;
+}
+static void clear_appup()
+{
+}
+#endif
+
+
+int main(int argc, char *argv[])
+{
+	if (!init_appup())
+		return EXIT_FAILURE;
 
 #if defined(LUGDULOV_MEEGO)
     QCoreApplication::setOrganizationName("net.iksaif.lugdulov");
@@ -97,17 +158,13 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("Lugdulov");
     QCoreApplication::setApplicationVersion(LUGDULOV_VERSION);
 
-#if defined(Q_OS_MAC) || defined(Q_OS_WINDOWS) || defined(Q_WS_MAEMO5) || defined(LUGDULOV_MEEGO)
-    QDir dir(QApplication::applicationDirPath());
-#if defined(Q_OS_MAC) || defined(Q_WS_MAEMO5) || defined(LUGDULOV_MEEGO)
-    dir.cdUp();
-#endif
-    dir.cd("plugins");
-    QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
-#endif
+	QApplication app(argc, argv);
+
+	init_ressources();
+	init_translations(&app);
+	init_libraries();
 
     Settings::settings();
-
     MainWindow w;
 
 #ifdef Q_OS_SYMBIAN
@@ -115,5 +172,8 @@ int main(int argc, char *argv[])
 #else
     w.show();
 #endif
-    return app.exec();
+
+    int ret = app.exec();
+    clear_appup();
+    return ret;
 }

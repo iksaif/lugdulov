@@ -17,6 +17,11 @@ if (QT_MOBILITY_FOUND)
   link_directories(${QT_MOBILITY_LIBRARY_DIR})
 endif()
 
+if(HAVE_APPUP_SDK AND WIN32)
+  include_directories(${APPUP_INCLUDE_DIR})
+  link_directories(${APPUP_LIBRARY_DIR})
+endif()
+
 set(lugdulov_SRCS
   main.cpp
   mainwindow.cpp
@@ -146,6 +151,15 @@ endif()
 
 if (HAVE_KINETIC_SCROLLER_SOLUTION)
   target_link_libraries(lugdulov kineticscroller)
+endif()
+
+if(HAVE_APPUP_SDK)
+  target_link_libraries(lugdulov
+						Psapi.lib Shlwapi.lib
+						optimized adpcore.lib
+						optimized adpcppf.lib
+						debug adpcored.lib
+						debug adpcppfd.lib)
 endif()
 
 install(TARGETS lugdulov

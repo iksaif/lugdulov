@@ -20,6 +20,7 @@ option(LUGDULOV_FULL_UI "use the 'full' ui [default: off]" OFF)
 option(LUGDULOV_MEEGO "build for MeeGo [default: off]"  OFF)
 option(LUGDULOV_QWIDGET "build the qwidget version [default: on]"  ON)
 option(LUGDULOV_MEEGO "build the qml version [default: off]"  OFF)
+option(LUGDULOV_APPUP "build AppUp stuff [default: off]" OFF)
 
 include(lugdulov)
 
@@ -37,6 +38,17 @@ endif()
 
 if (QT_MOBILITY_LOCATION_FOUND)
   message(STATUS "Found QtLocation")
+endif()
+
+if (LUGDULOV_APPUP)
+  if (WIN32)
+    set(HAVE_APPUP_SDK 1)
+    message(STATUS "Building for AppUp")
+	set(APPUP_LIBRARY_DIR "C:/Program Files/Intel/IntelAppUpSDK/Cpp/lib")
+	set(APPUP_INCLUDE_DIR "C:/Program Files/Intel/IntelAppUpSDK/Cpp/include")
+  else()
+    message(FATAL_ERROR "AppUp SDK not supported on this platform")
+  endif()
 endif()
 
 set(HAVE_QT_LOCATION ${QT_MOBILITY_LOCATION_FOUND})
@@ -119,7 +131,10 @@ set (LUGDULOV_VERSION "${LUGDULOV_VERSION_MAJOR}.${LUGDULOV_VERSION_MINOR}.${LUG
 set(QT_USE_QTGUI TRUE)
 set(QT_USE_QTNETWORK TRUE)
 set(QT_USE_QTXML TRUE)
-
+if(WIN32) 
+   set(QT_USE_QTMAIN TRUE) 
+endif(WIN32) 
+   
 include(${QT_USE_FILE})
 
 # Find config.h
@@ -178,10 +193,12 @@ set(CPACK_SOURCE_IGNORE_FILES
 if(WIN32)
   set(CPACK_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}-win32")
   set(CPACK_SOURCE_PACKAGE_FILE_NAME "lugdulov")
+  set(CPACK_SOURCE_GENERATOR "ZIP")
   # set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\MyExecutable.exe")
   set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/data/icons/lugdulov.ico")
   set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/data/icons/lugdulov.ico")
-  #set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/lugdulov/res/lugdulov.ico")
+  #set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/data/icons/lugdulov.ico")
+
   set(CPACK_PACKAGE_EXECUTABLES "lugdulov" "Lugdulo'V")
 
   set(CPACK_GENERATOR "ZIP;NSIS")

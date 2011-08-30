@@ -31,15 +31,17 @@ if(APPLE OR WIN32)
   #	endif()
   #	install(FILES "${QT_PLUGINS_DIR}/imageformats/qjpeg4.dll" DESTINATION "${plugins_dest}/imageformats")
   #else()
-  
+
   install(FILES "${QJSON_LIBRARIES}" DESTINATION ${BIN_INSTALL_DIR})
 
   #INSTALL(CODE "
   #  file(WRITE \"\${CMAKE_INSTALL_PREFIX}/qt.conf\" \"\")")
-  
+
   set(DIRS
    ${QT_BINARY_DIR}
    ${QT_LIBRARY_DIR}
+   ${APPUP_LIBRARY_DIR}
+   ${QJSON_LIBRARY_DIRS}
    ${PLUGINS_INSTALL_DIR}
    ${LIB_INSTALL_DIR}
   )
