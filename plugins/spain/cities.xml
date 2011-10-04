@@ -27,13 +27,13 @@
     <name>Séville</name>
     <bikeName>Sevici</bikeName>
   </city>
-  <city id="barcelone">
+  <city id="barcelona">
     <type>CityBike</type>
     <latitude min="41.177917" max="41.597917">41.387917</latitude>
     <longitude min="1.959919" max="2.379919">2.169919</longitude>
     <status>http://www.bicing.cat//CallWebService/StationBussinesStatus_Cache.php</status>
     <infos>http://www.bicing.cat/localizaciones/localizaciones.php</infos>
-    <name>Barcelone</name>
+    <name>Barcelona</name>
     <bikeName>Bicing</bikeName>
   </city>
   <city id="zaragoza">

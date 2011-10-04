@@ -41,8 +41,8 @@ class CityBike(Provider):
     config = [
             {'country_uid' : 'es',
              'country_name' : 'Spain',
-             'city_uid'    : 'barcelone',
-             'city_name'    : 'Barcelone',
+             'city_uid'    : 'barcelona',
+             'city_name'    : 'Barcelona',
              'bike_name'    : 'Bicing',
              'server' : 'www.bicing.cat',
              'lat'  : 41.3879170,
