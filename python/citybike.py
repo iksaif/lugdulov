@@ -33,6 +33,7 @@ import urllib2
 import re
 import xml.dom.minidom
 import datetime
+import urllib
 from plugin import *
 
 
@@ -46,6 +47,16 @@ class CityBike(Provider):
              'server' : 'www.bicing.cat',
              'lat'  : 41.3879170,
              'lng'  : 2.1699187
+             },
+            {'country_uid' : 'es',
+             'country_name' : 'Spain',
+             'city_uid'    : 'zaragoza',
+             'city_name'    : 'Zaragoza',
+             'bike_name'    : 'Bizi',
+             'server' : 'www.bizizaragoza.com',
+             'lat'  : 41.65,
+             'lng'  : -0.883333,
+             'infos_url' : '/localizaciones/station_map.php'
              },
             {'country_uid' : 'fr',
              'country_name' : 'France',
@@ -81,8 +92,6 @@ class CityBike(Provider):
     # ? Bergen ?
     # ? Göteborg (Suède)
     # ? Stockolm ; http://www.stockholmcitybikes.se/ -> http://www.citybikes.se/en/Here-are-our-cycle-stands/
-    # ? Washington DC :
-    cache = {}
 
     def get_countries(self):
         ret = []
@@ -116,6 +125,7 @@ class CityBike(Provider):
             city.type = "CityBike"
             #city.rect = self.get_city_bike_zone(service, city)
             ret.append(city)
+
         return ret
 
     def get_zones(self, city):
@@ -133,16 +143,8 @@ class CityBike(Provider):
                 return service
         return None
 
-    def get_stations_kml_dom(self, city):
-        service = self.service_by_city(city)
-        if service['server'] in self.cache:
-            return self.cache[service['server']]
-
-        url = 'http://' + service['server'] + "/localizaciones/localizaciones.php"
-        fp = urlopen(url)
-        data_html = fp.read()
-
-        match = re.search(r'(<kml .*kml>)', data_html, re.MULTILINE|re.DOTALL)
+    def get_stations_kml_dom(self, city, data):
+        match = re.search(r'(<kml .*kml>)', data, re.MULTILINE|re.DOTALL)
 
         data_kml = match.group(0)
 
@@ -153,13 +155,11 @@ class CityBike(Provider):
         data = data.encode('utf-8')
 
         dom = xml.dom.minidom.parseString(data)
-
-        self.cache[service['server']] = dom
         return dom
 
-    def get_stations(self, city):
+    def get_stations_kml(self, city, data):
         service = self.service_by_city(city)
-        dom = self.get_stations_kml_dom(city)
+        dom = self.get_stations_kml_dom(city, data)
 
         # <Placemark>
         #     <description><![CDATA[<div style="margin:10px"><div style="font:bold 11px verdana;color:#379FC5;margin-bottom:10px">Place St Fiacre - Angle rue Vauban, </div><div style="text-align:right;float:left;font:bold 11px verdana">V�los<br />Parcs de stationnement</div><div style="margin-left:5px;float:left;font:bold 11px verdana;color:green">10<br />5<br /></div></div>]]></description>
@@ -225,14 +225,110 @@ class CityBike(Provider):
             stations.append(station)
         return stations
 
+    def get_stations_js(self, city, data):
+        points = []
+        ids = []
+        names = []
+        urls = []
+
+        #point = new GLatLng(41.65188900000000000,-0.88064700000000000);
+        for matches in re.findall("point = new GLatLng\((.+?),(.+?)\);", data):
+            points.append(matches)
+        for matches in re.findall("data:.*?idStation=.*?([\d]+)", data):
+            ids.append(matches)
+        for matches in re.findall("url:.*?\"([^,]+).*?\"", data):
+            urls.append(matches)
+        for matches in re.findall("<a href=\"javascript:.*?ada\('([0-9]+)'\)\">(.+)</a>", data):
+            if matches[0] in ['0', '-1']:
+                continue
+            names.append(matches)
+
+        stations = []
+
+        for uid in ids:
+            station = Station()
+
+            station.uid = uid
+            station.id = station.uid
+
+            if len(names) == len(points):
+                name = names[len(stations)][1]
+            else:
+                name = "Station %s" % uid
+
+            name = re.sub('<[^<]+?>', '', name)
+            name = name.split(' - ')
+            if (len(name) < 2):
+                name = name[0]
+                name = name.split(',')
+            if (len(name) < 2):
+                name = [name[0], name[0]]
+            station.name = name[0]
+            station.description = name[1]
+            station.name = station.name.replace("\\", "")
+            station.description = station.description.replace("\\", "")
+
+            station.status_url = urls[len(stations)]
+
+            if not city.status:
+                service = self.service_by_city(city)
+                city.status = 'http://' + service['server'] + '/' + station.status_url
+
+            station.slots = -1
+            station.bikes = -1
+            #print params[len(stations)]
+            station.lng = float(points[len(stations)][1])
+            station.lat = float(points[len(stations)][0])
+            station.zone = ""
+
+            stations.append(station)
+        return stations
+
+    def get_stations(self, city):
+        service = self.service_by_city(city)
+
+        if 'infos_url' in service:
+            url = 'http://' + service['server'] + service['infos_url']
+        else:
+            url = 'http://' + service['server'] + "/localizaciones/localizaciones.php"
+
+        fp = urlopen(url)
+        data = fp.read()
+
+        if '<kml xmlns="http://earth.google.com/kml/2.0">' in data:
+            city.mode = 'kml'
+            return self.get_stations_kml(city, data)
+        else:
+            city.mode = 'js'
+            return self.get_stations_js(city, data)
+
     def get_status(self, station, city):
+        if city.mode == 'kml':
+            return station
+
+        service = self.service_by_city(city)
+
+        url = 'http://' + service['server'] + '/' + station.status_url
+
+        fp = urlopen(url, "idStation=%s" % station.id)
+        data = fp.read()
+
+        matches = re.findall("^\s*\:\s*(\d+)", data, re.M)
+
+        station.bikes = matches[0]
+        station.slots = matches[1]
         return station
 
     def dump_city(self, city):
         service = self.service_by_city(city)
         city.rect = self.get_city_bike_zone(service, city)
-        city.status = ''
-        city.infos = 'http://' +  service['server'] + '/localizaciones/localizaciones.php'
+
+        if 'infos_url' in service:
+            url = 'http://' + service['server'] + service['infos_url']
+        else:
+            url = 'http://' + service['server'] + "/localizaciones/localizaciones.php"
+
+        city.infos = url
         data = self._dump_city(city)
         print data
 
@@ -242,24 +338,9 @@ class CityBike(Provider):
         data = self._dump_stations(city)
         print data.encode('utf8')
 
-
 def test():
     prov = CityBike()
-
-    countries = prov.get_countries()
-    print countries
-    print countries[0]
-    cities = prov.get_cities(countries[0])
-    print cities
-    print cities[0]
-    zones = prov.get_zones(cities[0])
-    print zones
-    if (zones):
-        print zones[0]
-    stations = prov.get_stations(cities[0])
-    print "Stations: ", len(stations)
-    station = prov.get_status(stations[0], cities[0])
-    print station
+    prov.selftest()
 
 def main():
     test()

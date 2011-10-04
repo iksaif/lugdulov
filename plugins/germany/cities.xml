@@ -104,30 +104,6 @@
     <name>Tübingen</name>
     <bikeName>nextbike</bikeName>
   </city>
-  <city id="travemunde">
-    <type>NextBike</type>
-    <latitude min="52.961800" max="54.961800">53.961800</latitude>
-    <longitude min="9.868300" max="11.868300">10.868300</longitude>
-    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Travemünde</name>
-    <bikeName>nextbike</bikeName>
-  </city>
-  <city id="mulheim_adr">
-    <type>NextBike</type>
-    <latitude min="50.430800" max="52.430800">51.430800</latitude>
-    <longitude min="5.874010" max="7.874010">6.874010</longitude>
-    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Mülheim A.D.R.</name>
-    <bikeName>nextbike</bikeName>
-  </city>
-  <city id="oberhausen">
-    <type>NextBike</type>
-    <latitude min="50.493600" max="52.493600">51.493600</latitude>
-    <longitude min="5.851690" max="7.851690">6.851690</longitude>
-    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Oberhausen</name>
-    <bikeName>nextbike</bikeName>
-  </city>
   <city id="munchen">
     <type>NextBike</type>
     <latitude min="47.139200" max="49.139200">48.139200</latitude>
@@ -174,6 +150,14 @@
     <longitude min="9.004400" max="11.004400">10.004400</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Norderstedt</name>
+    <bikeName>nextbike</bikeName>
+  </city>
+  <city id="augsburg">
+    <type>NextBike</type>
+    <latitude min="47.364700" max="49.364700">48.364700</latitude>
+    <longitude min="9.891600" max="11.891600">10.891600</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Augsburg</name>
     <bikeName>nextbike</bikeName>
   </city>
   <city id="halensee_kudamm">
@@ -263,5 +247,445 @@
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Herne</name>
     <bikeName>metropolradruhr</bikeName>
+  </city>
+  <city id="mulheim_adr">
+    <type>NextBike</type>
+    <latitude min="50.430800" max="52.430800">51.430800</latitude>
+    <longitude min="5.874010" max="7.874010">6.874010</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Mülheim A.D.R.</name>
+    <bikeName>metropolradruhr</bikeName>
+  </city>
+  <city id="oberhausen">
+    <type>NextBike</type>
+    <latitude min="50.493600" max="52.493600">51.493600</latitude>
+    <longitude min="5.851690" max="7.851690">6.851690</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Oberhausen</name>
+    <bikeName>metropolradruhr</bikeName>
+  </city>
+  <city id="aachen_100006">
+    <type>CallABike</type>
+    <latitude min="49.768286" max="51.768286">50.768286</latitude>
+    <longitude min="5.090899" max="7.090899">6.090899</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Aachen</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="aschaffenburg_18">
+    <type>CallABike</type>
+    <latitude min="48.979712" max="50.979712">49.979712</latitude>
+    <longitude min="8.143683" max="10.143683">9.143683</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Aschaffenburg</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="augsburg_91">
+    <type>CallABike</type>
+    <latitude min="47.364753" max="49.364753">48.364753</latitude>
+    <longitude min="9.888432" max="11.888432">10.888432</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Augsburg</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="baden_baden_100039">
+    <type>CallABike</type>
+    <latitude min="47.791208" max="49.791208">48.791208</latitude>
+    <longitude min="7.193174" max="9.193174">8.193174</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Baden-Baden</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="bamberg_33600">
+    <type>CallABike</type>
+    <latitude min="48.891400" max="50.891400">49.891400</latitude>
+    <longitude min="9.873000" max="11.873000">10.873000</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Bamberg</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="berlin_2">
+    <type>CallABike</type>
+    <latitude min="51.523324" max="53.523324">52.523324</latitude>
+    <longitude min="12.383064" max="14.383064">13.383064</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Berlin</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="bielefeld_100010">
+    <type>CallABike</type>
+    <latitude min="51.029560" max="53.029560">52.029560</latitude>
+    <longitude min="7.533666" max="9.533666">8.533666</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Bielefeld</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="bonn_100016">
+    <type>CallABike</type>
+    <latitude min="49.735273" max="51.735273">50.735273</latitude>
+    <longitude min="6.099037" max="8.099037">7.099037</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Bonn</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="braunschweig_51">
+    <type>CallABike</type>
+    <latitude min="51.267117" max="53.267117">52.267117</latitude>
+    <longitude min="9.525833" max="11.525833">10.525833</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Braunschweig</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="bremen_100004">
+    <type>CallABike</type>
+    <latitude min="52.083732" max="54.083732">53.083732</latitude>
+    <longitude min="7.880330" max="9.880330">8.880330</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Bremen</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="darmstadt_19">
+    <type>CallABike</type>
+    <latitude min="48.858068" max="50.858068">49.858068</latitude>
+    <longitude min="7.647770" max="9.647770">8.647770</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Darmstadt</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="dortmund_70">
+    <type>CallABike</type>
+    <latitude min="50.516247" max="52.516247">51.516247</latitude>
+    <longitude min="6.455888" max="8.455888">7.455888</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Dortmund</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="düsseldorf_58">
+    <type>CallABike</type>
+    <latitude min="50.202422" max="52.202422">51.202422</latitude>
+    <longitude min="5.781224" max="7.781224">6.781224</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Düsseldorf</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="erlangen_100017">
+    <type>CallABike</type>
+    <latitude min="48.594487" max="50.594487">49.594487</latitude>
+    <longitude min="10.001746" max="12.001746">11.001746</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Erlangen</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="flensburg_248">
+    <type>CallABike</type>
+    <latitude min="53.780395" max="55.780395">54.780395</latitude>
+    <longitude min="8.435110" max="10.435110">9.435110</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Flensburg</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="frankfurt_am_main_13">
+    <type>CallABike</type>
+    <latitude min="49.119720" max="51.119720">50.119720</latitude>
+    <longitude min="7.654968" max="9.654968">8.654968</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Frankfurt Am Main</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="freiburg_2000">
+    <type>CallABike</type>
+    <latitude min="46.998169" max="48.998169">47.998169</latitude>
+    <longitude min="6.840530" max="8.840530">7.840530</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Freiburg</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="fulda_100011">
+    <type>CallABike</type>
+    <latitude min="49.553868" max="51.553868">50.553868</latitude>
+    <longitude min="8.684598" max="10.684598">9.684598</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Fulda</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="garmisch_partenkirchen_135">
+    <type>CallABike</type>
+    <latitude min="46.492356" max="48.492356">47.492356</latitude>
+    <longitude min="10.086224" max="12.086224">11.086224</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Garmisch-Partenkirchen</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="göttingen_33200">
+    <type>CallABike</type>
+    <latitude min="50.529746" max="52.529746">51.529746</latitude>
+    <longitude min="8.929530" max="10.929530">9.929530</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Göttingen</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="gotha_136">
+    <type>CallABike</type>
+    <latitude min="49.945882" max="51.945882">50.945882</latitude>
+    <longitude min="9.706520" max="11.706520">10.706520</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Gotha</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="gütersloh_139">
+    <type>CallABike</type>
+    <latitude min="50.915218" max="52.915218">51.915218</latitude>
+    <longitude min="7.390940" max="9.390940">8.390940</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Gütersloh</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="halle_1">
+    <type>CallABike</type>
+    <latitude min="50.471628" max="52.471628">51.471628</latitude>
+    <longitude min="10.963546" max="12.963546">11.963546</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Halle</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="hamburg_75">
+    <type>CallABike</type>
+    <latitude min="52.566615" max="54.566615">53.566615</latitude>
+    <longitude min="8.986872" max="10.986872">9.986872</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Hamburg</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="hamm_100021">
+    <type>CallABike</type>
+    <latitude min="50.678415" max="52.678415">51.678415</latitude>
+    <longitude min="6.809150" max="8.809150">7.809150</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Hamm</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="hanau_141">
+    <type>CallABike</type>
+    <latitude min="49.140583" max="51.140583">50.140583</latitude>
+    <longitude min="7.924459" max="9.924459">8.924459</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Hanau</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="hannover_2600">
+    <type>CallABike</type>
+    <latitude min="51.378556" max="53.378556">52.378556</latitude>
+    <longitude min="8.743918" max="10.743918">9.743918</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Hannover</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="heidelberg_34201">
+    <type>CallABike</type>
+    <latitude min="48.404542" max="50.404542">49.404542</latitude>
+    <longitude min="7.675645" max="9.675645">8.675645</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Heidelberg</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="hildesheim_146">
+    <type>CallABike</type>
+    <latitude min="51.172897" max="53.172897">52.172897</latitude>
+    <longitude min="8.945244" max="10.945244">9.945244</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Hildesheim</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="ingolstadt_28">
+    <type>CallABike</type>
+    <latitude min="47.745500" max="49.745500">48.745500</latitude>
+    <longitude min="10.436297" max="12.436297">11.436297</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Ingolstadt</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="kaiserslautern_100007">
+    <type>CallABike</type>
+    <latitude min="48.436400" max="50.436400">49.436400</latitude>
+    <longitude min="6.768161" max="8.768161">7.768161</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Kaiserslautern</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="karlsruhe_34000">
+    <type>CallABike</type>
+    <latitude min="47.994331" max="49.994331">48.994331</latitude>
+    <longitude min="7.401586" max="9.401586">8.401586</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Karlsruhe</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="kassel_34100">
+    <type>CallABike</type>
+    <latitude min="50.315755" max="52.315755">51.315755</latitude>
+    <longitude min="8.477742" max="10.477742">9.477742</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Kassel</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="köln_33800">
+    <type>CallABike</type>
+    <latitude min="49.943368" max="51.943368">50.943368</latitude>
+    <longitude min="5.960487" max="7.960487">6.960487</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Köln</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="ludwigslust_246">
+    <type>CallABike</type>
+    <latitude min="52.320748" max="54.320748">53.320748</latitude>
+    <longitude min="10.499295" max="12.499295">11.499295</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Ludwigslust</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="lübeck_100023">
+    <type>CallABike</type>
+    <latitude min="52.866726" max="54.866726">53.866726</latitude>
+    <longitude min="9.677372" max="11.677372">10.677372</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Lübeck</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="magdeburg_34300">
+    <type>CallABike</type>
+    <latitude min="51.132821" max="53.132821">52.132821</latitude>
+    <longitude min="10.639895" max="12.639895">11.639895</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Magdeburg</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="mainz_21">
+    <type>CallABike</type>
+    <latitude min="49.000505" max="51.000505">50.000505</latitude>
+    <longitude min="7.254411" max="9.254411">8.254411</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Mainz</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="mannheim_34200">
+    <type>CallABike</type>
+    <latitude min="48.477775" max="50.477775">49.477775</latitude>
+    <longitude min="7.473516" max="9.473516">8.473516</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Mannheim</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="minden_32">
+    <type>CallABike</type>
+    <latitude min="51.282181" max="53.282181">52.282181</latitude>
+    <longitude min="7.901900" max="9.901900">8.901900</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Minden</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="münchen_90">
+    <type>CallABike</type>
+    <latitude min="47.139516" max="49.139516">48.139516</latitude>
+    <longitude min="10.574783" max="12.574783">11.574783</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>München</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="oberhausen_57">
+    <type>CallABike</type>
+    <latitude min="50.474187" max="52.474187">51.474187</latitude>
+    <longitude min="5.853648" max="7.853648">6.853648</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Oberhausen</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="oldenburg_(oldb)_100014">
+    <type>CallABike</type>
+    <latitude min="52.143557" max="54.143557">53.143557</latitude>
+    <longitude min="7.222220" max="9.222220">8.222220</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Oldenburg (Oldb)</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="passau_240">
+    <type>CallABike</type>
+    <latitude min="47.575585" max="49.575585">48.575585</latitude>
+    <longitude min="12.459711" max="14.459711">13.459711</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Passau</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="rostock_8">
+    <type>CallABike</type>
+    <latitude min="53.087902" max="55.087902">54.087902</latitude>
+    <longitude min="11.115514" max="13.115514">12.115514</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Rostock</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="saarbrücken_100015">
+    <type>CallABike</type>
+    <latitude min="48.240546" max="50.240546">49.240546</latitude>
+    <longitude min="5.991613" max="7.991613">6.991613</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Saarbrücken</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="stuttgart_33900">
+    <type>CallABike</type>
+    <latitude min="47.760000" max="49.760000">48.760000</latitude>
+    <longitude min="8.183641" max="10.183641">9.183641</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Stuttgart</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="waren_(müritz)_243">
+    <type>CallABike</type>
+    <latitude min="52.520028" max="54.520028">53.520028</latitude>
+    <longitude min="11.681055" max="13.681055">12.681055</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Waren (Müritz)</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="warnemünde_247">
+    <type>CallABike</type>
+    <latitude min="53.176101" max="55.176101">54.176101</latitude>
+    <longitude min="11.078050" max="13.078050">12.078050</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Warnemünde</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="weimar_10">
+    <type>CallABike</type>
+    <latitude min="49.990986" max="51.990986">50.990986</latitude>
+    <longitude min="10.325925" max="12.325925">11.325925</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Weimar</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="wiesbaden_24">
+    <type>CallABike</type>
+    <latitude min="49.066008" max="51.066008">50.066008</latitude>
+    <longitude min="7.253241" max="9.253241">8.253241</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Wiesbaden</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="wolfsburg_100009">
+    <type>CallABike</type>
+    <latitude min="51.428493" max="53.428493">52.428493</latitude>
+    <longitude min="9.789660" max="11.789660">10.789660</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Wolfsburg</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="würzburg_100012">
+    <type>CallABike</type>
+    <latitude min="48.801416" max="50.801416">49.801416</latitude>
+    <longitude min="8.935660" max="10.935660">9.935660</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Würzburg</name>
+    <bikeName>CallABike</bikeName>
   </city>
 </cities>

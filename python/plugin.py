@@ -20,21 +20,30 @@
   with this program; if not, write to the Free Software Foundation, Inc.,
   59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-  template lugdulov meta program
-
 """
 
+import cookielib
+
 cache = True
+cookie_jar = cookielib.CookieJar()
 
-def urlopen(url):
+def urlopen(req, data=None):
     import urllib2
-    from cache import CacheHandler
 
+    import httplib
+    httplib.HTTPConnection.debuglevel = 1
+
+    handlers = [urllib2.HTTPCookieProcessor(cookie_jar)]
     if cache:
-        opener = urllib2.build_opener(CacheHandler("cache"))
-        return opener.open(url)
+        from cache import CacheHandler
+        handlers.append(CacheHandler("cache"))
+
+    opener = urllib2.build_opener(*handlers)
+    if data:
+        return opener.open(req, data)
     else:
-        return urllib2.urlopen(url)
+        return opener.open(req)
+
 
 class Country():
     uid = ""
@@ -208,7 +217,7 @@ class Provider():
                 ret += '  <region>%s</region>\n' % station.zone
             ret += '  <latitude>%.6f</latitude>\n' % station.lat
             ret += '  <longitude>%.6f</longitude>\n' % station.lng
-            ret += "</station>";
+            ret += "</station>\n";
 
             if skip:
                 ret += '\n--/>'
@@ -217,3 +226,28 @@ class Provider():
 
     def __init__(self):
         pass
+
+    def selftest(self):
+        countries = self.get_countries()
+        print countries
+        print countries[0]
+        cities = self.get_cities(countries[0])
+        print cities
+        print cities[0]
+        zones = self.get_zones(cities[0])
+        print zones
+        if (zones):
+            print zones[0]
+        stations = self.get_stations(cities[0])
+        print "Stations: ", len(stations)
+        station = self.get_status(stations[0], cities[0])
+        print station
+        for country in countries:
+            cities = self.get_cities(country)
+            for city in cities:
+                stations = self.get_stations(city)
+                print city.name
+                print "Stations: ", len(stations)
+                if len(stations):
+                    station = self.get_status(stations[0], city)
+                    print station

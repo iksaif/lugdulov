@@ -4,7 +4,7 @@
     <type>CycloCity</type>
     <latitude min="50.636281" max="51.056281">50.846281</latitude>
     <longitude min="4.144727" max="4.564727">4.354727</longitude>
-    <status>http://www.villo.be/service/stationdetails/%1</status>
+    <status>http://www.villo.be/service/stationdetails/bruxelles/%1</status>
     <infos>http://www.villo.be/service/carto</infos>
     <name>Bruxelles</name>
     <bikeName>Villo</bikeName>

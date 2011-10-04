@@ -21,6 +21,7 @@
 #include <QtCore/QMap>
 #include <QtCore/QVariant>
 #include <QtCore/QFile>
+#include <QtCore/QBuffer>
 #include <QtCore/QtPlugin>
 #include <QtCore/QStringList>
 #include <QtCore/QDir>
@@ -45,9 +46,19 @@ StationsPluginSimple::StationsPluginSimple(QObject *parent)
 
 StationsPluginSimple::~StationsPluginSimple()
 {
+  qDeleteAll(stations);
+}
+
+void
+StationsPluginSimple::init()
+{
+}
+
+void
+StationsPluginSimple::deinit()
+{
   if (!stations.isEmpty())
     saveDiskCache();
-  qDeleteAll(stations);
 }
 
 void
@@ -122,11 +133,11 @@ StationsPluginSimple::fetchAll()
     QFile file(diskCache());
 
     if (file.exists()) {
-	  qDebug() << "Loading cache" << file.fileName();
+      qDebug() << "Loading cache" << file.fileName();
       loadDiskCache(file.fileName());
-	  if (stations.isEmpty())
-	    fetchOnline();
-	  else
+      if (stations.isEmpty())
+	fetchOnline();
+      else
         emit stationsCreated(stations.values());
     } else
       fetchOnline();
@@ -217,7 +228,7 @@ StationsPluginSimple::finished(QNetworkReply *rep)
 }
 
 void
-StationsPluginSimple::request(const QUrl & url, int id)
+StationsPluginSimple::request(const QUrl & url, int id, const QByteArray & data)
 {
   if (url.isEmpty())
     return ;
@@ -231,7 +242,11 @@ StationsPluginSimple::request(const QUrl & url, int id)
   initNetwork();
 
   Tools::fixupRequest(&req);
-  rep = nm->get(req);
+
+  if (data.isEmpty())
+    rep = nm->get(req);
+  else
+    rep = nm->post(req, data);
 
   connect(rep, SIGNAL(error(QNetworkReply::NetworkError)),
           this, SLOT(networkError(QNetworkReply::NetworkError)));
@@ -337,12 +352,15 @@ StationsPluginSimple::diskCache()
 void
 StationsPluginSimple::saveDiskCache()
 {
+  QDomDocument doc;
   QFile file(diskCache());
+  QBuffer buffer;
 
-  file.open(QIODevice::WriteOnly);
+  buffer.open(QIODevice::ReadWrite);
 
-  file.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-  file.write("<stations>\n");
+  buffer.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+  buffer.write("<cache>\n");
+  buffer.write(" <stations>\n");
 
   foreach (Station *station, stations) {
     QString data =
@@ -353,14 +371,26 @@ StationsPluginSimple::saveDiskCache()
       "   <longitude>%5</longitude>\n"
       "  </station>\n";
 
-    file.write(data.arg(station->id())
+    buffer.write(data.arg(station->id())
 	       .arg(station->name())
 	       .arg(station->description())
 	       .arg(station->pos().x())
 	       .arg(station->pos().y())
 	       .toUtf8());
   }
-  file.write("</stations>\n");
+  buffer.write(" </stations>\n");
+  buffer.write("</cache>\n");
+
+  buffer.seek(0);
+  doc.setContent(&buffer);
+  qDebug() << this;
+  saveData(doc);
+
+  //qDebug() << doc.toString(2);
+  file.open(QIODevice::WriteOnly);
+  file.write(doc.toString(2).toUtf8());
+  file.flush();
+  file.close();
 }
 
 void
@@ -382,7 +412,16 @@ StationsPluginSimple::loadDiskCache(const QString & path)
   file.open(QIODevice::ReadOnly);
   doc.setContent(&file);
 
-  loadStations(doc.firstChildElement("stations"));
+  loadData(doc);
+
+  node = doc.firstChildElement("cache");
+
+  if (node.isNull()) /* backward compat: <stations> was the root before */
+    node = doc.firstChildElement("stations");
+  else
+    node = node.firstChildElement("stations");
+
+  loadStations(node);
 }
 
 void
@@ -438,4 +477,16 @@ StationsPluginSimple::loadStations(QDomNode node)
 
     stations[id] = station;
   }
+}
+
+void
+StationsPluginSimple::loadData(QDomDocument & doc)
+{
+  Q_UNUSED(doc);
+}
+
+void
+StationsPluginSimple::saveData(QDomDocument & doc)
+{
+  Q_UNUSED(doc);
 }

@@ -34,6 +34,19 @@ class BCycle(Provider):
         {
             'country_uid' : 'usa',
             'country_name' : 'USA',
+            'city_uid'    : 'louisville',
+            'city_name'    : 'Louisville',
+            'bike_name'    : 'BCycle',
+            'server' : 'http://louisville.bcycle.com/',
+            'lat'  : 38.254167,
+            'lng'  : -85.760278,
+            },
+    """
+
+    config = [
+        {
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
             'city_uid'    : 'spartanburg',
             'city_name'    : 'Spartanburg',
             'bike_name'    : 'BCycle',
@@ -54,16 +67,6 @@ class BCycle(Provider):
         {
             'country_uid' : 'usa',
             'country_name' : 'USA',
-            'city_uid'    : 'louisville',
-            'city_name'    : 'Louisville',
-            'bike_name'    : 'BCycle',
-            'server' : 'http://louisville.bcycle.com/',
-            'lat'  : 38.254167,
-            'lng'  : -85.760278,
-            },
-        {
-            'country_uid' : 'usa',
-            'country_name' : 'USA',
             'city_uid'    : 'browardcounty',
             'city_name'    : 'Broward County',
             'bike_name'    : 'BCycle',
@@ -71,9 +74,6 @@ class BCycle(Provider):
             'lat'  : 45.767299,
             'lng'  : 4.834329
             },
-    """
-
-    config = [
         {
             'country_uid' : 'usa',
             'country_name' : 'USA',
@@ -207,7 +207,7 @@ class BCycle(Provider):
         """
         rgpos = re.compile(r'point = new google\.maps\.LatLng\((.*?), (.*?)\);')
         rgmark = re.compile(r'var marker = new createMarker\(point, \"(.*?)\", icon, back\);')
-        rghtml = re.compile(r'<div class=\'location\'><strong>(.*?)</strong><br />(.*?)</div><div class=\'avail\'>Bikes available: <strong>(\d+)</strong><br />Docks available: <strong>(\d+)</strong></div><br/>')
+        rghtml = re.compile(r'<div class=\'location\'><strong>(.*?)</strong><br />(.*?)</div><div class=\'avail\'>Bikes available: <strong>(\d+)</strong><br />Docks available: <strong>(\d+)</strong></div>')
 
         id = 1
 

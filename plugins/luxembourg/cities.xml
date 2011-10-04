@@ -4,7 +4,7 @@
     <type>CycloCity</type>
     <latitude min="49.400004" max="49.820004">49.610004</latitude>
     <longitude min="5.919596" max="6.339596">6.129596</longitude>
-    <status>http://www.veloh.lu/service/stationdetails/%1</status>
+    <status>http://www.veloh.lu/service/stationdetails/luxembourg/%1</status>
     <infos>http://www.veloh.lu/service/carto</infos>
     <name>Luxembourg</name>
     <bikeName>Veloh</bikeName>

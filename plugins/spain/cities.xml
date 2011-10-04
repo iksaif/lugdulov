@@ -4,7 +4,7 @@
     <type>CycloCity</type>
     <latitude min="39.249258" max="39.669258">39.459258</latitude>
     <longitude min="-0.586453" max="-0.166453">-0.376453</longitude>
-    <status>http://www.valenbisi.es/service/stationdetails/%1</status>
+    <status>http://www.valenbisi.es/service/stationdetails/valencia/%1</status>
     <infos>http://www.valenbisi.es/service/carto</infos>
     <name>Valencia</name>
     <bikeName>Valenbisi</bikeName>
@@ -13,7 +13,7 @@
     <type>CycloCity</type>
     <latitude min="43.250960" max="43.670960">43.460960</latitude>
     <longitude min="-4.017934" max="-3.597934">-3.807934</longitude>
-    <status>http://www.tusbic.es/service/stationdetails/%1</status>
+    <status>http://www.tusbic.es/service/stationdetails/santander/%1</status>
     <infos>http://www.tusbic.es/service/carto</infos>
     <name>Santander</name>
     <bikeName>Tusbic</bikeName>
@@ -22,7 +22,7 @@
     <type>CycloCity</type>
     <latitude min="37.172640" max="37.592640">37.382640</latitude>
     <longitude min="-6.206295" max="-5.786295">-5.996295</longitude>
-    <status>http://www.sevici.es/service/stationdetails/%1</status>
+    <status>http://www.sevici.es/service/stationdetails/seville/%1</status>
     <infos>http://www.sevici.es/service/carto</infos>
     <name>Séville</name>
     <bikeName>Sevici</bikeName>
@@ -31,8 +31,18 @@
     <type>CityBike</type>
     <latitude min="41.177917" max="41.597917">41.387917</latitude>
     <longitude min="1.959919" max="2.379919">2.169919</longitude>
+    <status>http://www.bicing.cat//CallWebService/StationBussinesStatus_Cache.php</status>
     <infos>http://www.bicing.cat/localizaciones/localizaciones.php</infos>
     <name>Barcelone</name>
     <bikeName>Bicing</bikeName>
+  </city>
+  <city id="zaragoza">
+    <type>CityBike</type>
+    <latitude min="41.440000" max="41.860000">41.650000</latitude>
+    <longitude min="-1.093333" max="-0.673333">-0.883333</longitude>
+    <status>http://www.bizizaragoza.com//CallWebService/StationBussinesStatus.php</status>
+    <infos>http://www.bizizaragoza.com/localizaciones/station_map.php</infos>
+    <name>Zaragoza</name>
+    <bikeName>Bizi</bikeName>
   </city>
 </cities>

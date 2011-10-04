@@ -112,6 +112,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+  if (plugin)
+    plugin->deinit();
+
   delete ui;
 }
 
@@ -261,8 +264,10 @@ MainWindow::buttonClicked()
 void
 MainWindow::setStationsPlugin(StationsPlugin *sta, bool save)
 {
-  if (plugin)
+  if (plugin) {
+    plugin->deinit();
     plugin->deleteLater();
+  }
 
   plugin = sta;
 
@@ -276,8 +281,10 @@ MainWindow::setStationsPlugin(StationsPlugin *sta, bool save)
   }
 #endif
 
-  if (plugin)
+  if (plugin) {
     plugin->setParent(this);
+    plugin->init();
+  }
 
   if (plugin) {
     ui->pushButton->setText(plugin->name());

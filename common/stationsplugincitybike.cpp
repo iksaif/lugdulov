@@ -17,12 +17,8 @@
  */
 
 #include <QtNetwork/QNetworkReply>
-#include <QtGui/QDesktopServices>
-#include <QtCore/QMap>
-#include <QtCore/QVariant>
-#include <QtCore/QFile>
-#include <QtCore/QtPlugin>
 #include <QtCore/QStringList>
+#include <QtCore/QRegExp>
 #include <QtXml/QDomNode>
 
 #include <QtCore/QDebug>
@@ -33,8 +29,10 @@
 #include "stationspluginsimple_p.h"
 
 StationsPluginCityBike::StationsPluginCityBike(QObject *parent)
-  : StationsPluginSingle(parent)
+  : StationsPluginSimple(parent)
 {
+  mode = "unknown";
+  dataUrl = "";
 }
 
 StationsPluginCityBike::~StationsPluginCityBike()
@@ -42,7 +40,42 @@ StationsPluginCityBike::~StationsPluginCityBike()
 }
 
 void
-StationsPluginCityBike::handleInfos(const QByteArray & data)
+StationsPluginCityBike::update(Station *station)
+{
+  if (mode == "unknown") { /* We need to download the main page first */
+    mode = "processing"; /* Avoid recursion */
+    request(infosUrl());
+  }
+
+  if (mode == "kml")
+    fetchOnline();
+  else {
+    QByteArray data = QString("idStation=%1").arg(station->id()).toAscii();
+
+    request(statusUrl(station->id()), station->id(), data);
+  }
+}
+
+void
+StationsPluginCityBike::update(const QList < Station * > & stations)
+{
+  if (mode == "kml")
+    fetchOnline();
+  else
+    StationsPluginSimple::update(stations);
+}
+
+QUrl
+StationsPluginCityBike::statusUrl(int id)
+{
+  if (dataUrl.isEmpty())
+    return StationsPluginSimple::statusUrl(id);
+  else
+    return dataUrl.arg(id);
+}
+
+void
+StationsPluginCityBike::handleInfosKml(const QByteArray & data)
 {
   QRegExp re("(<kml .*kml>)");
   QStringList captured;
@@ -72,16 +105,7 @@ StationsPluginCityBike::handleInfos(const QByteArray & data)
 
     if (station->name().isEmpty() || station->description().isEmpty()) {
       str = subDoc.firstChild().firstChild().firstChild().nodeValue();
-      str = str.replace("\x92", "'");
-      str = Tools::ucFirst(str.toLower());
-      if (str.contains(" - "))
-	strl = str.split(" - ");
-      else if (str.contains(','))
-	strl = str.split(",");
-      else {
-	strl << str;
-	strl << str;
-      }
+      strl = parseName(str);
       if (strl.size() >= 2) {
 	if (station->name().isEmpty())
 	  station->setName(strl[0].trimmed());
@@ -113,7 +137,183 @@ StationsPluginCityBike::handleInfos(const QByteArray & data)
 
     ++id;
   }
+}
+
+QList < QStringList >
+StationsPluginCityBike::findAll(const QRegExp & re, const QByteArray & data)
+{
+  QList < QStringList > ret;
+  int ofs = 0;
+
+  while ((ofs = re.indexIn(data, ofs)) >= 0) {
+    QStringList captured = re.capturedTexts();
+
+    ofs += re.matchedLength();
+
+    if (!captured.isEmpty())
+      ret << captured;
+  }
+
+  return ret;
+}
+
+void
+StationsPluginCityBike::handleInfosJs(const QByteArray & data)
+{
+  QList < QPointF > points;
+  QList < int > ids;
+  QList < QString > names;
+  QRegExp re;
+  int i = 0;
+
+  re = QRegExp("point = new GLatLng\\((.+),(.+)\\);");
+  re.setMinimal(true);
+
+  foreach (QStringList matches, findAll(re, data))
+    points << QPointF(matches.at(1).toDouble(), matches.at(2).toDouble());
+
+  re = QRegExp("data:.*idStation=.*([\\d]+)[\"\\+\\W]");
+  re.setMinimal(true);
+
+  foreach (QStringList matches, findAll(re, data))
+    ids << matches.at(1).toInt();
+
+  re = QRegExp("<a href=\"javascript:.*ada\\('([0-9]+)'\\)\">(.+)</a>");
+  re.setMinimal(true);
+
+  foreach (QStringList matches, findAll(re, data))
+    if (matches.at(1) != "0" && matches.at(1) != "-1")
+      names << matches.at(2);
+
+  re = QRegExp("url:.*\"([^,]+).*\"");
+  re.setMinimal(true);
+  re.indexIn(data);
+
+  if (re.matchedLength()) {
+    dataUrl = infosUrl().scheme() + "://" + infosUrl().authority() + "/";
+    dataUrl += re.capturedTexts().at(1);
+  } else
+    return ;
+
+  foreach (int id, ids) {
+    Station *station;
+    QStringList namedescr;
+
+    station = getOrCreateStation(id);
+
+    if (station->name().isEmpty() || station->description().isEmpty()) {
+      if (names.size() == points.size()) {
+	namedescr = parseName(names[i]);
+	if (namedescr.size() >= 2) {
+	  if (station->name().isEmpty())
+	    station->setName(namedescr[0].trimmed());
+	  if (station->description().isEmpty())
+	    station->setDescription(namedescr[1].trimmed());
+	}
+      } else {
+	station->setName(QString("Station %1").arg(id));
+      }
+    }
+
+    station->setPos(points[i]);
+
+    storeOrDropStation(station);
+    i++;
+  }
+
+}
+
+void
+StationsPluginCityBike::handleInfos(const QByteArray & data)
+{
+  if (data.contains("<kml xmlns=\"http://earth.google.com/kml/2.0\">")) {
+    handleInfosKml(data);
+    mode = "kml";
+  } else {
+    handleInfosJs(data);
+    mode = "js";
+  }
 
   emit stationsCreated(stations.values());
   emit stationsUpdated(stations.values());
+}
+
+void
+StationsPluginCityBike::handleStatus(const QByteArray & data, int id)
+{
+  if (mode == "js")
+    handleStatusJs(data, id);
+}
+
+void
+StationsPluginCityBike::handleStatusJs(const QByteArray & data, int id)
+{
+  Station *station;
+  QList < Station * > updated;
+  QRegExp re = QRegExp("\\n\\s*\\:\\s*(\\d+)");
+  QList < QStringList > captured;
+
+  if (!stations[id])
+    return ;
+
+  station = stations[id];
+
+  re.setMinimal(true);
+
+  captured = findAll(re, data);
+
+  if (captured.size() == 2) {
+    station->setBikes(captured.at(0).at(1).toInt());
+    station->setFreeSlots(captured.at(1).at(1).toInt());
+    station->setTotalSlots(station->bikes() + station->freeSlots());
+  }
+
+  updated << station;
+  emit stationsUpdated(updated);
+}
+
+QStringList
+StationsPluginCityBike::parseName(const QString & name)
+{
+  QStringList ret;
+  QString str = name;
+
+  str = str.replace("\x92", "'");
+  str = Tools::ucFirst(str.toLower());
+  if (str.contains(" - ") && mode == "kml")
+    ret = str.split(" - ");
+  else if (str.contains(','))
+    ret = str.split(",");
+  else {
+    ret << str;
+    ret << "";
+  }
+
+  return ret;
+}
+
+void
+StationsPluginCityBike::loadData(QDomDocument & doc)
+{
+  QDomElement node = doc.firstChildElement("cache");
+
+  node = node.firstChildElement("citybike");
+  node = node.firstChildElement("dataUrl");
+
+  if (node.isNull())
+    return ;
+
+  dataUrl = node.text();
+}
+
+void
+StationsPluginCityBike::saveData(QDomDocument & doc)
+{
+  QDomElement citybike = doc.createElement("citybike");
+  QDomElement url = doc.createElement("dataUrl");
+
+  url.appendChild(doc.createTextNode(dataUrl));
+  citybike.appendChild(url);
+
+  doc.firstChildElement("cache").appendChild(citybike);
 }

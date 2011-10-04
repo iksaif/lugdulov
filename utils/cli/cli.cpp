@@ -43,8 +43,6 @@ static const struct QCommandLineConfigEntry conf[] =
 Cli::Cli(QObject *parent)
   : QObject(parent)
 {
-  manager = new StationsPluginManager(this);
-
   cmdline = new QCommandLine(this);
   cmdline->setConfig(conf);
   cmdline->enableVersion(true); // enable -v // --version
@@ -119,7 +117,7 @@ Cli::serialize(const QVariant & out)
     QJson::Serializer serializer;
     QByteArray json;
 
-    serializer.setIndentMode(QJson::IndentMinimum);
+    //serializer.setIndentMode(QJson::IndentMinimum);
     json = serializer.serialize(out);
 
     std::cout << json.data() << std::endl;
@@ -345,6 +343,8 @@ Cli::fetchAll()
 void
 Cli::run()
 {
+  manager = new StationsPluginManager(this);
+
   if (action == List) {
     list();
     QCoreApplication::instance()->quit();

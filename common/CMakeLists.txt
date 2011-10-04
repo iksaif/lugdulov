@@ -27,6 +27,7 @@ set(lugdulov_base_SRCS
   stationspluginbixi2.cpp
   stationsplugintransdev.cpp
   stationspluginbcycle.cpp
+  stationsplugincallabike.cpp
   station.cpp
   stationspluginmanager.cpp
   stationsmodel.cpp
@@ -48,6 +49,7 @@ set(lugdulov_base_MOC_HDRS
   stationspluginbixi2.h
   stationsplugintransdev.h
   stationspluginbcycle.h
+  stationsplugincallabike.h
   stationspluginmanager.h
   stationsmodel.h
   stationssortfilterproxymodel.h
@@ -61,7 +63,25 @@ endif()
 
 qt4_wrap_cpp(lugdulov_base_MOC_SOURCE ${lugdulov_base_MOC_HDRS})
 
-add_library(lugdulov_base ${lugdulov_base_SRCS} ${lugdulov_base_MOC_SOURCE})
+link_directories(
+  ${QT_LIBRARY_DIR}
+  ${QJSON_LIBRARY_DIRS}
+)
+
 if (CMAKE_COMPILER_IS_GNUCC)
-  set_target_properties(lugdulov_base PROPERTIES COMPILE_FLAGS "-fPIC")
+  add_library(lugdulov_base SHARED ${lugdulov_base_SRCS} ${lugdulov_base_MOC_SOURCE})
+  set_target_properties(lugdulov_base PROPERTIES
+    VERSION ${LUGDULOV_VERSION_MAJOR}.${LUGDULOV_VERSION_MINOR}.${LUGDULOV_VERSION_PATCH}
+    SOVERSION ${LUGDULOV_VERSION_MAJOR}.${LUGDULOV_VERSION_MINOR}
+    DEFINE_SYMBOL LUGDULOV_BASE_MAKEDLL
+    )
+else()
+  add_library(lugdulov_base STATIC ${lugdulov_base_SRCS} ${lugdulov_base_MOC_SOURCE})
+  if (CMAKE_COMPILER_IS_GNUCC)
+    set_target_properties(lugdulov_base PROPERTIES COMPILE_FLAGS "-fPIC")
+  endif()
 endif()
+
+target_link_libraries(lugdulov_base
+  ${QJSON_LIBRARIES}
+)

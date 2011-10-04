@@ -54,6 +54,9 @@ class StationsPluginSimple : public StationsPlugin
   void loadOverride(const QString & file);
 
  public slots:
+  virtual void init();
+  virtual void deinit();
+
   virtual void fetchOnline();
   virtual void fetchAll();
   virtual void fetchFromFile(const QString & file);
@@ -73,7 +76,10 @@ class StationsPluginSimple : public StationsPlugin
   virtual void handleInfos(const QByteArray & data) = 0;
   virtual void handleStatus(const QByteArray & data, int id) = 0;
 
-  void request(const QUrl & url, int id = -1);
+  virtual void loadData(QDomDocument & doc);
+  virtual void saveData(QDomDocument & doc);
+
+  void request(const QUrl & url, int id = -1, const QByteArray & data = QByteArray());
 
   Station *getOrCreateStation(int id);
   void storeOrDropStation(Station *station, bool full = false);

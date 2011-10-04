@@ -136,6 +136,7 @@ target_link_libraries(
   lugdulov
   lugdulov_base
   lugdulov_data
+  ${QJSON_LIBRARIES}
   ${QT_LIBRARIES}
 )
 

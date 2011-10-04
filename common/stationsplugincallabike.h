@@ -16,8 +16,8 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef STATIONS_CITYBIKE_H
-#define STATIONS_CITYBIKE_H
+#ifndef STATIONS_CALLABIKE_H
+#define STATIONS_CALLABIKE_H
 
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
@@ -27,37 +27,25 @@
 
 class Station;
 
-class StationsPluginCityBike : public StationsPluginSimple
+class StationsPluginCallABike : public StationsPluginSingle
 {
   Q_OBJECT
  public:
-  StationsPluginCityBike(QObject *parent = NULL);
-  virtual ~StationsPluginCityBike();
-
- public slots:
-  virtual void update(Station *station);
-  virtual void update(const QList < Station * > & stations);
+  StationsPluginCallABike(QObject *parent = NULL);
+  virtual ~StationsPluginCallABike();
 
  protected:
-  virtual QUrl statusUrl(int id);
+  virtual void init(void);
+  virtual void fetchOnline(void);
 
   virtual void handleInfos(const QByteArray & data);
-  virtual void handleStatus(const QByteArray & data, int id);
-
-  virtual void loadData(QDomDocument & doc);
-  virtual void saveData(QDomDocument & doc);
 
  private:
-  void handleInfosKml(const QByteArray & data);
-  void handleInfosJs(const QByteArray & data);
-  void handleStatusJs(const QByteArray & data, int id);
+  QVariant parseHal2Marker(const QByteArray & data);
+  QString cleanElement(const QString & elem);
 
-  QStringList parseName(const QString & name);
-  QList < QStringList > findAll(const QRegExp & re, const QByteArray & data);
-
- private:
-  QString mode;
-  QString dataUrl;
+  bool gotCookies;
+  bool fetch;
 };
 
-#endif /* STATIONS_CITYBIKE_H */
+#endif /* STATIONS_CALLABIKE_H */

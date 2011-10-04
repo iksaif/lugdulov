@@ -4,7 +4,7 @@
     <type>CycloCity</type>
     <latitude min="-27.685380" max="-27.265380">-27.475380</latitude>
     <longitude min="152.809466" max="153.229466">153.019466</longitude>
-    <status>http://www.citycycle.com.au/service/stationdetails/%1</status>
+    <status>http://www.citycycle.com.au/service/stationdetails/brisbane/%1</status>
     <infos>http://www.citycycle.com.au/service/carto</infos>
     <name>Brisbane</name>
     <bikeName>CycloCycle</bikeName>

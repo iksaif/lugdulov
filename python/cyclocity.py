@@ -34,7 +34,7 @@ from plugin import *
 class CycloCity(Provider):
     config = [
     {
-            'city_uid'    : 'cergypontoise',
+            'city_uid'    : 'cergy',
             'country_uid' : 'fr',
             'country_Name' : 'France',
             'city_Name'    : 'Cergy-Pontoise',
@@ -368,7 +368,8 @@ class CycloCity(Provider):
 
     def get_status(self, station, city):
         service = self.service_by_city(city)
-        url = 'http://' + service['server'] + "/service/stationdetails/%d" % int(station.id)
+        url = 'http://' + service['server'] + "/service/stationdetails/" + city.uid + "/%d" % int(station.id)
+        print url
         fp = urlopen(url)
         data = fp.read()
         dom = xml.dom.minidom.parseString(data)
@@ -384,7 +385,7 @@ class CycloCity(Provider):
     def dump_city(self, city):
         service = self.service_by_city(city)
         city.rect = self.get_city_bike_zone(service, city)
-        city.status = 'http://' +  service['server'] + '/service/stationdetails/%1'
+        city.status = 'http://' +  service['server'] + '/service/stationdetails/' + city.uid + '/%1'
         city.infos = 'http://' +  service['server'] + '/service/carto'
         data = self._dump_city(city)
         print data

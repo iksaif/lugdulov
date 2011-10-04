@@ -34,6 +34,7 @@
 #include "stationspluginbixi2.h"
 #include "stationsplugintransdev.h"
 #include "stationspluginbcycle.h"
+#include "stationsplugincallabike.h"
 
 StationsPluginFactorySimple::StationsPluginFactorySimple()
   : QObject(NULL), initialized(false)
@@ -222,6 +223,8 @@ StationsPluginFactorySimple::pluginForType(const QString & type)
     plugin = new StationsPluginTransdev();
   else if (type == "BCycle")
     plugin = new StationsPluginBcycle();
+  else if (type == "CallABike")
+    plugin = new StationsPluginCallABike();
   else {
     qCritical() << "Unknown plugin type" << type;
   }

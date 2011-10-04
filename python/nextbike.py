@@ -140,7 +140,10 @@ class NextBike(Provider):
             station.bikes = station.slots = -1
             station.zone = ""
             if node.hasAttribute('bikes'):
-                station.bikes = int(node.getAttribute('bikes').replace('+', ''))
+                if not node.getAttribute('bikes'):
+                    station.bikes = -1
+                else:
+                    station.bikes = int(node.getAttribute('bikes').replace('+', ''))
             if node.hasAttribute('bike_racks'):
                 station.slots = int(node.getAttribute('bike_racks'))
             stations.append(station)

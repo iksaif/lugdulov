@@ -2,8 +2,8 @@
 <cities>
   <city id="konya">
     <type>NextBike</type>
-    <latitude min="36.872700" max="38.872700">37.872700</latitude>
-    <longitude min="31.503700" max="33.503700">32.503700</longitude>
+    <latitude min="36.871500" max="38.871500">37.871500</latitude>
+    <longitude min="31.495700" max="33.495700">32.495700</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Konya</name>
     <bikeName>nextbike</bikeName>

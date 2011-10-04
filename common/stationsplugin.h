@@ -82,6 +82,16 @@ public:
 
  public slots:
   /**
+   * Init before using the plugin
+   */
+  virtual void init() = 0;
+
+  /**
+   * Deinit while done with the plugin
+   */
+  virtual void deinit() = 0;
+
+  /**
    * emit stationsCreated() for each available stations
    */
   virtual void fetchAll() = 0;

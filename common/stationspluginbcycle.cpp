@@ -34,7 +34,7 @@ StationsPluginBcycle::handleInfos(const QByteArray & data)
 {
   QRegExp rgpos("point = new google\\.maps\\.LatLng\\((-?[0-9\\.]+), (-?[0-9\\.]+)\\);");
   QRegExp rgmark("marker = new createMarker\\(point, \"(.*)\", icon, back\\);");
-  QRegExp rghtml("<div class=\'location\'><strong>(.*)</strong><br />(.*)</div><div class=\'avail\'>Bikes available: <strong>([0-9]+)</strong><br />Docks available: <strong>([0-9]+)</strong></div><br/>");
+  QRegExp rghtml("<div class=\'location\'><strong>(.*)</strong><br />(.*)</div><div class=\'avail\'>Bikes available: <strong>([0-9]+)</strong><br />Docks available: <strong>([0-9]+)</strong></div>");
 
   QList < QPointF > positions;
 

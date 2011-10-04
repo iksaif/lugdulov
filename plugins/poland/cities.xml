@@ -8,4 +8,12 @@
     <name>Wrocław</name>
     <bikeName>nextbike</bikeName>
   </city>
+  <city id="wrocaw_61">
+    <type>NextBike</type>
+    <latitude min="50.112800" max="52.112800">51.112800</latitude>
+    <longitude min="16.024700" max="18.024700">17.024700</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Wrocław 61</name>
+    <bikeName>nextbike</bikeName>
+  </city>
 </cities>
