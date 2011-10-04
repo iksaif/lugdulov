@@ -53,7 +53,7 @@ class BCycle(Provider):
             'server' : 'http://spartanburg.bcycle.com/',
             'lat'  : 34.946667,
             'lng'  : -81.9275,
-            }
+            },
         {
             'country_uid' : 'usa',
             'country_name' : 'USA',

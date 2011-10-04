@@ -16,6 +16,30 @@
     <name>Minneapolis</name>
     <bikeName>Bixi</bikeName>
   </city>
+  <city id="spartanburg">
+    <type>BCycle</type>
+    <latitude min="34.746667" max="35.146667">34.946667</latitude>
+    <longitude min="-82.127500" max="-81.727500">-81.927500</longitude>
+    <infos>http://spartanburg.bcycle.com/</infos>
+    <name>Spartanburg</name>
+    <bikeName>BCycle</bikeName>
+  </city>
+  <city id="omaha">
+    <type>BCycle</type>
+    <latitude min="41.050000" max="41.450000">41.250000</latitude>
+    <longitude min="-96.200000" max="-95.800000">-96.000000</longitude>
+    <infos>http://omaha.bcycle.com/</infos>
+    <name>Omaha</name>
+    <bikeName>BCycle</bikeName>
+  </city>
+  <city id="browardcounty">
+    <type>BCycle</type>
+    <latitude min="45.567299" max="45.967299">45.767299</latitude>
+    <longitude min="4.634329" max="5.034329">4.834329</longitude>
+    <infos>http://browardcounty.bcycle.com/</infos>
+    <name>Broward County</name>
+    <bikeName>BCycle</bikeName>
+  </city>
   <city id="denver">
     <type>BCycle</type>
     <latitude min="39.539167" max="39.939167">39.739167</latitude>
