@@ -22,15 +22,12 @@
 """
 import sys
 import os
-import re
-import xml.dom.minidom
-import datetime
-import urllib2
+import json
 
 from plugin import *
 
 class BCycle(Provider):
-    """
+    config = [
         {
             'country_uid' : 'usa',
             'country_name' : 'USA',
@@ -41,9 +38,6 @@ class BCycle(Provider):
             'lat'  : 38.254167,
             'lng'  : -85.760278,
             },
-    """
-
-    config = [
         {
             'country_uid' : 'usa',
             'country_name' : 'USA',
@@ -78,7 +72,7 @@ class BCycle(Provider):
             'country_uid' : 'usa',
             'country_name' : 'USA',
             'city_uid'    : 'denver',
-            'city_name'    : 'denver',
+            'city_name'    : 'Denver',
             'bike_name'    : 'BCycle',
             'server' : 'http://denver.bcycle.com/',
             'lat'  : 39.739167,
@@ -146,19 +140,58 @@ class BCycle(Provider):
             },
         ]
 
+    api_url = 'http://api.bcycle.com/services/mobile.svc/ListKiosks'
+    data = None
+
     def service_by_city(self, city):
         for service in self.config:
             if service['city_uid'] == city.uid:
                 return service
-        return Non
+        return None
 
-    def url(self, city):
-        service = self.service_by_city(city)
-        return service['server']
+    def service_by_name(self, name):
+        for service in self.config:
+            if name.lower() in [service['city_uid'].lower(), service['city_name'].lower()]:
+                return service
+        return None
+
+    def fix_city_name(self, name):
+        name = name.strip()
+        if name == 'Kailua':
+            name = 'Hawaii'
+        if name in ['Ft. Lauderdale', 'Hollywood', 'Pompano Beach', 'Coconut Creek', 'Dania Beach', 'Lauderdale by the Sea', 'Hallandale']:
+            name = 'Broward County'
+        if name in ['SSF']:
+            name = 'San Antonio'
+        if name in ["San Fransico", "City"]:
+            name = None
+        return name
+
+    def load_data(self):
+        if self.data:
+            return
+
+        fp = urlopen(self.api_url)
+        self.data = json.loads(fp.read())
+
+        for station in self.data['d']['list']:
+            name = station['Address']['City']
+            name = self.fix_city_name(name)
+            if not name:
+                continue
+
+            service = self.service_by_name(name)
+            if not service:
+                raise Exception("%s not supported" % station['Address']['City'])
+            if 'active' not in service:
+                service['active'] = False
+            if station['Status'] != 'ComingSoon' or int(station['TotalDocks']) > 1:
+                service['active'] = True
 
     def get_countries(self):
         ret = []
         done = {}
+        self.load_data()
 
         for service in self.config:
             if service['country_uid'] in done:
@@ -176,7 +209,8 @@ class BCycle(Provider):
         for service in self.config:
             if country.uid != service['country_uid']:
                 continue
-
+            if 'active' not in service or service['active'] == False:
+                continue
             city = City()
             city.uid = service['city_uid']
             city.id = city.uid
@@ -193,42 +227,25 @@ class BCycle(Provider):
 
     def get_stations(self, city):
         stations = []
-        url = self.url(city)
-        fp = urlopen(url)
-        data = fp.read()
 
-        """
-        var icon = '/images/maps/marker.png';
-        var back = 'infowin-available'
-        var point = new google.maps.LatLng(41.86727, -87.61527);
-        kioskpoints.push(point);
-        var marker = new createMarker(point, "<div class='location'><strong>Shedd Aquarium</strong><br />1200 S Lakeshore Drive<br />Chicago, IL 60605</div><div class='avail'>Bikes available: <strong>9</strong><br />Docks available: <strong>12</strong></div><br/>", icon, back);
-        markers.push(marker);
-        """
-        rgpos = re.compile(r'point = new google\.maps\.LatLng\((.*?), (.*?)\);')
-        rgmark = re.compile(r'var marker = new createMarker\(point, \"(.*?)\", icon, back\);')
-        rghtml = re.compile(r'<div class=\'location\'><strong>(.*?)</strong><br />(.*?)</div><div class=\'avail\'>Bikes available: <strong>(\d+)</strong><br />Docks available: <strong>(\d+)</strong></div>')
+        for marker in self.data['d']['list']:
+            name = marker['Address']['City']
+            name = self.fix_city_name(name)
+            if name != city.name:
+                continue
+            if marker['Status'] == "ComingSoon":
+                continue
 
-        id = 1
-
-        for node in rgpos.findall(data):
             station = Station()
-            station.uid = str(id)
-            station.id = str(id)
-            station.lat = float(node[0])
-            station.lng = float(node[1])
+            station.uid = str
+            station.id = str(marker['Id'])
+            station.lat = float(marker['Location']['Latitude'])
+            station.lng = float(marker['Location']['Longitude'])
             station.zone = ""
+            station.description = marker['Address']['Street']
+            station.bikes = int(marker['BikesAvailable'])
+            station.slots = int(marker['TotalDocks']) - station.bikes
             stations.append(station)
-            id += 1
-
-        id = 1
-        for node in rghtml.findall(data):
-            station = stations[id - 1]
-            station.name = node[0]
-            station.description = node[1].replace("<br />", "")
-            station.bikes = int(node[2])
-            station.slots = int(node[3])
-            id += 1
 
         return stations
 
@@ -241,7 +258,7 @@ class BCycle(Provider):
 
     def dump_city(self, city):
         #city.rect = self.get_city_bike_zone(service, city)
-        city.infos = self.url(city)
+        city.infos = self.api_url;
         data = self._dump_city(city)
         print data
 
@@ -252,21 +269,7 @@ class BCycle(Provider):
 
 def test():
     prov = BCycle()
-
-    countries = prov.get_countries()
-    print countries
-    print countries[0]
-    cities = prov.get_cities(countries[0])
-    print cities
-    print cities[0]
-    zones = prov.get_zones(cities[0])
-    print zones
-    if (zones):
-        print zones[0]
-    stations = prov.get_stations(cities[0])
-    print "Stations: ", len(stations)
-    station = prov.get_status(stations[0], cities[0])
-    print station
+    prov.selftest()
 
 def main():
     test()

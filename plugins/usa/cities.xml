@@ -16,11 +16,19 @@
     <name>Minneapolis</name>
     <bikeName>Bixi</bikeName>
   </city>
+  <city id="louisville">
+    <type>BCycle</type>
+    <latitude min="38.054167" max="38.454167">38.254167</latitude>
+    <longitude min="-85.960278" max="-85.560278">-85.760278</longitude>
+    <infos>http://api.bcycle.com/services/mobile.svc/ListKiosks</infos>
+    <name>Louisville</name>
+    <bikeName>BCycle</bikeName>
+  </city>
   <city id="spartanburg">
     <type>BCycle</type>
     <latitude min="34.746667" max="35.146667">34.946667</latitude>
     <longitude min="-82.127500" max="-81.727500">-81.927500</longitude>
-    <infos>http://spartanburg.bcycle.com/</infos>
+    <infos>http://api.bcycle.com/services/mobile.svc/ListKiosks</infos>
     <name>Spartanburg</name>
     <bikeName>BCycle</bikeName>
   </city>
@@ -28,7 +36,7 @@
     <type>BCycle</type>
     <latitude min="41.050000" max="41.450000">41.250000</latitude>
     <longitude min="-96.200000" max="-95.800000">-96.000000</longitude>
-    <infos>http://omaha.bcycle.com/</infos>
+    <infos>http://api.bcycle.com/services/mobile.svc/ListKiosks</infos>
     <name>Omaha</name>
     <bikeName>BCycle</bikeName>
   </city>
@@ -36,7 +44,7 @@
     <type>BCycle</type>
     <latitude min="45.567299" max="45.967299">45.767299</latitude>
     <longitude min="4.634329" max="5.034329">4.834329</longitude>
-    <infos>http://browardcounty.bcycle.com/</infos>
+    <infos>http://api.bcycle.com/services/mobile.svc/ListKiosks</infos>
     <name>Broward County</name>
     <bikeName>BCycle</bikeName>
   </city>
@@ -44,7 +52,7 @@
     <type>BCycle</type>
     <latitude min="39.539167" max="39.939167">39.739167</latitude>
     <longitude min="-105.184722" max="-104.784722">-104.984722</longitude>
-    <infos>http://denver.bcycle.com/</infos>
+    <infos>http://api.bcycle.com/services/mobile.svc/ListKiosks</infos>
     <name>Denver</name>
     <bikeName>BCycle</bikeName>
   </city>
@@ -52,7 +60,7 @@
     <type>BCycle</type>
     <latitude min="41.677741" max="42.077741">41.877741</latitude>
     <longitude min="-87.833820" max="-87.433820">-87.633820</longitude>
-    <infos>http://chicago.bcycle.com/</infos>
+    <infos>http://api.bcycle.com/services/mobile.svc/ListKiosks</infos>
     <name>Chicago</name>
     <bikeName>BCycle</bikeName>
   </city>
@@ -60,7 +68,7 @@
     <type>BCycle</type>
     <latitude min="29.216667" max="29.616667">29.416667</latitude>
     <longitude min="-98.700000" max="-98.300000">-98.500000</longitude>
-    <infos>http://sanantonio.bcycle.com/</infos>
+    <infos>http://api.bcycle.com/services/mobile.svc/ListKiosks</infos>
     <name>San Antonio</name>
     <bikeName>BCycle</bikeName>
   </city>
@@ -68,7 +76,7 @@
     <type>BCycle</type>
     <latitude min="21.133611" max="21.533611">21.333611</latitude>
     <longitude min="-157.898056" max="-157.498056">-157.698056</longitude>
-    <infos>http://hawaii.bcycle.com/</infos>
+    <infos>http://api.bcycle.com/services/mobile.svc/ListKiosks</infos>
     <name>Hawaii</name>
     <bikeName>BCycle</bikeName>
   </city>
@@ -76,7 +84,7 @@
     <type>BCycle</type>
     <latitude min="41.390833" max="41.790833">41.590833</latitude>
     <longitude min="-93.820833" max="-93.420833">-93.620833</longitude>
-    <infos>http://desmoines.bcycle.com/</infos>
+    <infos>http://api.bcycle.com/services/mobile.svc/ListKiosks</infos>
     <name>Des Moines</name>
     <bikeName>BCycle</bikeName>
   </city>
@@ -84,7 +92,7 @@
     <type>BCycle</type>
     <latitude min="39.819444" max="40.219444">40.019444</latitude>
     <longitude min="-105.492778" max="-105.092778">-105.292778</longitude>
-    <infos>http://boulder.bcycle.com/</infos>
+    <infos>http://api.bcycle.com/services/mobile.svc/ListKiosks</infos>
     <name>Boulder</name>
     <bikeName>BCycle</bikeName>
   </city>
@@ -92,7 +100,7 @@
     <type>BCycle</type>
     <latitude min="42.866667" max="43.266667">43.066667</latitude>
     <longitude min="-89.600000" max="-89.200000">-89.400000</longitude>
-    <infos>http://madison.bcycle.com/</infos>
+    <infos>http://api.bcycle.com/services/mobile.svc/ListKiosks</infos>
     <name>Madison</name>
     <bikeName>BCycle</bikeName>
   </city>

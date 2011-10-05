@@ -16,6 +16,8 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
+#include <qjson/parser.h>
+
 #include "station.h"
 #include "tools.h"
 #include "stationspluginbcycle.h"
@@ -32,52 +34,56 @@ StationsPluginBcycle::~StationsPluginBcycle()
 void
 StationsPluginBcycle::handleInfos(const QByteArray & data)
 {
-  QRegExp rgpos("point = new google\\.maps\\.LatLng\\((-?[0-9\\.]+), (-?[0-9\\.]+)\\);");
-  QRegExp rgmark("marker = new createMarker\\(point, \"(.*)\", icon, back\\);");
-  QRegExp rghtml("<div class=\'location\'><strong>(.*)</strong><br />(.*)</div><div class=\'avail\'>Bikes available: <strong>([0-9]+)</strong><br />Docks available: <strong>([0-9]+)</strong></div>");
+  QJson::Parser parser;
+  bool ok;
+  QVariant result;
+  QVariantMap map;
 
-  QList < QPointF > positions;
+  result = parser.parse(data, &ok);
 
-  int ofs = 0;
-  int id = 1;
+  if (!ok)
+    return ;
 
-  rgpos.setMinimal(true);
-  rgmark.setMinimal(true);
-  rghtml.setMinimal(true);
+  map = result.toMap();
+  map = map["d"].toMap();
 
-  while ((ofs = rgpos.indexIn(data, ofs)) >= 0) {
-    QStringList capt = rgpos.capturedTexts();
+  foreach (QVariant var, map["list"].toList()) {
+    QVariantMap marker = var.toMap();
+    QPointF position;
+    int id;
+    Station *station;
+    bool ok;
 
-    positions << QPointF(capt.at(1).toDouble(), capt.at(2).toDouble());
-    ofs += rgpos.matchedLength();
-  }
+    if (marker.count() == 0)
+      continue;
 
-  ofs = 0;
+    id = marker["Id"].toInt(&ok);
 
-  while ((ofs = rgmark.indexIn(data, ofs)) >= 0) {
-    Station *station = getOrCreateStation(id++);
-    QStringList capt = rgmark.capturedTexts();
+    if (!ok)
+      continue ;
 
-    rghtml.indexIn(capt.at(1));
-    capt = rghtml.capturedTexts();
+    if (marker["Status"].toString() == "ComingSoon" && marker["TotalDocks"].toInt() <= 1)
+      continue ;
 
-    if (station->name().isEmpty())
-      station->setName(capt.at(1));
-    if (station->description().isEmpty())
-      station->setDescription(QString(capt.at(2)).replace("<br />", ""));
-    if (station->pos().isNull())
-      station->setPos(positions.takeFirst());
+    QVariantMap location = marker["Location"].toMap();
 
-    station->setBikes(capt.at(3).toDouble());
-    station->setFreeSlots(capt.at(4).toDouble());
-    station->setTotalSlots(station->bikes() + station->freeSlots());
+    position = QPointF(location["Latitude"].toReal(), location["Longitude"].toReal());
+
+    if (!rect().contains(position))
+      continue ;
+
+    station = getOrCreateStation(id);
+
+    station->setName(marker["Name"].toString());
+    station->setDescription(marker["Address"].toMap()["Street"].toString());
+
+    station->setBikes(marker["BikesAvailable"].toInt());
+    station->setTotalSlots(marker["TotalDocks"].toInt());
+    station->setFreeSlots(station->totalSlots() - station->bikes());
+
+    station->setPos(position);
 
     storeOrDropStation(station);
-
-    if (positions.isEmpty())
-      break ;
-
-    ofs += rgmark.matchedLength();
   }
 
   emit stationsCreated(stations.values());
