@@ -383,10 +383,9 @@ StationsPluginSimple::saveDiskCache()
 
   buffer.seek(0);
   doc.setContent(&buffer);
-  qDebug() << this;
+
   saveData(doc);
 
-  //qDebug() << doc.toString(2);
   file.open(QIODevice::WriteOnly);
   file.write(doc.toString(2).toUtf8());
   file.flush();
