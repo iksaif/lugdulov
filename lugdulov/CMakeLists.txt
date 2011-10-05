@@ -130,6 +130,7 @@ if (BUILD_STATIC_PLUGINS)
   target_link_libraries(lugdulov stationsturkey)
   target_link_libraries(lugdulov stationsslovenia)
   target_link_libraries(lugdulov stationspoland)
+  target_link_libraries(lugdulov stationstaiwan)
 endif ()
 
 target_link_libraries(

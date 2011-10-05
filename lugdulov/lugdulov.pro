@@ -59,6 +59,7 @@ contains(LUGDULOV_CONFIG, staticplugins) {
     LIBS += -lstationsswitzerland$${libsuffix} -lstationscanada$${libsuffix} -lstationsusa$${libsuffix} -lstationsaustralia$${libsuffix}
     LIBS += -lstationsnew-zealand$${libsuffix} -lstationslower-austria$${libsuffix} -lstationsunited-kingdom$${libsuffix}
     LIBS += -lstationsturkey$${libsuffix} -lstationsslovenia$${libsuffix} -lstationspoland$${libsuffix}
+    LIBS += -lstationstaiwan$${libsuffix}
 }
 
 LIBS += -lqjson -llugdulov_base -llugdulov_data

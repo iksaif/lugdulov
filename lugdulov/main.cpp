@@ -46,6 +46,7 @@ Q_IMPORT_PLUGIN(stationslatvia);
 Q_IMPORT_PLUGIN(stationsnewzealand);
 Q_IMPORT_PLUGIN(stationsusa);
 Q_IMPORT_PLUGIN(stationsaustralia);
+Q_IMPORT_PLUGIN(stationstaiwan);
 
 Q_IMPORT_PLUGIN(qtgeoservices_google);
 Q_IMPORT_PLUGIN(qtgeoservices_osm);
@@ -71,6 +72,10 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(new_zealand);
     Q_INIT_RESOURCE(usa);
     Q_INIT_RESOURCE(australia);
+    Q_INIT_RESOURCE(turkey);
+    Q_INIT_RESOURCE(slovenia);
+    Q_INIT_RESOURCE(poland);
+    Q_INIT_RESOURCE(taiwan);
 #endif
     Q_INIT_RESOURCE(i18n);
     Q_INIT_RESOURCE(icons);

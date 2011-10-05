@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cities>
+  <city id="taipei">
+    <type>Youbike</type>
+    <latitude min="24.833333" max="25.233333">25.033333</latitude>
+    <longitude min="121.433333" max="121.833333">121.633333</longitude>
+    <infos>http://www.youbike.com.tw/upage/googlemap/giant_stations.js</infos>
+    <name>Taipei</name>
+    <bikeName>Youbike</bikeName>
+  </city>
+</cities>
