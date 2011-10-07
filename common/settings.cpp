@@ -16,6 +16,7 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
+#include <QtGui/QDesktopServices>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QFileInfo>
 #include <QtCore/QDir>
@@ -23,6 +24,8 @@
 #include "settings.h"
 #include "station.h"
 #include "stationsplugin.h"
+
+Settings *Settings::instance_ = NULL;
 
 Settings::Settings(QObject *parent)
   : QSettings(QSettings::IniFormat, QSettings::UserScope,
@@ -108,4 +111,31 @@ Settings::bookmarks(StationsPlugin *plugin)
   return ret;
 }
 
-Settings *Settings::instance_ = NULL;
+static bool removeDir(const QString &dirName)
+{
+  bool result = true;
+  QDir dir(dirName);
+  QFlags<QDir::Filter> flags = QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files;
+
+  if (!dir.exists())
+    return result;
+
+  foreach (QFileInfo info, dir.entryInfoList(flags, QDir::DirsFirst)) {
+    if (info.isDir())
+      result = removeDir(info.absoluteFilePath());
+    else
+      result = QFile::remove(info.absoluteFilePath());
+    if (!result)
+	return result;
+    result = dir.rmdir(dirName);
+  }
+  return result;
+}
+
+void
+Settings::clearCache(void)
+{
+  removeDir(QDesktopServices::storageLocation(QDesktopServices::CacheLocation));
+}
+
+

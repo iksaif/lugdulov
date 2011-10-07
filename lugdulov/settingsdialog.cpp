@@ -70,6 +70,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 #if !defined(HAVE_QT_LOCATION)
   ui->checkBox->hide();
 #endif
+
+  connect(ui->clearCacheButton, SIGNAL(clicked()), this, SLOT(clearCache()));
 }
 
 SettingsDialog::~SettingsDialog()
@@ -86,4 +88,12 @@ SettingsDialog::saveSettings() const
   provider = ui->comboBox->itemData(ui->comboBox->currentIndex()).toString();
   conf.setValue("MapProvider", provider);
   conf.setValue("GpsPowerSave", ui->checkBox->checkState() == Qt::Checked);
+}
+
+void
+SettingsDialog::clearCache()
+{
+  ui->clearCacheButton->setDisabled(true);
+  Settings::clearCache();
+  ui->clearCacheButton->setEnabled(true);
 }

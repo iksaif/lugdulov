@@ -33,6 +33,9 @@ class SettingsDialog : public QDialog
 
   void saveSettings() const;
 
+ private slots:
+  void clearCache();
+
  private:
   Ui_SettingsDialog *ui;
 };

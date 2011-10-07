@@ -34,6 +34,7 @@ public:
   static bool bookmarked(Station *station);
   static void bookmark(Station *station, bool bookmark);
   static QList < int > bookmarks(StationsPlugin *plugin);
+  static void clearCache();
 
 private:
   static Settings *instance_;
