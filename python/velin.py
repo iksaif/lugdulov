@@ -182,6 +182,7 @@ class VelIn(Provider):
 
         fp = urlopen(self.url(city))
         data = fp.read()
+
         data = json.loads(data)
         for marker in data['site']['stands']:
             """
@@ -195,8 +196,8 @@ class VelIn(Provider):
             station.name = urllib.unquote(marker['name'])
             station.lat = float(marker['lat'])
             station.lng = float(marker['lng'])
-            station.slots = marker['ap']
-            station.bikes = marker['ab']
+            station.slots = int(marker['ap'])
+            station.bikes = int(marker['ab'])
             station.zone = ""
             stations.append(station)
         return stations
@@ -221,21 +222,7 @@ class VelIn(Provider):
 
 def test():
     prov = VelIn()
-
-    countries = prov.get_countries()
-    print countries
-    print countries[0]
-    cities = prov.get_cities(countries[0])
-    print cities
-    print cities[0]
-    zones = prov.get_zones(cities[0])
-    print zones
-    if (zones):
-        print zones[0]
-    stations = prov.get_stations(cities[0])
-    print "Stations: ", len(stations)
-    station = prov.get_status(stations[0], cities[0])
-    print station
+    prov.selftest()
 
 def main():
     test()

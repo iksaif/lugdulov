@@ -3,6 +3,7 @@
 
 import getopt
 import sys
+import random
 
 def getproviders():
     import cyclocity
@@ -30,7 +31,8 @@ def getproviders():
     ret.append(citybike.CityBike())
     ret.append(nextbike.NextBike())
     ret.append(citybikewien.CityBikeWien())
-    ret.append(yelo.Yelo())
+    # Disabled, site is broken
+    #ret.append(yelo.Yelo())
     ret.append(dupral.Dupral())
     ret.append(velin.VelIn())
     ret.append(veloplus.VeloPlus())
@@ -76,6 +78,8 @@ def dolist(args):
 
     print ", ".join(cities)
     print ", ".join(bikes)
+    print
+    print "%d countries %d cities %d networks" % (len(ret.keys()), len(cities), len(bikes))
 
 def docountries(args):
     ret = {}
@@ -127,6 +131,38 @@ def doxmlstations(args):
     p, country, city = find(args[0], args[1])
     p.dump_stations(city)
 
+
+def test(provider, country, city):
+    try:
+        stations = provider.get_stations(city)
+        status = "%s %s: %d stations" % (country.uid, city.uid, len(stations))
+        #for s in stations:
+        #    print s.id, s.lat, s.lng
+        if city.id in ['lyon']:
+            return
+        if len(stations):
+            i = random.randint(0, len(stations) - 1)
+            i = 0
+            station = stations[i]
+            station = provider.get_status(station, city)
+            status += "\t\t-> random station: %s %s %d %d" % (station.id, station.name, station.bikes, station.slots)
+        else:
+            station = None
+        print status.encode('utf8')
+    except Exception as e:
+        print '%s %s %s: fail: %s' % (provider, country.uid, city.uid, e)
+
+
+def dotest(args):
+    for p in getproviders():
+        for c in p.get_countries():
+            for j in p.get_cities(c):
+                test(p, c, j)
+
+def dotestcity(args):
+    p, country, city = find(args[0], args[1])
+    test(p, country, city)
+
 def usage():
     print "gen.py list"
     print "gen.py providers"
@@ -134,6 +170,8 @@ def usage():
     print "gen.py cities <country>"
     print "gen.py xml-cities <country>"
     print "gen.py xml-stations <city> <country>"
+    print "gen.py test"
+    print "gen.py test-city <city> <country>"
     sys.exit(1)
 
 def main():
@@ -146,6 +184,8 @@ def main():
     cmds.append(('cities', 1, docities))
     cmds.append(('xml-cities', 1, doxmlcities))
     cmds.append(('xml-stations', 2, doxmlstations))
+    cmds.append(('test', 0, dotest))
+    cmds.append(('test-city', 2, dotestcity))
 
     for cmd in cmds:
         if sys.argv[1] == cmd[0]:

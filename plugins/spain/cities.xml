@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cities>
-  <city id="valencia">
+  <city id="valence">
     <type>CycloCity</type>
     <latitude min="39.249258" max="39.669258">39.459258</latitude>
     <longitude min="-0.586453" max="-0.166453">-0.376453</longitude>
-    <status>http://www.valenbisi.es/service/stationdetails/valencia/%1</status>
+    <status>http://www.valenbisi.es/service/stationdetails/valence/%1</status>
     <infos>http://www.valenbisi.es/service/carto</infos>
     <name>Valencia</name>
     <bikeName>Valenbisi</bikeName>

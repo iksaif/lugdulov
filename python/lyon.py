@@ -67,37 +67,6 @@ class LyonVelov(Provider):
         city.create_rect()
         return [city]
 
-    def get_city_bike_zone(self, city):
-        lat_min  = city.rect[0]
-        lat_max  = city.rect[1]
-        lng_min = city.rect[2]
-        lng_max = city.rect[3]
-        lat_center = city.lat
-        lng_center = city.lng
-        stations = self.get_stations(city)
-        for station in stations:
-            lat_place = float(station.lat)
-            lng_place = float(station.lng)
-            if lat_place > city.rect[0] \
-                and lat_place < city.rect[2] \
-                and lng_place > city.rect[1] \
-                and lng_place < city.rect[3]:
-                if lat_min > lat_place : lat_min = lat_place
-                if lat_max < lat_place : lat_max = lat_place
-                if lng_min > lng_place : lng_min = lng_place
-                if lng_max < lng_place : lng_max = lng_place
-        return lat_min, lng_min, lat_max, lng_max
-
-    def get_zones(self, city):
-        zones = []
-        for region in self.regions:
-            zone = Zone()
-            zone.uid = region
-            zone.rect = (0, 0, 0, 0)
-            zone.create_center()
-            zones.append(zone)
-        return zones
-
     def get_stations(self, city):
         stations = []
 
@@ -140,12 +109,10 @@ class LyonVelov(Provider):
         return station
 
     def dump_city(self, city):
-        city.rect = self.get_city_bike_zone(city)
         data = self._dump_city(city)
         print data.encode('utf8')
 
     def dump_stations(self, city):
-        city.rect = self.get_city_bike_zone(city)
         data = self._dump_stations(city)
         print data.encode('utf8')
 
@@ -158,9 +125,6 @@ def test():
     cities = prov.get_cities(countries[0])
     print cities
     print cities[0]
-    zones = prov.get_zones(cities[0])
-    print zones
-    print zones[0]
     stations = prov.get_stations(cities[0])
     print "Stations: ", len(stations)
     station = prov.get_status(stations[0], cities[0])

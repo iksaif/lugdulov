@@ -27,15 +27,6 @@
     <name>Créteil</name>
     <bikeName>Cristolib</bikeName>
   </city>
-  <city id="aixenprovence">
-    <type>CycloCity</type>
-    <latitude min="43.314909" max="43.734909">43.524909</latitude>
-    <longitude min="5.244144" max="5.664144">5.454144</longitude>
-    <status>http://www.vhello.fr/service/stationdetails/aixenprovence/%1</status>
-    <infos>http://www.vhello.fr/service/carto</infos>
-    <name>Aix-En-Provence</name>
-    <bikeName>V'Hello</bikeName>
-  </city>
   <city id="amiens">
     <type>CycloCity</type>
     <latitude min="49.683918" max="50.103918">49.893918</latitude>
@@ -112,15 +103,15 @@
     <type>CycloCity</type>
     <latitude min="43.394363" max="43.814363">43.604363</latitude>
     <longitude min="1.232951" max="1.652951">1.442951</longitude>
-    <status>http://www.velo.toulouse.fr/service/stationdetails/toulouse/%1</status>
+    <status>http://www.velo.toulouse.fr/service/stationdetails/%1</status>
     <infos>http://www.velo.toulouse.fr/service/carto</infos>
     <name>Toulouse</name>
     <bikeName>Vélouse</bikeName>
   </city>
   <city id="lyon">
     <type>Lyon</type>
-    <latitude min="45.560747" max="45.797396">45.760747</latitude>
-    <longitude min="4.784099" max="5.052350">4.852350</longitude>
+    <latitude min="45.560747" max="45.960747">45.760747</latitude>
+    <longitude min="4.652350" max="5.052350">4.852350</longitude>
     <status>http://www.velov.grandlyon.com/velovmap/zhp/inc/DispoStationsParId.php?id=%1</status>
     <name>Lyon</name>
     <bikeName>Velo'V</bikeName>
@@ -149,14 +140,6 @@
     <infos>http://www.bip-perpignan.fr/localizaciones/localizaciones.php</infos>
     <name>Perpignan</name>
     <bikeName>Bip!</bikeName>
-  </city>
-  <city id="larochelle">
-    <type>Yelo</type>
-    <latitude min="45.958022" max="46.358022">46.158022</latitude>
-    <longitude min="-1.353595" max="-0.953595">-1.153595</longitude>
-    <infos>http://www.rtcr.fr/ct_93_297__Carte_du_libre_service_velos.html</infos>
-    <name>La Rochelle</name>
-    <bikeName>yelo</bikeName>
   </city>
   <city id="bordeaux">
     <type>Dupral</type>

@@ -114,6 +114,7 @@ class Melbourne(Provider):
         fp = urlopen(url)
 
         data = fp.read()
+        data = data.decode('string_escape')
         data = data.replace("\\'","'")
         data = json.loads(data)
         for marker in data:
@@ -123,8 +124,8 @@ class Melbourne(Provider):
             station.name = urllib.unquote(marker['name'])
             station.lat = float(marker['lat'])
             station.lng = float(marker['long'])
-            station.slots = marker['nbEmptyDocks']
-            station.bikes = marker['nbBikes']
+            station.slots = int(marker['nbEmptyDocks'])
+            station.bikes = int(marker['nbBikes'])
             station.zone = ""
             stations.append(station)
 

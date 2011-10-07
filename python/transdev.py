@@ -147,7 +147,6 @@ class Transdev(Provider):
         # map.addOverlay(newmark_03(3, 43.943233,4.805682, "<div align=\"left\">01 Jaures<br>Vélos disponibles: 1<br>Emplacements libres: 31<br>CB: Oui<br></div>"));
         rg = re.compile(r'map\.addOverlay\(newmark_\d+\((\d+), ([0-9\.]+),([0-9\.]+), "<div .*>(.*)<br>.*disponibles: (\d+)<br>(Emplacements libres: (\d+)<br>)?')
 
-        #print data
         for node in rg.findall(data):
             station = Station()
             station.uid = node[0]
@@ -155,8 +154,8 @@ class Transdev(Provider):
             station.name = node[3].decode('latin9')
             station.lat = float(node[1])
             station.lng = float(node[2])
-            station.bikes = node[4]
-            station.slots = node[5]
+            station.bikes = int(node[4])
+            station.slots = int(node[6]) if node[6] else -1
             station.zone = ""
             stations.append(station)
         return stations

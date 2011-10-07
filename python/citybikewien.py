@@ -83,8 +83,8 @@ class CityBikeWien(Provider):
             station.lng = float(node.getElementsByTagName('longitude')[0].childNodes[0].toxml())
             station.zone = "0"
 
-            station.bikes = node.getElementsByTagName('free_bikes')[0].childNodes[0].toxml()
-            station.slots = node.getElementsByTagName('free_boxes')[0].childNodes[0].toxml()
+            station.bikes = int(node.getElementsByTagName('free_bikes')[0].childNodes[0].toxml())
+            station.slots = int(node.getElementsByTagName('free_boxes')[0].childNodes[0].toxml())
             #status.total = node.getElementsByTagName('boxes')[0].childNodes[0].toxml()
             #status.status = node.getElementsByTagName('status')[0].childNodes[0].toxml()
             stations.append(station)

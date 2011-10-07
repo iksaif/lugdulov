@@ -65,17 +65,6 @@ class CycloCity(Provider):
             },
 
     {
-            'city_uid'    : 'aixenprovence',
-            'country_uid' : 'fr',
-            'country_Name' : 'France',
-            'city_Name'    : 'Aix-en-Provence',
-            'bike_name'    : 'V\'Hello',
-            'server' :  'www.vhello.fr',
-            'lat': 43.5249088,
-            'lng': 5.4541444
-            },
-
-    {
             'city_uid'    : 'amiens',
             'country_uid' : 'fr',
             'country_Name' : 'France',
@@ -207,7 +196,7 @@ class CycloCity(Provider):
             'lng': 6.1295960
             },
     {
-            'city_uid'     : 'valencia',
+            'city_uid'     : 'valence',
             'country_uid'  : 'es',
             'country_Name' : 'Spain',
             'city_Name'    : 'Valencia',
@@ -314,43 +303,30 @@ class CycloCity(Provider):
             city.lng = service['lng']
             city.create_rect()
             city.type = "CycloCity"
+            city.infos = 'http://' +  service['server'] + '/service/carto'
+            if city.id in ['toulouse', 'ljubljana']:
+                city.status = 'http://' +  service['server'] + '/service/stationdetails/%1'
+            else:
+                city.status = 'http://' +  service['server'] + '/service/stationdetails/' + city.uid + '/%1'
             #city.rect = self.get_city_bike_zone(service, city)
             ret.append(city)
         return ret
 
-    def get_carto(self, service):
+    def get_carto(self, service, city):
         if service['server'] in self.cache:
             return self.cache[service['server']]
 
-        url = 'http://' + service['server'] + "/service/carto"
+        url = city.infos
         fp = urlopen(url)
         data = fp.read()
         dom = xml.dom.minidom.parseString(data)
         self.cache[service['server']] = dom
         return dom
 
-    def get_zones(self, city):
-        zones = []
-        service = self.service_by_city(city)
-        dom = self.get_carto(service)
-        arrondissements = dom.getElementsByTagName("arrondissement")
-        for arrondissement in arrondissements:
-            zone = Zone()
-            zone.uid = arrondissement.getAttribute('number')
-
-            elems = {}
-            for elem in ["minLat", "minLng", "maxLat", "maxLng"]:
-                elems[elem] = float(arrondissement.getAttribute(elem))
-
-            zone.rect = (elems["minLat"], elems["maxLat"], elems["minLng"], elems["maxLng"])
-            zone.create_center()
-            zones.append(zone)
-        return zones
-
     def get_stations(self, city):
         stations = None
         service = self.service_by_city(city)
-        dom = self.get_carto(service)
+        dom = self.get_carto(service, city)
         stations = []
         markers = dom.getElementsByTagName("marker")
         for marker in markers:
@@ -363,13 +339,15 @@ class CycloCity(Provider):
             station.zone = marker.getAttribute('arrondissement')
             station.lat = float(marker.getAttribute('lat'))
             station.lng = float(marker.getAttribute('lng'))
-            stations.append(station)
+            if city.contains((station.lat, station.lng)):
+                stations.append(station)
         return stations
 
     def get_status(self, station, city):
         service = self.service_by_city(city)
-        url = 'http://' + service['server'] + "/service/stationdetails/" + city.uid + "/%d" % int(station.id)
-        print url
+
+        url = city.status.replace('%1', station.id)
+
         fp = urlopen(url)
         data = fp.read()
         dom = xml.dom.minidom.parseString(data)
@@ -385,8 +363,6 @@ class CycloCity(Provider):
     def dump_city(self, city):
         service = self.service_by_city(city)
         city.rect = self.get_city_bike_zone(service, city)
-        city.status = 'http://' +  service['server'] + '/service/stationdetails/' + city.uid + '/%1'
-        city.infos = 'http://' +  service['server'] + '/service/carto'
         data = self._dump_city(city)
         print data
 

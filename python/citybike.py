@@ -315,8 +315,8 @@ class CityBike(Provider):
 
         matches = re.findall("^\s*\:\s*(\d+)", data, re.M)
 
-        station.bikes = matches[0]
-        station.slots = matches[1]
+        station.bikes = int(matches[0])
+        station.slots = int(matches[1])
         return station
 
     def dump_city(self, city):

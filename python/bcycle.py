@@ -231,13 +231,14 @@ class BCycle(Provider):
         for marker in self.data['d']['list']:
             name = marker['Address']['City']
             name = self.fix_city_name(name)
+
             if name != city.name:
                 continue
-            if marker['Status'] == "ComingSoon":
+            if marker['Status'] == "ComingSoon" and int(marker['TotalDocks']) <= 1:
                 continue
 
             station = Station()
-            station.uid = str
+            station.uid = str(marker['Id'])
             station.id = str(marker['Id'])
             station.lat = float(marker['Location']['Latitude'])
             station.lng = float(marker['Location']['Longitude'])
@@ -245,6 +246,7 @@ class BCycle(Provider):
             station.description = marker['Address']['Street']
             station.bikes = int(marker['BikesAvailable'])
             station.slots = int(marker['TotalDocks']) - station.bikes
+
             stations.append(station)
 
         return stations
