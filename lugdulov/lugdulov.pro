@@ -159,3 +159,5 @@ FORMS += mainwindow.ui \
     pluginsdialog.ui \
     aboutdialog.ui \
     settingsdialog.ui
+
+TRANSLATIONS = ../data/i18n/lugdulov_fr.ts ../data/i18n/lugdulov_cs.ts

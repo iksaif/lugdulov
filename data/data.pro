@@ -8,8 +8,6 @@ CONFIG += staticlib
 
 TARGET = lugdulov_data
 
-TRANSLATIONS = i18n/lugdulov_fr.ts i18n/lugdulov_cs.ts
-
 OTHER_FILES += icons/velov.png \
     icons/slot.png \
     icons/icon.png \

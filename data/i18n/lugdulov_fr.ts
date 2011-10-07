@@ -107,32 +107,32 @@ p, li { white-space: pre-wrap; }
         <translation>Vos stations favorites.</translation>
     </message>
     <message>
-        <location filename="../../lugdulov/mainwindow.cpp" line="178"/>
+        <location filename="../../lugdulov/mainwindow.cpp" line="181"/>
         <source>Waiting for GPS fix...</source>
         <translation>En attente d&apos;un signal GPS valide...</translation>
     </message>
     <message>
-        <location filename="../../lugdulov/mainwindow.cpp" line="220"/>
+        <location filename="../../lugdulov/mainwindow.cpp" line="223"/>
         <source>Got GPS Fix.</source>
         <translation>Signal GPS ok.</translation>
     </message>
     <message>
-        <location filename="../../lugdulov/mainwindow.cpp" line="334"/>
+        <location filename="../../lugdulov/mainwindow.cpp" line="341"/>
         <source>Please set Location.</source>
         <translation>Choisissez votre ville.</translation>
     </message>
     <message>
-        <location filename="../../lugdulov/mainwindow.cpp" line="335"/>
+        <location filename="../../lugdulov/mainwindow.cpp" line="342"/>
         <source>We can&apos;t guess your current location, please choose one in the list.</source>
         <translation>Impossible de déterminer votre position actuelle, veuillez choisir une ville dans la liste.</translation>
     </message>
     <message>
-        <location filename="../../lugdulov/mainwindow.cpp" line="404"/>
+        <location filename="../../lugdulov/mainwindow.cpp" line="411"/>
         <source>Please restart Lugdulo&apos;V.</source>
         <translation>Relancer Lugdulo&apos;V.</translation>
     </message>
     <message>
-        <location filename="../../lugdulov/mainwindow.cpp" line="405"/>
+        <location filename="../../lugdulov/mainwindow.cpp" line="412"/>
         <source>You need to restart Lugdulo&apos;V  for changes to take effect.</source>
         <translation>Vous devez relancer le programme pour que les changements soient effectifs.</translation>
     </message>
@@ -148,7 +148,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../lugdulov/mainwindow.ui" line="87"/>
-        <location filename="../../lugdulov/mainwindow.cpp" line="290"/>
+        <location filename="../../lugdulov/mainwindow.cpp" line="297"/>
         <source>Auto</source>
         <translation>Automatique</translation>
     </message>
@@ -298,6 +298,16 @@ p, li { white-space: pre-wrap; }
         <location filename="../../lugdulov/settingsdialog.ui" line="30"/>
         <source>Enable GPS Power Save Mode</source>
         <translation>Économie d&apos;énergie pour le GPS</translation>
+    </message>
+    <message>
+        <location filename="../../lugdulov/settingsdialog.ui" line="47"/>
+        <source>Network Cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../lugdulov/settingsdialog.ui" line="54"/>
+        <source>Clear...</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../lugdulov/settingsdialog.cpp" line="44"/>

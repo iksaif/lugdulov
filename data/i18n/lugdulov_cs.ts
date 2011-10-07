@@ -4,27 +4,27 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../aboutdialog.ui" line="14"/>
+        <location filename="../../lugdulov/aboutdialog.ui" line="14"/>
         <source>About Lugdulo&apos;V</source>
         <translation>O programu Lugdulo&apos;V</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="49"/>
+        <location filename="../../lugdulov/aboutdialog.ui" line="49"/>
         <source>  Lugdulo&apos;V</source>
         <translation>  Lugdulo&apos;V</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="62"/>
+        <location filename="../../lugdulov/aboutdialog.ui" line="62"/>
         <source>  Version: </source>
         <translation>  Verze: </translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="73"/>
+        <location filename="../../lugdulov/aboutdialog.ui" line="73"/>
         <source>About</source>
         <translation>O programu</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="79"/>
+        <location filename="../../lugdulov/aboutdialog.ui" line="79"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -41,12 +41,12 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;amp;business=corentincj@iksaif.net&amp;amp;lc=US&amp;amp;item_name=Lugdulo&apos;V&amp;amp;currency_code=EUR&amp;amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted&quot;&gt;&lt;img src=&quot;:/res/paypal.png&quot; /&gt;&lt;/a&gt; &lt;a href=&quot;https://flattr.com/thing/74339/LugduloV&quot;&gt;&lt;img src=&quot;:/res/flattr.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="99"/>
+        <location filename="../../lugdulov/aboutdialog.ui" line="105"/>
         <source>Credits</source>
         <translation>Zásluhy</translation>
     </message>
     <message utf8="true">
-        <location filename="../aboutdialog.ui" line="105"/>
+        <location filename="../../lugdulov/aboutdialog.ui" line="111"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -91,7 +91,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="142"/>
+        <location filename="../../lugdulov/aboutdialog.ui" line="148"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -134,7 +134,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;59 Temple Place, Suite 330, Boston, MA 02111-1307 USA&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="136"/>
+        <location filename="../../lugdulov/aboutdialog.ui" line="142"/>
         <source>License</source>
         <translation>Povolení</translation>
     </message>
@@ -142,128 +142,128 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.ui" line="14"/>
+        <location filename="../../lugdulov/mainwindow.ui" line="14"/>
         <source>Lugdulo&apos;v</source>
         <translation>Lugdulo&apos;V</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="25"/>
+        <location filename="../../lugdulov/mainwindow.ui" line="25"/>
         <source>Stations:</source>
         <translation>Stanice:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="131"/>
+        <location filename="../../lugdulov/mainwindow.ui" line="131"/>
         <source>Search Stations</source>
         <translation>Hledat stanice</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="138"/>
+        <location filename="../../lugdulov/mainwindow.ui" line="138"/>
         <source>Search stations by name, check their status and bookmark them.</source>
         <translation>Hledat stanice podle názvu, ověřit jejich stav a založit si je.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="32"/>
+        <location filename="../../lugdulov/mainwindow.ui" line="32"/>
         <source>Favorites Stations</source>
         <translation>Oblíbené stanice</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="39"/>
+        <location filename="../../lugdulov/mainwindow.ui" line="39"/>
         <source>Manage your favorites stations and check their status quickly</source>
         <translation>Spravovat vaše oblíbené stanice a rychle ověřit jejich stav</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="46"/>
+        <location filename="../../lugdulov/mainwindow.ui" line="46"/>
         <source>Maps</source>
         <translation>Mapy</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="53"/>
+        <location filename="../../lugdulov/mainwindow.ui" line="53"/>
         <source>Show nearby stations on a Map.</source>
         <translation>Ukázat nedaleké stanice na mapě.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="67"/>
+        <location filename="../../lugdulov/mainwindow.ui" line="67"/>
         <source>Lugdulo&apos;V</source>
         <translation>Lugdulo&apos;V</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="87"/>
-        <location filename="../mainwindow.cpp" line="255"/>
+        <location filename="../../lugdulov/mainwindow.ui" line="87"/>
+        <location filename="../../lugdulov/mainwindow.cpp" line="297"/>
         <source>Auto</source>
         <translation>Automaticky</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="156"/>
+        <location filename="../../lugdulov/mainwindow.ui" line="156"/>
         <source>&amp;File</source>
         <translation>&amp;Soubor</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="162"/>
+        <location filename="../../lugdulov/mainwindow.ui" line="162"/>
         <source>&amp;Edit</source>
         <translation>&amp;Úpravy</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="168"/>
+        <location filename="../../lugdulov/mainwindow.ui" line="168"/>
         <source>&amp;Help</source>
         <translation>&amp;Nápověda</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="179"/>
+        <location filename="../../lugdulov/mainwindow.ui" line="179"/>
         <source>About &amp;Qt...</source>
         <translation>O &amp;Qt...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="184"/>
+        <location filename="../../lugdulov/mainwindow.ui" line="184"/>
         <source>&amp;About...</source>
         <translation>&amp;O programu...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="189"/>
+        <location filename="../../lugdulov/mainwindow.ui" line="189"/>
         <source>&amp;Quit</source>
         <translation>&amp;Ukončit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="198"/>
+        <location filename="../../lugdulov/mainwindow.ui" line="198"/>
         <source>Settings...</source>
         <translation>Nastavení...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="60"/>
+        <location filename="../../lugdulov/mainwindow.cpp" line="66"/>
         <source>Search stations by name</source>
         <translation>Hledat stanice podle názvu</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="61"/>
+        <location filename="../../lugdulov/mainwindow.cpp" line="67"/>
         <source>Manage your favorites stations.</source>
         <translation>Spravovat vaše oblíbené stanice.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="170"/>
+        <location filename="../../lugdulov/mainwindow.cpp" line="181"/>
         <source>Waiting for GPS fix...</source>
         <translation>Čeká se na platný signál GPS...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="205"/>
+        <location filename="../../lugdulov/mainwindow.cpp" line="223"/>
         <source>Got GPS Fix.</source>
         <translation>Obdržen platný signál GPS.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="294"/>
+        <location filename="../../lugdulov/mainwindow.cpp" line="341"/>
         <source>Please set Location.</source>
         <translation>Nastavte, prosím, polohu.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="295"/>
+        <location filename="../../lugdulov/mainwindow.cpp" line="342"/>
         <source>We can&apos;t guess your current location, please choose one in the list.</source>
         <translation>Nelze odhadnout vaši současnou polohu. Vyberte, prosím, jednu v seznamu.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="359"/>
+        <location filename="../../lugdulov/mainwindow.cpp" line="411"/>
         <source>Please restart Lugdulo&apos;V.</source>
         <translation>Spusťte, prosím, Lugdulo&apos;V znovu.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="360"/>
+        <location filename="../../lugdulov/mainwindow.cpp" line="412"/>
         <source>You need to restart Lugdulo&apos;V  for changes to take effect.</source>
         <translation>Musíte Lugdulo&apos;V spustit znovu, aby se změny projevily.</translation>
     </message>
@@ -271,7 +271,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MapDialog</name>
     <message>
-        <location filename="../mapdialog.ui" line="14"/>
+        <location filename="../../lugdulov/mapdialog.ui" line="14"/>
         <source>Stations Map</source>
         <translation>Mapa stanic</translation>
     </message>
@@ -279,128 +279,181 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MapWidget</name>
     <message>
-        <location filename="../mapwidget_qmapcontrol.cpp" line="142"/>
+        <location filename="../../lugdulov/mapwidget_qmapcontrol.cpp" line="143"/>
         <source>You are here</source>
         <translation>Jste zde</translation>
+    </message>
+    <message>
+        <location filename="../../lugdulov/mapwidget_lite.cpp" line="27"/>
+        <source>Map functionality is not available in the lite version, you need to purchase the full version on &lt;a href=&apos;http://store.ovi.com/content/65625&apos;&gt;OVI store&lt;/a&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../lugdulov/mapwidget_lite.cpp" line="32"/>
+        <source>Map not supported.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../lugdulov/mapwidget_qtm.cpp" line="207"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../lugdulov/mapwidget_qtm.cpp" line="207"/>
+        <source>Unable to find the &apos;%1&apos; geoservices plugin.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PluginsDialog</name>
     <message>
-        <location filename="../pluginsdialog.ui" line="14"/>
+        <location filename="../../lugdulov/pluginsdialog.ui" line="14"/>
         <source>Plugins</source>
         <translation>Přídavné moduly</translation>
     </message>
     <message>
-        <location filename="../pluginsdialog.ui" line="46"/>
+        <location filename="../../lugdulov/pluginsdialog.ui" line="46"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="../pluginsdialog.ui" line="51"/>
+        <location filename="../../lugdulov/pluginsdialog.ui" line="51"/>
         <source>Description</source>
         <translation>Popis</translation>
+    </message>
+    <message>
+        <location filename="../../lugdulov/pluginsdialog.cpp" line="82"/>
+        <source>Automatic</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="../settingsdialog.ui" line="14"/>
+        <location filename="../../lugdulov/settingsdialog.ui" line="14"/>
         <source>Settings</source>
         <translation>Nastavení</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="20"/>
+        <location filename="../../lugdulov/settingsdialog.ui" line="20"/>
         <source>Map Provider</source>
         <translation>Poskytovatel map</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.ui" line="30"/>
+        <location filename="../../lugdulov/settingsdialog.ui" line="30"/>
         <source>Enable GPS Power Save Mode</source>
         <translation>Povolit šetřící režim GPS</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.cpp" line="44"/>
-        <location filename="../settingsdialog.cpp" line="52"/>
+        <location filename="../../lugdulov/settingsdialog.ui" line="47"/>
+        <source>Network Cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../lugdulov/settingsdialog.ui" line="54"/>
+        <source>Clear...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../lugdulov/settingsdialog.cpp" line="44"/>
+        <location filename="../../lugdulov/settingsdialog.cpp" line="55"/>
         <source>Google Maps</source>
         <translation>Google Maps</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.cpp" line="46"/>
-        <location filename="../settingsdialog.cpp" line="53"/>
+        <location filename="../../lugdulov/settingsdialog.cpp" line="46"/>
+        <location filename="../../lugdulov/settingsdialog.cpp" line="57"/>
         <source>Open Street Map</source>
         <translation>Open Street Map</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.cpp" line="47"/>
-        <location filename="../settingsdialog.cpp" line="54"/>
+        <location filename="../../lugdulov/settingsdialog.cpp" line="47"/>
+        <location filename="../../lugdulov/settingsdialog.cpp" line="58"/>
         <source>Open Cycle Map</source>
         <translation>Open Cycle Map</translation>
     </message>
     <message>
-        <location filename="../settingsdialog.cpp" line="50"/>
+        <location filename="../../lugdulov/settingsdialog.cpp" line="50"/>
         <source>Ovi Maps (Nokia)</source>
         <translation>Ovi Maps (Nokia)</translation>
+    </message>
+    <message>
+        <location filename="../../lugdulov/settingsdialog.cpp" line="52"/>
+        <source>Cloudmade</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>StationDialog</name>
     <message>
-        <location filename="../stationdialog.ui" line="14"/>
+        <location filename="../../lugdulov/stationdialog.ui" line="14"/>
         <source>Station Dialog</source>
         <translation>Dialog pro stanice</translation>
     </message>
     <message>
-        <location filename="../stationdialog.ui" line="27"/>
+        <location filename="../../lugdulov/stationdialog.ui" line="27"/>
         <source>Station</source>
         <translation>Stanice</translation>
     </message>
     <message>
-        <location filename="../stationdialog.ui" line="52"/>
         <source>Icon</source>
-        <translation>Ikona</translation>
+        <translation type="obsolete">Ikona</translation>
     </message>
     <message>
-        <location filename="../stationdialog.ui" line="65"/>
+        <location filename="../../lugdulov/stationdialog.ui" line="62"/>
         <source>Description</source>
         <translation>Popis</translation>
     </message>
     <message>
-        <location filename="../stationdialog.ui" line="91"/>
-        <location filename="../stationdialog.ui" line="170"/>
+        <location filename="../../lugdulov/stationdialog.ui" line="88"/>
+        <location filename="../../lugdulov/stationdialog.ui" line="167"/>
         <source>%v/%m</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../stationdialog.ui" line="102"/>
+        <location filename="../../lugdulov/stationdialog.ui" line="99"/>
         <source>Map</source>
         <translation>Mapa</translation>
     </message>
     <message>
-        <location filename="../stationdialog.ui" line="113"/>
+        <location filename="../../lugdulov/stationdialog.ui" line="110"/>
         <source>Bookmark</source>
         <translation>Záložka</translation>
     </message>
     <message>
-        <location filename="../stationdialog.cpp" line="188"/>
+        <location filename="../../lugdulov/stationdialog.cpp" line="98"/>
+        <location filename="../../lugdulov/stationdialog.cpp" line="106"/>
+        <source>N/A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../lugdulov/stationdialog.cpp" line="183"/>
         <source>Network Error</source>
         <translation>Chyba v síti</translation>
     </message>
 </context>
 <context>
+    <name>StationsListDialog</name>
+    <message>
+        <location filename="../../lugdulov/stationslistdialog.ui" line="14"/>
+        <source>Search Stations</source>
+        <translation type="unfinished">Hledat stanice</translation>
+    </message>
+</context>
+<context>
     <name>StationsListView</name>
     <message>
-        <location filename="../stationslistview.cpp" line="81"/>
+        <location filename="../../lugdulov/stationslistview.cpp" line="84"/>
         <source>Details...</source>
         <translation>Podrobnosti...</translation>
     </message>
     <message>
-        <location filename="../stationslistview.cpp" line="82"/>
+        <location filename="../../lugdulov/stationslistview.cpp" line="85"/>
         <source>Show on a map...</source>
         <translation>Ukázat na mapě...</translation>
     </message>
     <message>
-        <location filename="../stationslistview.cpp" line="84"/>
+        <location filename="../../lugdulov/stationslistview.cpp" line="87"/>
         <source>Bookmark this station</source>
         <translation>Založit si tuto stanici</translation>
     </message>
@@ -408,12 +461,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>StationsListWidget</name>
     <message>
-        <location filename="../stationslistwidget.ui" line="20"/>
+        <location filename="../../lugdulov/stationslistwidget.ui" line="20"/>
         <source>Refresh</source>
         <translation>Obnovit</translation>
     </message>
     <message>
-        <location filename="../stationslistwidget.ui" line="37"/>
+        <location filename="../../lugdulov/stationslistwidget.ui" line="37"/>
         <source>Bookmarks</source>
         <translation>Záložky</translation>
     </message>
