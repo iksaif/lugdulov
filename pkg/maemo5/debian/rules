@@ -31,13 +31,13 @@ build: build-stamp
 build-stamp: configure-stamp 
 	dh_testdir
 
+	mkdir -p $(CURDIR)/qtm-geoservices-extras/build
+	cd $(CURDIR)/qtm-geoservices-extras/build && cmake -DCMAKE_PREFIX_PATH=/usr/bin -DCMAKE_INSTALL_PREFIX=/opt/lugdulov/lib -DMOBILITY_VERSION=1.2 -DCMAKE_BUILD_TYPE=Release $(CURDIR)/qtm-geoservices-extras/ && $(MAKE)
+
 	mkdir -p $(CURDIR)/build
-	cd $(CURDIR)/build && cmake -DCMAKE_PREFIX_PATH=/usr/bin -DCMAKE_INSTALL_PREFIX=/opt/lugdulov -DQMAPCONTROL=ON $(CURDIR) && $(MAKE)
+	cd $(CURDIR)/build && cmake -DCMAKE_PREFIX_PATH=/usr/bin -DCMAKE_INSTALL_PREFIX=/opt/lugdulov -DQMAPCONTROL=ON -DMOBILITY_VERSION=1.2 -DCMAKE_BUILD_TYPE=Release $(CURDIR) && $(MAKE)
 	# Append -DQJSON_LIBRARIES=/home/iksaif/dev/qjson-0.7.1/build/lib/libqjson.a -DQJSON_INCLUDE_DIR=/home/iksaif/dev/qjson-0.7.1/src/ to use a static qjson
 	# Append -DMOBILITY_MKSPEC_VERSION=11 to use libqtm-11-dev
-
-	#mkdir -p $(CURDIR)/qtm-geoservices-extras/build
-	#cd $(CURDIR)/qtm-geoservices-extras/build && cmake -DCMAKE_PREFIX_PATH=/usr/bin -DCMAKE_INSTALL_PREFIX=/opt/lugdulov/lib -DMOBILITY_MKSPEC_VERSION=11 -DCMAKE_BUILD_TYPE=Debug $(CURDIR)/qtm-geoservices-extras/ && $(MAKE)
 
 	touch $@
 
@@ -45,8 +45,8 @@ clean:
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp configure-stamp
+	rm -rf $(CURDIR)/qtm-geoservices-extras/build
 	rm -rf $(CURDIR)/build
-	#rm -rf $(CURDIR)/qtm-geoservices-extras/build
 	dh_clean debian/shlibs.local
 	dh_clean 
 
@@ -56,8 +56,8 @@ install: build
 	dh_clean -k 
 	dh_installdirs
 
+	cd $(CURDIR)/qtm-geoservices-extras/build && $(MAKE) DESTDIR=$(CURDIR)/debian/tmp install
 	cd $(CURDIR)/build && $(MAKE) DESTDIR=$(CURDIR)/debian/tmp install
-	#cd $(CURDIR)/qtm-geoservices-extras/build && $(MAKE) DESTDIR=$(CURDIR)/debian/tmp install
 	chmod +x debian/tmp/opt/lugdulov/bin/lugdulov-wrapper
 
 
@@ -76,7 +76,7 @@ binary-arch: build install
 	dh_fixperms
 	dh_makeshlibs
 	dh_installdeb
-	dh_shlibdeps # for libqtm-11-dev -l/opt/qtm11/lib/
+	dh_shlibdeps -l/opt/qtm12/lib/
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb

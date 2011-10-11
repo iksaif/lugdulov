@@ -1,6 +1,7 @@
 opt/lugdulov/share/applications/hildon/lugdulov.desktop /usr/share/applications/hildon/
 opt/lugdulov/share/icons/hicolor/64x64/hildon/lugdulov.png  /usr/share/icons/hicolor/64x64/hildon/
 opt/lugdulov/bin/lugdulov
+opt/lugdulov/lib/liblugdulov_base.so*
 opt/lugdulov/lib/lugdulov/plugins/libstationsaustria.so
 opt/lugdulov/lib/lugdulov/plugins/libstationsbelgium.so
 opt/lugdulov/lib/lugdulov/plugins/libstationscanada.so
@@ -20,7 +21,7 @@ opt/lugdulov/lib/lugdulov/plugins/libstationsaustralia.so
 opt/lugdulov/lib/lugdulov/plugins/libstationsturkey.so
 opt/lugdulov/lib/lugdulov/plugins/libstationspoland.so
 opt/lugdulov/lib/lugdulov/plugins/libstationsslovenia.so
-#opt/lugdulov/lib/plugins/geoservices/libqtgeoservices_google.so
-#opt/lugdulov/lib/plugins/geoservices/libqtgeoservices_openstreetmap.so
-opt/lugdulov/lib/libQtLocation.so.*
+opt/lugdulov/lib/lugdulov/plugins/libstationstaiwan.so
+opt/lugdulov/lib/plugins/geoservices/libqtgeoservices_google.so
+opt/lugdulov/lib/plugins/geoservices/libqtgeoservices_osm.so
 opt/lugdulov/bin/lugdulov-wrapper

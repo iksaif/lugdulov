@@ -3,7 +3,7 @@ Section: user/navigation
 Priority: extra
 Maintainer: Corentin Chary <corentincj@iksaif.net>
 XSBC-Bugtracker: http://dev.iksaif.net/projects/lugdulov
-Build-Depends: debhelper (>= 5), libqjson-dev, libqtm-dev, libqt4-dev, cmake, libx11-dev
+Build-Depends: debhelper (>= 5), libqjson-dev, libqtm-12-dev, libqt4-dev, cmake, libx11-dev
 Standards-Version: 3.7.2
 
 Package: lugdulov
@@ -12,13 +12,15 @@ Depends: ${shlibs:Depends}, ${misc:Depends}
 XB-Description-fr_FR: Recherche de stations de vélos.
  Fonctionne en France, Belgique, Irelande, Luxembourg,
  Espagne, Autriche, Allemagne, Lettonie, Japon, Suisse,
- Nouvelle-Zelande, Grande-Bretagne, Canada, USA, Australie.
+ Nouvelle-Zelande, Grande-Bretagne, Canada, USA, Australie,
+ Pologne, Taiwan, Slovenie.
 XB-Maemo-Display-Name: Lugdulov
 Description: A bike sharing application.
  Support cities in:
  France, Belgium, Ireland, Luxembourg, Spain, Austria,
  Germany, Latvia, Japan, New-Zealand, Switzerland,
- United-Kingdom, Canada, USA, Australia.
+ United-Kingdom, Canada, USA, Australia, Poland, Taiwan,
+ Slovenia.
 XB-Maemo-Icon-26:
  iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAACXBIWXMAAFxG
  AABcRgEUlENBAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/

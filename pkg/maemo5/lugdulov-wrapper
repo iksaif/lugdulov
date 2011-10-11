@@ -1,17 +1,16 @@
 #!/bin/sh
 
 if [ "${LD_LIBRARY_PATH+set}" = "set" ]; then
-    export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/opt/lugdulov/lib:/opt/qtm11/lib/"
+    export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/opt/lugdulov/lib:/opt/qtm12/lib/"
 else
-    export LD_LIBRARY_PATH="/opt/lugdulov/lib:/opt/qtm11/lib/"
+    export LD_LIBRARY_PATH="/opt/lugdulov/lib:/opt/qtm12/lib/"
 fi
 
-## For osm and google geoservices plugins
-## (not used yet)
-#if [ "${QT_PLUGIN_PATH+set}" = "set" ]; then
-#    export QT_PLUGIN_PATH="${QT_PLUGIN_PATH}:/opt/lugdulov/lib"
-#else
-#    export QT_PLUGIN_PATH="/opt/lugdulov/lib"
-#fi
+# For osm and google geoservices plugins
+if [ "${QT_PLUGIN_PATH+set}" = "set" ]; then
+    export QT_PLUGIN_PATH="${QT_PLUGIN_PATH}:/opt/lugdulov/lib"
+else
+    export QT_PLUGIN_PATH="/opt/lugdulov/lib"
+fi
 
 exec /opt/lugdulov/bin/lugdulov "$@"

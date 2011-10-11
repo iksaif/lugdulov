@@ -28,27 +28,14 @@
 #endif
 
 #ifdef HAVE_QT_LOCATION
-/* Can't use QtLocation/ prefix because Symbian installation is crappy */
-# if defined(Q_OS_SYMBIAN) || defined(Q_OS_WIN32)
-#  include <QGeoPositionInfoSource>
-#  include <QGeoCoordinate>
-#  include <QGeoPositionInfo>
-#  if !defined(USE_QMAPCONTROL) && !defined(LUGDULOV_LITE)
-#   include <QGraphicsGeoMap>
-#   include <QGeoMapPixmapObject>
-#   include <QGeoServiceProvider>
-#   include <QGeoBoundingBox>
-#  endif
-# else
-#  include <QtLocation/QGeoPositionInfoSource>
-#  include <QtLocation/QGeoPositionInfo>
-#  include <QtLocation/QGeoCoordinate>
-#  if !defined(USE_QMAPCONTROL) && !defined(LUGDULOV_LITE)
-#   include <QtLocation/QGraphicsGeoMap>
-#   include <QtLocation/QGeoMapPixmapObject>
-#   include <QtLocation/QGeoServiceProvider>
-#   include <QtLocation/QGeoBoundingBox>
-#  endif
+# include <QGeoPositionInfoSource>
+# include <QGeoCoordinate>
+# include <QGeoPositionInfo>
+# if !defined(USE_QMAPCONTROL) && !defined(LUGDULOV_LITE)
+#  include <QGraphicsGeoMap>
+#  include <QGeoMapPixmapObject>
+#  include <QGeoServiceProvider>
+#  include <QGeoBoundingBox>
 # endif
 #endif
 
@@ -57,15 +44,9 @@
 # include <QtNetwork/QNetworkConfiguration>
 # include <QtNetwork/QNetworkSession>
 #elif defined(HAVE_QT_BEARER)
-# if defined(Q_OS_SYMBIAN) || defined(Q_OS_WIN32)
-#  include <QNetworkConfigurationManager>
-#  include <QNetworkConfiguration>
-#  include <QNetworkSession>
-# else
-#  include <QtBearer/QNetworkConfigurationManager>
-#  include <QtBearer/QNetworkConfiguration>
-#  include <QtBearer/QNetworkSession>
-# endif
+# include <QNetworkConfigurationManager>
+# include <QNetworkConfiguration>
+# include <QNetworkSession>
 #endif
 
 #if defined(HAVE_QT_LOCATION) || (QT_VERSION < 0x040700 && defined(HAVE_QT_BEARER))
