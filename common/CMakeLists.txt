@@ -9,6 +9,7 @@ if (QT_MOBILITY_FOUND)
     ${QT_MOBILITY_INCLUDE_DIR}
     ${QT_MOBILITY_LOCATION_INCLUDE_DIR}
   )
+  link_directories(${QT_MOBILITY_LIBRARY_DIR})
 endif()
 
 set(lugdulov_base_SRCS
@@ -88,4 +89,9 @@ endif()
 
 target_link_libraries(lugdulov_base
   ${QJSON_LIBRARIES}
+  ${QT_LIBRARIES}
 )
+
+if (QT_MOBILITY_LOCATION_FOUND)
+  target_link_libraries(lugdulov_base ${QT_MOBILITY_LOCATION_LIBRARY})
+endif ()

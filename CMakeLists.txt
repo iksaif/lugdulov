@@ -96,18 +96,21 @@ endif("${CMAKE_BUILD_TYPE}" MATCHES "^Rel.*")
 
 #add extra search paths for libraries and includes
 set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)" )
-set(LIB_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE STRING "Directory where lib will install")
-set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include" CACHE STRING "Directory where include will install")
+set(LIB_INSTALL_DIR "lib${LIB_SUFFIX}" CACHE STRING "Directory where lib will install")
+set(INCLUDE_INSTALL_DIR "include" CACHE STRING "Directory where include will install")
 
 if (APPLE)
    set(PLUGIN_INSTALL_DIR "lugdulov.app/Contents/PlugIns/lugdulov")
    set(BIN_INSTALL_DIR "lugdulov.app/Contents/MacOS")
+   set(LIB_INSTALL_DIR "lugdulov.app/Contents/MacOS")
 elseif (WIN32)
    set(PLUGIN_INSTALL_DIR "bin/plugins/lugdulov")
    set(BIN_INSTALL_DIR "bin") # FIXME CMake bug
+   set(LIB_INSTALL_DIR "bin") # FIXME CMake bug
 else()
    set(PLUGIN_INSTALL_DIR "lib/lugdulov/plugins")
    set(BIN_INSTALL_DIR "bin")
+   set(LIB_INSTALL_DIR "lib")
 endif()
 
 set (LUGDULOV_VERSION "${LUGDULOV_VERSION_MAJOR}.${LUGDULOV_VERSION_MINOR}.${LUGDULOV_VERSION_PATCH}")
@@ -194,9 +197,9 @@ elseif(APPLE)
   set(CPACK_GENERATOR "DragNDrop")
 
   set(CPACK_PACKAGE_FILE_NAME "lugdulov-${CPACK_VERSION}-osx")
-  set(CPACK_PACKAGE_ICON ${CMAKE_SOURCE_DIR}/lugdulov/res/lugdulov.icns)
+  set(CPACK_PACKAGE_ICON ${CMAKE_SOURCE_DIR}/data/icons/lugdulov.icns)
 
-  set(CPACK_BUNDLE_ICON ${CMAKE_SOURCE_DIR}/lugdulov/res/lugdulov.icns)
+  set(CPACK_BUNDLE_ICON ${CMAKE_SOURCE_DIR}/data/icons/lugdulov.icns)
   set(CPACK_BUNDLE_NAME "lugdulov")
   set(CPACK_BUNDLE_STARTUP_COMMAND "${CMAKE_SOURCE_DIR}/pkg/osx/lugdulov-startup")
   set(CPACK_BUNDLE_PLIST ${CMAKE_BINARY_DIR}/Info.plist)
@@ -217,7 +220,7 @@ elseif(APPLE)
   set(MACOSX_BUNDLE_INFO_PLIST ${CMAKE_BINARY_DIR}/Info.plist)
 
   install(FILES ${CMAKE_BINARY_DIR}/Info.plist DESTINATION lugdulov.app/Contents/)
-  install(FILES lugdulov/res/lugdulov.icns DESTINATION lugdulov.app/Contents/Resources)
+  install(FILES data/icons/lugdulov.icns DESTINATION lugdulov.app/Contents/Resources)
 
   set(CPACK_BINARY_DRAGNDROP ON)
 else()

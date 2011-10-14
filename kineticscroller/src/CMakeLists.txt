@@ -38,5 +38,5 @@ add_library(kineticscroller STATIC
 target_link_libraries(kineticscroller ${QT_LIBRARIES})
 
 if (APPLE)
-  target_link_libraries(kineticscroller -framework Cocoa)
+  target_link_libraries(kineticscroller "-framework Cocoa")
 endif()
