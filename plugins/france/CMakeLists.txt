@@ -33,6 +33,6 @@ qt4_wrap_cpp(france_MOC_SRCS ${france_HDRS})
 
 qt4_add_resources(france_RC_SRCS france.qrc)
 
-_qt4_add_translation(QM_FILES ${france_TRS})
+qt4_add_translation(QM_FILES ${france_TRS})
 
 add_plugin(stationsfrance ${france_SRCS} ${france_MOC_SRCS} ${france_RC_SRCS})

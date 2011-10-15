@@ -68,7 +68,7 @@ link_directories(
   ${QJSON_LIBRARY_DIRS}
 )
 
-if (CMAKE_COMPILER_IS_GNUCC)
+if (CMAKE_COMPILER_IS_GNUCC AND NOT WIN32)
   add_library(lugdulov_base SHARED ${lugdulov_base_SRCS} ${lugdulov_base_MOC_SOURCE})
   set_target_properties(lugdulov_base PROPERTIES
     VERSION ${LUGDULOV_VERSION_MAJOR}.${LUGDULOV_VERSION_MINOR}.${LUGDULOV_VERSION_PATCH}
@@ -82,16 +82,16 @@ if (CMAKE_COMPILER_IS_GNUCC)
   )
 else()
   add_library(lugdulov_base STATIC ${lugdulov_base_SRCS} ${lugdulov_base_MOC_SOURCE})
-  if (CMAKE_COMPILER_IS_GNUCC)
+  if (CMAKE_COMPILER_IS_GNUCC AND NOT WIN32)
     set_target_properties(lugdulov_base PROPERTIES COMPILE_FLAGS "-fPIC")
   endif()
 endif()
+
+if (QT_MOBILITY_LOCATION_FOUND)
+  target_link_libraries(lugdulov_base ${QT_MOBILITY_LOCATION_LIBRARY})
+endif ()
 
 target_link_libraries(lugdulov_base
   ${QJSON_LIBRARIES}
   ${QT_LIBRARIES}
 )
-
-if (QT_MOBILITY_LOCATION_FOUND)
-  target_link_libraries(lugdulov_base ${QT_MOBILITY_LOCATION_LIBRARY})
-endif ()

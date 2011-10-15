@@ -16,7 +16,7 @@ if(APPLE OR WIN32)
   set(APPS "\${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}/lugdulov${CMAKE_EXECUTABLE_SUFFIX}")
 
   if (WIN32)
-    install(FILES "${QT_PLUGINS_DIR}/imageformats/${CMAKE_SHARED_LIBRARY_PREFIX}qjpeg4${CMAKE_SHARED_LIBRARY_SUFFIX}" DESTINATION "${plugins_dest}/imageformats")
+    install(FILES "${QT_PLUGINS_DIR}/imageformats/qjpeg4${CMAKE_SHARED_LIBRARY_SUFFIX}" DESTINATION "${plugins_dest}/imageformats")
   else()
     install(FILES "${QT_PLUGINS_DIR}/imageformats/${CMAKE_SHARED_LIBRARY_PREFIX}qjpeg${CMAKE_SHARED_LIBRARY_SUFFIX}" DESTINATION "${plugins_dest}/imageformats")
   endif()
@@ -24,6 +24,13 @@ if(APPLE OR WIN32)
   if (QT_MOBILITY_FOUND)
     install(DIRECTORY "${QT_PLUGINS_DIR}/geoservices" DESTINATION ${plugins_dest})
   endif()
+
+  #if(WIN32)
+  #  if(CMAKE_BUILD_TYPE MATCHES Debug OR CMAKE_BUILD_TYPE MATCHES RelWithDebInfo)
+  #    install(FILES "${QT_PLUGINS_DIR}/imageformats/qjpegd4.dll" DESTINATION "${plugins_dest}/imageformats")
+  #	endif()
+  #	install(FILES "${QT_PLUGINS_DIR}/imageformats/qjpeg4.dll" DESTINATION "${plugins_dest}/imageformats")
+  #else()
   
   install(FILES "${QJSON_LIBRARIES}" DESTINATION ${BIN_INSTALL_DIR})
 

@@ -102,7 +102,7 @@ if (QT_MOBILITY_LOCATION_FOUND)
 endif ()
 
 if (QT_LOCATION_BEARER_FOUND)
-  target_link_libraries(lugdulov ${QT_LOCATION_BEARER_LIBRARY})
+  target_link_libraries(lugdulov ${QT_MOBILITY_BEARER_LIBRARY})
 endif ()
 
 if (Q_WS_MAEMO_5)
