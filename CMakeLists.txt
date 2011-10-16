@@ -5,7 +5,7 @@ project(lugdulov)
 include(CMakeDependentOption)
 
 set(LUGDULOV_VERSION_MAJOR "0")
-set(LUGDULOV_VERSION_MINOR "5")
+set(LUGDULOV_VERSION_MINOR "6")
 set(LUGDULOV_VERSION_PATCH "0")
 
 if(CMAKE_SYSTEM_NAME MATCHES Linux)

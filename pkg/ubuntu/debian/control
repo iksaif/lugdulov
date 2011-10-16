@@ -9,8 +9,9 @@ Standards-Version: 3.9.1
 Package: lugdulov
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: qtm-geoservices-google, qtm-geoservices-osm
 Description: A bike sharing application.
  Support cities in:
  France, Belgium, Ireland, Luxembourg, Spain, Austria,
  Germany, Latvia, Japan, New-Zealand, Switzerland,
- United-Kingdom, Canada.
+ United-Kingdom, Canada, Turkey, Poland, Taiwan, USA.

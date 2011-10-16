@@ -1,3 +1,10 @@
+lugdulov (0.6.0-1) oneiric; urgency=low
+
+  * Use QtMobility
+  * New cities and new countries
+
+ -- Corentin Chary <corentincj@iksaif.net>  Sun, 16 Oct 2011 00:00:00 +0200
+
 lugdulov (0.5.0-1) maverick; urgency=low
 
   * Use kinetic scroller in all lists
