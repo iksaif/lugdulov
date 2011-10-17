@@ -22,6 +22,7 @@ SOURCES =   tools.cpp \
   stationspluginbixi2.cpp \
   stationsplugintransdev.cpp \
   stationspluginbcycle.cpp \
+  stationsplugincallabike.cpp \
   station.cpp \
   settings.cpp \
   stationsmodel.cpp \
@@ -42,6 +43,7 @@ HEADERS =  tools.h \
   stationspluginbixi2.h \
   stationsplugintransdev.h \
   stationspluginbcycle.h \
+  stationsplugincallabike.h \
   settings.h \
   stationspluginmanager.h \
   stationsmodel.h \
