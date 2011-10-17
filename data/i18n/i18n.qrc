@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
     <file>lugdulov_fr.qm</file>
+	<file>lugdulov_cs.qm</file>
   </qresource>
 </RCC>

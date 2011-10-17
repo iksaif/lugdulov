@@ -1,6 +1,6 @@
-include (../../lugdulov.pri)
+include (../lugdulov.pri)
 
-INCLUDEPATH += ../../qmake/
+INCLUDEPATH += ../qmake/
 INCLUDEPATH += $$QJSON_INCLUDE_PATH
 
 TEMPLATE = lib

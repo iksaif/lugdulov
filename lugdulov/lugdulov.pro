@@ -18,17 +18,14 @@ symbian: {
   }
 }
 
-ICON = lugdulov.svg
+ICON = ../data/icons/lugdulov.svg
 
 !CONFIG(android): DESTDIR = ../bin
 
 INCLUDEPATH += ../qmake/
 INCLUDEPATH += ../common/
 
-unix {
-    suffix = ""
-	libsuffix = "" # Not needed
-} else: win32 {
+win32 {
     CONFIG(debug, debug|release) {
       suffix = debug
     } else {
@@ -38,7 +35,10 @@ unix {
 } else: symbian {
 	contains(LUGDULOV_CONFIG, staticplugins): libsuffix = ".lib"
 	else: libsuffix = ".dll"
-}
+} else {
+    suffix = ""
+	libsuffix = "" # Not needed
+} 
 
 lessThan(QT_VER_MAJ, 4) | lessThan(QT_VER_MIN, 8) {
 	DEFINES += HAVE_KINETIC_SCROLLER_SOLUTION
@@ -98,6 +98,11 @@ contains(LUGDULOV_CONFIG, lite) {
 } else {
   SOURCES += mapwidget_qtm.cpp mapgraphicswidget_qtm.cpp
   HEADERS += mapwidget_qtm.h mapgraphicswidget_qtm.h
+}
+
+symbian {
+    # Work around bug in gcce toolchain (QTCREATORBUG-5589)
+    LIBS += -lusrt2_2.lib
 }
 
 symbian: {

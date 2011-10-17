@@ -45,6 +45,10 @@ StationsListDialog::StationsListDialog(StationsPlugin *plugin, QWidget *parent)
   ui->setupUi(this);
   setupDialog(this);
 
+#if defined(Q_WS_S60) || defined(Q_WS_SIMULATOR)
+  ui->gridLayout->setContentsMargins(0, 0, 0, 0);
+#endif
+
   connect(plugin, SIGNAL(progress(qint64, qint64)), this, SLOT(progress(qint64, qint64)));
   connect(plugin, SIGNAL(error(const QString &, const QString &)),
 	  this, SLOT(error(const QString &, const QString &)));
