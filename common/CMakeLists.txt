@@ -68,7 +68,9 @@ link_directories(
   ${QJSON_LIBRARY_DIRS}
 )
 
-if (CMAKE_COMPILER_IS_GNUCC AND NOT WIN32)
+# Shared library disabled on Maemo 5 because I can't make
+# dh_shlibdeps work... (works on scratchbox)
+if (CMAKE_COMPILER_IS_GNUCC AND NOT WIN32 AND NOT Q_WS_MAEMO_5 AND NOT BUILD_STATIC_PLUGINS)
   add_library(lugdulov_base SHARED ${lugdulov_base_SRCS} ${lugdulov_base_MOC_SOURCE})
   set_target_properties(lugdulov_base PROPERTIES
     VERSION ${LUGDULOV_VERSION_MAJOR}.${LUGDULOV_VERSION_MINOR}.${LUGDULOV_VERSION_PATCH}
