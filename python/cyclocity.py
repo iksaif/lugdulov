@@ -304,10 +304,7 @@ class CycloCity(Provider):
             city.create_rect()
             city.type = "CycloCity"
             city.infos = 'http://' +  service['server'] + '/service/carto'
-            if city.id in ['toulouse', 'ljubljana']:
-                city.status = 'http://' +  service['server'] + '/service/stationdetails/%1'
-            else:
-                city.status = 'http://' +  service['server'] + '/service/stationdetails/' + city.uid + '/%1'
+            city.status = 'http://' +  service['server'] + '/service/stationdetails/' + city.uid + '/%1'
             #city.rect = self.get_city_bike_zone(service, city)
             ret.append(city)
         return ret

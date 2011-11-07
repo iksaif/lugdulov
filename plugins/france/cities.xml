@@ -103,7 +103,7 @@
     <type>CycloCity</type>
     <latitude min="43.394363" max="43.814363">43.604363</latitude>
     <longitude min="1.232951" max="1.652951">1.442951</longitude>
-    <status>http://www.velo.toulouse.fr/service/stationdetails/%1</status>
+    <status>http://www.velo.toulouse.fr/service/stationdetails/toulouse/%1</status>
     <infos>http://www.velo.toulouse.fr/service/carto</infos>
     <name>Toulouse</name>
     <bikeName>Vélouse</bikeName>
