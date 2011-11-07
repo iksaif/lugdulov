@@ -163,7 +163,7 @@ class BCycle(Provider):
             name = 'Broward County'
         if name in ['SSF']:
             name = 'San Antonio'
-        if name in ["San Fransico", "City"]:
+        if name in ["South San Fransico", "San Fransico", "City"]:
             name = None
         return name
 
