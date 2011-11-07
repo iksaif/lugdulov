@@ -126,7 +126,7 @@ QVariant
 StationsPluginCallABike::parseHal2Marker(const QByteArray & data)
 {
   QVariantList ret;
-  QRegExp re = QRegExp("createHAL2Marker\\((.*),\\{(.*)\\}\\);");
+  QRegExp re = QRegExp("createHAL2Marker\\((.*),\\{(.*)\\);");
   int ofs = 0;
   int id = 0;
 
@@ -155,7 +155,7 @@ StationsPluginCallABike::parseHal2Marker(const QByteArray & data)
 
     bikeRe = QRegExp("bikes: \"([0-9,]*)\"");
     bikeRe.setMinimal(true);
-    bikeRe.indexIn(captured.at(2));
+    bikeRe.indexIn(captured.at(1));
 
     if (!bikeRe.capturedTexts().isEmpty()) {
       QString bikes = bikeRe.capturedTexts().at(1);
