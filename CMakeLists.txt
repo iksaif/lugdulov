@@ -6,7 +6,7 @@ include(CMakeDependentOption)
 
 set(LUGDULOV_VERSION_MAJOR "0")
 set(LUGDULOV_VERSION_MINOR "6")
-set(LUGDULOV_VERSION_PATCH "0")
+set(LUGDULOV_VERSION_PATCH "1")
 
 if(CMAKE_SYSTEM_NAME MATCHES Linux)
   set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /usr/share/apps/cmake/modules/)
@@ -201,7 +201,7 @@ elseif(APPLE)
   set(CPACK_PACKAGE_ICON ${CMAKE_SOURCE_DIR}/data/icons/lugdulov.icns)
 
   set(CPACK_BUNDLE_ICON ${CMAKE_SOURCE_DIR}/data/icons/lugdulov.icns)
-  set(CPACK_BUNDLE_NAME "lugdulov")
+  set(CPACK_BUNDLE_NAME "Lugdulo'V")
   set(CPACK_BUNDLE_STARTUP_COMMAND "${CMAKE_SOURCE_DIR}/pkg/osx/lugdulov-startup")
   set(CPACK_BUNDLE_PLIST ${CMAKE_BINARY_DIR}/Info.plist)
 
@@ -209,8 +209,8 @@ elseif(APPLE)
   #set(CPACK_DMG_DS_STORE pkg/osx/DS_Store)
 
   set(MACOSX_BUNDLE_GUI_IDENTIFIER "http://xf.iksaif.net/dev/lugdulov.html")
-  set(MACOSX_BUNDLE_LONG_VERSION_STRING "lugdulov" ${CPACK_VERSION})
-  set(MACOSX_BUNDLE_BUNDLE_NAME "lugdulov")
+  set(MACOSX_BUNDLE_LONG_VERSION_STRING "Lugdulo'V" ${CPACK_VERSION})
+  set(MACOSX_BUNDLE_BUNDLE_NAME "Lugdulo'V")
   set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${CPACK_VERSION})
   set(MACOSX_BUNDLE_BUNDLE_VERSION ${CPACK_VERSION})
   set(MACOSX_BUNDLE_COPYRIGHT "Copyright 2010-2011 Corentin Chary")
