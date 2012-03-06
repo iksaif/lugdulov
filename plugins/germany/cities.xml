@@ -416,20 +416,20 @@
     <name>Garmisch-Partenkirchen</name>
     <bikeName>CallABike</bikeName>
   </city>
-  <city id="göttingen_33200">
-    <type>CallABike</type>
-    <latitude min="50.529746" max="52.529746">51.529746</latitude>
-    <longitude min="8.929530" max="10.929530">9.929530</longitude>
-    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
-    <name>Göttingen</name>
-    <bikeName>CallABike</bikeName>
-  </city>
   <city id="gotha_136">
     <type>CallABike</type>
     <latitude min="49.945882" max="51.945882">50.945882</latitude>
     <longitude min="9.706520" max="11.706520">10.706520</longitude>
     <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
     <name>Gotha</name>
+    <bikeName>CallABike</bikeName>
+  </city>
+  <city id="göttingen_33200">
+    <type>CallABike</type>
+    <latitude min="50.529746" max="52.529746">51.529746</latitude>
+    <longitude min="8.929530" max="10.929530">9.929530</longitude>
+    <infos>http://www.callabike-interaktiv.de/kundenbuchung/hal2ajax_process.php?ajxmod=bikesearch&amp;f=500&amp;requester=/kundenbuchung/process.php&amp;popup=</infos>
+    <name>Göttingen</name>
     <bikeName>CallABike</bikeName>
   </city>
   <city id="gütersloh_139">

@@ -207,7 +207,7 @@ class Bixi(Provider):
     def dump_stations(self, city):
         #city.rect = self.get_city_bike_zone(service, city)
         data = self._dump_stations(city)
-        print data.encode('utf8')
+        print data #.encode('utf8')
 
 def test():
     prov = Bixi()

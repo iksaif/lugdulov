@@ -134,19 +134,19 @@ class Station():
 class Provider():
 
     def get_countries(self):
-        pass
+        return []
 
     def get_cities(self, country):
-        pass
+        return []
 
     def get_zones(self, city):
-        pass
+        return []
 
     def get_stations(self, city):
-        pass
+        return []
 
     def get_status(self, station, city):
-        pass
+        return None
 
     def get_city_bike_zone(self, service, city, offset = 0.01):
         lat_min  = city.rect[0]

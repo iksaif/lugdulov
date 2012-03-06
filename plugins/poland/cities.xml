@@ -16,4 +16,12 @@
     <name>Wrocław 61</name>
     <bikeName>nextbike</bikeName>
   </city>
+  <city id="poznan">
+    <type>NextBike</type>
+    <latitude min="51.407700" max="53.407700">52.407700</latitude>
+    <longitude min="15.932300" max="17.932300">16.932300</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Poznan</name>
+    <bikeName>nextbike</bikeName>
+  </city>
 </cities>

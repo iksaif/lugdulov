@@ -159,7 +159,7 @@ class BCycle(Provider):
         name = name.strip()
         if name == 'Kailua':
             name = 'Hawaii'
-        if name in ['Ft. Lauderdale', 'Hollywood', 'Pompano Beach', 'Coconut Creek', 'Dania Beach', 'Lauderdale by the Sea', 'Hallandale']:
+        if name in ['Ft. Lauderdale', 'Hollywood', 'Pompano Beach', 'Coconut Creek', 'Dania Beach', 'Lauderdale by the Sea', 'Hallandale', 'Hallandale Beach']:
             name = 'Broward County'
         if name in ['SSF']:
             name = 'San Antonio'

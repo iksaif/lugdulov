@@ -109,7 +109,7 @@ class Youbike(Provider):
 
         data = fp.read()
         data = data.replace("var giant =", "")
-        data = data.replace("\n};", "}");
+        data = data.replace("\n]};", "]}");
         data = data.replace("\r\n", "\n")
         data = data.replace("\xef\xbb\xbf", "")
 
@@ -148,21 +148,7 @@ class Youbike(Provider):
 
 def test():
     prov = Youbike()
-
-    countries = prov.get_countries()
-    print countries
-    print countries[0]
-    cities = prov.get_cities(countries[0])
-    print cities
-    print cities[0]
-    zones = prov.get_zones(cities[0])
-    print zones
-    if (zones):
-        print zones[0]
-    stations = prov.get_stations(cities[0])
-    print "Stations: ", len(stations)
-    station = prov.get_status(stations[0], cities[0])
-    print station
+    prov.selftest()
 
 def main():
     test()

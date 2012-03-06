@@ -6,7 +6,23 @@
     <longitude min="15.761000" max="17.761000">16.761000</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Neusiedler See</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="st_polten">
+    <type>NextBike</type>
+    <latitude min="47.205800" max="49.205800">48.205800</latitude>
+    <longitude min="14.623200" max="16.623200">15.623200</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>St. Pölten</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="modling">
+    <type>NextBike</type>
+    <latitude min="47.104700" max="49.104700">48.104700</latitude>
+    <longitude min="15.320200" max="17.320200">16.320200</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Mödling</name>
+    <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="bregenzerwald">
     <type>NextBike</type>
@@ -14,14 +30,174 @@
     <longitude min="8.933010" max="10.933010">9.933010</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Bregenzerwald</name>
-    <bikeName>nextbike</bikeName>
+    <bikeName>LEIHRADL</bikeName>
   </city>
-  <city id="wien">
-    <type>CityBikeWien</type>
-    <latitude min="48.009206" max="48.409206">48.209206</latitude>
-    <longitude min="16.172778" max="16.572778">16.372778</longitude>
-    <infos>http://dynamisch.citybikewien.at/citybike_xml.php</infos>
-    <name>Wien</name>
-    <bikeName>CityBike</bikeName>
+  <city id="wachau">
+    <type>NextBike</type>
+    <latitude min="47.318800" max="49.318800">48.318800</latitude>
+    <longitude min="14.416600" max="16.416600">15.416600</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Wachau</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="tulln">
+    <type>NextBike</type>
+    <latitude min="47.326900" max="49.326900">48.326900</latitude>
+    <longitude min="15.056900" max="17.056900">16.056900</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Tulln</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="triestingtal">
+    <type>NextBike</type>
+    <latitude min="46.983500" max="48.983500">47.983500</latitude>
+    <longitude min="15.081200" max="17.081200">16.081200</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Triestingtal</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="thermenregion">
+    <type>NextBike</type>
+    <latitude min="46.989200" max="48.989200">47.989200</latitude>
+    <longitude min="15.264600" max="17.264600">16.264600</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Thermenregion</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="romerland">
+    <type>NextBike</type>
+    <latitude min="47.090900" max="49.090900">48.090900</latitude>
+    <longitude min="15.853000" max="17.853000">16.853000</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Römerland</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="obb_bahnhofe">
+    <type>NextBike</type>
+    <latitude min="47.019300" max="49.019300">48.019300</latitude>
+    <longitude min="15.309200" max="17.309200">16.309200</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Öbb-Bahnhöfe</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="wieselburg">
+    <type>NextBike</type>
+    <latitude min="47.173900" max="49.173900">48.173900</latitude>
+    <longitude min="14.155600" max="16.155600">15.155600</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Wieselburg</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="wiener_neustadt">
+    <type>NextBike</type>
+    <latitude min="46.822100" max="48.822100">47.822100</latitude>
+    <longitude min="15.249800" max="17.249800">16.249800</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Wiener Neustadt</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="waldviertel">
+    <type>NextBike</type>
+    <latitude min="47.863800" max="49.863800">48.863800</latitude>
+    <longitude min="14.065000" max="16.065000">15.065000</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Waldviertel</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="neunkirchen">
+    <type>NextBike</type>
+    <latitude min="46.722700" max="48.722700">47.722700</latitude>
+    <longitude min="15.080400" max="17.080400">16.080400</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Neunkirchen</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="krems_ost">
+    <type>NextBike</type>
+    <latitude min="47.418300" max="49.418300">48.418300</latitude>
+    <longitude min="14.690900" max="16.690900">15.690900</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Krems Ost</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="unteres_traisental">
+    <type>NextBike</type>
+    <latitude min="47.334300" max="49.334300">48.334300</latitude>
+    <longitude min="14.687800" max="16.687800">15.687800</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Unteres Traisental</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="haag">
+    <type>NextBike</type>
+    <latitude min="47.064300" max="49.064300">48.064300</latitude>
+    <longitude min="13.736800" max="15.736800">14.736800</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Haag</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="piestingtal">
+    <type>NextBike</type>
+    <latitude min="46.884100" max="48.884100">47.884100</latitude>
+    <longitude min="14.946700" max="16.946700">15.946700</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Piestingtal</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="mistelbach">
+    <type>NextBike</type>
+    <latitude min="47.567400" max="49.567400">48.567400</latitude>
+    <longitude min="15.572200" max="17.572200">16.572200</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Mistelbach</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="marchfeld">
+    <type>NextBike</type>
+    <latitude min="47.274100" max="49.274100">48.274100</latitude>
+    <longitude min="15.711600" max="17.711600">16.711600</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Marchfeld</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="10_vor_wien">
+    <type>NextBike</type>
+    <latitude min="47.346200" max="49.346200">48.346200</latitude>
+    <longitude min="15.273500" max="17.273500">16.273500</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>10 Vor Wien</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="traisen___golsental">
+    <type>NextBike</type>
+    <latitude min="46.950400" max="48.950400">47.950400</latitude>
+    <longitude min="14.612900" max="16.612900">15.612900</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Traisen - Gölsental</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="oberes_ybbstal">
+    <type>NextBike</type>
+    <latitude min="46.859200" max="48.859200">47.859200</latitude>
+    <longitude min="13.963400" max="15.963400">14.963400</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Oberes Ybbstal</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="laa_an_der_thaya">
+    <type>NextBike</type>
+    <latitude min="47.719600" max="49.719600">48.719600</latitude>
+    <longitude min="15.387800" max="17.387800">16.387800</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Laa An Der Thaya</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="sudheide">
+    <type>NextBike</type>
+    <latitude min="47.107700" max="49.107700">48.107700</latitude>
+    <longitude min="15.393700" max="17.393700">16.393700</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Südheide</name>
+    <bikeName>LEIHRADL</bikeName>
   </city>
 </cities>

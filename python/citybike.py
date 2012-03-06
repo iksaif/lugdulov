@@ -272,7 +272,7 @@ class CityBike(Provider):
 
             if not city.status:
                 service = self.service_by_city(city)
-                city.status = 'http://' + service['server'] + '/' + station.status_url
+                city.status = 'https://' + service['server'] + '/' + station.status_url
 
             station.slots = -1
             station.bikes = -1
@@ -288,9 +288,9 @@ class CityBike(Provider):
         service = self.service_by_city(city)
 
         if 'infos_url' in service:
-            url = 'http://' + service['server'] + service['infos_url']
+            url = 'https://' + service['server'] + service['infos_url']
         else:
-            url = 'http://' + service['server'] + "/localizaciones/localizaciones.php"
+            url = 'https://' + service['server'] + "/localizaciones/localizaciones.php"
 
         fp = urlopen(url)
         data = fp.read()
@@ -308,7 +308,7 @@ class CityBike(Provider):
 
         service = self.service_by_city(city)
 
-        url = 'http://' + service['server'] + '/' + station.status_url
+        url = 'https://' + service['server'] + '/' + station.status_url
 
         fp = urlopen(url, "idStation=%s" % station.id)
         data = fp.read()
@@ -324,9 +324,9 @@ class CityBike(Provider):
         city.rect = self.get_city_bike_zone(service, city)
 
         if 'infos_url' in service:
-            url = 'http://' + service['server'] + service['infos_url']
+            url = 'https://' + service['server'] + service['infos_url']
         else:
-            url = 'http://' + service['server'] + "/localizaciones/localizaciones.php"
+            url = 'https://' + service['server'] + "/localizaciones/localizaciones.php"
 
         city.infos = url
         data = self._dump_city(city)
@@ -336,7 +336,7 @@ class CityBike(Provider):
         service = self.service_by_city(city)
         city.rect = self.get_city_bike_zone(service, city)
         data = self._dump_stations(city)
-        print data.encode('utf8')
+        print data #.encode('utf8')
 
 def test():
     prov = CityBike()

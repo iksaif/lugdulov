@@ -26,6 +26,7 @@ import re
 import xml.dom.minidom
 import datetime
 import urllib2
+import demjson
 
 from plugin import *
 
@@ -71,18 +72,23 @@ class CycleHire(Provider):
         data = fp.read()
 
         # id:"1",name:"River Street , Clerkenwell",lat:"51.52916347",long:"-0.109970527",nbBikes:"6",nbEmptyDocks:"13",installed:"true",locked:"false",temporary:"false"
-        rg = re.compile(r'id:"(\d+)",name:"(.*)",lat:"(.*)",long:"(.*)",nbBikes:"(\d+)",nbEmptyDocks:"(\d+)"')
+        rg = re.compile("station\=\{(.*?)\}\;")
+
         for node in rg.findall(data):
+            node = '{' + node + '}'
+            obj = demjson.decode(node)
+
             station = Station()
-            station.uid = node[0]
+            station.uid = int(obj['id'])
             station.id = station.uid
-            station.name = node[1]
-            station.lat = float(node[2])
-            station.lng = float(node[3])
-            station.bikes = int(node[4])
-            station.slots = int(node[5])
+            station.name = obj['name']
+            station.lat = float(obj['lat'])
+            station.lng = float(obj['long'])
+            station.bikes = int(obj['nbBikes'])
+            station.slots = int(obj['nbEmptyDocks'])
             station.zone = ""
             stations.append(station)
+
         return stations
 
 
@@ -105,21 +111,7 @@ class CycleHire(Provider):
 
 def test():
     prov = CycleHire()
-
-    countries = prov.get_countries()
-    print countries
-    print countries[0]
-    cities = prov.get_cities(countries[0])
-    print cities
-    print cities[0]
-    zones = prov.get_zones(cities[0])
-    print zones
-    if (zones):
-        print zones[0]
-    stations = prov.get_stations(cities[0])
-    print "Stations: ", len(stations)
-    station = prov.get_status(stations[0], cities[0])
-    print station
+    prov.selftest()
 
 def main():
     test()
