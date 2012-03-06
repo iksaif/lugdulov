@@ -31,26 +31,39 @@ StationsPluginLondon::~StationsPluginLondon()
 void
 StationsPluginLondon::handleInfos(const QByteArray & data)
 {
-  QRegExp re("id:\"(\\d+)\",name:\"(.*)\",lat:\"(.*)\",long:\"(.*)\",nbBikes:\"(\\d+)\",nbEmptyDocks:\"(\\d+)\"");
+  QRegExp re_stations("station\\=\\{(.*)\\}\\;");
+  QRegExp re_items("\\s*(\\w+)\\s*:(.*),");
   int ofs = 0;
 
-  re.setMinimal(true);
+  re_stations.setMinimal(true);
+  re_items.setMinimal(true);
 
-  while ((ofs = re.indexIn(data, ofs)) >= 0) {
+  while ((ofs = re_stations.indexIn(data, ofs)) >= 0) {
     bool ok;
     int id;
     QPointF pos;
     Station *station;
-    QStringList capt = re.capturedTexts();
+    QMap<QString, QString> values;
 
-    ofs++;
+    ofs += re_stations.matchedLength();
 
-    if (capt.size() != 7)
-      continue ;
+    int station_ofs = 0;
+    QString station_data = re_stations.capturedTexts().at(1);
 
-    id = capt.at(1).toInt(&ok);
-    pos = QPointF(capt.at(3).toDouble(),
-		  capt.at(4).toDouble());
+    while ((station_ofs = re_items.indexIn(station_data, station_ofs)) >= 0) {
+      QStringList capt = re_items.capturedTexts();
+
+      if (capt.size() < 3)
+	continue ;
+
+      station_ofs += re_items.matchedLength();
+      values[capt.at(1)] = capt.at(2);
+      values[capt.at(1)].replace("\"", "");
+    }
+
+    id = values["id"].toInt(&ok);
+    pos = QPointF(values["lat"].toDouble(),
+		  values["long"].toDouble());
 
     if (!ok)
       continue ;
@@ -58,11 +71,11 @@ StationsPluginLondon::handleInfos(const QByteArray & data)
     station = getOrCreateStation(id);
 
     if (station->name().isEmpty())
-      station->setName(capt.at(2));
+      station->setName(values["name"]);
     if (station->pos().isNull())
       station->setPos(pos);
-    station->setBikes(capt.at(5).toInt());
-    station->setFreeSlots(capt.at(6).toInt());
+    station->setBikes(values["nbBikes"].toInt());
+    station->setFreeSlots(values["nbEmptyDocks"].toInt());
     station->setTotalSlots(station->bikes() + station->freeSlots());
 
     storeOrDropStation(station);

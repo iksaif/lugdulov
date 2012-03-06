@@ -121,7 +121,7 @@
     <type>CityBike</type>
     <latitude min="48.974667" max="49.394667">49.184667</latitude>
     <longitude min="-0.570270" max="-0.150270">-0.360270</longitude>
-    <infos>http://www.veol.caen.fr/localizaciones/localizaciones.php</infos>
+    <infos>https://www.veol.caen.fr/localizaciones/localizaciones.php</infos>
     <name>Caen</name>
     <bikeName>V'eol</bikeName>
   </city>
@@ -129,7 +129,7 @@
     <type>CityBike</type>
     <latitude min="47.117213" max="47.537213">47.327213</latitude>
     <longitude min="4.833988" max="5.253988">5.043988</longitude>
-    <infos>http://www.velodi.net/localizaciones/localizaciones.php</infos>
+    <infos>https://www.velodi.net/localizaciones/localizaciones.php</infos>
     <name>Dijon</name>
     <bikeName>Velodi</bikeName>
   </city>
@@ -137,7 +137,7 @@
     <type>CityBike</type>
     <latitude min="42.491574" max="42.911574">42.701574</latitude>
     <longitude min="2.684150" max="3.104150">2.894150</longitude>
-    <infos>http://www.bip-perpignan.fr/localizaciones/localizaciones.php</infos>
+    <infos>https://www.bip-perpignan.fr/localizaciones/localizaciones.php</infos>
     <name>Perpignan</name>
     <bikeName>Bip!</bikeName>
   </city>

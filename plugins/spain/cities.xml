@@ -31,8 +31,8 @@
     <type>CityBike</type>
     <latitude min="41.177917" max="41.597917">41.387917</latitude>
     <longitude min="1.959919" max="2.379919">2.169919</longitude>
-    <status>http://www.bicing.cat//CallWebService/StationBussinesStatus_Cache.php</status>
-    <infos>http://www.bicing.cat/localizaciones/localizaciones.php</infos>
+    <status>https://www.bicing.cat//CallWebService/StationBussinesStatus_Cache.php</status>
+    <infos>https://www.bicing.cat/localizaciones/localizaciones.php</infos>
     <name>Barcelona</name>
     <bikeName>Bicing</bikeName>
   </city>
@@ -40,8 +40,8 @@
     <type>CityBike</type>
     <latitude min="41.440000" max="41.860000">41.650000</latitude>
     <longitude min="-1.093333" max="-0.673333">-0.883333</longitude>
-    <status>http://www.bizizaragoza.com//CallWebService/StationBussinesStatus.php</status>
-    <infos>http://www.bizizaragoza.com/localizaciones/station_map.php</infos>
+    <status>https://www.bizizaragoza.com//CallWebService/StationBussinesStatus.php</status>
+    <infos>https://www.bizizaragoza.com/localizaciones/station_map.php</infos>
     <name>Zaragoza</name>
     <bikeName>Bizi</bikeName>
   </city>

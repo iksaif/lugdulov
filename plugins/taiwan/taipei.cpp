@@ -43,7 +43,7 @@ StationsPluginTaipei::handleInfos(const QByteArray & data)
   QVariantMap map;
 
   js = js.replace("var giant =", "");
-  js = js.replace("\n};", "}");
+  js = js.replace("\n]};", "]}");
   js = js.replace("\xef\xbb\xbf", "");
 
   result = parser.parse(js, &ok);
