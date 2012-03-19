@@ -67,6 +67,12 @@ static inline void installKineticScroller(QAbstractScrollArea *area)
   area->property("kineticScroller").value<QAbstractKineticScroller *>()->setEnabled(true);
 }
 #else
+
+#if (QT_VERSION >= QT_VERSION_CHECK(4, 9, 0))
+#include <QtGui/QScroller>
+#include <QtGui/QScrollEvent>
+#include <QtGui/QScrollPrepareEvent>
+#else
 #ifdef HAVE_KINETIC_SCROLLER_SOLUTION
 #include <QtScroller>
 #include <QtScrollEvent>
@@ -74,6 +80,7 @@ static inline void installKineticScroller(QAbstractScrollArea *area)
 #define QScroller QtScroller
 #define QScrollEvent QtScrollEvent
 #define QScrollPrepareEvent QtScrollPrepareEvent
+#endif
 #endif
 
 static inline QScroller *installKineticScroller(QObject *target)
