@@ -51,6 +51,9 @@ Q_IMPORT_PLUGIN(stationslatvia);
 Q_IMPORT_PLUGIN(stationsnewzealand);
 Q_IMPORT_PLUGIN(stationsusa);
 Q_IMPORT_PLUGIN(stationsaustralia);
+Q_IMPORT_PLUGIN(stationsslovenia);
+Q_IMPORT_PLUGIN(stationsturkey);
+Q_IMPORT_PLUGIN(stationspoland);
 Q_IMPORT_PLUGIN(stationstaiwan);
 
 Q_IMPORT_PLUGIN(qtgeoservices_google);
