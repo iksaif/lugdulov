@@ -11,7 +11,7 @@ LUGDULOV_CONFIG =
 LUGDULOV_INSTALL_PLUGINS = $${LIBDIR}/lugdulov
 
 CONFIG(android): LUGDULOV_CONFIG = qmapcontrol staticplugins
-else:symbian: LUGDULOV_CONFIG = bearer location staticplugins debug
+else:symbian: LUGDULOV_CONFIG = bearer location staticplugins
 else: LUGDULOV_CONFIG = bearer location
 
 CONFIG += qt thread
