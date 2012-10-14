@@ -69,11 +69,20 @@ class NextBike(Provider):
             return ret
         for node in nodes:
             country = Country()
-            country.uid = node.getAttribute('domain')
-            country.name = self.clean_country_name(node.getAttribute('name'))[0]
-            if country.name not in done:
+
+            country._uid = node.getAttribute('domain')
+            country._name = self.clean_country_name(node.getAttribute('name'))[0]
+
+            if country._name.endswith('Poland') or country._name.endswith('poland'):
+                country.name = 'Poland'
+                country.uid = 'pl'
+            else:
+                country.name = country._name
+                country.uid = country._uid
+
+            if country._uid not in done:
                 ret.append(country)
-                done[country.name] = True
+                done[country._uid] = True
         return ret
 
     def nametoid(self, name):
@@ -88,7 +97,7 @@ class NextBike(Provider):
 
         for cnode in countries:
             cname, net = self.clean_country_name(cnode.getAttribute('name'))
-            if cname != country.name:
+            if cname != country._name:
                 continue
             nodes = cnode.getElementsByTagName("city")
             for node in nodes:

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cities>
+  <city id="baku">
+    <type>NextBike</type>
+    <latitude min="39.360500" max="41.360500">40.360500</latitude>
+    <longitude min="48.842600" max="50.842600">49.842600</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Baku</name>
+    <bikeName>nextbike</bikeName>
+  </city>
+</cities>

@@ -245,8 +245,11 @@ StationsPluginSimple::request(const QUrl & url, int id, const QByteArray & data)
 
   if (data.isEmpty())
     rep = nm->get(req);
-  else
+  else {
+    req.setHeader(QNetworkRequest::ContentTypeHeader,
+		  "application/x-www-form-urlencoded");
     rep = nm->post(req, data);
+  }
 
   connect(rep, SIGNAL(error(QNetworkReply::NetworkError)),
           this, SLOT(networkError(QNetworkReply::NetworkError)));

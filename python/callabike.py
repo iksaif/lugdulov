@@ -27,7 +27,7 @@ import sys
 import os
 import datetime
 import xml.dom.minidom
-import json
+import demjson
 import re
 import urllib
 from unicodedata import normalize
@@ -62,11 +62,12 @@ class CallABike(Provider):
 
             data = node[0].strip()
             elems = data.split(",")
+            data = demjson.decode("{" + node[1].decode('latin9') + "}")
 
             marker['lat'] = elems[1][1:-1]
             marker['lng'] = elems[0][1:-1]
-            marker['id'] = elems[3][1:-1]
-            marker['name'] = elems[4][1:-1]
+            marker['id'] = data['id']
+            marker['name'] = data['tooltip']
 
             matches = re.search("bikes: \"([0-9,]*?)\"", node[1])
             if matches:
@@ -91,7 +92,7 @@ class CallABike(Provider):
 
         for marker in markers:
             city = City()
-            city.name = marker['name'].decode('latin9')
+            city.name = marker['name']
             city.internalId = marker['id'][1:]
             city.id = self.nametoid(city.name) + "_" + city.internalId
             city.uid = city.id
@@ -138,7 +139,7 @@ class CallABike(Provider):
             station = Station()
             station.uid = marker['id']
             station.id = station.uid
-            station.name = marker['name'].decode('latin-1')
+            station.name = marker['name']
             station.description = ""
             station.lat = float(marker['lat'])
             station.lng = float(marker['lng'])

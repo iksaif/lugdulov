@@ -131,17 +131,6 @@ class CycloCity(Provider):
             },
 
     {
-            'city_uid'    : 'plainecommune',
-            'country_uid' : 'fr',
-            'country_Name' : 'France',
-            'city_Name'    : 'Plaine Commune',
-            'bike_name'    : 'Velcom',
-            'server' :  'www.velcom.fr',
-            'lat': 48.9360802,
-            'lng': 2.3648843
-            },
-
-    {
             'city_uid'    : 'rouen',
             'country_uid' : 'fr',
             'country_Name' : 'France',

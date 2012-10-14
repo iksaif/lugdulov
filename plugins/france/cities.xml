@@ -81,15 +81,6 @@
     <name>Nantes</name>
     <bikeName>Bicloo</bikeName>
   </city>
-  <city id="plainecommune">
-    <type>CycloCity</type>
-    <latitude min="48.726080" max="49.146080">48.936080</latitude>
-    <longitude min="2.154884" max="2.574884">2.364884</longitude>
-    <status>http://www.velcom.fr/service/stationdetails/plainecommune/%1</status>
-    <infos>http://www.velcom.fr/service/carto</infos>
-    <name>Plaine Commune</name>
-    <bikeName>Velcom</bikeName>
-  </city>
   <city id="rouen">
     <type>CycloCity</type>
     <latitude min="49.232367" max="49.652367">49.442367</latitude>

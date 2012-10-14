@@ -138,6 +138,36 @@ class BCycle(Provider):
             'lat'  : 43.066667,
             'lng'  : -89.4,
             },
+        {
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
+            'city_uid'    : 'houston',
+            'city_name'    : 'Houston',
+            'bike_name'    : 'BCycle',
+            'server' : 'http://houston.bcycle.com/',
+            'lat'  : 29.762778,
+            'lng'  : -95.383056
+            },
+        {
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
+            'city_uid'    : 'kansascity',
+            'city_name'    : 'Kansas City',
+            'bike_name'    : 'BCycle',
+            'server' : 'http://kansascity.bcycle.com/',
+            'lat'  : 39.099722,
+            'lng'  : -94.578333
+            },
+        {
+            'country_uid' : 'usa',
+            'country_name' : 'USA',
+            'city_uid'    : 'charlotte',
+            'city_name'    : 'Charlotte',
+            'bike_name'    : 'BCycle',
+            'server' : 'http://charlotte.bcycle.com/',
+            'lat'  : 35.226944,
+            'lng'  : -80.843333
+            },
         ]
 
     api_url = 'http://api.bcycle.com/services/mobile.svc/ListKiosks'

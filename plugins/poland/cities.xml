@@ -16,12 +16,36 @@
     <name>Wrocław 61</name>
     <bikeName>nextbike</bikeName>
   </city>
+  <city id="bemowo">
+    <type>NextBike</type>
+    <latitude min="51.242500" max="53.242500">52.242500</latitude>
+    <longitude min="19.914900" max="21.914900">20.914900</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Bemowo</name>
+    <bikeName>nextbike</bikeName>
+  </city>
   <city id="poznan">
     <type>NextBike</type>
     <latitude min="51.407700" max="53.407700">52.407700</latitude>
     <longitude min="15.932300" max="17.932300">16.932300</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Poznan</name>
+    <bikeName>nextbike</bikeName>
+  </city>
+  <city id="opole">
+    <type>NextBike</type>
+    <latitude min="49.663300" max="51.663300">50.663300</latitude>
+    <longitude min="16.923900" max="18.923900">17.923900</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Opole</name>
+    <bikeName>nextbike</bikeName>
+  </city>
+  <city id="warszawa">
+    <type>NextBike</type>
+    <latitude min="51.232400" max="53.232400">52.232400</latitude>
+    <longitude min="20.012700" max="22.012700">21.012700</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Warszawa</name>
     <bikeName>nextbike</bikeName>
   </city>
 </cities>

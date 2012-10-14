@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cities>
+  <city id="limassol">
+    <type>NextBike</type>
+    <latitude min="33.682300" max="35.682300">34.682300</latitude>
+    <longitude min="32.046400" max="34.046400">33.046400</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Limassol</name>
+    <bikeName>nextbike</bikeName>
+  </city>
+</cities>

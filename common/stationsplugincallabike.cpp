@@ -57,7 +57,7 @@ StationsPluginCallABike::fetchOnline()
   }
 
   if (id().contains("_"))
-    uid = id().split("_").at(1).toInt();
+    uid = id().split("_").last().toInt();
 
   data = "xajax=showStadtOverview";
   data += QString("&xajaxargs[]=%1").arg(uid);
@@ -137,6 +137,7 @@ StationsPluginCallABike::parseHal2Marker(const QByteArray & data)
     QStringList elems;
     QVariantMap map;
     QRegExp bikeRe;
+    QRegExp nameRe;
 
     ofs += re.matchedLength();
 
@@ -144,14 +145,24 @@ StationsPluginCallABike::parseHal2Marker(const QByteArray & data)
       continue;
 
     elems = captured.at(1).trimmed().split(",");
-    if (elems.size() < 5)
+    if (elems.size() < 2)
       continue ;
 
     map["lat"] = cleanElement(elems[1]).toDouble();
     map["lng"] = cleanElement(elems[0]).toDouble();
     map["id"] = ++id; // Don't use the real id, it's too big and we don't need it
     //map["id"] = cleanElement(elems[3]).toLongLong();
-    map["name"] = cleanElement(elems[4]);
+    //map["name"] = cleanElement(elems[4]);
+
+    nameRe = QRegExp("tooltip: '(.*)'");
+    nameRe.setMinimal(true);
+    nameRe.indexIn(captured.at(1));
+
+    if (!nameRe.capturedTexts().isEmpty()) {
+      map["name"] = nameRe.capturedTexts().at(1);
+    } else {
+      map["name"] = QString("Station %1").arg(map["id"].toInt());
+    }
 
     bikeRe = QRegExp("bikes: \"([0-9,]*)\"");
     bikeRe.setMinimal(true);

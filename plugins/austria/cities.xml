@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cities>
+  <city id="oberosterreich">
+    <type>NextBike</type>
+    <latitude min="47.199000" max="49.199000">48.199000</latitude>
+    <longitude min="12.936200" max="14.936200">13.936200</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Oberösterreich</name>
+    <bikeName>nextbike</bikeName>
+  </city>
   <city id="neusiedler_see">
     <type>NextBike</type>
     <latitude min="46.839000" max="48.839000">47.839000</latitude>
@@ -8,12 +16,20 @@
     <name>Neusiedler See</name>
     <bikeName>LEIHRADL</bikeName>
   </city>
-  <city id="st_polten">
+  <city id="salzburg">
+    <type>NextBike</type>
+    <latitude min="46.949500" max="48.949500">47.949500</latitude>
+    <longitude min="11.991300" max="13.991300">12.991300</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Salzburg</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="stpolten">
     <type>NextBike</type>
     <latitude min="47.205800" max="49.205800">48.205800</latitude>
     <longitude min="14.623200" max="16.623200">15.623200</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>St. Pölten</name>
+    <name>St.Pölten</name>
     <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="modling">
@@ -88,12 +104,12 @@
     <name>Wieselburg</name>
     <bikeName>LEIHRADL</bikeName>
   </city>
-  <city id="wiener_neustadt">
+  <city id="wrneustadt">
     <type>NextBike</type>
     <latitude min="46.822100" max="48.822100">47.822100</latitude>
     <longitude min="15.249800" max="17.249800">16.249800</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Wiener Neustadt</name>
+    <name>Wr.Neustadt</name>
     <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="waldviertel">
@@ -160,26 +176,26 @@
     <name>Marchfeld</name>
     <bikeName>LEIHRADL</bikeName>
   </city>
-  <city id="10_vor_wien">
+  <city id="10vorwien">
     <type>NextBike</type>
     <latitude min="47.346200" max="49.346200">48.346200</latitude>
     <longitude min="15.273500" max="17.273500">16.273500</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>10 Vor Wien</name>
+    <name>10Vorwien</name>
     <bikeName>LEIHRADL</bikeName>
   </city>
-  <city id="traisen___golsental">
+  <city id="traisen_golsental">
     <type>NextBike</type>
     <latitude min="46.950400" max="48.950400">47.950400</latitude>
     <longitude min="14.612900" max="16.612900">15.612900</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
-    <name>Traisen - Gölsental</name>
+    <name>Traisen-Gölsental</name>
     <bikeName>LEIHRADL</bikeName>
   </city>
   <city id="oberes_ybbstal">
     <type>NextBike</type>
-    <latitude min="46.859200" max="48.859200">47.859200</latitude>
-    <longitude min="13.963400" max="15.963400">14.963400</longitude>
+    <latitude min="46.820500" max="48.820500">47.820500</latitude>
+    <longitude min="14.007300" max="16.007300">15.007300</longitude>
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Oberes Ybbstal</name>
     <bikeName>LEIHRADL</bikeName>
@@ -199,5 +215,21 @@
     <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
     <name>Südheide</name>
     <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="tullnerfeld_west">
+    <type>NextBike</type>
+    <latitude min="47.299400" max="49.299400">48.299400</latitude>
+    <longitude min="14.906500" max="16.906500">15.906500</longitude>
+    <infos>http://nextbike.net/maps/nextbike-official.xml</infos>
+    <name>Tullnerfeld West</name>
+    <bikeName>LEIHRADL</bikeName>
+  </city>
+  <city id="wien">
+    <type>CityBikeWien</type>
+    <latitude min="48.009206" max="48.409206">48.209206</latitude>
+    <longitude min="16.172778" max="16.572778">16.372778</longitude>
+    <infos>http://dynamisch.citybikewien.at/citybike_xml.php</infos>
+    <name>Wien</name>
+    <bikeName>CityBike</bikeName>
   </city>
 </cities>

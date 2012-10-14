@@ -104,6 +104,30 @@
     <name>Madison</name>
     <bikeName>BCycle</bikeName>
   </city>
+  <city id="houston">
+    <type>BCycle</type>
+    <latitude min="29.562778" max="29.962778">29.762778</latitude>
+    <longitude min="-95.583056" max="-95.183056">-95.383056</longitude>
+    <infos>http://api.bcycle.com/services/mobile.svc/ListKiosks</infos>
+    <name>Houston</name>
+    <bikeName>BCycle</bikeName>
+  </city>
+  <city id="kansascity">
+    <type>BCycle</type>
+    <latitude min="38.899722" max="39.299722">39.099722</latitude>
+    <longitude min="-94.778333" max="-94.378333">-94.578333</longitude>
+    <infos>http://api.bcycle.com/services/mobile.svc/ListKiosks</infos>
+    <name>Kansas City</name>
+    <bikeName>BCycle</bikeName>
+  </city>
+  <city id="charlotte">
+    <type>BCycle</type>
+    <latitude min="35.026944" max="35.426944">35.226944</latitude>
+    <longitude min="-81.043333" max="-80.643333">-80.843333</longitude>
+    <infos>http://api.bcycle.com/services/mobile.svc/ListKiosks</infos>
+    <name>Charlotte</name>
+    <bikeName>BCycle</bikeName>
+  </city>
   <city id="miamibeach">
     <type>DecoBikes</type>
     <latitude min="25.596027" max="25.996027">25.796027</latitude>
